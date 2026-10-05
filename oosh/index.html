@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>oosh — sovereign interactive shell</title>
+<style>
+body{font-family:system-ui,sans-serif;max-width:44em;margin:3em auto;padding:0 1em;color:#222}
+h1{font-size:1.7em;margin-bottom:.1em}
+.sub{color:#666;margin-top:0}
+pre{background:#f4f4f4;padding:1em;border-radius:6px;overflow-x:auto}
+code{font-size:.92em}
+table{border-collapse:collapse;width:100%;margin:1em 0}
+th,td{border:1px solid #ddd;padding:.4em .7em;text-align:left}
+th{background:#f4f4f4}
+a{color:#0b5fff}
+.badge{display:inline-block;background:#e8f5e9;border:1px solid #a5d6a7;border-radius:12px;padding:.1em .8em;margin:.2em .3em .2em 0;font-size:.9em}
+</style>
+</head>
+<body>
+<h1>oosh</h1>
+<p class="sub">Intent-driven, ambient, capability-bounded interactive shell for the openOODA era.</p>
+
+<p>
+<span class="badge">v0.9.0</span>
+<span class="badge">100% openOODA</span>
+<span class="badge">5 Threat Defenses</span>
+<span class="badge">POSIX Parity</span>
+<span class="badge">Clean Unthemed ANSI-16</span>
+</p>
+
+<h2>Install</h2>
+<pre><code>curl -fsSL https://openooda-tools.github.io/oosh/install.sh | bash</code></pre>
+<p>Zero dependencies. Standalone binary verified with cryptographic SHA-256 seal, installs to <code>/usr/local/bin</code> (or <code>~/.local/bin</code>).</p>
+
+<h2>Options</h2>
+<pre><code># Simulate without modifying the host
+curl -fsSL https://openooda-tools.github.io/oosh/install.sh | bash -s -- --dry-run
+
+# Cleanly uninstall
+curl -fsSL https://openooda-tools.github.io/oosh/install.sh | bash -s -- --uninstall</code></pre>
+
+<h2>Why not just bash?</h2>
+<table>
+<tr><th>Threat &amp; Capability</th><th>Conventional Shells</th><th>oosh</th></tr>
+<tr><td>Terminal escape injection (OSC 52 / CSI 6n)</td><td>Vulnerable to prompt buffer command injection</td><td>Typed raw TUI events isolate query replies</td></tr>
+<tr><td>Wildcard argument injection (<code>-*</code>)</td><td>Requires manual <code>--</code> delimiters</td><td>Auto-normalizes to <code>./-*</code>, gates HIGH_RISK</td></tr>
+<tr><td>Control socket security</td><td>Bare <code>/tmp</code> files or symlink hijacking</td><td>Private <code>/tmp/oosh-$UID/</code> (0700) + <code>SO_PEERCRED</code></td></tr>
+<tr><td>Parser bombs (deep recursion)</td><td>Stack exhaustion (SIGSEGV / crash)</td><td>Deterministic 128-depth bounds</td></tr>
+<tr><td>Stream memory exhaustion</td><td>Unbounded heap growth on pipe slurps</td><td>16MB stream quotas with autopsy telemetry</td></tr>
+<tr><td>In-process group redirection</td><td>Subshell fork loses environment mutations</td><td>In-process execution preserves session state</td></tr>
+<tr><td>Subshell environment retention</td><td>Inconsistent variable propagation</td><td>Filtered safe environment map propagation</td></tr>
+<tr><td>Clean terminal posture</td><td>Heavy theme engines, hex escape overhead</td><td>Lean, fast, universal 16-color ANSI SGR</td></tr>
+</table>
+
+<h2>Try it</h2>
+<pre><code>oosh                           # Enter interactive sovereign shell
+oosh -c 'caps'                 # Audit active capability tokens
+oosh -c 'whereami'             # Contextual location and git status
+oosh -c '{ A=1; echo $A; } > out.txt' # In-process group redirection
+oosh -c '? list largest files' # Natural language intent channel</code></pre>
+
+<p><a href="https://github.com/openOODA-tools/oosh">Source &amp; docs</a> · <a href="https://github.com/openOODA-tools/oosh/releases">Releases</a> · <a href="https://github.com/openOODA-tools">openOODA-tools</a></p>
+</body>
+</html>

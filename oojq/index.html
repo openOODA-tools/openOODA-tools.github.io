@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>oojq — capability-bounded jq replacement</title>
+<style>
+body{font-family:system-ui,sans-serif;max-width:44em;margin:3em auto;padding:0 1em;color:#222;line-height:1.5}
+h1{font-size:1.8em;margin-bottom:.1em}
+.sub{color:#666;margin-top:0}
+pre{background:#f4f4f4;padding:1em;border-radius:6px;overflow-x:auto}
+code{font-size:.92em}
+table{border-collapse:collapse;width:100%;margin:1.2em 0}
+th,td{border:1px solid #ddd;padding:.5em .8em;text-align:left}
+th{background:#f4f4f4}
+a{color:#0b5fff;text-decoration:none}
+a:hover{text-decoration:underline}
+.badge{display:inline-block;background:#e8f5e9;border:1px solid #a5d6a7;border-radius:12px;padding:.15em .8em;margin:.2em .3em .2em 0;font-size:.88em}
+</style>
+</head>
+<body>
+<h1>oojq</h1>
+<p class="sub">Capability-bounded JSON transformation for the openOODA era.</p>
+
+<p>
+<span class="badge">v0.1.0</span>
+<span class="badge">100% openOODA</span>
+<span class="badge">98% jq Parity</span>
+<span class="badge">1,036 Tests Passing</span>
+<span class="badge">CI 100% Green</span>
+<span class="badge">MCP Native</span>
+</p>
+
+<h2>Install</h2>
+
+<h3>1. Web Installer (Zero Dependencies)</h3>
+<pre><code>curl -fsSL https://openooda-tools.github.io/oojq/install.sh | bash</code></pre>
+<p>Installs native standalone binary to <code>/usr/local/bin</code> (or <code>~/.local/bin</code>) with strict SHA-256 seal verification.</p>
+
+<h3>2. Native Packages (APT &amp; DNF)</h3>
+<p>Signed release packages are attached to every <a href="https://github.com/openOODA-tools/oojq/releases">GitHub release</a>:</p>
+<pre><code># Debian, Ubuntu (APT)
+sudo apt install ./oojq_0.1.0-1_amd64.deb
+
+# Fedora, RHEL, Rocky, Alma (DNF)
+sudo dnf install ./oojq-0.1.0-1.*.rpm</code></pre>
+
+<h2>Why not just jq?</h2>
+<table>
+<tr><th>Capability</th><th>jq</th><th>oojq</th></tr>
+<tr><td>Everyday filters &amp; builtins (2,433 side-by-side cases)</td><td>reference</td><td>byte-identical, 98% parity</td></tr>
+<tr><td>Exit codes (<code>0</code> success, <code>2</code> error)</td><td>yes</td><td>POSIX exit code contract strictly held</td></tr>
+<tr><td>Compact &amp; raw modes (<code>-c</code>, <code>-r</code>)</td><td>yes</td><td>byte-for-byte identical</td></tr>
+<tr><td>Stack exhaustion defense (deep nesting)</td><td>SIGSEGV / crash on 20k brackets</td><td>depth capped at 512, clean error</td></tr>
+<tr><td>AST explosion defense (chained expressions)</td><td>SIGSEGV stack overflow</td><td>iterative DP AST depth check</td></tr>
+<tr><td>Combinatorial stream explosions</td><td>unbounded RAM / freeze</td><td>bounded stream budget ceiling</td></tr>
+<tr><td>Daemon / slowloris protection</td><td>no daemon</td><td>16MB frame ceiling + JSON-RPC error frame</td></tr>
+<tr><td>Agent surface (MCP stdio)</td><td>no</td><td>JSON-RPC 2.0 stdio server</td></tr>
+<tr><td>Pure capability confinement</td><td>ambient auth</td><td>zero ambient authority</td></tr>
+</table>
+
+<h2>Try it</h2>
+<pre><code>oojq . data.json                               # Pretty-print
+oojq -c '.items[] | {id, name}' data.json      # Compact streaming
+oojq -r '.users[].email' data.json             # Raw text output
+oojq --mcp                                     # Model Context Protocol stdio server</code></pre>
+
+<p><a href="https://github.com/openOODA-tools/oojq">Source &amp; Docs</a> · <a href="https://github.com/openOODA-tools/oojq/releases">Releases</a> · <a href="https://github.com/openOODA-tools">openOODA-tools</a></p>
+</body>
+</html>

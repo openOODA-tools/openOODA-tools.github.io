@@ -7,9 +7,11 @@
 #   curl -fsSL https://openooda-tools.github.io/oofind/install.sh | bash
 #
 # Options:
-#   --prefix <dir>   Installation directory (default: /usr/local/bin or ~/.local/bin)
+#   --prefix <dir>   Installation directory for standalone binary (default: /usr/local/bin or ~/.local/bin)
+#   --apt            Download and install Debian package (.deb) via apt/dpkg
+#   --dnf            Download and install RPM package (.rpm) via dnf
 #   --dry-run        Simulate installation without touching the filesystem
-#   --uninstall      Remove oofind binary from standard system paths
+#   --uninstall      Remove oofind from standard system paths
 #   -h, --help       Show this help message
 # ==============================================================================
 
@@ -18,6 +20,7 @@ set -eu
 REPO="openOODA-tools/oofind"
 GITHUB_URL="https://github.com/${REPO}"
 VERSION_PIN="v0.1.0"
+RAW_VERSION="0.1.0"
 
 if [ -t 1 ] && [ "${NO_COLOR:-}" = "" ] && [ "${TERM:-dumb}" != "dumb" ]; then
     CYAN="\033[38;5;51m"
@@ -39,12 +42,22 @@ step() { say ""; say " ${CYAN}${BOLD}$*${RESET}"; }
 PREFIX=""
 DRY_RUN=0
 UNINSTALL=0
+INSTALL_APT=0
+INSTALL_DNF=0
 
 while [ $# -gt 0 ]; do
     case "$1" in
         --prefix)
             PREFIX="$2"
             shift 2
+            ;;
+        --apt|--deb)
+            INSTALL_APT=1
+            shift
+            ;;
+        --dnf|--rpm)
+            INSTALL_DNF=1
+            shift
             ;;
         --dry-run)
             DRY_RUN=1
@@ -57,7 +70,9 @@ while [ $# -gt 0 ]; do
         -h|--help)
             say "Usage: install.sh [options]"
             say "Options:"
-            say "  --prefix <dir>   Target installation directory"
+            say "  --prefix <dir>   Target installation directory for standalone binary"
+            say "  --apt, --deb     Install Debian package via apt/dpkg"
+            say "  --dnf, --rpm     Install RPM package via dnf/rpm"
             say "  --dry-run        Simulate installation without disk writes"
             say "  --uninstall      Remove oofind from installation path"
             exit 0
@@ -69,6 +84,74 @@ while [ $# -gt 0 ]; do
     esac
 done
 
+if [ "$UNINSTALL" -eq 1 ]; then
+    step "Uninstalling oofind"
+    if [ "$DRY_RUN" -eq 1 ]; then
+        say "  [dry-run] Would remove oofind binary or packages"
+        ok "Dry run complete."
+        exit 0
+    fi
+
+    if command -v dpkg >/dev/null 2>&1 && dpkg -s oofind >/dev/null 2>&1; then
+        sudo apt-get remove -y oofind || sudo dpkg -r oofind
+        ok "Removed oofind Debian package"
+    elif command -v rpm >/dev/null 2>&1 && rpm -q oofind >/dev/null 2>&1; then
+        sudo dnf remove -y oofind || sudo rpm -e oofind
+        ok "Removed oofind RPM package"
+    fi
+
+    for p in /usr/local/bin/oofind "${HOME}/.local/bin/oofind" /usr/bin/oofind; do
+        if [ -f "$p" ]; then
+            rm -f "$p" 2>/dev/null || sudo rm -f "$p"
+            ok "Removed $p"
+        fi
+    done
+    exit 0
+fi
+
+# --- APT / DEB Installation ---
+if [ "$INSTALL_APT" -eq 1 ]; then
+    step "Installing oofind via APT/dpkg ($VERSION_PIN)"
+    DEB_NAME="oofind_${RAW_VERSION}-1_amd64.deb"
+    DEB_URL="${GITHUB_URL}/releases/download/${VERSION_PIN}/${DEB_NAME}"
+    if [ "$DRY_RUN" -eq 1 ]; then
+        say "  [dry-run] Would download $DEB_URL and run sudo dpkg -i"
+        ok "Dry run complete."
+        exit 0
+    fi
+    TMP_DEB="$(mktemp --suffix=.deb)"
+    if command -v curl >/dev/null 2>&1; then
+        curl -fsSL "$DEB_URL" -o "$TMP_DEB"
+    elif command -v wget >/dev/null 2>&1; then
+        wget -qO "$TMP_DEB" "$DEB_URL"
+    else
+        err "Neither curl nor wget available."
+        exit 1
+    fi
+    sudo dpkg -i "$TMP_DEB" || sudo apt-get install -f -y
+    rm -f "$TMP_DEB"
+    ok "Installed oofind deb package."
+    oofind --version
+    exit 0
+fi
+
+# --- DNF / RPM Installation ---
+if [ "$INSTALL_DNF" -eq 1 ]; then
+    step "Installing oofind via DNF/rpm ($VERSION_PIN)"
+    RPM_NAME="oofind-${RAW_VERSION}-1.x86_64.rpm"
+    RPM_URL="${GITHUB_URL}/releases/download/${VERSION_PIN}/${RPM_NAME}"
+    if [ "$DRY_RUN" -eq 1 ]; then
+        say "  [dry-run] Would install $RPM_URL via dnf"
+        ok "Dry run complete."
+        exit 0
+    fi
+    sudo dnf install -y "$RPM_URL"
+    ok "Installed oofind RPM package."
+    oofind --version
+    exit 0
+fi
+
+# --- Standalone Binary Installation ---
 resolve_prefix() {
     if [ -n "$PREFIX" ]; then
         return
@@ -86,23 +169,7 @@ resolve_prefix() {
 
 resolve_prefix
 
-if [ "$UNINSTALL" -eq 1 ]; then
-    step "Uninstalling oofind"
-    TARGET="$PREFIX/oofind"
-    if [ -f "$TARGET" ]; then
-        if [ "$DRY_RUN" -eq 1 ]; then
-            say "  [dry-run] Would remove $TARGET"
-        else
-            rm -f "$TARGET"
-            ok "Removed $TARGET"
-        fi
-    else
-        warn "$TARGET does not exist."
-    fi
-    exit 0
-fi
-
-step "Installing oofind ($VERSION_PIN)"
+step "Installing oofind standalone binary ($VERSION_PIN)"
 say "  Target location: ${BOLD}$PREFIX/oofind${RESET}"
 
 if [ "$DRY_RUN" -eq 1 ]; then
@@ -113,7 +180,6 @@ fi
 
 mkdir -p "$PREFIX"
 
-# If local binary exists in dist/oofind, install it directly
 if [ -f "./dist/oofind" ]; then
     cp "./dist/oofind" "$PREFIX/oofind"
     chmod +x "$PREFIX/oofind"

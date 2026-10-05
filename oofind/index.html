@@ -30,15 +30,16 @@ a{color:#0b5fff}
 </p>
 
 <h2>Install</h2>
+<p><strong>Universal Standalone:</strong></p>
 <pre><code>curl -fsSL https://openooda-tools.github.io/oofind/install.sh | bash</code></pre>
-<p>Zero dependencies. Installs native standalone binary to <code>/usr/local/bin</code> (or <code>~/.local/bin</code>).</p>
 
-<h2>Packages</h2>
-<p>Native prebuilt packages are available for modern Linux distributions:</p>
-<ul>
-  <li><strong>Debian / Ubuntu:</strong> <code>oofind_0.1.0-1_amd64.deb</code> (APT)</li>
-  <li><strong>Fedora / RHEL:</strong> <code>oofind-0.1.0-1.x86_64.rpm</code> (DNF)</li>
-</ul>
+<p><strong>APT (Debian / Ubuntu):</strong></p>
+<pre><code>curl -fsSL https://openooda-tools.github.io/oofind/install.sh | bash -s -- --apt</code></pre>
+
+<p><strong>DNF (Fedora / RHEL / CentOS):</strong></p>
+<pre><code>curl -fsSL https://openooda-tools.github.io/oofind/install.sh | bash -s -- --dnf</code></pre>
+
+<p>Zero dependencies. Standalone binary installs to <code>/usr/local/bin</code> (or <code>~/.local/bin</code>). Native <code>.deb</code> and <code>.rpm</code> packages are also available directly on <a href="https://github.com/openOODA-tools/oofind/releases">GitHub Releases</a>.</p>
 
 <h2>Why not just find?</h2>
 <table>

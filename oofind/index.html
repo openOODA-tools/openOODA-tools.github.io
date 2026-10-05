@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>oofind — sovereign file finding utility</title>
+<style>
+body{font-family:system-ui,sans-serif;max-width:44em;margin:3em auto;padding:0 1em;color:#222}
+h1{font-size:1.7em;margin-bottom:.1em}
+.sub{color:#666;margin-top:0}
+pre{background:#f4f4f4;padding:1em;border-radius:6px;overflow-x:auto}
+code{font-size:.92em}
+table{border-collapse:collapse;width:100%;margin:1em 0}
+th,td{border:1px solid #ddd;padding:.4em .7em;text-align:left}
+th{background:#f4f4f4}
+a{color:#0b5fff}
+.badge{display:inline-block;background:#e8f5e9;border:1px solid #a5d6a7;border-radius:12px;padding:.1em .8em;margin:.2em .3em .2em 0;font-size:.9em}
+</style>
+</head>
+<body>
+<h1>oofind</h1>
+<p class="sub">Capability-bounded file finding utility for the openOODA era.</p>
+
+<p>
+<span class="badge">v0.1.0</span>
+<span class="badge">100% openOODA</span>
+<span class="badge">Zero Ambient Authority</span>
+<span class="badge">JSON Streaming</span>
+<span class="badge">MCP Native</span>
+</p>
+
+<h2>Install</h2>
+<pre><code>curl -fsSL https://openooda-tools.github.io/oofind/install.sh | bash</code></pre>
+<p>Zero dependencies. Installs native standalone binary to <code>/usr/local/bin</code> (or <code>~/.local/bin</code>).</p>
+
+<h2>Packages</h2>
+<p>Native prebuilt packages are available for modern Linux distributions:</p>
+<ul>
+  <li><strong>Debian / Ubuntu:</strong> <code>oofind_0.1.0-1_amd64.deb</code> (APT)</li>
+  <li><strong>Fedora / RHEL:</strong> <code>oofind-0.1.0-1.x86_64.rpm</code> (DNF)</li>
+</ul>
+
+<h2>Why not just find?</h2>
+<table>
+<tr><th>Feature</th><th>find</th><th>oofind</th></tr>
+<tr><td>Implementation</td><td>C / gnulib</td><td>100% pure openOODA</td></tr>
+<tr><td>Security model</td><td>ambient authority</td><td>capability-bounded (&amp;FsReadCap)</td></tr>
+<tr><td>Directory traversal</td><td>recursive readdir</td><td>recursive with symlink loop guard</td></tr>
+<tr><td>Ignore rules</td><td>manual -prune</td><td>built-in <code>.gitignore</code> support</td></tr>
+<tr><td>JSON Lines stream</td><td>no</td><td>yes (<code>--json</code>)</td></tr>
+<tr><td>Null delimiter (<code>-print0</code>)</td><td>yes</td><td>yes</td></tr>
+<tr><td>Agent surface</td><td>no</td><td>JSON-RPC 2.0 stdio MCP (<code>--mcp</code>)</td></tr>
+<tr><td>Exit code contract</td><td>0 on success</td><td>standard POSIX or pipeline (<code>--exit-code</code>)</td></tr>
+</table>
+
+<h2>Try it</h2>
+<pre><code>oofind . -name "*.oo"                     # Glob pattern matching
+oofind src -type f -e txt                 # Filter regular files with extension
+oofind . -maxdepth 2 -name "Makefile"     # Bounded depth traversal
+oofind /var/log -type f -size +10M        # Size filtering
+oofind src -name "*.oo" -print0 | xargs -0 wc -l  # Pipeline integration
+oofind . -name "*.oo" --json              # JSON Lines output
+oofind --mcp                              # Model Context Protocol stdio server</code></pre>
+
+<p><a href="https://github.com/openOODA-tools/oofind">Source &amp; docs</a> · <a href="https://github.com/openOODA-tools/oofind/releases">Releases</a> · <a href="https://github.com/openOODA-tools">openOODA-tools</a></p>
+</body>
+</html>

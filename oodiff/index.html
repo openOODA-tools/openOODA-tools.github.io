@@ -22,10 +22,11 @@ a{color:#0b5fff}
 <p class="sub">Capability-bounded file and directory comparison for the openOODA era.</p>
 
 <p>
-<span class="badge">v0.1.0</span>
+<span class="badge">v0.2.0</span>
 <span class="badge">100% openOODA</span>
 <span class="badge">Myers LCS</span>
-<span class="badge">Parity vs GNU diff</span>
+<span class="badge">GNU diff Parity</span>
+<span class="badge">MCP Native</span>
 </p>
 
 <h2>Install</h2>
@@ -35,18 +36,22 @@ a{color:#0b5fff}
 <h2>Why not just diff?</h2>
 <table>
 <tr><th>Check</th><th>GNU diff</th><th>oodiff</th></tr>
-<tr><td>Hunk format &amp; patch compatibility</td><td>yes</td><td>byte-identical hunk parity</td></tr>
+<tr><td>Default format</td><td>normal diff</td><td>normal diff (byte-identical)</td></tr>
+<tr><td>Unified format (<code>-u</code>, <code>-U NUM</code>)</td><td>yes</td><td>byte-identical hunk parity</td></tr>
 <tr><td>Exit codes (<code>0</code> identical, <code>1</code> diffs, <code>2</code> error)</td><td>yes</td><td>yes</td></tr>
+<tr><td>Normalization (<code>-i</code>, <code>-w</code>, <code>-b</code>, <code>-B</code>)</td><td>yes</td><td>yes</td></tr>
+<tr><td>Directory &amp; label controls (<code>-r</code>, <code>-N</code>, <code>-s</code>, <code>-L</code>)</td><td>yes</td><td>yes</td></tr>
 <tr><td>Trailing newline discipline (<code>\ No newline at end of file</code>)</td><td>yes</td><td>yes</td></tr>
-<tr><td>Recursive directory trees (<code>-r</code>)</td><td>yes</td><td>yes</td></tr>
 <tr><td>Agent hookup (MCP stdio server)</td><td>no</td><td>yes (<code>diff_files</code>, <code>diff_dirs</code>)</td></tr>
-<tr><td>Capability-based security</td><td>no</td><td>zero ambient filesystem authority</td></tr>
+<tr><td>Capability-based security</td><td>no</td><td>negative-trust filesystem authority</td></tr>
 </table>
 
 <h2>Try it</h2>
-<pre><code>oodiff file_a.txt file_b.txt
-oodiff -r src_v1/ src_v2/
-oodiff --mcp   # spawn as Model Context Protocol server</code></pre>
+<pre><code>oodiff file_a.txt file_b.txt              # POSIX normal diff (default)
+oodiff -u file_a.txt file_b.txt           # Unified diff
+oodiff -b -B file_a.txt file_b.txt        # Ignore space &amp; blank line changes
+oodiff -r -N src_v1/ src_v2/              # Recursive directory diff
+oodiff --mcp                              # Model Context Protocol stdio server</code></pre>
 
 <p><a href="https://github.com/openOODA-tools/oodiff">Source &amp; docs</a> · <a href="https://github.com/openOODA-tools/oodiff/releases">Releases</a> · <a href="https://github.com/openOODA-tools">openOODA-tools</a></p>
 </body>

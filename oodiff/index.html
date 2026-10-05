@@ -5,16 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>oodiff — sovereign diff engine</title>
 <style>
-body{font-family:system-ui,sans-serif;max-width:44em;margin:3em auto;padding:0 1em;color:#222}
-h1{font-size:1.7em;margin-bottom:.1em}
+body{font-family:system-ui,sans-serif;max-width:44em;margin:3em auto;padding:0 1em;color:#222;line-height:1.5}
+h1{font-size:1.8em;margin-bottom:.1em}
 .sub{color:#666;margin-top:0}
 pre{background:#f4f4f4;padding:1em;border-radius:6px;overflow-x:auto}
 code{font-size:.92em}
-table{border-collapse:collapse;width:100%;margin:1em 0}
-th,td{border:1px solid #ddd;padding:.4em .7em;text-align:left}
+table{border-collapse:collapse;width:100%;margin:1.2em 0}
+th,td{border:1px solid #ddd;padding:.5em .8em;text-align:left}
 th{background:#f4f4f4}
-a{color:#0b5fff}
-.badge{display:inline-block;background:#e8f5e9;border:1px solid #a5d6a7;border-radius:12px;padding:.1em .8em;margin:.2em .3em .2em 0;font-size:.9em}
+a{color:#0b5fff;text-decoration:none}
+a:hover{text-decoration:underline}
+.badge{display:inline-block;background:#e8f5e9;border:1px solid #a5d6a7;border-radius:12px;padding:.15em .8em;margin:.2em .3em .2em 0;font-size:.88em}
 </style>
 </head>
 <body>
@@ -22,37 +23,52 @@ a{color:#0b5fff}
 <p class="sub">Capability-bounded file and directory comparison for the openOODA era.</p>
 
 <p>
-<span class="badge">v0.2.0</span>
+<span class="badge">v0.2.2</span>
 <span class="badge">100% openOODA</span>
 <span class="badge">Myers LCS</span>
 <span class="badge">GNU diff Parity</span>
+<span class="badge">CI 100% Green</span>
 <span class="badge">MCP Native</span>
 </p>
 
 <h2>Install</h2>
+
+<h3>1. Web Installer (Zero Dependencies)</h3>
 <pre><code>curl -fsSL https://openooda-tools.github.io/oodiff/install.sh | bash</code></pre>
-<p>Zero dependencies. Installs native standalone binary to <code>/usr/local/bin</code> (or <code>~/.local/bin</code>).</p>
+<p>Installs native standalone binary to <code>/usr/local/bin</code> (or <code>~/.local/bin</code>) with strict SHA-256 seal verification.</p>
+
+<h3>2. Native Packages (APT &amp; DNF)</h3>
+<p>Signed release packages are attached to every <a href="https://github.com/openOODA-tools/oodiff/releases">GitHub release</a>:</p>
+<pre><code># Debian, Ubuntu (APT)
+sudo apt install ./oodiff_0.2.2-1_amd64.deb
+
+# Fedora, RHEL, Rocky, Alma (DNF)
+sudo dnf install ./oodiff-0.2.2-1.*.rpm</code></pre>
+
+<p>Or install directly via the universal script with package manager integration:</p>
+<pre><code>curl -fsSL https://openooda-tools.github.io/oodiff/install.sh | bash -s -- --package</code></pre>
 
 <h2>Why not just diff?</h2>
 <table>
-<tr><th>Check</th><th>GNU diff</th><th>oodiff</th></tr>
-<tr><td>Default format</td><td>normal diff</td><td>normal diff (byte-identical)</td></tr>
-<tr><td>Unified format (<code>-u</code>, <code>-U NUM</code>)</td><td>yes</td><td>byte-identical hunk parity</td></tr>
-<tr><td>Exit codes (<code>0</code> identical, <code>1</code> diffs, <code>2</code> error)</td><td>yes</td><td>yes</td></tr>
-<tr><td>Normalization (<code>-i</code>, <code>-w</code>, <code>-b</code>, <code>-B</code>)</td><td>yes</td><td>yes</td></tr>
-<tr><td>Directory &amp; label controls (<code>-r</code>, <code>-N</code>, <code>-s</code>, <code>-L</code>)</td><td>yes</td><td>yes</td></tr>
-<tr><td>Trailing newline discipline (<code>\ No newline at end of file</code>)</td><td>yes</td><td>yes</td></tr>
-<tr><td>Agent hookup (MCP stdio server)</td><td>no</td><td>yes (<code>diff_files</code>, <code>diff_dirs</code>)</td></tr>
-<tr><td>Capability-based security</td><td>no</td><td>negative-trust filesystem authority</td></tr>
+<tr><th>Capability</th><th>GNU diff</th><th>oodiff</th></tr>
+<tr><td>Default format</td><td>normal diff</td><td>normal diff (byte-for-byte identical)</td></tr>
+<tr><td>Unified format (<code>-u</code>, <code>-U NUM</code>)</td><td>yes</td><td>byte-for-byte hunk parity</td></tr>
+<tr><td>Exit codes (<code>0</code> identical, <code>1</code> diffs, <code>2</code> error)</td><td>yes</td><td>POSIX exit code contract strictly held</td></tr>
+<tr><td>Normalization (<code>-i</code>, <code>-w</code>, <code>-b</code>, <code>-B</code>)</td><td>yes</td><td>UTF-8 multibyte case folding &amp; whitespace pruning</td></tr>
+<tr><td>Directory recursion &amp; creation (<code>-r</code>, <code>-N</code>)</td><td>yes</td><td>recursion cycle protected (<code>ln -s . loop</code> safe)</td></tr>
+<tr><td>Device nodes (<code>/dev/null</code>, <code>/dev/stdin</code>)</td><td>yes</td><td>pure capability interception for patch workflows</td></tr>
+<tr><td>Performance optimization</td><td>heuristics</td><td>DJB2 integer line hashing + Myers LCS</td></tr>
+<tr><td>Agent surface (MCP stdio)</td><td>no</td><td>JSON-RPC 2.0 (<code>diff_files</code>, <code>diff_dirs</code>)</td></tr>
+<tr><td>Memory safety &amp; DoS ceiling</td><td>unbounded</td><td>100MB input ceiling, capability sandbox</td></tr>
 </table>
 
 <h2>Try it</h2>
-<pre><code>oodiff file_a.txt file_b.txt              # POSIX normal diff (default)
+<pre><code>oodiff file_a.txt file_b.txt              # Standard normal diff (default)
 oodiff -u file_a.txt file_b.txt           # Unified diff
-oodiff -b -B file_a.txt file_b.txt        # Ignore space &amp; blank line changes
+oodiff -i -b -B file_a.txt file_b.txt     # Ignore case, whitespace, &amp; blank lines
 oodiff -r -N src_v1/ src_v2/              # Recursive directory diff
 oodiff --mcp                              # Model Context Protocol stdio server</code></pre>
 
-<p><a href="https://github.com/openOODA-tools/oodiff">Source &amp; docs</a> · <a href="https://github.com/openOODA-tools/oodiff/releases">Releases</a> · <a href="https://github.com/openOODA-tools">openOODA-tools</a></p>
+<p><a href="https://github.com/openOODA-tools/oodiff">Source &amp; Docs</a> · <a href="https://github.com/openOODA-tools/oodiff/releases">Releases</a> · <a href="https://github.com/openOODA-tools">openOODA-tools</a></p>
 </body>
 </html>

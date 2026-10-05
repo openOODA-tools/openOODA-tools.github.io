@@ -1,27 +1,492 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>openOODA-tools</title>
-<style>
-body{font-family:system-ui,sans-serif;max-width:40em;margin:3em auto;padding:0 1em;color:#222}
-h1{font-size:1.6em}
-a{color:#0b5fff}
-code{background:#f4f4f4;padding:.1em .4em;border-radius:4px}
-li{margin:.5em 0}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>openOODA-tools // Capability-Bounded Everyday Utilities</title>
+  <meta name="description" content="Sovereign, capability-bounded command-line utilities written in openOODA. Two faces, one engine: human terminal ergonomics + agent-native MCP." />
+  <meta property="og:title" content="openOODA-tools // Capability-Bounded Everyday Utilities" />
+  <meta property="og:description" content="Modern CLI replacements for bash, grep, diff, find, and jq written in 100% pure openOODA. Standalone binaries, GNU parity, and stdio MCP servers." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://openooda-tools.github.io" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <style>
+    :root {
+      --bg-canvas: #07090e;
+      --bg-window: #0b0f17;
+      --bg-card: #111722;
+      --bg-card-hover: #151d2a;
+      --bg-code: #06080c;
+      --border-window: #1e293b;
+      --border-card: #1f2937;
+      --border-card-hover: #374151;
+      --text-primary: #e2e8f0;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --color-green: #00e676;
+      --color-green-dim: rgba(0, 230, 118, 0.12);
+      --color-amber: #ffb300;
+      --color-cyan: #00e5ff;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-canvas);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      line-height: 1.5;
+      padding: 24px 16px;
+      min-height: 100vh;
+    }
+    .terminal-window {
+      max-width: 980px;
+      margin: 0 auto;
+      background: var(--bg-window);
+      border: 1px solid var(--border-window);
+      border-radius: 8px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+      overflow: hidden;
+    }
+    .window-titlebar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px;
+      background: #080b10;
+      border-bottom: 1px solid var(--border-window);
+      font-family: var(--font-mono);
+      font-size: 12px;
+    }
+    .term-status-badge { color: var(--color-amber); }
+    .window-title { color: var(--text-secondary); font-weight: 500; }
+    .term-status-online { color: var(--color-green); }
+    .window-content { padding: 32px 28px; }
+    .hero-eyebrow {
+      color: var(--color-green);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+    }
+    .hero-title {
+      font-size: clamp(26px, 4vw, 36px);
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 14px;
+      color: #fff;
+    }
+    .term-cursor {
+      color: var(--color-green);
+      animation: blink 1.1s step-end infinite;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+    .hero-intro {
+      font-size: 15px;
+      color: var(--text-secondary);
+      max-width: 800px;
+      margin-bottom: 20px;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 14px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      text-decoration: none;
+      transition: all 0.15s ease;
+      cursor: pointer;
+    }
+    .btn-green {
+      background: var(--color-green-dim);
+      border: 1px solid var(--color-green);
+      color: var(--color-green);
+    }
+    .btn-green:hover { background: rgba(0, 230, 118, 0.22); transform: translateY(-1px); }
+    .btn-cyan {
+      background: rgba(0, 229, 255, 0.08);
+      border: 1px solid var(--color-cyan);
+      color: var(--color-cyan);
+    }
+    .btn-cyan:hover { background: rgba(0, 229, 255, 0.18); transform: translateY(-1px); }
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-muted);
+      letter-spacing: 1.5px;
+      margin-bottom: 18px;
+      border-bottom: 1px solid var(--border-window);
+      padding-bottom: 6px;
+    }
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+    .tool-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 6px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.15s ease;
+    }
+    .tool-card:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--border-card-hover);
+      transform: translateY(-2px);
+    }
+    .tool-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .tool-name {
+      font-family: var(--font-mono);
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .tool-tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--color-cyan);
+    }
+    .tool-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+    .badge {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: 10px;
+      background: #1e293b;
+      color: var(--text-secondary);
+      border: 1px solid #334155;
+    }
+    .badge-green { background: rgba(0, 230, 118, 0.1); color: var(--color-green); border-color: rgba(0, 230, 118, 0.3); }
+    .badge-amber { background: rgba(255, 179, 0, 0.1); color: var(--color-amber); border-color: rgba(255, 179, 0, 0.3); }
+    .tool-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 14px;
+      flex-grow: 1;
+    }
+    .install-box {
+      background: var(--bg-code);
+      border: 1px solid #1a2230;
+      border-radius: 4px;
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      margin-bottom: 12px;
+      color: var(--text-secondary);
+      overflow-x: auto;
+    }
+    .install-box code { color: #f1f5f9; white-space: nowrap; }
+    .copy-btn {
+      background: transparent;
+      border: 1px solid #334155;
+      color: var(--text-secondary);
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      cursor: pointer;
+      margin-left: 8px;
+    }
+    .copy-btn:hover { color: #fff; border-color: var(--color-green); }
+    .tool-links {
+      display: flex;
+      gap: 12px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+    }
+    .tool-links a {
+      color: var(--color-green);
+      text-decoration: none;
+    }
+    .tool-links a:hover { text-decoration: underline; }
+    .philosophy-panel {
+      background: #0c121c;
+      border: 1px solid #1e293b;
+      border-left: 3px solid var(--color-cyan);
+      border-radius: 4px;
+      padding: 18px 20px;
+      margin-bottom: 24px;
+    }
+    .philosophy-title {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--color-cyan);
+      margin-bottom: 8px;
+    }
+    .philosophy-text {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .window-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding: 12px 20px;
+      background: #080b10;
+      border-top: 1px solid var(--border-window);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+    .footer-links { display: flex; gap: 14px; }
+    .footer-links a { color: var(--text-secondary); text-decoration: none; }
+    .footer-links a:hover { color: var(--color-green); }
+  </style>
 </head>
 <body>
-<h1>openOODA-tools</h1>
-<p>Small command-line tools written in <a href="https://openooda.org">openOODA</a>.</p>
-<ul>
-<li><a href="oogrep/">oogrep</a> — grep-compatible recursive search, plus JSON output, <code>.gitignore</code>-aware skipping, and an MCP agent surface.</li>
-<li><a href="oodiff/">oodiff</a> — capability-bounded file &amp; directory diff replacement, featuring Myers LCS algorithm and an MCP agent surface.</li>
-<li><a href="oofind/">oofind</a> — capability-bounded file finding utility, with glob matching, <code>-print0</code>, JSON Lines output, and an MCP agent surface.</li>
-<li><a href="https://github.com/openOODA-tools/oojq">oojq</a> — JSON sorter (98% jq parity).</li>
-<li><a href="oosh/">oosh</a> — capability-bounded sovereign interactive shell for the openOODA era.</li>
-</ul>
-<p><a href="https://github.com/openOODA-tools">github.com/openOODA-tools</a></p>
+  <div class="terminal-window">
+    <header class="window-titlebar">
+      <span class="term-status-badge">[TERM: tty2]</span>
+      <span class="window-title">sys@openooda-tools:~# ooda-tools --list</span>
+      <span class="term-status-online">[SYS_OK]</span>
+    </header>
+
+    <div class="window-content">
+      <p class="hero-eyebrow">SOVEREIGN USERLAND // TECHNOLOGY PREVIEW</p>
+      <h1 class="hero-title">Two Faces, One Engine<span class="term-cursor" aria-hidden="true">_</span></h1>
+      <p class="hero-intro">
+        Modern, capability-bounded command-line utilities written in 100% pure 
+        <a href="https://openooda.org" style="color:var(--color-green); text-decoration:none;">openOODA</a>.
+        Every tool compiles to a standalone, zero-dependency native binary with strict POSIX/GNU parity and a first-class Model Context Protocol (MCP) server over stdio.
+      </p>
+
+      <div class="hero-actions">
+        <a href="https://github.com/openOODA-tools" target="_blank" rel="noopener noreferrer" class="btn btn-green">[ GITHUB: @OPENOODA-TOOLS &#8599; ]</a>
+        <a href="https://openooda.org" target="_blank" rel="noopener noreferrer" class="btn btn-cyan">[ OPENOODA CORE &#8599; ]</a>
+      </div>
+
+      <p class="section-label">-- THE SUITE: DROP-IN REPLACEMENTS WITH MCP SURFACES --</p>
+
+      <div class="tools-grid">
+        <!-- oosh -->
+        <div class="tool-card">
+          <div>
+            <div class="tool-header">
+              <span class="tool-name">oosh</span>
+              <span class="tool-tag">[SHELL]</span>
+            </div>
+            <div class="tool-badges">
+              <span class="badge badge-green">v0.1.0</span>
+              <span class="badge">Ambient Intent</span>
+              <span class="badge">Zero Ambient Auth</span>
+            </div>
+            <p class="tool-desc">
+              Sovereign interactive command plane engineered for direct systems control, ambient environment integration, and POSIX muscle memory.
+            </p>
+          </div>
+          <div>
+            <div class="install-box">
+              <code>curl -fsSL .../oosh/install.sh | bash</code>
+              <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/oosh/install.sh | bash', this)">COPY</button>
+            </div>
+            <div class="tool-links">
+              <a href="oosh/">[ Overview ]</a>
+              <a href="https://github.com/openOODA-tools/oosh" target="_blank" rel="noopener noreferrer">[ Source &#8599; ]</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- oogrep -->
+        <div class="tool-card">
+          <div>
+            <div class="tool-header">
+              <span class="tool-name">oogrep</span>
+              <span class="tool-tag">[SEARCH]</span>
+            </div>
+            <div class="tool-badges">
+              <span class="badge badge-green">grep / ripgrep</span>
+              <span class="badge badge-amber">MCP Native</span>
+              <span class="badge">.gitignore Aware</span>
+            </div>
+            <p class="tool-desc">
+              Capability-bounded recursive regex search. Fast directory traversal with column tracking, colored hunks, and an stdio MCP surface.
+            </p>
+          </div>
+          <div>
+            <div class="install-box">
+              <code>curl -fsSL .../oogrep/install.sh | bash</code>
+              <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/oogrep/install.sh | bash', this)">COPY</button>
+            </div>
+            <div class="tool-links">
+              <a href="oogrep/">[ Overview ]</a>
+              <a href="https://github.com/openOODA-tools/oogrep" target="_blank" rel="noopener noreferrer">[ Source &#8599; ]</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- oodiff -->
+        <div class="tool-card">
+          <div>
+            <div class="tool-header">
+              <span class="tool-name">oodiff</span>
+              <span class="tool-tag">[DIFF]</span>
+            </div>
+            <div class="tool-badges">
+              <span class="badge badge-green">v0.2.2</span>
+              <span class="badge">Myers LCS</span>
+              <span class="badge badge-amber">GNU diff Parity</span>
+              <span class="badge">APT / DNF</span>
+            </div>
+            <p class="tool-desc">
+              Capability-bounded file and directory comparison. Byte-for-byte GNU normal and unified diff parity with negative-trust sandbox.
+            </p>
+          </div>
+          <div>
+            <div class="install-box">
+              <code>curl -fsSL .../oodiff/install.sh | bash</code>
+              <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/oodiff/install.sh | bash', this)">COPY</button>
+            </div>
+            <div class="tool-links">
+              <a href="oodiff/">[ Overview ]</a>
+              <a href="https://github.com/openOODA-tools/oodiff" target="_blank" rel="noopener noreferrer">[ Source &#8599; ]</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- oofind -->
+        <div class="tool-card">
+          <div>
+            <div class="tool-header">
+              <span class="tool-name">oofind</span>
+              <span class="tool-tag">[FIND]</span>
+            </div>
+            <div class="tool-badges">
+              <span class="badge badge-green">find Drop-In</span>
+              <span class="badge badge-amber">MCP Native</span>
+              <span class="badge">JSON Lines</span>
+            </div>
+            <p class="tool-desc">
+              Fast directory traversal with glob matching, type filtering, <code>-print0</code> for xargs piping, and structured JSON output.
+            </p>
+          </div>
+          <div>
+            <div class="install-box">
+              <code>curl -fsSL .../oofind/install.sh | bash</code>
+              <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/oofind/install.sh | bash', this)">COPY</button>
+            </div>
+            <div class="tool-links">
+              <a href="oofind/">[ Overview ]</a>
+              <a href="https://github.com/openOODA-tools/oofind" target="_blank" rel="noopener noreferrer">[ Source &#8599; ]</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- oojq -->
+        <div class="tool-card">
+          <div>
+            <div class="tool-header">
+              <span class="tool-name">oojq</span>
+              <span class="tool-tag">[JSON]</span>
+            </div>
+            <div class="tool-badges">
+              <span class="badge badge-green">98% jq Parity</span>
+              <span class="badge">Exact Math</span>
+              <span class="badge">Zero Leakage</span>
+            </div>
+            <p class="tool-desc">
+              High-fidelity jq replacement. Exact arithmetic boundaries, full filter parser, and capability-isolated JSON transformation.
+            </p>
+          </div>
+          <div>
+            <div class="install-box">
+              <code>git clone .../openOODA-tools/oojq</code>
+              <button class="copy-btn" onclick="copySnippet('git clone https://github.com/openOODA-tools/oojq.git', this)">COPY</button>
+            </div>
+            <div class="tool-links">
+              <a href="https://github.com/openOODA-tools/oojq" target="_blank" rel="noopener noreferrer">[ Parity Report &amp; Source &#8599; ]</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ootail -->
+        <div class="tool-card">
+          <div>
+            <div class="tool-header">
+              <span class="tool-name">ootail</span>
+              <span class="tool-tag">[TAIL &middot; WIP]</span>
+            </div>
+            <div class="tool-badges">
+              <span class="badge badge-amber">Alpha</span>
+              <span class="badge">Inotify Watch</span>
+              <span class="badge">Truncate-Safe</span>
+            </div>
+            <p class="tool-desc">
+              Capability-bounded streaming file and event follower. Inotify change events, line scanning, and multi-surface IPC.
+            </p>
+          </div>
+          <div>
+            <div class="install-box">
+              <code>ootail [path] --follow</code>
+              <button class="copy-btn" onclick="copySnippet('ootail [path] --follow', this)">COPY</button>
+            </div>
+            <div class="tool-links">
+              <span style="color:var(--text-muted)">[ Coming to Releases ]</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="philosophy-panel">
+        <h3 class="philosophy-title">&gt; THE DUAL-PLANE ARCHITECTURE</h3>
+        <p class="philosophy-text">
+          Every tool in <code>openOODA-tools</code> delivers instant POSIX execution for human terminal muscle memory, paired with an <code>--mcp</code> flag that transforms the binary into a capability-bounded Model Context Protocol server. When an AI agent executes <code>oogrep</code> or <code>oodiff</code>, the operation is mathematically bounded by the host runtime — eliminating ambient filesystem traversal, command injection, and unsanctioned network egress.
+        </p>
+      </div>
+    </div>
+
+    <footer class="window-footer">
+      <span>OPENOODA TOOLS &copy; 2026 // CAPABILITY-BOUNDED USERLAND</span>
+      <div class="footer-links">
+        <a href="https://openooda.org" target="_blank" rel="noopener noreferrer">[ OPENOODA CORE ]</a>
+        <a href="https://github.com/openOODA-tools" target="_blank" rel="noopener noreferrer">[ GITHUB ]</a>
+        <a href="https://studio2201.com" target="_blank" rel="noopener noreferrer">[ STUDIO2201 ]</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    function copySnippet(text, btn) {
+      navigator.clipboard.writeText(text).then(() => {
+        const orig = btn.textContent;
+        btn.textContent = 'COPIED';
+        btn.style.color = '#00e676';
+        btn.style.borderColor = '#00e676';
+        setTimeout(() => {
+          btn.textContent = orig;
+          btn.style.color = '';
+          btn.style.borderColor = '';
+        }, 1500);
+      });
+    }
+  </script>
 </body>
 </html>

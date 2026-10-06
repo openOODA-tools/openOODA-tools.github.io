@@ -37,15 +37,20 @@ a:hover{text-decoration:underline}
 <pre><code>curl -fsSL https://openooda-tools.github.io/oodiff/install.sh | bash</code></pre>
 <p>Installs native standalone binary to <code>/usr/local/bin</code> (or <code>~/.local/bin</code>) with strict SHA-256 seal verification.</p>
 
-<h3>2. Native Packages (APT &amp; DNF)</h3>
-<p>Signed release packages are attached to every <a href="https://github.com/openOODA-tools/oodiff/releases">GitHub release</a>:</p>
+<h3>2. Native Packages (APT, DNF, &amp; PKGBUILD)</h3>
+<p>Signed release packages and manifests are attached to every <a href="https://github.com/openOODA-tools/oodiff/releases">GitHub release</a>:</p>
 <pre><code># Debian, Ubuntu (APT)
 sudo apt install ./oodiff_0.3.0-1_amd64.deb
 
 # Fedora, RHEL, Rocky, Alma (DNF)
-sudo dnf install ./oodiff-0.3.0-1.*.rpm</code></pre>
+sudo dnf install ./oodiff-0.3.0-1.*.rpm
 
-<p>Or install directly via the universal script with package manager integration:</p>
+# Arch Linux (PKGBUILD / makepkg)
+curl -fsSL https://openooda-tools.github.io/oodiff/install.sh | bash -s -- --pkgbuild
+# or build from PKGBUILD in repo:
+cd packaging/arch && makepkg -si</code></pre>
+
+<p>Or install directly via the universal script with automatic distribution detection:</p>
 <pre><code>curl -fsSL https://openooda-tools.github.io/oodiff/install.sh | bash -s -- --package</code></pre>
 
 <h2>Why not just diff?</h2>

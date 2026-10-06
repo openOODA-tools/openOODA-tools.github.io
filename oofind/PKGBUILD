@@ -1,0 +1,18 @@
+# Maintainer: openOODA-tools <ops@openooda.org>
+pkgname=oofind-bin
+_pkgname=oofind
+pkgver=0.2.0
+pkgrel=1
+pkgdesc="Capability-bounded file finding utility for the openOODA era"
+arch=('x86_64')
+url="https://github.com/openOODA-tools/oofind"
+license=('Apache-2.0')
+depends=('glibc')
+provides=('oofind')
+conflicts=('oofind')
+source=("${_pkgname}-${pkgver}::https://github.com/openOODA-tools/oofind/releases/download/v${pkgver}/oofind-linux-x86_64")
+sha256sums=('SKIP')
+
+package() {
+    install -Dm755 "${srcdir}/${_pkgname}-${pkgver}" "${pkgdir}/usr/bin/oofind"
+}

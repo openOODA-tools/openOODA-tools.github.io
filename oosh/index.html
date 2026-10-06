@@ -22,7 +22,7 @@ a{color:#0b5fff}
 <p class="sub">Intent-driven, ambient, capability-bounded interactive shell for the openOODA era.</p>
 
 <p>
-<span class="badge">v0.9.0</span>
+<span class="badge">v1.0.0</span>
 <span class="badge">100% openOODA</span>
 <span class="badge">5 Threat Defenses</span>
 <span class="badge">POSIX Parity</span>
@@ -30,8 +30,26 @@ a{color:#0b5fff}
 </p>
 
 <h2>Install</h2>
+
+<h3>Web Universal (Zero Dependencies)</h3>
 <pre><code>curl -fsSL https://openooda-tools.github.io/oosh/install.sh | bash</code></pre>
-<p>Zero dependencies. Standalone binary verified with cryptographic SHA-256 seal, installs to <code>/usr/local/bin</code> (or <code>~/.local/bin</code>).</p>
+
+<h3>Fedora / RHEL (DNF / RPM)</h3>
+<pre><code>curl -fsSL https://openooda-tools.github.io/oosh/install.sh | bash -s -- --dnf
+# or directly:
+sudo dnf install -y https://github.com/openOODA-tools/oosh/releases/download/v1.0.0/oosh-1.0.0-1.x86_64.rpm</code></pre>
+
+<h3>Ubuntu / Debian (APT / DEB)</h3>
+<pre><code>curl -fsSL https://openooda-tools.github.io/oosh/install.sh | bash -s -- --apt
+# or directly:
+curl -fsSL -O https://github.com/openOODA-tools/oosh/releases/download/v1.0.0/oosh_1.0.0-1_amd64.deb && sudo apt install -y ./oosh_1.0.0-1_amd64.deb</code></pre>
+
+<h3>Arch Linux / Omarchy (Pacman & PKGBUILD)</h3>
+<pre><code>curl -fsSL https://openooda-tools.github.io/oosh/install.sh | bash -s -- --pacman
+# or direct package:
+sudo pacman -U https://github.com/openOODA-tools/oosh/releases/download/v1.0.0/oosh-1.0.0-1-x86_64.pkg.tar.zst
+# or build via PKGBUILD:
+curl -fsSL https://openooda-tools.github.io/oosh/install.sh | bash -s -- --pkgbuild</code></pre>
 
 <h2>Options</h2>
 <pre><code># Simulate without modifying the host

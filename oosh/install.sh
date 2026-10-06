@@ -6,11 +6,19 @@
 # Usage:
 #   curl -fsSL https://openooda-tools.github.io/oosh/install.sh | bash
 #
+# Channels:
+#   --web (default)  Direct standalone binary deployment
+#   --dnf, --rpm     Native RPM package installation via DNF
+#   --apt, --deb     Native DEB package installation via APT
+#   --pacman, --arch Native Arch package installation via Pacman (.pkg.tar.zst)
+#   --pkgbuild       Build and install via Arch PKGBUILD and makepkg
+#   --auto           Auto-detect host package manager or fallback to web
+#
 # Options:
-#   --prefix <dir>   Installation directory (default: /usr/local/bin or ~/.local/bin)
+#   --prefix <dir>   Installation directory for web binary (default: /usr/local/bin or ~/.local/bin)
 #   --dry-run        Simulate installation without touching the filesystem
 #   --verify         Perform strict cryptographic SHA-256 integrity verification
-#   --uninstall      Remove oosh binary from standard system paths
+#   --uninstall      Remove oosh binary or package from system
 #   -h, --help       Show this help message
 # ==============================================================================
 
@@ -19,7 +27,7 @@ set -eu
 REPO="openOODA-tools/oosh"
 GITHUB_URL="https://github.com/${REPO}"
 CANONICAL_URL="https://openooda-tools.github.io/oosh"
-VERSION_PIN="v0.9.0"
+VERSION_PIN="v1.0.0"
 
 # --- Styling & Human Interface Standard ---------------------------------------
 if [ -t 1 ] && [ "${NO_COLOR:-}" = "" ] && [ "${TERM:-dumb}" != "dumb" ]; then
@@ -145,9 +153,16 @@ DRY_RUN=0
 DO_UNINSTALL=0
 DO_VERIFY=0
 CUSTOM_PREFIX=""
+INSTALL_METHOD="web"
 
 while [ $# -gt 0 ]; do
     case "$1" in
+        --web) INSTALL_METHOD="web"; shift ;;
+        --dnf|--rpm) INSTALL_METHOD="dnf"; shift ;;
+        --apt|--deb) INSTALL_METHOD="apt"; shift ;;
+        --pacman|--arch) INSTALL_METHOD="pacman"; shift ;;
+        --pkgbuild) INSTALL_METHOD="pkgbuild"; shift ;;
+        --auto) INSTALL_METHOD="auto"; shift ;;
         --dry-run) DRY_RUN=1; shift ;;
         --uninstall) DO_UNINSTALL=1; shift ;;
         --verify) DO_VERIFY=1; shift ;;
@@ -156,11 +171,19 @@ while [ $# -gt 0 ]; do
             banner
             say "  ${BOLD}Usage:${RESET} curl -fsSL .../install.sh | bash [options]"
             say ""
+            say "  ${BOLD}Distribution Channels:${RESET}"
+            say "    ${CYAN}--web${RESET}            Direct glibc-linked standalone binary deployment (default)"
+            say "    ${CYAN}--dnf, --rpm${RESET}     Native RPM package installation via DNF"
+            say "    ${CYAN}--apt, --deb${RESET}     Native DEB package installation via APT"
+            say "    ${CYAN}--pacman, --arch${RESET} Native Arch package installation via Pacman (.pkg.tar.zst)"
+            say "    ${CYAN}--pkgbuild${RESET}       Build and install via Arch PKGBUILD and makepkg"
+            say "    ${CYAN}--auto${RESET}           Auto-detect host package manager (dnf/apt/pacman) or fallback to web"
+            say ""
             say "  ${BOLD}Options:${RESET}"
-            say "    ${CYAN}--prefix <dir>${RESET}   Target binary directory (default: /usr/local/bin or ~/.local/bin)"
+            say "    ${CYAN}--prefix <dir>${RESET}   Target binary directory for web install (default: /usr/local/bin)"
             say "    ${CYAN}--dry-run${RESET}        Simulate deployment without modifying host"
             say "    ${CYAN}--verify${RESET}         Verify cryptographic SHA-256 seal and exit"
-            say "    ${CYAN}--uninstall${RESET}      Cleanly remove oosh binary from system"
+            say "    ${CYAN}--uninstall${RESET}      Cleanly remove oosh package or binary from system"
             say "    ${CYAN}-h, --help${RESET}       Display this manual"
             say ""
             exit 0
@@ -177,7 +200,32 @@ pause 0.3
 if [ "$DO_UNINSTALL" -eq 1 ]; then
     step "Relinquishing Sovereign Shell"
     FOUND=0
-    for p in /usr/local/bin/oosh "${HOME}/.local/bin/oosh" "${HOME}/.openooda/bin/oosh"; do
+    if command -v dnf >/dev/null 2>&1 && rpm -q oosh >/dev/null 2>&1; then
+        if [ "$DRY_RUN" -eq 1 ]; then
+            dim "Would remove oosh via dnf remove -y oosh"
+        else
+            if [ "$(id -u)" -eq 0 ]; then dnf remove -y oosh; else sudo dnf remove -y oosh; fi
+            ok "Banished oosh RPM package"
+        fi
+        FOUND=1
+    elif command -v dpkg >/dev/null 2>&1 && dpkg -s oosh >/dev/null 2>&1; then
+        if [ "$DRY_RUN" -eq 1 ]; then
+            dim "Would remove oosh via apt remove -y oosh"
+        else
+            if [ "$(id -u)" -eq 0 ]; then apt remove -y oosh; else sudo apt remove -y oosh; fi
+            ok "Banished oosh DEB package"
+        fi
+        FOUND=1
+    elif command -v pacman >/dev/null 2>&1 && pacman -Q oosh >/dev/null 2>&1; then
+        if [ "$DRY_RUN" -eq 1 ]; then
+            dim "Would remove oosh via pacman -R --noconfirm oosh"
+        else
+            if [ "$(id -u)" -eq 0 ]; then pacman -R --noconfirm oosh; else sudo pacman -R --noconfirm oosh; fi
+            ok "Banished oosh Pacman package"
+        fi
+        FOUND=1
+    fi
+    for p in /usr/local/bin/oosh /usr/bin/oosh "${HOME}/.local/bin/oosh" "${HOME}/.openooda/bin/oosh"; do
         if [ -f "$p" ]; then
             if [ "$DRY_RUN" -eq 1 ]; then
                 dim "Would remove $p"
@@ -189,7 +237,7 @@ if [ "$DO_UNINSTALL" -eq 1 ]; then
         fi
     done
     if [ "$FOUND" -eq 0 ]; then
-        warn "No existing oosh binary detected in standard search paths."
+        warn "No existing oosh binary or package detected in standard search paths."
     fi
     say ""
     exit 0
@@ -225,6 +273,21 @@ say "  ${DIM}os${RESET}       ${GREEN}${OS_PRETTY}${RESET}"
 say "  ${DIM}arch${RESET}     ${GREEN}${TARGET_ARCH}${RESET} ${DIM}(${ARCH})${RESET}"
 say "  ${DIM}kernel${RESET}   ${GREEN}$(uname -r)${RESET}"
 
+if [ "$INSTALL_METHOD" = "auto" ]; then
+    if command -v dnf >/dev/null 2>&1; then
+        INSTALL_METHOD="dnf"
+    elif command -v apt >/dev/null 2>&1; then
+        INSTALL_METHOD="apt"
+    elif command -v pacman >/dev/null 2>&1; then
+        INSTALL_METHOD="pacman"
+    else
+        INSTALL_METHOD="web"
+    fi
+    say "  ${DIM}channel${RESET}  ${CYAN}${INSTALL_METHOD}${RESET} ${DIM}(auto-detected)${RESET}"
+else
+    say "  ${DIM}channel${RESET}  ${CYAN}${INSTALL_METHOD}${RESET}"
+fi
+
 if ! command -v curl >/dev/null 2>&1; then
     err "curl is required to retrieve sovereign release assets"
     exit 1
@@ -246,6 +309,8 @@ fi
 # Resolve destination directory
 if [ -n "$CUSTOM_PREFIX" ]; then
     INSTALL_DIR="$CUSTOM_PREFIX"
+elif [ "$INSTALL_METHOD" = "dnf" ] || [ "$INSTALL_METHOD" = "apt" ] || [ "$INSTALL_METHOD" = "pacman" ] || [ "$INSTALL_METHOD" = "pkgbuild" ]; then
+    INSTALL_DIR="/usr/bin"
 elif [ "$(id -u)" -eq 0 ]; then
     INSTALL_DIR="/usr/local/bin"
 elif command -v sudo >/dev/null 2>&1 && sudo -n true 2>/dev/null; then
@@ -264,10 +329,47 @@ LATEST_TAG=$(curl -sSL -H "Accept: application/vnd.github+json" "https://api.git
 if [ -z "$LATEST_TAG" ]; then
     LATEST_TAG="$VERSION_PIN"
 fi
+VERSION_NUM="${LATEST_TAG#v}"
 
-ASSET_NAME="oosh-linux-${TARGET_ARCH}"
-ASSET_URL="${GITHUB_URL}/releases/download/${LATEST_TAG}/${ASSET_NAME}"
-SHA_URL="${GITHUB_URL}/releases/download/${LATEST_TAG}/${ASSET_NAME}.sha256"
+case "$INSTALL_METHOD" in
+    dnf)
+        if [ "$TARGET_ARCH" != "x86_64" ]; then
+            err "RPM package currently available for x86_64. Use --web for direct binary installation."
+            exit 1
+        fi
+        ASSET_NAME="oosh-${VERSION_NUM}-1.x86_64.rpm"
+        ASSET_URL="${GITHUB_URL}/releases/download/${LATEST_TAG}/${ASSET_NAME}"
+        SHA_URL=""
+        ;;
+    apt)
+        if [ "$TARGET_ARCH" != "x86_64" ]; then
+            err "DEB package currently available for x86_64 (amd64). Use --web for direct binary installation."
+            exit 1
+        fi
+        ASSET_NAME="oosh_${VERSION_NUM}-1_amd64.deb"
+        ASSET_URL="${GITHUB_URL}/releases/download/${LATEST_TAG}/${ASSET_NAME}"
+        SHA_URL=""
+        ;;
+    pacman)
+        if [ "$TARGET_ARCH" != "x86_64" ]; then
+            err "Pacman package currently available for x86_64. Use --web for direct binary installation."
+            exit 1
+        fi
+        ASSET_NAME="oosh-${VERSION_NUM}-1-x86_64.pkg.tar.zst"
+        ASSET_URL="${GITHUB_URL}/releases/download/${LATEST_TAG}/${ASSET_NAME}"
+        SHA_URL="${ASSET_URL}.sha256"
+        ;;
+    pkgbuild)
+        ASSET_NAME="PKGBUILD"
+        ASSET_URL="https://raw.githubusercontent.com/${REPO}/${LATEST_TAG}/packaging/pacman/PKGBUILD"
+        SHA_URL=""
+        ;;
+    web|*)
+        ASSET_NAME="oosh-linux-${TARGET_ARCH}"
+        ASSET_URL="${GITHUB_URL}/releases/download/${LATEST_TAG}/${ASSET_NAME}"
+        SHA_URL="${GITHUB_URL}/releases/download/${LATEST_TAG}/${ASSET_NAME}.sha256"
+        ;;
+esac
 
 ok "Channel:  ${BOLD}${LATEST_TAG}${RESET} ${DIM}(canonical release)${RESET}"
 ok "Artifact: ${BOLD}${ASSET_NAME}${RESET}"
@@ -275,9 +377,22 @@ pause 0.2
 
 if [ "$DRY_RUN" -eq 1 ]; then
     step "[DRY RUN] Verification Plan"
+    say "  ${DIM}channel${RESET} ${CYAN}${INSTALL_METHOD}${RESET}"
     say "  ${DIM}fetch${RESET}   ${CYAN}${ASSET_URL}${RESET}"
-    say "  ${DIM}verify${RESET}  ${CYAN}${SHA_URL}${RESET}"
-    say "  ${DIM}deploy${RESET}  ${CYAN}${INSTALL_DIR}/oosh${RESET}"
+    if [ "$INSTALL_METHOD" = "dnf" ]; then
+        say "  ${DIM}deploy${RESET}  ${CYAN}sudo dnf install -y ${ASSET_NAME}${RESET}"
+    elif [ "$INSTALL_METHOD" = "apt" ]; then
+        say "  ${DIM}deploy${RESET}  ${CYAN}sudo apt install -y ./${ASSET_NAME}${RESET}"
+    elif [ "$INSTALL_METHOD" = "pacman" ]; then
+        say "  ${DIM}deploy${RESET}  ${CYAN}sudo pacman -U --noconfirm ${ASSET_NAME}${RESET}"
+    elif [ "$INSTALL_METHOD" = "pkgbuild" ]; then
+        say "  ${DIM}deploy${RESET}  ${CYAN}makepkg -si --noconfirm (via PKGBUILD)${RESET}"
+    else
+        if [ -n "$SHA_URL" ]; then
+            say "  ${DIM}verify${RESET}  ${CYAN}${SHA_URL}${RESET}"
+        fi
+        say "  ${DIM}deploy${RESET}  ${CYAN}${INSTALL_DIR}/oosh${RESET}"
+    fi
     say ""
     ok "Simulation complete. No host modifications made."
     say ""
@@ -290,51 +405,165 @@ step "[3/4]  Transmuting & verifying cryptographic seal"
 TMP_DIR="$(mktemp -d /tmp/oosh-bootstrap.XXXXXX)"
 trap 'rm -rf "$TMP_DIR"' EXIT INT TERM
 
-story_line "Streaming standalone binary artifact from release channel…"
+story_line "Streaming artifact ${ASSET_NAME} from release channel…"
 curl -fsSL "$ASSET_URL" -o "${TMP_DIR}/${ASSET_NAME}" &
 spin_while $! "Streaming ${ASSET_NAME}"
 ok "Transmitted ${ASSET_NAME}"
 
-story_line "Acquiring publisher's cryptographic SHA-256 seal…"
-curl -fsSL "$SHA_URL" -o "${TMP_DIR}/${ASSET_NAME}.sha256" 2>/dev/null || true
+if [ -n "$SHA_URL" ]; then
+    story_line "Acquiring publisher's cryptographic SHA-256 seal…"
+    curl -fsSL "$SHA_URL" -o "${TMP_DIR}/${ASSET_NAME}.sha256" 2>/dev/null || true
 
-if [ -f "${TMP_DIR}/${ASSET_NAME}.sha256" ] && [ -n "$HASH_CMD" ]; then
-    EXPECTED_SHA=$(awk '{print $1}' "${TMP_DIR}/${ASSET_NAME}.sha256" | head -1)
-    ACTUAL_SHA=$($HASH_CMD "${TMP_DIR}/${ASSET_NAME}" | awk '{print $1}')
-    if [ "$EXPECTED_SHA" != "$ACTUAL_SHA" ]; then
-        err "Cryptographic seal violation! Download corrupted or tampered."
-        say "  ${DIM}Expected:${RESET} ${YELLOW}${EXPECTED_SHA}${RESET}"
-        say "  ${DIM}Actual:  ${RESET} ${YELLOW}${ACTUAL_SHA}${RESET}"
-        exit 1
+    if [ -f "${TMP_DIR}/${ASSET_NAME}.sha256" ] && [ -n "$HASH_CMD" ]; then
+        EXPECTED_SHA=$(awk '{print $1}' "${TMP_DIR}/${ASSET_NAME}.sha256" | head -1)
+        ACTUAL_SHA=$($HASH_CMD "${TMP_DIR}/${ASSET_NAME}" | awk '{print $1}')
+        if [ "$EXPECTED_SHA" != "$ACTUAL_SHA" ]; then
+            err "Cryptographic seal violation! Download corrupted or tampered."
+            say "  ${DIM}Expected:${RESET} ${YELLOW}${EXPECTED_SHA}${RESET}"
+            say "  ${DIM}Actual:  ${RESET} ${YELLOW}${ACTUAL_SHA}${RESET}"
+            exit 1
+        fi
+        ok "Cryptographic seal verified: ${DIM}${ACTUAL_SHA}${RESET}"
+    else
+        warn "Checksum manifest unavailable; skipped seal verification."
     fi
-    ok "Cryptographic seal verified: ${DIM}${ACTUAL_SHA}${RESET}"
 else
-    warn "Checksum manifest unavailable; skipped seal verification."
+    ok "Package distribution artifact ready for installation."
 fi
 pause 0.3
 
 # --- Phase 4: Awakening the Sovereign Shell -----------------------------------
 step "[4/4]  Awakening sovereign shell"
 
-if [ ! -d "$INSTALL_DIR" ]; then
-    mkdir -p "$INSTALL_DIR" 2>/dev/null || sudo mkdir -p "$INSTALL_DIR"
-fi
-
-chmod +x "${TMP_DIR}/${ASSET_NAME}"
-
-story_line "Placing binary into ${INSTALL_DIR}…"
-if [ -w "$INSTALL_DIR" ]; then
-    mv "${TMP_DIR}/${ASSET_NAME}" "${INSTALL_DIR}/oosh"
+if [ "$INSTALL_METHOD" = "dnf" ]; then
+    story_line "Installing RPM package via system package manager…"
+    if command -v dnf >/dev/null 2>&1; then
+        if [ "$(id -u)" -eq 0 ]; then
+            dnf install -y "${TMP_DIR}/${ASSET_NAME}"
+        else
+            sudo dnf install -y "${TMP_DIR}/${ASSET_NAME}"
+        fi
+    else
+        if [ "$(id -u)" -eq 0 ]; then
+            rpm -Uvh --replacepkgs "${TMP_DIR}/${ASSET_NAME}"
+        else
+            sudo rpm -Uvh --replacepkgs "${TMP_DIR}/${ASSET_NAME}"
+        fi
+    fi
+    INSTALL_DIR="/usr/bin"
+    ok "Package installed to ${BOLD}${INSTALL_DIR}/oosh${RESET}"
+elif [ "$INSTALL_METHOD" = "apt" ]; then
+    story_line "Installing DEB package via system package manager…"
+    if command -v apt >/dev/null 2>&1; then
+        if [ "$(id -u)" -eq 0 ]; then
+            apt install -y "${TMP_DIR}/${ASSET_NAME}"
+        else
+            sudo apt install -y "${TMP_DIR}/${ASSET_NAME}"
+        fi
+    else
+        if [ "$(id -u)" -eq 0 ]; then
+            dpkg -i "${TMP_DIR}/${ASSET_NAME}"
+        else
+            sudo dpkg -i "${TMP_DIR}/${ASSET_NAME}"
+        fi
+    fi
+    INSTALL_DIR="/usr/bin"
+    ok "Package installed to ${BOLD}${INSTALL_DIR}/oosh${RESET}"
+elif [ "$INSTALL_METHOD" = "pacman" ]; then
+    story_line "Installing Arch package via pacman…"
+    if command -v pacman >/dev/null 2>&1; then
+        if [ "$(id -u)" -eq 0 ]; then
+            pacman -U --noconfirm "${TMP_DIR}/${ASSET_NAME}"
+        else
+            sudo pacman -U --noconfirm "${TMP_DIR}/${ASSET_NAME}"
+        fi
+    else
+        err "pacman not found on this system. Cannot install pacman package."
+        exit 1
+    fi
+    INSTALL_DIR="/usr/bin"
+    ok "Package installed to ${BOLD}${INSTALL_DIR}/oosh${RESET}"
+elif [ "$INSTALL_METHOD" = "pkgbuild" ]; then
+    story_line "Building package via makepkg…"
+    if ! command -v makepkg >/dev/null 2>&1; then
+        err "makepkg not found on this system. Install base-devel or use --pacman / --web."
+        exit 1
+    fi
+    (
+        cd "$TMP_DIR"
+        curl -fsSL "https://raw.githubusercontent.com/${REPO}/${LATEST_TAG}/packaging/pacman/oosh.install" -o oosh.install 2>/dev/null || true
+        makepkg -si --noconfirm
+    )
+    INSTALL_DIR="/usr/bin"
+    ok "Package built and installed to ${BOLD}${INSTALL_DIR}/oosh${RESET}"
 else
-    sudo mv "${TMP_DIR}/${ASSET_NAME}" "${INSTALL_DIR}/oosh"
+    if [ ! -d "$INSTALL_DIR" ]; then
+        mkdir -p "$INSTALL_DIR" 2>/dev/null || sudo mkdir -p "$INSTALL_DIR"
+    fi
+
+    chmod +x "${TMP_DIR}/${ASSET_NAME}"
+
+    story_line "Placing binary into ${INSTALL_DIR}…"
+    if [ -w "$INSTALL_DIR" ]; then
+        mv "${TMP_DIR}/${ASSET_NAME}" "${INSTALL_DIR}/oosh"
+    else
+        sudo mv "${TMP_DIR}/${ASSET_NAME}" "${INSTALL_DIR}/oosh"
+    fi
+    ok "Binary situated at ${BOLD}${INSTALL_DIR}/oosh${RESET}"
 fi
-ok "Binary situated at ${BOLD}${INSTALL_DIR}/oosh${RESET}"
 
 if "${INSTALL_DIR}/oosh" --version >/dev/null 2>&1; then
     VER_PROVE=$("${INSTALL_DIR}/oosh" --version)
     ok "Living proof: ${GREEN}${BOLD}${VER_PROVE}${RESET}"
 else
     warn "Verification probe non-responsive."
+fi
+
+INSTALL_DIR="${INSTALL_DIR%/}"
+
+# Detect system-wide installation
+IS_SYSTEM_WIDE=0
+case "$INSTALL_DIR" in
+    /usr/bin|/usr/local/bin|/bin|/sbin|/usr/sbin|/opt/*) IS_SYSTEM_WIDE=1 ;;
+esac
+
+# Automatically register in /etc/shells if system-wide and root or passwordless sudo is available
+if [ "$IS_SYSTEM_WIDE" -eq 1 ] && [ -f /etc/shells ]; then
+    if ! grep -q "^${INSTALL_DIR}/oosh$" /etc/shells 2>/dev/null; then
+        story_line "Registering ${INSTALL_DIR}/oosh in /etc/shells…"
+        if [ "$(id -u)" -eq 0 ]; then
+            echo "${INSTALL_DIR}/oosh" >> /etc/shells 2>/dev/null || true
+            if grep -q "^${INSTALL_DIR}/oosh$" /etc/shells 2>/dev/null; then
+                ok "Registered ${BOLD}${INSTALL_DIR}/oosh${RESET} in /etc/shells"
+            fi
+        elif command -v sudo >/dev/null 2>&1; then
+            if sudo -n true 2>/dev/null; then
+                echo "${INSTALL_DIR}/oosh" | sudo tee -a /etc/shells >/dev/null 2>&1 || true
+                if grep -q "^${INSTALL_DIR}/oosh$" /etc/shells 2>/dev/null; then
+                    ok "Registered ${BOLD}${INSTALL_DIR}/oosh${RESET} in /etc/shells (via sudo)"
+                fi
+            elif [ "$IS_TTY" -eq 1 ]; then
+                story_line "Requesting sudo authority to register shell in /etc/shells…"
+                echo "${INSTALL_DIR}/oosh" | sudo tee -a /etc/shells >/dev/null 2>&1 || true
+                if grep -q "^${INSTALL_DIR}/oosh$" /etc/shells 2>/dev/null; then
+                    ok "Registered ${BOLD}${INSTALL_DIR}/oosh${RESET} in /etc/shells (via sudo)"
+                fi
+            fi
+        fi
+    else
+        ok "Shell ${BOLD}${INSTALL_DIR}/oosh${RESET} registered in /etc/shells"
+    fi
+fi
+
+# Detect systemd-homed managed user or active daemon
+IS_HOMED=0
+CURRENT_USER="${USER:-$(id -un 2>/dev/null || echo '')}"
+if command -v homectl >/dev/null 2>&1; then
+    if systemctl is-active systemd-homed >/dev/null 2>&1; then
+        IS_HOMED=1
+    elif [ -n "$CURRENT_USER" ] && homectl inspect "$CURRENT_USER" >/dev/null 2>&1; then
+        IS_HOMED=1
+    fi
 fi
 
 # PATH Inspection
@@ -356,7 +585,54 @@ fi
 say "  ${BOLD}Enter your sovereign shell right now:${RESET}"
 say "    ${AMBER}${BOLD}${INSTALL_DIR}/oosh${RESET}"
 say ""
-say "  ${BOLD}Make oosh your default login shell:${RESET}"
-say "    ${DIM}echo \"${INSTALL_DIR}/oosh\" | sudo tee -a /etc/shells${RESET}"
-say "    ${BOLD}chsh -s \"${INSTALL_DIR}/oosh\"${RESET}"
-say ""
+
+if [ "$IS_SYSTEM_WIDE" -eq 0 ]; then
+    warn "${BOLD}User-space installation detected (${INSTALL_DIR}/oosh).${RESET}"
+    say "  ${YELLOW}! WARNING:${RESET} Binaries inside ${BOLD}${HOME}${RESET} ${BOLD}CANNOT${RESET} be safely configured as a login shell"
+    say "    (via chsh or homectl) on systems with encrypted or unmounted home directories"
+    say "    (${CYAN}systemd-homed${RESET}, LUKS per-user encryption, ecryptfs)."
+    say "    Upon logout, your home directory is unmounted. On subsequent login or SSH connection,"
+    say "    ${BOLD}${INSTALL_DIR}/oosh${RESET} does not exist on disk before authentication,"
+    say "    triggering immediate login failure and session lockout!"
+    say ""
+    say "  ${BOLD}Recommended Safe Activation (Interactive Chaining):${RESET}"
+    say "    Keep your standard login shell (e.g. /bin/bash) and chain into ${BOLD}oosh${RESET} by adding"
+    say "    the following hook to the end of your ${BOLD}~/.bashrc${RESET} or ${BOLD}~/.zshrc${RESET}:"
+    say ""
+    say "      ${CYAN}if [[ \$- == *i* ]] && [ -x \"${INSTALL_DIR}/oosh\" ] && [ \"\$OOSH_ACTIVE\" != \"1\" ]; then${RESET}"
+    say "      ${CYAN}    export OOSH_ACTIVE=1${RESET}"
+    say "      ${CYAN}    exec \"${INSTALL_DIR}/oosh\"${RESET}"
+    say "      ${CYAN}fi${RESET}"
+    say ""
+elif [ "$IS_HOMED" -eq 1 ]; then
+    say "  ${CYAN}${BOLD}systemd-homed environment detected.${RESET}"
+    say "  To configure oosh as your default login shell via systemd-homed:"
+    say "    ${AMBER}${BOLD}homectl update \"\$USER\" --shell=\"${INSTALL_DIR}/oosh\"${RESET}"
+    say ""
+    warn "Notice for encrypted home directories & SSH public-key authentication:"
+    say "  If your home directory uses per-user encryption, SSH public-key authentication"
+    say "  requires systemd-homed to unlock storage on login. Always verify the binary is"
+    say "  situated in a system path (${INSTALL_DIR}/oosh). Never use a user-local path inside /home."
+    say "  Alternatively, use the safe ${BOLD}~/.bashrc${RESET} interactive chaining hook:"
+    say ""
+    say "      ${CYAN}if [[ \$- == *i* ]] && [ -x \"${INSTALL_DIR}/oosh\" ] && [ \"\$OOSH_ACTIVE\" != \"1\" ]; then${RESET}"
+    say "      ${CYAN}    export OOSH_ACTIVE=1${RESET}"
+    say "      ${CYAN}    exec \"${INSTALL_DIR}/oosh\"${RESET}"
+    say "      ${CYAN}fi${RESET}"
+    say ""
+else
+    say "  ${BOLD}Make oosh your default login shell:${RESET}"
+    if ! grep -q "^${INSTALL_DIR}/oosh$" /etc/shells 2>/dev/null; then
+        say "    ${DIM}echo \"${INSTALL_DIR}/oosh\" | sudo tee -a /etc/shells${RESET}"
+    fi
+    say "    ${BOLD}chsh -s \"${INSTALL_DIR}/oosh\"${RESET}"
+    say ""
+    say "  ${BOLD}Alternative: Safe ~/.bashrc Interactive Exec Chaining:${RESET}"
+    say "  To use oosh interactively without altering system login accounts:"
+    say ""
+    say "      ${CYAN}if [[ \$- == *i* ]] && [ -x \"${INSTALL_DIR}/oosh\" ] && [ \"\$OOSH_ACTIVE\" != \"1\" ]; then${RESET}"
+    say "      ${CYAN}    export OOSH_ACTIVE=1${RESET}"
+    say "      ${CYAN}    exec \"${INSTALL_DIR}/oosh\"${RESET}"
+    say "      ${CYAN}fi${RESET}"
+    say ""
+fi

@@ -32,18 +32,19 @@ a:hover{text-decoration:underline}
 </p>
 
 <h2>Install</h2>
-
-<h3>1. Web Installer (Zero Dependencies)</h3>
+<p><strong>Universal Standalone:</strong></p>
 <pre><code>curl -fsSL https://openooda-tools.github.io/oojq/install.sh | bash</code></pre>
-<p>Installs native standalone binary to <code>/usr/local/bin</code> (or <code>~/.local/bin</code>) with strict SHA-256 seal verification.</p>
 
-<h3>2. Native Packages (APT &amp; DNF)</h3>
-<p>Signed release packages are attached to every <a href="https://github.com/openOODA-tools/oojq/releases">GitHub release</a>:</p>
-<pre><code># Debian, Ubuntu (APT)
-sudo apt install ./oojq_0.1.0-1_amd64.deb
+<p><strong>DNF (Fedora / RHEL / CentOS):</strong></p>
+<pre><code>curl -fsSL https://openooda-tools.github.io/oojq/install.sh | bash -s -- --dnf</code></pre>
 
-# Fedora, RHEL, Rocky, Alma (DNF)
-sudo dnf install ./oojq-0.1.0-1.*.rpm</code></pre>
+<p><strong>DEB (Debian / Ubuntu):</strong></p>
+<pre><code>curl -fsSL https://openooda-tools.github.io/oojq/install.sh | bash -s -- --deb</code></pre>
+
+<p><strong>PKGBUILD (Arch Linux / Manjaro):</strong></p>
+<pre><code>curl -fsSL https://openooda-tools.github.io/oojq/install.sh | bash -s -- --pkgbuild</code></pre>
+
+<p>Zero dependencies. Standalone binary installs to <code>/usr/local/bin</code> (or <code>~/.local/bin</code>). Native <code>.deb</code>, <code>.rpm</code>, <code>.pkg.tar.zst</code>, and <code>PKGBUILD</code> packages are also available directly on <a href="https://github.com/openOODA-tools/oojq/releases">GitHub Releases</a>.</p>
 
 <h2>Why not just jq?</h2>
 <table>

@@ -1,28 +1,28 @@
 #!/bin/sh
 # ==============================================================================
-# oofind Universal Installer
-# "Capability-bounded file finding utility for the openOODA era."
+# oote Universal Web Installer
+# "Sovereign unified theming and color engine for openOODA."
 #
 # Usage:
-#   curl -fsSL https://openooda-tools.github.io/oofind/install.sh | bash
+#   curl -fsSL https://openooda-tools.github.io/oote/install.sh | bash
 #
 # Options:
-#   --prefix <dir>   Installation directory for standalone binary (default: /usr/local/bin or ~/.local/bin)
-#   --deb, --apt     Download and install Debian package (.deb) via apt/dpkg
-#   --dnf, --rpm     Download and install RPM package (.rpm) via dnf
-#   --pkgbuild, --arch Download and install Arch Linux package via makepkg/PKGBUILD
-#   --dry-run        Simulate installation without touching the filesystem
-#   --uninstall      Remove oofind from standard system paths
-#   -h, --help       Show this help message
+#   --prefix <dir>       Target installation directory for standalone binary
+#   --deb, --apt         Install Debian/Ubuntu package (.deb) via apt/dpkg
+#   --dnf, --rpm         Install Fedora/RHEL package (.rpm) via dnf
+#   --pkgbuild, --arch   Build and install Arch Linux package via PKGBUILD
+#   --dry-run            Simulate installation without disk writes
+#   --uninstall          Remove oote from standard system paths
+#   -h, --help           Show this help message
 # ==============================================================================
 
 set -eu
 
-REPO="openOODA-tools/oofind"
+REPO="openOODA-tools/oote"
 GITHUB_URL="https://github.com/${REPO}"
-CANONICAL_URL="https://openooda-tools.github.io/oofind"
-VERSION_PIN="v0.2.0"
-RAW_VERSION="0.2.0"
+CANONICAL_URL="https://openooda-tools.github.io/oote"
+VERSION_PIN="v0.1.0"
+RAW_VERSION="0.1.0"
 
 if [ -t 1 ] && [ "${NO_COLOR:-}" = "" ] && [ "${TERM:-dumb}" != "dumb" ]; then
     CYAN="\033[38;5;51m"
@@ -54,7 +54,7 @@ while [ $# -gt 0 ]; do
             PREFIX="$2"
             shift 2
             ;;
-        --deb|--apt)
+        --apt|--deb)
             INSTALL_DEB=1
             shift
             ;;
@@ -78,11 +78,11 @@ while [ $# -gt 0 ]; do
             say "Usage: install.sh [options]"
             say "Options:"
             say "  --prefix <dir>       Target installation directory for standalone binary"
-            say "  --deb, --apt         Install Debian package (.deb) via apt/dpkg"
-            say "  --dnf, --rpm         Install RPM package (.rpm) via dnf"
+            say "  --deb, --apt         Install Debian/Ubuntu package (.deb) via apt/dpkg"
+            say "  --dnf, --rpm         Install Fedora/RHEL package (.rpm) via dnf"
             say "  --pkgbuild, --arch   Build and install Arch Linux package via PKGBUILD"
             say "  --dry-run            Simulate installation without disk writes"
-            say "  --uninstall          Remove oofind from installation path"
+            say "  --uninstall          Remove oote from installation path"
             exit 0
             ;;
         *)
@@ -93,28 +93,25 @@ while [ $# -gt 0 ]; do
 done
 
 if [ "$UNINSTALL" -eq 1 ]; then
-    step "Uninstalling oofind"
+    step "Uninstalling oote"
     if [ "$DRY_RUN" -eq 1 ]; then
-        say "  [dry-run] Would remove oofind binary or packages"
+        say "  [dry-run] Would remove oote binary and package files"
         ok "Dry run complete."
         exit 0
     fi
 
-    if command -v dpkg >/dev/null 2>&1 && dpkg -s oofind >/dev/null 2>&1; then
-        sudo apt-get remove -y oofind || sudo dpkg -r oofind
-        ok "Removed oofind Debian package"
-    elif command -v rpm >/dev/null 2>&1 && rpm -q oofind >/dev/null 2>&1; then
-        sudo dnf remove -y oofind || sudo rpm -e oofind
-        ok "Removed oofind RPM package"
-    elif command -v pacman >/dev/null 2>&1 && pacman -Q oofind-bin >/dev/null 2>&1; then
-        sudo pacman -R --noconfirm oofind-bin
-        ok "Removed oofind Arch package"
-    elif command -v pacman >/dev/null 2>&1 && pacman -Q oofind >/dev/null 2>&1; then
-        sudo pacman -R --noconfirm oofind
-        ok "Removed oofind Arch package"
+    if command -v dpkg >/dev/null 2>&1 && dpkg -s oote >/dev/null 2>&1; then
+        sudo apt-get remove -y oote 2>/dev/null || sudo dpkg -r oote
+        ok "Removed oote Debian package"
+    elif command -v rpm >/dev/null 2>&1 && rpm -q oote >/dev/null 2>&1; then
+        sudo dnf remove -y oote 2>/dev/null || sudo rpm -e oote
+        ok "Removed oote RPM package"
+    elif command -v pacman >/dev/null 2>&1 && pacman -Q oote >/dev/null 2>&1; then
+        sudo pacman -R --noconfirm oote
+        ok "Removed oote Arch package"
     fi
 
-    for p in /usr/local/bin/oofind "${HOME}/.local/bin/oofind" /usr/bin/oofind; do
+    for p in /usr/local/bin/oote "${HOME}/.local/bin/oote" /usr/bin/oote "${HOME}/.openooda/bin/oote"; do
         if [ -f "$p" ]; then
             rm -f "$p" 2>/dev/null || sudo rm -f "$p"
             ok "Removed $p"
@@ -125,11 +122,11 @@ fi
 
 # --- DEB / APT Installation ---
 if [ "$INSTALL_DEB" -eq 1 ]; then
-    step "Installing oofind via DEB/apt ($VERSION_PIN)"
-    DEB_NAME="oofind_${RAW_VERSION}-1_amd64.deb"
+    step "Installing oote via DEB/apt ($VERSION_PIN)"
+    DEB_NAME="oote_${RAW_VERSION}-1_amd64.deb"
     DEB_URL="${GITHUB_URL}/releases/download/${VERSION_PIN}/${DEB_NAME}"
     if [ "$DRY_RUN" -eq 1 ]; then
-        say "  [dry-run] Would download $DEB_URL and run sudo dpkg -i"
+        say "  [dry-run] Would download $DEB_URL and execute dpkg -i"
         ok "Dry run complete."
         exit 0
     fi
@@ -144,15 +141,15 @@ if [ "$INSTALL_DEB" -eq 1 ]; then
     fi
     sudo dpkg -i "$TMP_DEB" || sudo apt-get install -f -y
     rm -f "$TMP_DEB"
-    ok "Installed oofind deb package."
-    oofind --version
+    ok "Installed oote deb package."
+    oote --version
     exit 0
 fi
 
 # --- DNF / RPM Installation ---
 if [ "$INSTALL_DNF" -eq 1 ]; then
-    step "Installing oofind via DNF/rpm ($VERSION_PIN)"
-    RPM_NAME="oofind-${RAW_VERSION}-1.x86_64.rpm"
+    step "Installing oote via DNF/rpm ($VERSION_PIN)"
+    RPM_NAME="oote-${RAW_VERSION}-1.x86_64.rpm"
     RPM_URL="${GITHUB_URL}/releases/download/${VERSION_PIN}/${RPM_NAME}"
     if [ "$DRY_RUN" -eq 1 ]; then
         say "  [dry-run] Would install $RPM_URL via dnf"
@@ -160,14 +157,14 @@ if [ "$INSTALL_DNF" -eq 1 ]; then
         exit 0
     fi
     sudo dnf install -y "$RPM_URL"
-    ok "Installed oofind RPM package."
-    oofind --version
+    ok "Installed oote RPM package."
+    oote --version
     exit 0
 fi
 
 # --- Arch Linux / PKGBUILD Installation ---
 if [ "$INSTALL_ARCH" -eq 1 ]; then
-    step "Installing oofind via PKGBUILD ($VERSION_PIN)"
+    step "Installing oote via PKGBUILD ($VERSION_PIN)"
     if [ "$DRY_RUN" -eq 1 ]; then
         say "  [dry-run] Would fetch PKGBUILD and execute makepkg -si"
         ok "Dry run complete."
@@ -181,10 +178,8 @@ if [ "$INSTALL_ARCH" -eq 1 ]; then
     if [ -f "./packaging/arch/PKGBUILD" ]; then
         cp "./packaging/arch/PKGBUILD" "$BUILD_DIR/PKGBUILD"
     elif command -v curl >/dev/null 2>&1; then
-        curl -fsSL "${CANONICAL_URL}/PKGBUILD" -o "$BUILD_DIR/PKGBUILD" || \
         curl -fsSL "${GITHUB_URL}/raw/main/packaging/arch/PKGBUILD" -o "$BUILD_DIR/PKGBUILD"
     elif command -v wget >/dev/null 2>&1; then
-        wget -qO "$BUILD_DIR/PKGBUILD" "${CANONICAL_URL}/PKGBUILD" || \
         wget -qO "$BUILD_DIR/PKGBUILD" "${GITHUB_URL}/raw/main/packaging/arch/PKGBUILD"
     else
         err "Neither curl nor wget available."
@@ -193,8 +188,8 @@ if [ "$INSTALL_ARCH" -eq 1 ]; then
     fi
     (cd "$BUILD_DIR" && makepkg -si --noconfirm)
     rm -rf "$BUILD_DIR"
-    ok "Installed oofind via PKGBUILD."
-    oofind --version
+    ok "Installed oote via PKGBUILD."
+    oote --version
     exit 0
 fi
 
@@ -216,39 +211,45 @@ resolve_prefix() {
 
 resolve_prefix
 
-step "Installing oofind standalone binary ($VERSION_PIN)"
-say "  Target location: ${BOLD}$PREFIX/oofind${RESET}"
+step "Installing oote standalone binary ($VERSION_PIN)"
+say "  Target location: ${BOLD}$PREFIX/oote${RESET}"
 
 if [ "$DRY_RUN" -eq 1 ]; then
-    say "  [dry-run] Would download and install to $PREFIX/oofind"
+    say "  [dry-run] Would install oote to $PREFIX/oote"
     ok "Dry run complete."
     exit 0
 fi
 
 mkdir -p "$PREFIX"
 
-if [ -f "./dist/oofind" ]; then
-    cp "./dist/oofind" "$PREFIX/oofind"
-    chmod +x "$PREFIX/oofind"
-    ok "Installed local binary to $PREFIX/oofind"
+if [ -f "./dist/oote" ]; then
+    cp "./dist/oote" "$PREFIX/oote"
+elif [ -f "./oote" ]; then
+    cp "./oote" "$PREFIX/oote"
 else
-    DOWNLOAD_URL="${GITHUB_URL}/releases/download/${VERSION_PIN}/oofind-linux-x86_64"
-    TMP_BIN="$(mktemp)"
+    ASSET_NAME="oote-linux-x86_64"
+    URL="${GITHUB_URL}/releases/download/${VERSION_PIN}/${ASSET_NAME}"
+    TMP="$(mktemp)"
     if command -v curl >/dev/null 2>&1; then
-        curl -fsSL "$DOWNLOAD_URL" -o "$TMP_BIN"
+        curl -fsSL "$URL" -o "$TMP"
     elif command -v wget >/dev/null 2>&1; then
-        wget -qO "$TMP_BIN" "$DOWNLOAD_URL"
+        wget -qO "$TMP" "$URL"
     else
         err "Neither curl nor wget available."
         exit 1
     fi
-    chmod +x "$TMP_BIN"
-    mv "$TMP_BIN" "$PREFIX/oofind"
-    ok "Downloaded and installed $VERSION_PIN to $PREFIX/oofind"
+    mv "$TMP" "$PREFIX/oote"
 fi
 
-if "$PREFIX/oofind" --version >/dev/null 2>&1; then
-    ok "Verified: $("$PREFIX/oofind" --version)"
-else
-    warn "Installed binary failed execution check."
+chmod 0755 "$PREFIX/oote"
+ok "Installed to $PREFIX/oote"
+
+if ! command -v oote >/dev/null 2>&1; then
+    warn "$PREFIX is not in your PATH."
+    say "  Add this to your shell profile (~/.bashrc, ~/.zshrc):"
+    say "    ${BOLD}export PATH=\"$PREFIX:\$PATH\"${RESET}"
 fi
+
+say ""
+ok "${GREEN}${BOLD}oote installation successful!${RESET}"
+"$PREFIX/oote" --version

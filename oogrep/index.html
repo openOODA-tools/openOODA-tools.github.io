@@ -22,7 +22,7 @@ a{color:#0b5fff}
 <p class="sub">Capability-bounded recursive regex search for the openOODA era.</p>
 
 <p>
-<span class="badge">v0.3.0</span>
+<span class="badge">v0.3.1</span>
 <span class="badge">100% openOODA</span>
 <span class="badge">85 self-checks green</span>
 <span class="badge">48/48 vs GNU grep</span>
@@ -31,9 +31,10 @@ a{color:#0b5fff}
 <h2>Install</h2>
 <pre><code>curl -fsSL https://openooda-tools.github.io/oogrep/install.sh | bash</code></pre>
 <p>Zero dependencies. Verifies SHA-256, installs to <code>/usr/local/bin</code> (or <code>~/.local/bin</code>).</p>
-<p>Packages: <code>.deb</code> (apt) and <code>.rpm</code> (dnf) are attached to every <a href="https://github.com/openOODA-tools/oogrep/releases">GitHub release</a>:</p>
-<pre><code>sudo apt install ./oogrep_0.3.0-1_amd64.deb   # Debian/Ubuntu
-sudo dnf install ./oogrep-0.3.0-1.*.rpm       # Fedora/RHEL</code></pre>
+<p>Packages: <code>.deb</code> (apt), <code>.rpm</code> (dnf), and <code>PKGBUILD</code> (Arch) are attached to every <a href="https://github.com/openOODA-tools/oogrep/releases">GitHub release</a>:</p>
+<pre><code>sudo dnf install ./oogrep-0.3.1-1.*.rpm       # Fedora/RHEL
+sudo apt install ./oogrep_0.3.1-1_amd64.deb   # Debian/Ubuntu
+makepkg -si                                  # Arch Linux (via PKGBUILD)</code></pre>
 
 <h2>Why not just grep?</h2>
 <table>

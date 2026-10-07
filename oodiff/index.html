@@ -1,90 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>oodiff — sovereign diff engine</title>
-<style>
-body{font-family:system-ui,sans-serif;max-width:44em;margin:3em auto;padding:0 1em;color:#222;line-height:1.5}
-h1{font-size:1.8em;margin-bottom:.1em}
-.sub{color:#666;margin-top:0}
-pre{background:#f4f4f4;padding:1em;border-radius:6px;overflow-x:auto}
-code{font-size:.92em}
-table{border-collapse:collapse;width:100%;margin:1.2em 0}
-th,td{border:1px solid #ddd;padding:.5em .8em;text-align:left}
-th{background:#f4f4f4}
-a{color:#0b5fff;text-decoration:none}
-a:hover{text-decoration:underline}
-.badge{display:inline-block;background:#e8f5e9;border:1px solid #a5d6a7;border-radius:12px;padding:.15em .8em;margin:.2em .3em .2em 0;font-size:.88em}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>oodiff — sovereign userland</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/oote.css" />
+  <script src="/oote.js"></script>
 </head>
 <body>
-<h1>oodiff</h1>
-<p class="sub">Capability-bounded file and directory comparison for the openOODA era.</p>
+  <div class="terminal-window">
+    <header class="window-titlebar">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span class="term-status-badge">[TERM: tty2]</span>
+        <span class="window-title">sys@openooda-tools:~# man oodiff</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="theme-selector-wrap">
+          <label for="theme-picker" style="color:var(--ui-dim);">[oote:</label>
+          <select id="theme-picker" class="theme-select" onchange="setOoteTheme(this.value)">
+            <option value="classic">classic (sovereign)</option>
+            <option value="1982">1982 (phosphor)</option>
+            <option value="dracula">dracula (vampire)</option>
+            <option value="nord">nord (arctic)</option>
+            <option value="cyberpunk">cyberpunk (neon)</option>
+          </select>
+          <span style="color:var(--ui-dim);">]</span>
+        </div>
+        <span class="term-status-online">[SYS_OK]</span>
+      </div>
+    </header>
 
-<p>
-<span class="badge">v0.3.1</span>
-<span class="badge">100% openOODA</span>
-<span class="badge">Myers LCS</span>
-<span class="badge">GNU diff Parity</span>
-<span class="badge">CI 100% Green</span>
-<span class="badge">MCP Native</span>
-</p>
+    <div class="window-content">
+      <h1>oodiff</h1>
+      <p class="sub">Capability-bounded file and directory comparison with Myers LCS, GNU diff parity, and MCP surface.</p>
 
-<h2>Install</h2>
+      <div class="badges-container">
+        <span class="badge badge-green">v0.3.1</span>
+        <span class="badge">100% openOODA</span>
+        <span class="badge">Zero Ambient Authority</span>
+        <span class="badge">Myers LCS Parity</span>
+        <span class="badge badge-accent">Model Context Protocol</span>
+      </div>
 
-<h3>1. Web Installer (Zero Dependencies)</h3>
-<pre><code>curl -fsSL https://openooda-tools.github.io/oodiff/install.sh | bash</code></pre>
-<p>Installs native standalone binary to <code>/usr/local/bin</code> (or <code>~/.local/bin</code>) with strict SHA-256 seal verification.</p>
+      <h2>Install</h2>
+      <p><strong>Universal Standalone Binary:</strong></p>
+      <div class="install-box">
+        <code>curl -fsSL https://openooda-tools.github.io/oodiff/install.sh | bash</code>
+        <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/oodiff/install.sh | bash', this)">COPY</button>
+      </div>
 
-<h3>2. Native Packages (APT, DNF, &amp; PKGBUILD)</h3>
-<p>Signed release packages and manifests are attached to every <a href="https://github.com/openOODA-tools/oodiff/releases">GitHub release</a>:</p>
-<pre><code># Debian, Ubuntu (APT)
-sudo apt install ./oodiff_0.3.1-1_amd64.deb
+      <h3>Native Package Managers (Tri-Distribution Parity)</h3>
+      <div class="install-box">
+        <code># Fedora / RHEL / CentOS (DNF)
+curl -fsSL https://openooda-tools.github.io/oodiff/install.sh | bash -s -- --dnf</code>
+        <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/oodiff/install.sh | bash -s -- --dnf', this)">COPY</button>
+      </div>
+      <div class="install-box">
+        <code># Ubuntu / Debian (APT)
+curl -fsSL https://openooda-tools.github.io/oodiff/install.sh | bash -s -- --deb</code>
+        <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/oodiff/install.sh | bash -s -- --deb', this)">COPY</button>
+      </div>
+      <div class="install-box">
+        <code># Arch Linux / Manjaro (Pacman / PKGBUILD)
+curl -fsSL https://openooda-tools.github.io/oodiff/install.sh | bash -s -- --pkgbuild</code>
+        <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/oodiff/install.sh | bash -s -- --pkgbuild', this)">COPY</button>
+      </div>
 
-# Fedora, RHEL, Rocky, Alma (DNF)
-sudo dnf install ./oodiff-0.3.1-1.*.rpm
-
-# Arch Linux (PKGBUILD / makepkg)
-curl -fsSL https://openooda-tools.github.io/oodiff/install.sh | bash -s -- --pkgbuild
-# or build from PKGBUILD in repo:
-cd packaging/arch && makepkg -si</code></pre>
-
-<p>Or install directly via the universal script with automatic distribution detection:</p>
-<pre><code>curl -fsSL https://openooda-tools.github.io/oodiff/install.sh | bash -s -- --package</code></pre>
-
-<h2>Uninstall</h2>
-<p>Cleanly removes oodiff binaries, packages (<code>apt</code>, <code>dnf</code>, <code>pacman</code>), companion tools, and caches:</p>
-<pre><code># 1. Via companion CLI (situated automatically alongside oodiff):
+      <h2>Clean Uninstallation</h2>
+      <p>Remove <code>oodiff</code> binaries, package registrations, and symlinks at any time:</p>
+      <div class="install-box">
+        <code># Locally installed companion CLI
 oodiff-uninstall
 
-# 2. Standalone web uninstaller:
-curl -fsSL https://openooda-tools.github.io/oodiff/uninstall.sh | bash
+# Standalone web uninstaller
+curl -fsSL https://openooda-tools.github.io/oodiff/uninstall.sh | bash</code>
+        <button class="copy-btn" onclick="copySnippet('oodiff-uninstall', this)">COPY</button>
+      </div>
 
-# 3. Purge binaries, config, and user caches:
-oodiff-uninstall --purge</code></pre>
+      <h2>Why Sovereign oodiff?</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Dimension</th>
+            <th>Conventional Alternatives</th>
+            <th>openOODA oodiff</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Security</td><td>Ambient filesystem read access</td><td>Bounded by &FsReadCap tokens</td></tr>
+          <tr><td>Parity</td><td>Inconsistent third-party diff formats</td><td>Byte-for-byte GNU normal and unified (-u) parity</td></tr>
+          <tr><td>Theming</td><td>Monochrome or terminal defaults</td><td>Integrated oote diff tokens (diff_added, diff_removed)</td></tr>
+          <tr><td>AI Agents</td><td>No agent interface</td><td>MCP stdio tool: diff_files</td></tr>
+        </tbody>
+      </table>
 
-<h2>Why not just diff?</h2>
-<table>
-<tr><th>Capability</th><th>GNU diff</th><th>oodiff</th></tr>
-<tr><td>Default format</td><td>normal diff</td><td>normal diff (byte-for-byte identical)</td></tr>
-<tr><td>Unified format (<code>-u</code>, <code>-U NUM</code>)</td><td>yes</td><td>byte-for-byte hunk parity</td></tr>
-<tr><td>Exit codes (<code>0</code> identical, <code>1</code> diffs, <code>2</code> error)</td><td>yes</td><td>POSIX exit code contract strictly held</td></tr>
-<tr><td>Normalization (<code>-i</code>, <code>-w</code>, <code>-b</code>, <code>-B</code>)</td><td>yes</td><td>UTF-8 multibyte case folding &amp; whitespace pruning</td></tr>
-<tr><td>Directory recursion &amp; creation (<code>-r</code>, <code>-N</code>)</td><td>yes</td><td>recursion cycle protected (<code>ln -s . loop</code> safe)</td></tr>
-<tr><td>Device nodes (<code>/dev/null</code>, <code>/dev/stdin</code>)</td><td>yes</td><td>pure capability interception for patch workflows</td></tr>
-<tr><td>Performance optimization</td><td>heuristics</td><td>DJB2 integer line hashing + Myers LCS</td></tr>
-<tr><td>Agent surface (MCP stdio)</td><td>no</td><td>JSON-RPC 2.0 (<code>diff_files</code>, <code>diff_dirs</code>)</td></tr>
-<tr><td>Memory safety &amp; DoS ceiling</td><td>unbounded</td><td>100MB input ceiling, capability sandbox</td></tr>
-</table>
+      <h2>Usage & Features</h2>
+      <pre><code>oodiff file1.txt file2.txt     # Standard GNU normal diff format
+oodiff -u file1.txt file2.txt  # GNU unified diff format
+oodiff -r dir1/ dir2/          # Recursive directory comparison
+oodiff --mcp                   # Launch MCP stdio server</code></pre>
+    </div>
 
-<h2>Try it</h2>
-<pre><code>oodiff file_a.txt file_b.txt              # Standard normal diff (default)
-oodiff -u file_a.txt file_b.txt           # Unified diff
-oodiff -i -b -B file_a.txt file_b.txt     # Ignore case, whitespace, &amp; blank lines
-oodiff -r -N src_v1/ src_v2/              # Recursive directory diff
-oodiff --mcp                              # Model Context Protocol stdio server</code></pre>
-
-<p><a href="https://github.com/openOODA-tools/oodiff">Source &amp; Docs</a> · <a href="https://github.com/openOODA-tools/oodiff/releases">Releases</a> · <a href="https://github.com/openOODA-tools">openOODA-tools</a></p>
+    <footer class="window-footer">
+      <div class="footer-links">
+        <a href="/">[ &larr; All Tools ]</a>
+        <a href="https://github.com/openOODA-tools/oodiff" target="_blank" rel="noopener noreferrer">[ Source &amp; docs &#8599; ]</a>
+        <a href="https://github.com/openOODA-tools/oodiff/releases" target="_blank" rel="noopener noreferrer">[ Releases &#8599; ]</a>
+        <a href="https://openooda.org" target="_blank" rel="noopener noreferrer">[ openOODA Core &#8599; ]</a>
+      </div>
+      <span>OPENOODA-TOOLS &copy; 2026 // CAPABILITY-BOUNDED USERLAND</span>
+    </footer>
+  </div>
 </body>
 </html>

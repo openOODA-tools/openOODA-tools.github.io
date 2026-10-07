@@ -10,23 +10,25 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://openooda-tools.github.io" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/oote.css" />
+  <script src="/oote.js"></script>
   <style>
     :root {
-      --bg-canvas: #07090e;
-      --bg-window: #0b0f17;
-      --bg-card: #111722;
-      --bg-card-hover: #151d2a;
-      --bg-code: #06080c;
-      --border-window: #1e293b;
-      --border-card: #1f2937;
-      --border-card-hover: #374151;
-      --text-primary: #e2e8f0;
-      --text-secondary: #94a3b8;
-      --text-muted: #64748b;
-      --color-green: #00e676;
+      --bg-canvas: var(--ui-bg);
+      --bg-window: var(--ui-surface);
+      --bg-card: var(--ui-card);
+      --bg-card-hover: var(--ui-card-hover);
+      --bg-code: var(--ui-code);
+      --border-window: var(--ui-border);
+      --border-card: var(--ui-border);
+      --border-card-hover: var(--ui-border-accent);
+      --text-primary: var(--ui-fg);
+      --text-secondary: var(--ui-muted);
+      --text-muted: var(--ui-dim);
+      --color-green: var(--status-success);
       --color-green-dim: rgba(0, 230, 118, 0.12);
-      --color-amber: #ffb300;
-      --color-cyan: #00e5ff;
+      --color-amber: var(--status-warning);
+      --color-cyan: var(--ui-accent);
       --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
       --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
@@ -265,9 +267,24 @@
 <body>
   <div class="terminal-window">
     <header class="window-titlebar">
-      <span class="term-status-badge">[TERM: tty2]</span>
-      <span class="window-title">sys@openooda-tools:~# ooda-tools --list</span>
-      <span class="term-status-online">[SYS_OK]</span>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span class="term-status-badge">[TERM: tty2]</span>
+        <span class="window-title">sys@openooda-tools:~# ooda-tools --list</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="theme-selector-wrap">
+          <label for="theme-picker" style="color:var(--ui-dim);">[oote:</label>
+          <select id="theme-picker" class="theme-select" onchange="setOoteTheme(this.value)">
+            <option value="classic">classic (sovereign)</option>
+            <option value="1982">1982 (phosphor)</option>
+            <option value="dracula">dracula (vampire)</option>
+            <option value="nord">nord (arctic)</option>
+            <option value="cyberpunk">cyberpunk (neon)</option>
+          </select>
+          <span style="color:var(--ui-dim);">]</span>
+        </div>
+        <span class="term-status-online">[SYS_OK]</span>
+      </div>
     </header>
 
     <div class="window-content">

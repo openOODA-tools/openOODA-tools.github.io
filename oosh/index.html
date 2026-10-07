@@ -1,86 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>oosh — sovereign interactive shell</title>
-<style>
-body{font-family:system-ui,sans-serif;max-width:44em;margin:3em auto;padding:0 1em;color:#222}
-h1{font-size:1.7em;margin-bottom:.1em}
-.sub{color:#666;margin-top:0}
-pre{background:#f4f4f4;padding:1em;border-radius:6px;overflow-x:auto}
-code{font-size:.92em}
-table{border-collapse:collapse;width:100%;margin:1em 0}
-th,td{border:1px solid #ddd;padding:.4em .7em;text-align:left}
-th{background:#f4f4f4}
-a{color:#0b5fff}
-.badge{display:inline-block;background:#e8f5e9;border:1px solid #a5d6a7;border-radius:12px;padding:.1em .8em;margin:.2em .3em .2em 0;font-size:.9em}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>oosh — sovereign userland</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/oote.css" />
+  <script src="/oote.js"></script>
 </head>
 <body>
-<h1>oosh</h1>
-<p class="sub">Intent-driven, ambient, capability-bounded interactive shell for the openOODA era.</p>
+  <div class="terminal-window">
+    <header class="window-titlebar">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span class="term-status-badge">[TERM: tty2]</span>
+        <span class="window-title">sys@openooda-tools:~# man oosh</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="theme-selector-wrap">
+          <label for="theme-picker" style="color:var(--ui-dim);">[oote:</label>
+          <select id="theme-picker" class="theme-select" onchange="setOoteTheme(this.value)">
+            <option value="classic">classic (sovereign)</option>
+            <option value="1982">1982 (phosphor)</option>
+            <option value="dracula">dracula (vampire)</option>
+            <option value="nord">nord (arctic)</option>
+            <option value="cyberpunk">cyberpunk (neon)</option>
+          </select>
+          <span style="color:var(--ui-dim);">]</span>
+        </div>
+        <span class="term-status-online">[SYS_OK]</span>
+      </div>
+    </header>
 
-<p>
-<span class="badge">v1.0.1</span>
-<span class="badge">100% openOODA</span>
-<span class="badge">5 Threat Defenses</span>
-<span class="badge">POSIX Parity</span>
-<span class="badge">Clean Unthemed ANSI-16</span>
-</p>
+    <div class="window-content">
+      <h1>oosh</h1>
+      <p class="sub">Intent-driven, ambient, capability-bounded interactive shell for the openOODA era.</p>
 
-<h2>Install</h2>
+      <div class="badges-container">
+        <span class="badge badge-green">v1.0.1</span>
+        <span class="badge badge-amber">5 Threat Defenses</span>
+        <span class="badge">POSIX Parity</span>
+        <span class="badge">SO_PEERCRED Isolation</span>
+        <span class="badge badge-accent">Model Context Protocol</span>
+      </div>
 
-<h3>Web Universal (Zero Dependencies)</h3>
-<pre><code>curl -fsSL https://openooda-tools.github.io/oosh/install.sh | bash</code></pre>
+      <h2>Install</h2>
+      <p><strong>Universal Standalone Binary:</strong></p>
+      <div class="install-box">
+        <code>curl -fsSL https://openooda-tools.github.io/oosh/install.sh | bash</code>
+        <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/oosh/install.sh | bash', this)">COPY</button>
+      </div>
 
-<h3>Fedora / RHEL (DNF / RPM)</h3>
-<pre><code>curl -fsSL https://openooda-tools.github.io/oosh/install.sh | bash -s -- --dnf
-# or directly:
-sudo dnf install -y https://github.com/openOODA-tools/oosh/releases/download/v1.0.1/oosh-1.0.1-1.x86_64.rpm</code></pre>
+      <h3>Native Package Managers (Tri-Distribution Parity)</h3>
+      <div class="install-box">
+        <code># Fedora / RHEL / CentOS (DNF)
+curl -fsSL https://openooda-tools.github.io/oosh/install.sh | bash -s -- --dnf</code>
+        <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/oosh/install.sh | bash -s -- --dnf', this)">COPY</button>
+      </div>
+      <div class="install-box">
+        <code># Ubuntu / Debian (APT)
+curl -fsSL https://openooda-tools.github.io/oosh/install.sh | bash -s -- --deb</code>
+        <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/oosh/install.sh | bash -s -- --deb', this)">COPY</button>
+      </div>
+      <div class="install-box">
+        <code># Arch Linux / Manjaro (Pacman / PKGBUILD)
+curl -fsSL https://openooda-tools.github.io/oosh/install.sh | bash -s -- --pkgbuild</code>
+        <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/oosh/install.sh | bash -s -- --pkgbuild', this)">COPY</button>
+      </div>
 
-<h3>Ubuntu / Debian (APT / DEB)</h3>
-<pre><code>curl -fsSL https://openooda-tools.github.io/oosh/install.sh | bash -s -- --apt
-# or directly:
-curl -fsSL -O https://github.com/openOODA-tools/oosh/releases/download/v1.0.1/oosh_1.0.1-1_amd64.deb && sudo apt install -y ./oosh_1.0.1-1_amd64.deb</code></pre>
+      <h2>Clean Uninstallation</h2>
+      <p>Remove <code>oosh</code> binaries, package registrations, and symlinks at any time:</p>
+      <div class="install-box">
+        <code># Locally installed companion CLI
+oosh-uninstall
 
-<h3>Arch Linux / Omarchy (Pacman & PKGBUILD)</h3>
-<pre><code>curl -fsSL https://openooda-tools.github.io/oosh/install.sh | bash -s -- --pacman
-# or direct package:
-sudo pacman -U https://github.com/openOODA-tools/oosh/releases/download/v1.0.1/oosh-1.0.1-1-x86_64.pkg.tar.zst
-# or build via PKGBUILD:
-curl -fsSL https://openooda-tools.github.io/oosh/install.sh | bash -s -- --pkgbuild</code></pre>
+# Standalone web uninstaller
+curl -fsSL https://openooda-tools.github.io/oosh/uninstall.sh | bash</code>
+        <button class="copy-btn" onclick="copySnippet('oosh-uninstall', this)">COPY</button>
+      </div>
 
-<h2>Options & Uninstallation</h2>
-<pre><code># Simulate installation without modifying the host
-curl -fsSL https://openooda-tools.github.io/oosh/install.sh | bash -s -- --dry-run
+      <h2>Why Sovereign oosh?</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Dimension</th>
+            <th>Conventional Alternatives</th>
+            <th>openOODA oosh</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Terminal escape injection (OSC 52 / CSI 6n)</td><td>Vulnerable to prompt command injection</td><td>Typed raw TUI events isolate query replies</td></tr>
+          <tr><td>Wildcard argument injection (-*)</td><td>Requires manual -- delimiters</td><td>Auto-normalizes to ./-*, gates HIGH_RISK</td></tr>
+          <tr><td>Control socket security</td><td>Bare /tmp files or symlink hijacking</td><td>Private /tmp/oosh-$UID/ (0700) + SO_PEERCRED</td></tr>
+          <tr><td>Parser bombs (deep recursion)</td><td>Stack exhaustion (SIGSEGV / crash)</td><td>Deterministic 128-depth bounds</td></tr>
+          <tr><td>Stream memory exhaustion</td><td>Unbounded heap growth on pipe slurps</td><td>16MB stream quotas with autopsy telemetry</td></tr>
+        </tbody>
+      </table>
 
-# Clean uninstallation (lockout-safe shell revert + full purge)
-oosh-uninstall                           # via locally installed helper
-curl -fsSL https://openooda-tools.github.io/oosh/uninstall.sh | bash  # standalone script
-curl -fsSL https://openooda-tools.github.io/oosh/install.sh | bash -s -- --uninstall
-# append --purge to also wipe ~/.ooshrc, ~/.oosh_history, and ~/.oosh_profile</code></pre>
-
-<h2>Why not just bash?</h2>
-<table>
-<tr><th>Threat &amp; Capability</th><th>Conventional Shells</th><th>oosh</th></tr>
-<tr><td>Terminal escape injection (OSC 52 / CSI 6n)</td><td>Vulnerable to prompt buffer command injection</td><td>Typed raw TUI events isolate query replies</td></tr>
-<tr><td>Wildcard argument injection (<code>-*</code>)</td><td>Requires manual <code>--</code> delimiters</td><td>Auto-normalizes to <code>./-*</code>, gates HIGH_RISK</td></tr>
-<tr><td>Control socket security</td><td>Bare <code>/tmp</code> files or symlink hijacking</td><td>Private <code>/tmp/oosh-$UID/</code> (0700) + <code>SO_PEERCRED</code></td></tr>
-<tr><td>Parser bombs (deep recursion)</td><td>Stack exhaustion (SIGSEGV / crash)</td><td>Deterministic 128-depth bounds</td></tr>
-<tr><td>Stream memory exhaustion</td><td>Unbounded heap growth on pipe slurps</td><td>16MB stream quotas with autopsy telemetry</td></tr>
-<tr><td>In-process group redirection</td><td>Subshell fork loses environment mutations</td><td>In-process execution preserves session state</td></tr>
-<tr><td>Subshell environment retention</td><td>Inconsistent variable propagation</td><td>Filtered safe environment map propagation</td></tr>
-<tr><td>Clean terminal posture</td><td>Heavy theme engines, hex escape overhead</td><td>Lean, fast, universal 16-color ANSI SGR</td></tr>
-</table>
-
-<h2>Try it</h2>
-<pre><code>oosh                           # Enter interactive sovereign shell
+      <h2>Usage & Features</h2>
+      <pre><code>oosh                           # Enter interactive sovereign shell
 oosh -c 'caps'                 # Audit active capability tokens
 oosh -c 'whereami'             # Contextual location and git status
 oosh -c '{ A=1; echo $A; } > out.txt' # In-process group redirection
 oosh -c '? list largest files' # Natural language intent channel</code></pre>
+    </div>
 
-<p><a href="https://github.com/openOODA-tools/oosh">Source &amp; docs</a> · <a href="https://github.com/openOODA-tools/oosh/releases">Releases</a> · <a href="https://github.com/openOODA-tools">openOODA-tools</a></p>
+    <footer class="window-footer">
+      <div class="footer-links">
+        <a href="/">[ &larr; All Tools ]</a>
+        <a href="https://github.com/openOODA-tools/oosh" target="_blank" rel="noopener noreferrer">[ Source &amp; docs &#8599; ]</a>
+        <a href="https://github.com/openOODA-tools/oosh/releases" target="_blank" rel="noopener noreferrer">[ Releases &#8599; ]</a>
+        <a href="https://openooda.org" target="_blank" rel="noopener noreferrer">[ openOODA Core &#8599; ]</a>
+      </div>
+      <span>OPENOODA-TOOLS &copy; 2026 // CAPABILITY-BOUNDED USERLAND</span>
+    </footer>
+  </div>
 </body>
 </html>

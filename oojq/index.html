@@ -1,78 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>oojq — capability-bounded jq replacement</title>
-<style>
-body{font-family:system-ui,sans-serif;max-width:44em;margin:3em auto;padding:0 1em;color:#222;line-height:1.5}
-h1{font-size:1.8em;margin-bottom:.1em}
-.sub{color:#666;margin-top:0}
-pre{background:#f4f4f4;padding:1em;border-radius:6px;overflow-x:auto}
-code{font-size:.92em}
-table{border-collapse:collapse;width:100%;margin:1.2em 0}
-th,td{border:1px solid #ddd;padding:.5em .8em;text-align:left}
-th{background:#f4f4f4}
-a{color:#0b5fff;text-decoration:none}
-a:hover{text-decoration:underline}
-.badge{display:inline-block;background:#e8f5e9;border:1px solid #a5d6a7;border-radius:12px;padding:.15em .8em;margin:.2em .3em .2em 0;font-size:.88em}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>oojq — sovereign userland</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/oote.css" />
+  <script src="/oote.js"></script>
 </head>
 <body>
-<h1>oojq</h1>
-<p class="sub">Capability-bounded JSON transformation for the openOODA era.</p>
+  <div class="terminal-window">
+    <header class="window-titlebar">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span class="term-status-badge">[TERM: tty2]</span>
+        <span class="window-title">sys@openooda-tools:~# man oojq</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="theme-selector-wrap">
+          <label for="theme-picker" style="color:var(--ui-dim);">[oote:</label>
+          <select id="theme-picker" class="theme-select" onchange="setOoteTheme(this.value)">
+            <option value="classic">classic (sovereign)</option>
+            <option value="1982">1982 (phosphor)</option>
+            <option value="dracula">dracula (vampire)</option>
+            <option value="nord">nord (arctic)</option>
+            <option value="cyberpunk">cyberpunk (neon)</option>
+          </select>
+          <span style="color:var(--ui-dim);">]</span>
+        </div>
+        <span class="term-status-online">[SYS_OK]</span>
+      </div>
+    </header>
 
-<p>
-<span class="badge">v0.1.1</span>
-<span class="badge">100% openOODA</span>
-<span class="badge">98% jq Parity</span>
-<span class="badge">1,036 Tests Passing</span>
-<span class="badge">CI 100% Green</span>
-<span class="badge">MCP Native</span>
-</p>
+    <div class="window-content">
+      <h1>oojq</h1>
+      <p class="sub">High-fidelity jq replacement with exact rational arithmetic, capability isolation, and MCP surface.</p>
 
-<h2>Install</h2>
-<p><strong>Universal Standalone:</strong></p>
-<pre><code>curl -fsSL https://openooda-tools.github.io/oojq/install.sh | bash</code></pre>
+      <div class="badges-container">
+        <span class="badge badge-green">v0.1.1</span>
+        <span class="badge">100% openOODA</span>
+        <span class="badge">Zero Ambient Authority</span>
+        <span class="badge">Exact Rational Math</span>
+        <span class="badge badge-accent">Model Context Protocol</span>
+      </div>
 
-<p><strong>DNF (Fedora / RHEL / CentOS):</strong></p>
-<pre><code>curl -fsSL https://openooda-tools.github.io/oojq/install.sh | bash -s -- --dnf</code></pre>
+      <h2>Install</h2>
+      <p><strong>Universal Standalone Binary:</strong></p>
+      <div class="install-box">
+        <code>curl -fsSL https://openooda-tools.github.io/oojq/install.sh | bash</code>
+        <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/oojq/install.sh | bash', this)">COPY</button>
+      </div>
 
-<p><strong>DEB (Debian / Ubuntu):</strong></p>
-<pre><code>curl -fsSL https://openooda-tools.github.io/oojq/install.sh | bash -s -- --deb</code></pre>
+      <h3>Native Package Managers (Tri-Distribution Parity)</h3>
+      <div class="install-box">
+        <code># Fedora / RHEL / CentOS (DNF)
+curl -fsSL https://openooda-tools.github.io/oojq/install.sh | bash -s -- --dnf</code>
+        <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/oojq/install.sh | bash -s -- --dnf', this)">COPY</button>
+      </div>
+      <div class="install-box">
+        <code># Ubuntu / Debian (APT)
+curl -fsSL https://openooda-tools.github.io/oojq/install.sh | bash -s -- --deb</code>
+        <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/oojq/install.sh | bash -s -- --deb', this)">COPY</button>
+      </div>
+      <div class="install-box">
+        <code># Arch Linux / Manjaro (Pacman / PKGBUILD)
+curl -fsSL https://openooda-tools.github.io/oojq/install.sh | bash -s -- --pkgbuild</code>
+        <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/oojq/install.sh | bash -s -- --pkgbuild', this)">COPY</button>
+      </div>
 
-<p><strong>PKGBUILD (Arch Linux / Manjaro):</strong></p>
-<pre><code>curl -fsSL https://openooda-tools.github.io/oojq/install.sh | bash -s -- --pkgbuild</code></pre>
-
-<p>Zero dependencies. Standalone binary installs to <code>/usr/local/bin</code> (or <code>~/.local/bin</code>). Native <code>.deb</code>, <code>.rpm</code>, <code>.pkg.tar.zst</code>, and <code>PKGBUILD</code> packages are also available directly on <a href="https://github.com/openOODA-tools/oojq/releases">GitHub Releases</a>.</p>
-
-<p><strong>Clean Uninstallation:</strong></p>
-<pre><code># Via companion uninstaller deployed with oojq
+      <h2>Clean Uninstallation</h2>
+      <p>Remove <code>oojq</code> binaries, package registrations, and symlinks at any time:</p>
+      <div class="install-box">
+        <code># Locally installed companion CLI
 oojq-uninstall
 
-# Or via web uninstaller
-curl -fsSL https://openooda-tools.github.io/oojq/uninstall.sh | bash</code></pre>
+# Standalone web uninstaller
+curl -fsSL https://openooda-tools.github.io/oojq/uninstall.sh | bash</code>
+        <button class="copy-btn" onclick="copySnippet('oojq-uninstall', this)">COPY</button>
+      </div>
 
-<h2>Why not just jq?</h2>
-<table>
-<tr><th>Capability</th><th>jq</th><th>oojq</th></tr>
-<tr><td>Everyday filters &amp; builtins (2,433 side-by-side cases)</td><td>reference</td><td>byte-identical, 98% parity</td></tr>
-<tr><td>Exit codes (<code>0</code> success, <code>2</code> error)</td><td>yes</td><td>POSIX exit code contract strictly held</td></tr>
-<tr><td>Compact &amp; raw modes (<code>-c</code>, <code>-r</code>)</td><td>yes</td><td>byte-for-byte identical</td></tr>
-<tr><td>Stack exhaustion defense (deep nesting)</td><td>SIGSEGV / crash on 20k brackets</td><td>depth capped at 512, clean error</td></tr>
-<tr><td>AST explosion defense (chained expressions)</td><td>SIGSEGV stack overflow</td><td>iterative DP AST depth check</td></tr>
-<tr><td>Combinatorial stream explosions</td><td>unbounded RAM / freeze</td><td>bounded stream budget ceiling</td></tr>
-<tr><td>Daemon / slowloris protection</td><td>no daemon</td><td>16MB frame ceiling + JSON-RPC error frame</td></tr>
-<tr><td>Agent surface (MCP stdio)</td><td>no</td><td>JSON-RPC 2.0 stdio server</td></tr>
-<tr><td>Pure capability confinement</td><td>ambient auth</td><td>zero ambient authority</td></tr>
-</table>
+      <h2>Why Sovereign oojq?</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Dimension</th>
+            <th>Conventional Alternatives</th>
+            <th>openOODA oojq</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Security</td><td>Ambient memory & file reading</td><td>Bounded by explicit capability tokens</td></tr>
+          <tr><td>Arithmetic</td><td>IEEE 754 float precision loss</td><td>Exact arbitrary-precision rational arithmetic</td></tr>
+          <tr><td>Memory</td><td>Unbounded heap growth</td><td>Capability-bounded stream quotas</td></tr>
+          <tr><td>AI Agents</td><td>No agent interface</td><td>MCP stdio tool: jq_query</td></tr>
+        </tbody>
+      </table>
 
-<h2>Try it</h2>
-<pre><code>oojq . data.json                               # Pretty-print
-oojq -c '.items[] | {id, name}' data.json      # Compact streaming
-oojq -r '.users[].email' data.json             # Raw text output
-oojq --mcp                                     # Model Context Protocol stdio server</code></pre>
+      <h2>Usage & Features</h2>
+      <pre><code>echo '{"msg":"hello"}' | oojq '.msg' # Extract object property
+cat data.json | oojq '.items[] | select(.id > 10)' # Filter array elements
+oojq -c '.' large.json         # Compact minified JSON output
+oojq --mcp                     # Launch MCP stdio server</code></pre>
+    </div>
 
-<p><a href="https://github.com/openOODA-tools/oojq">Source &amp; Docs</a> · <a href="https://github.com/openOODA-tools/oojq/releases">Releases</a> · <a href="https://github.com/openOODA-tools">openOODA-tools</a></p>
+    <footer class="window-footer">
+      <div class="footer-links">
+        <a href="/">[ &larr; All Tools ]</a>
+        <a href="https://github.com/openOODA-tools/oojq" target="_blank" rel="noopener noreferrer">[ Source &amp; docs &#8599; ]</a>
+        <a href="https://github.com/openOODA-tools/oojq/releases" target="_blank" rel="noopener noreferrer">[ Releases &#8599; ]</a>
+        <a href="https://openooda.org" target="_blank" rel="noopener noreferrer">[ openOODA Core &#8599; ]</a>
+      </div>
+      <span>OPENOODA-TOOLS &copy; 2026 // CAPABILITY-BOUNDED USERLAND</span>
+    </footer>
+  </div>
 </body>
 </html>

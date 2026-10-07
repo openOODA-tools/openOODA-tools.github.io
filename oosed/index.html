@@ -1,78 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>oosed — sovereign capability stream editor</title>
-<style>
-body{font-family:system-ui,sans-serif;max-width:44em;margin:3em auto;padding:0 1em;color:#222}
-h1{font-size:1.7em;margin-bottom:.1em}
-.sub{color:#666;margin-top:0}
-pre{background:#f4f4f4;padding:1em;border-radius:6px;overflow-x:auto}
-code{font-size:.92em}
-table{border-collapse:collapse;width:100%;margin:1em 0}
-th,td{border:1px solid #ddd;padding:.4em .7em;text-align:left}
-th{background:#f4f4f4}
-a{color:#0b5fff}
-.badge{display:inline-block;background:#e8f5e9;border:1px solid #a5d6a7;border-radius:12px;padding:.1em .8em;margin:.2em .3em .2em 0;font-size:.9em}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>oosed — sovereign userland</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/oote.css" />
+  <script src="/oote.js"></script>
 </head>
 <body>
-<h1>oosed</h1>
-<p class="sub">Sovereign stream editor and capability-bounded text transformer with atomic in-place edits and MCP surface.</p>
+  <div class="terminal-window">
+    <header class="window-titlebar">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span class="term-status-badge">[TERM: tty2]</span>
+        <span class="window-title">sys@openooda-tools:~# man oosed</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="theme-selector-wrap">
+          <label for="theme-picker" style="color:var(--ui-dim);">[oote:</label>
+          <select id="theme-picker" class="theme-select" onchange="setOoteTheme(this.value)">
+            <option value="classic">classic (sovereign)</option>
+            <option value="1982">1982 (phosphor)</option>
+            <option value="dracula">dracula (vampire)</option>
+            <option value="nord">nord (arctic)</option>
+            <option value="cyberpunk">cyberpunk (neon)</option>
+          </select>
+          <span style="color:var(--ui-dim);">]</span>
+        </div>
+        <span class="term-status-online">[SYS_OK]</span>
+      </div>
+    </header>
 
-<p>
-<span class="badge">v0.1.0</span>
-<span class="badge">100% openOODA</span>
-<span class="badge">Zero Ambient Authority</span>
-<span class="badge">Safe In-Place Edits</span>
-<span class="badge">Stream Pipeline</span>
-<span class="badge">Model Context Protocol</span>
-</p>
+    <div class="window-content">
+      <h1>oosed</h1>
+      <p class="sub">Capability-bounded stream editor and text transformer with safe atomic in-place edits and MCP surface.</p>
 
-<h2>Install</h2>
-<p><strong>Universal Standalone:</strong></p>
-<pre><code>curl -fsSL https://openooda-tools.github.io/oosed/install.sh | bash</code></pre>
+      <div class="badges-container">
+        <span class="badge badge-green">v0.1.0</span>
+        <span class="badge">100% openOODA</span>
+        <span class="badge">Zero Ambient Authority</span>
+        <span class="badge">Atomic Writes</span>
+        <span class="badge badge-accent">Model Context Protocol</span>
+      </div>
 
-<p><strong>DNF (Fedora / RHEL / CentOS):</strong></p>
-<pre><code>curl -fsSL https://openooda-tools.github.io/oosed/install.sh | bash -s -- --dnf</code></pre>
+      <h2>Install</h2>
+      <p><strong>Universal Standalone Binary:</strong></p>
+      <div class="install-box">
+        <code>curl -fsSL https://openooda-tools.github.io/oosed/install.sh | bash</code>
+        <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/oosed/install.sh | bash', this)">COPY</button>
+      </div>
 
-<p><strong>DEB (Debian / Ubuntu):</strong></p>
-<pre><code>curl -fsSL https://openooda-tools.github.io/oosed/install.sh | bash -s -- --deb</code></pre>
+      <h3>Native Package Managers (Tri-Distribution Parity)</h3>
+      <div class="install-box">
+        <code># Fedora / RHEL / CentOS (DNF)
+curl -fsSL https://openooda-tools.github.io/oosed/install.sh | bash -s -- --dnf</code>
+        <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/oosed/install.sh | bash -s -- --dnf', this)">COPY</button>
+      </div>
+      <div class="install-box">
+        <code># Ubuntu / Debian (APT)
+curl -fsSL https://openooda-tools.github.io/oosed/install.sh | bash -s -- --deb</code>
+        <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/oosed/install.sh | bash -s -- --deb', this)">COPY</button>
+      </div>
+      <div class="install-box">
+        <code># Arch Linux / Manjaro (Pacman / PKGBUILD)
+curl -fsSL https://openooda-tools.github.io/oosed/install.sh | bash -s -- --pkgbuild</code>
+        <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/oosed/install.sh | bash -s -- --pkgbuild', this)">COPY</button>
+      </div>
 
-<p><strong>PKGBUILD (Arch Linux / Manjaro):</strong></p>
-<pre><code>curl -fsSL https://openooda-tools.github.io/oosed/install.sh | bash -s -- --pkgbuild</code></pre>
-
-<p>Zero dependencies. Standalone binary installs to <code>/usr/local/bin</code> (or <code>~/.local/bin</code>). Native <code>.deb</code>, <code>.rpm</code>, and <code>PKGBUILD</code> packages are also available directly on <a href="https://github.com/openOODA-tools/oosed/releases">GitHub Releases</a>.</p>
-
-<h2>Uninstall</h2>
-<p>Cleanly remove <code>oosed</code> binaries, packages, and helper scripts at any time:</p>
-<pre><code># 1. Via installed CLI helper
+      <h2>Clean Uninstallation</h2>
+      <p>Remove <code>oosed</code> binaries, package registrations, and symlinks at any time:</p>
+      <div class="install-box">
+        <code># Locally installed companion CLI
 oosed-uninstall
 
-# 2. Via dedicated web uninstaller
-curl -fsSL https://openooda-tools.github.io/oosed/uninstall.sh | bash
+# Standalone web uninstaller
+curl -fsSL https://openooda-tools.github.io/oosed/uninstall.sh | bash</code>
+        <button class="copy-btn" onclick="copySnippet('oosed-uninstall', this)">COPY</button>
+      </div>
 
-# 3. Dry-run preview
-oosed-uninstall --dry-run</code></pre>
+      <h2>Why Sovereign oosed?</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Dimension</th>
+            <th>Conventional Alternatives</th>
+            <th>openOODA oosed</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Security</td><td>Ambient write permissions</td><td>Bounded by explicit &FsReadCap and &FsWriteCap</td></tr>
+          <tr><td>In-place Edits</td><td>Direct unverified truncation</td><td>Safe atomic replacement with temporary dotfiles</td></tr>
+          <tr><td>Grammar</td><td>Cryptic line commands</td><td>Clean substitution (s///g), deletion (/d), and range (p) engine</td></tr>
+          <tr><td>AI Agents</td><td>No agent interface</td><td>MCP stdio tools: sed_substitute, sed_stream</td></tr>
+        </tbody>
+      </table>
 
-<h2>Why sovereign sed?</h2>
-<table>
-<tr><th>Feature</th><th>sed</th><th>oosed</th></tr>
-<tr><td>Security</td><td>Ambient write permissions</td><td>Bounded by <code>&amp;FsReadCap</code> and <code>&amp;FsWriteCap</code> tokens</td></tr>
-<tr><td>In-place Writes</td><td>Direct unverified truncation</td><td>Atomic rename via safe write capabilities</td></tr>
-<tr><td>Grammar</td><td>Cryptic line commands (<code>d</code>, <code>p</code>, <code>s</code>)</td><td>Clean command engine (substitute, delete, print)</td></tr>
-<tr><td>AI Agents</td><td>No agent interface</td><td>MCP stdio tools (<code>sed_substitute</code>, <code>sed_stream</code>)</td></tr>
-<tr><td>Safety</td><td>Silent failure on write errors</td><td>Fail-closed verification before committing files</td></tr>
-</table>
+      <h2>Usage & Features</h2>
+      <pre><code>echo "hello world" | oosed 's/world/openOODA/g' # Stream substitution
+oosed -i 's/foo/bar/g' config.txt # Safe atomic in-place edit
+oosed -n '1,10p' document.txt  # Print line range
+oosed --mcp                    # Launch MCP stdio server</code></pre>
+    </div>
 
-<h2>Try it</h2>
-<pre><code>echo "hello world" | oosed 's/world/openOODA/g'   # Stream substitution
-oosed -i 's/foo/bar/g' config.txt                # Atomic capability-bounded edit
-oosed -n '1,10p' document.txt                    # Print specific line range
-oosed '/^#/d' config.ini                         # Strip comments
-oosed --mcp                                      # Launch MCP stdio server</code></pre>
-
-<p><a href="https://github.com/openOODA-tools/oosed">Source &amp; docs</a> · <a href="https://github.com/openOODA-tools/oosed/releases">Releases</a> · <a href="https://github.com/openOODA-tools">openOODA-tools</a></p>
+    <footer class="window-footer">
+      <div class="footer-links">
+        <a href="/">[ &larr; All Tools ]</a>
+        <a href="https://github.com/openOODA-tools/oosed" target="_blank" rel="noopener noreferrer">[ Source &amp; docs &#8599; ]</a>
+        <a href="https://github.com/openOODA-tools/oosed/releases" target="_blank" rel="noopener noreferrer">[ Releases &#8599; ]</a>
+        <a href="https://openooda.org" target="_blank" rel="noopener noreferrer">[ openOODA Core &#8599; ]</a>
+      </div>
+      <span>OPENOODA-TOOLS &copy; 2026 // CAPABILITY-BOUNDED USERLAND</span>
+    </footer>
+  </div>
 </body>
 </html>

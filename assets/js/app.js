@@ -47,47 +47,51 @@ const viewDockAction = document.getElementById("catalog-view-dock-action");
 const toast = document.getElementById("toast");
 const themeToggle = document.querySelector(".theme-toggle");
 
-// Initialize theme from localStorage and synchronize with oote
+// Initialize theme synchronization with oote.js runtime
 function initTheme() {
-  const ooteThemes = ["classic", "1982", "dracula", "nord", "cyberpunk"];
-  let savedTheme = null;
-  try {
-    savedTheme = localStorage.getItem("oote_theme") || localStorage.getItem("openooda-theme");
-  } catch (e) {}
+  const ooteThemes = ["auto", "ember", "spooky", "classic", "minimax", "1982", "dracula", "nord", "cyberpunk"];
 
-  if (!ooteThemes.includes(savedTheme)) {
-    savedTheme = "classic";
-  }
-
-  function applyTheme(theme, notify = false) {
-    document.documentElement.dataset.theme = theme;
-    document.documentElement.setAttribute("data-theme", theme);
-    try {
-      localStorage.setItem("oote_theme", theme);
-      localStorage.setItem("openooda-theme", theme);
-    } catch (e) {}
-
+  // Synchronize UI select dropdowns with active oote setting
+  function syncSelects() {
+    const curState = window.getOoteState ? window.getOoteState() : null;
+    const curSetting = curState ? curState.themeSetting : (localStorage.getItem("oote_theme") || "auto");
     const selects = document.querySelectorAll(".theme-select");
-    selects.forEach(sel => { sel.value = theme; });
-
-    if (notify) {
-      showToast(`Theme switched: ${theme}`);
-    }
+    selects.forEach(sel => { sel.value = curSetting; });
   }
 
-  applyTheme(savedTheme, false);
+  syncSelects();
 
-  window.setOoteTheme = function(theme) {
-    applyTheme(theme, true);
+  // Attach change listener to theme dropdowns
+  const selects = document.querySelectorAll(".theme-select");
+  selects.forEach(sel => {
+    sel.addEventListener("change", (e) => {
+      const selected = e.target.value;
+      if (window.setOoteTheme) {
+        window.setOoteTheme(selected);
+      }
+      showToast(`Theme switched: ${selected}`);
+    });
+  });
+
+  // Preserve window.setOoteTheme interface and wire up toast notification
+  const baseSetOoteTheme = window.setOoteTheme;
+  window.setOoteTheme = function(theme, mode) {
+    if (baseSetOoteTheme) {
+      baseSetOoteTheme(theme, mode);
+    }
+    syncSelects();
   };
 
+  // Theme toggle button: cycles through themes and circadian auto
   if (themeToggle) {
     themeToggle.addEventListener("click", () => {
-      const current = document.documentElement.dataset.theme || "classic";
+      const curState = window.getOoteState ? window.getOoteState() : null;
+      const current = curState ? curState.themeSetting : (localStorage.getItem("oote_theme") || "auto");
       const currentIndex = ooteThemes.indexOf(current);
       const nextIndex = (currentIndex === -1) ? 0 : (currentIndex + 1) % ooteThemes.length;
       const nextTheme = ooteThemes[nextIndex];
       window.setOoteTheme(nextTheme);
+      showToast(`Theme switched: ${nextTheme}`);
     });
   }
 }
@@ -775,7 +779,13 @@ function initHeroRay() {
     ctx.clearRect(0, 0, w, h);
 
     // 1. Calibrated Engineering Scale & Grid
-    ctx.strokeStyle = "rgba(30, 41, 59, 0.45)";
+    const isLight = document.documentElement.getAttribute("data-mode") === "light";
+    const gridStroke = isLight ? "rgba(100, 116, 139, 0.25)" : "rgba(30, 41, 59, 0.45)";
+    const colDividerStroke = isLight ? "rgba(100, 116, 139, 0.15)" : "rgba(30, 41, 59, 0.25)";
+    const gridTextFill = isLight ? "rgba(71, 85, 105, 0.85)" : "rgba(100, 116, 139, 0.7)";
+    const activeAccent = getComputedStyle(document.documentElement).getPropertyValue("--accent").trim() || "#00e676";
+
+    ctx.strokeStyle = gridStroke;
     ctx.lineWidth = 1;
     const gridYLevels = [0, 5, 10, 15, 20];
     const topMargin = 28;
@@ -789,7 +799,7 @@ function initHeroRay() {
       ctx.lineTo(w - 10, y);
       ctx.stroke();
 
-      ctx.fillStyle = "rgba(100, 116, 139, 0.7)";
+      ctx.fillStyle = gridTextFill;
       ctx.font = "9px ui-monospace, SFMono-Regular, monospace";
       ctx.fillText(`${val}`, 10, y + 3);
     });
@@ -799,7 +809,7 @@ function initHeroRay() {
     stats.forEach((_, i) => {
       const cx = 32 + i * colW + colW / 2;
       ctx.beginPath();
-      ctx.strokeStyle = "rgba(30, 41, 59, 0.25)";
+      ctx.strokeStyle = colDividerStroke;
       ctx.moveTo(cx, topMargin);
       ctx.lineTo(cx, h - bottomMargin);
       ctx.stroke();
@@ -830,13 +840,13 @@ function initHeroRay() {
       ctx.fillRect(bx, by, barW, 2);
 
       // Count label on top of bar
-      ctx.fillStyle = isUnderCursor ? "#ffffff" : cap.color;
+      ctx.fillStyle = isUnderCursor ? (isLight ? "#0f172a" : "#ffffff") : cap.color;
       ctx.font = isUnderCursor ? "bold 10px ui-monospace, SFMono-Regular, monospace" : "9px ui-monospace, SFMono-Regular, monospace";
       ctx.textAlign = "center";
       ctx.fillText(`${cap.count}`, bx + barW / 2, by - 4);
 
       // Abbreviation label below bar
-      ctx.fillStyle = isUnderCursor ? "#ffffff" : "rgba(148, 163, 184, 0.85)";
+      ctx.fillStyle = isUnderCursor ? (isLight ? "#0f172a" : "#ffffff") : (isLight ? "rgba(51, 65, 85, 0.9)" : "rgba(148, 163, 184, 0.85)");
       ctx.fillText(cap.short, bx + barW / 2, h - bottomMargin + 14);
     });
 
@@ -844,7 +854,7 @@ function initHeroRay() {
     const cy = topMargin + plotH / 2;
     ctx.lineWidth = 2;
     ctx.beginPath();
-    ctx.strokeStyle = "#00e676";
+    ctx.strokeStyle = activeAccent;
 
     for (let x = 32; x < w - 10; x += 3) {
       let waveSum = 0;
@@ -892,7 +902,7 @@ function initHeroRay() {
       let hudY = mousePos.y - 28;
       if (hudY < 8) hudY = 8;
 
-      ctx.fillStyle = "rgba(7, 9, 14, 0.94)";
+      ctx.fillStyle = isLight ? "rgba(255, 255, 255, 0.96)" : "rgba(7, 9, 14, 0.94)";
       ctx.strokeStyle = hoveredCap.color;
       ctx.lineWidth = 1;
       ctx.fillRect(hudX, hudY, hudW, hudH);
@@ -903,11 +913,11 @@ function initHeroRay() {
       ctx.font = "bold 10px ui-monospace, SFMono-Regular, monospace";
       ctx.fillText(hoveredCap.key, hudX + 8, hudY + 15);
 
-      ctx.fillStyle = "#e2e8f0";
+      ctx.fillStyle = isLight ? "#0f172a" : "#e2e8f0";
       ctx.font = "9px ui-monospace, SFMono-Regular, monospace";
       ctx.fillText(`${hoveredCap.count} of ${totalRepos} Repos (${hoveredCap.pct}%)`, hudX + 8, hudY + 29);
 
-      ctx.fillStyle = "rgba(148, 163, 184, 0.9)";
+      ctx.fillStyle = isLight ? "rgba(71, 85, 105, 0.9)" : "rgba(148, 163, 184, 0.9)";
       ctx.font = "8px ui-monospace, SFMono-Regular, monospace";
       ctx.fillText("[ Click to filter catalog ]", hudX + 8, hudY + 41);
     }

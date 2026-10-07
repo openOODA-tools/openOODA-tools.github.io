@@ -95,6 +95,139 @@
   --status-info: #00ffff;
 }
 
+[data-theme="ember"] {
+  --ui-bg: #170d08;
+  --ui-surface: #251710;
+  --ui-card: #20140d;
+  --ui-card-hover: #321e15;
+  --ui-code: #100805;
+  --ui-border: #5c3620;
+  --ui-border-accent: #fb923c;
+  --ui-fg: #ffedd5;
+  --ui-muted: #b8947e;
+  --ui-dim: #3d2415;
+  --ui-accent: #fb923c;
+  --status-success: #4ade80;
+  --status-warning: #fbbf24;
+  --status-error: #f87171;
+  --status-info: #fb923c;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+[data-theme="ember"][data-mode="light"] {
+  --ui-bg: #fff7ed;
+  --ui-surface: #ffedd5;
+  --ui-card: #ffffff;
+  --ui-card-hover: #fed7aa;
+  --ui-code: #fef3c7;
+  --ui-border: #fdba74;
+  --ui-border-accent: #ea580c;
+  --ui-fg: #431407;
+  --ui-muted: #9a3412;
+  --ui-dim: #c2410c;
+  --ui-accent: #ea580c;
+  --status-success: #16a34a;
+  --status-warning: #b45309;
+  --status-error: #dc2626;
+  --status-info: #ea580c;
+}
+
+[data-theme="spooky"] {
+  --ui-bg: #0f0a14;
+  --ui-surface: #1c1224;
+  --ui-card: #170f20;
+  --ui-card-hover: #291a35;
+  --ui-code: #0a060d;
+  --ui-border: #581c87;
+  --ui-border-accent: #ff7700;
+  --ui-fg: #f3e8ff;
+  --ui-muted: #a881c2;
+  --ui-dim: #3b1d54;
+  --ui-accent: #ff7700;
+  --status-success: #22c55e;
+  --status-warning: #ff7700;
+  --status-error: #ef4444;
+  --status-info: #a855f7;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+[data-theme="spooky"][data-mode="light"] {
+  --ui-bg: #faf5ff;
+  --ui-surface: #f3e8ff;
+  --ui-card: #ffffff;
+  --ui-card-hover: #e9d5ff;
+  --ui-code: #f5f3ff;
+  --ui-border: #d8b4fe;
+  --ui-border-accent: #c2410c;
+  --ui-fg: #2e1065;
+  --ui-muted: #6b21a8;
+  --ui-dim: #a855f7;
+  --ui-accent: #c2410c;
+  --status-success: #15803d;
+  --status-warning: #c2410c;
+  --status-error: #dc2626;
+  --status-info: #7e22ce;
+}
+
+[data-theme="minimax"] {
+  --ui-bg: #0e0e10;
+  --ui-surface: #1a1a1d;
+  --ui-card: #161619;
+  --ui-card-hover: #222226;
+  --ui-code: #0a0a0c;
+  --ui-border: #5a5a5a;
+  --ui-border-accent: #e0a040;
+  --ui-fg: #e5e5e5;
+  --ui-muted: #9a9a9a;
+  --ui-dim: #5a5a5a;
+  --ui-accent: #e0a040;
+  --status-success: #7ac888;
+  --status-warning: #e0a040;
+  --status-error: #e07060;
+  --status-info: #7ab8ff;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+[data-theme="minimax"][data-mode="light"] {
+  --ui-bg: #f7f7f8;
+  --ui-surface: #ebebed;
+  --ui-card: #ffffff;
+  --ui-card-hover: #e0e0e4;
+  --ui-code: #eeeeef;
+  --ui-border: #b0b0b8;
+  --ui-border-accent: #c07818;
+  --ui-fg: #1e1e22;
+  --ui-muted: #666670;
+  --ui-dim: #90909a;
+  --ui-accent: #c07818;
+  --status-success: #16853a;
+  --status-warning: #b86e00;
+  --status-error: #c02a1d;
+  --status-info: #1e68d4;
+}
+
+[data-theme="classic"][data-mode="light"],
+[data-mode="light"] {
+  --ui-bg: #f8fafc;
+  --ui-surface: #ffffff;
+  --ui-card: #f1f5f9;
+  --ui-card-hover: #e2e8f0;
+  --ui-code: #f1f5f9;
+  --ui-border: #cbd5e1;
+  --ui-border-accent: #00c853;
+  --ui-fg: #0f172a;
+  --ui-muted: #475569;
+  --ui-dim: #94a3b8;
+  --ui-accent: #00c853;
+  --status-success: #16a34a;
+  --status-warning: #d97706;
+  --status-error: #dc2626;
+  --status-info: #0284c7;
+}
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {

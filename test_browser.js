@@ -142,7 +142,42 @@ server.listen(PORT, async () => {
       throw new Error(`Expected 8 hidden gems after shuffle, got ${gemsAfterShuffle.length}`);
     }
 
-    console.log("[PASS] Browser headless E2E verification passed all 7 test suites");
+    // Test 8: oote Circadian and Calendar Auto/Auto Theming Engine
+    await evalJs(`window.setOoteTheme("auto")`);
+    const autoTheme = await evalJs(`document.documentElement.getAttribute("data-theme")`);
+    const autoMode = await evalJs(`document.documentElement.getAttribute("data-mode")`);
+    const hour = new Date().getHours();
+    const expectedMode = (hour < 6 || hour >= 18) ? "dark" : "light";
+    if (autoTheme !== "ember") {
+      throw new Error(`Expected auto calendar theme 'ember' for October, got '${autoTheme}'`);
+    }
+    if (autoMode !== expectedMode) {
+      throw new Error(`Expected circadian mode '${expectedMode}' for hour ${hour}, got '${autoMode}'`);
+    }
+
+    // Toggle circadian mode
+    const modeBeforeToggle = autoMode;
+    await evalJs(`window.toggleOoteMode()`);
+    const modeAfterToggle = await evalJs(`document.documentElement.getAttribute("data-mode")`);
+    if (modeAfterToggle === modeBeforeToggle) {
+      throw new Error(`toggleOoteMode did not change mode from ${modeBeforeToggle}`);
+    }
+
+    // Switch theme explicitly to spooky
+    await evalJs(`window.setOoteTheme("spooky")`);
+    const spookyTheme = await evalJs(`document.documentElement.getAttribute("data-theme")`);
+    if (spookyTheme !== "spooky") {
+      throw new Error(`Expected theme 'spooky', got '${spookyTheme}'`);
+    }
+
+    // Reset back to auto/auto
+    await evalJs(`window.setOoteTheme("auto")`);
+    const resetTheme = await evalJs(`document.documentElement.getAttribute("data-theme")`);
+    if (resetTheme !== "ember") {
+      throw new Error(`Reset to auto failed to restore 'ember', got '${resetTheme}'`);
+    }
+
+    console.log("[PASS] Browser headless E2E verification passed all 8 test suites");
     ws.close();
     chrome.kill();
     server.close();

@@ -1,0 +1,4 @@
+# openOODA Global Theme Configuration
+theme = "auto"
+mode = "auto"
+border = "round"

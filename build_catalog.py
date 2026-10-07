@@ -183,7 +183,7 @@ released_tools = [
         "name": "ootop",
         "category": "System & Monitor",
         "role": "PROCESS MONITOR",
-        "version": "v0.1.0",
+        "version": "v0.2.0",
         "status": "released",
         "monogram": "TP",
         "accent": "#69f0ae",

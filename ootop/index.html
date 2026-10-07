@@ -63,7 +63,7 @@
       <p class="sub">Real-time system monitor with systemd slice resource aggregation, sparklines, and mascot telemetry.</p>
 
       <div class="badges-container">
-        <span class="badge badge-green">v0.1.0</span>
+        <span class="badge badge-green">v0.2.0</span>
         <span class="badge">100% openOODA</span>
         <span class="badge">Zero Ambient Authority</span>
         <span class="badge">systemd Slices</span>
@@ -118,13 +118,13 @@ curl -fsSL https://openooda-tools.github.io/ootop/uninstall.sh | bash</code>
           <tr><td>Security</td><td>Ambient /proc traversal</td><td>Bounded by &FsReadCap, &ProcessCap, and &TimeCap</td></tr>
           <tr><td>systemd Slices</td><td>Flat process lists</td><td>Hierarchical resource grouping: app, system, user slices</td></tr>
           <tr><td>Mascots</td><td>None</td><td>Load-reactive emotional ASCII mascot telemetry</td></tr>
-          <tr><td>AI Agents</td><td>No agent interface</td><td>MCP stdio tools: system_metrics, process_list, systemd_slices</td></tr>
+          <tr><td>AI Agents</td><td>No agent interface</td><td>MCP stdio tools: system_metrics, process_list, systemd_slices, inspect_cgroup_slice, query_process_metrics</td></tr>
         </tbody>
       </table>
 
       <h2>Usage & Features</h2>
       <pre><code>ootop                          # Interactive real-time dashboard
-ootop -1                       # Single-shot metrics snapshot
+ootop -b                       # Single-shot batch metrics snapshot
 ootop --mcp                    # Launch MCP stdio server</code></pre>
     </div>
 

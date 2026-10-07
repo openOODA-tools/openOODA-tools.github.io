@@ -46,6 +46,13 @@ a:hover{text-decoration:underline}
 
 <p>Zero dependencies. Standalone binary installs to <code>/usr/local/bin</code> (or <code>~/.local/bin</code>). Native <code>.deb</code>, <code>.rpm</code>, <code>.pkg.tar.zst</code>, and <code>PKGBUILD</code> packages are also available directly on <a href="https://github.com/openOODA-tools/oojq/releases">GitHub Releases</a>.</p>
 
+<p><strong>Clean Uninstallation:</strong></p>
+<pre><code># Via companion uninstaller deployed with oojq
+oojq-uninstall
+
+# Or via web uninstaller
+curl -fsSL https://openooda-tools.github.io/oojq/uninstall.sh | bash</code></pre>
+
 <h2>Why not just jq?</h2>
 <table>
 <tr><th>Capability</th><th>jq</th><th>oojq</th></tr>

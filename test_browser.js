@@ -33,7 +33,16 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(PORT, async () => {
-  const chrome = cp.spawn("chromium", [
+  const candidates = ["chromium-browser", "chromium", "google-chrome", "chrome"];
+  let browserBin = "chromium-browser";
+  for (const c of candidates) {
+    try {
+      cp.execSync(`command -v ${c}`, { stdio: "ignore" });
+      browserBin = c;
+      break;
+    } catch (_) {}
+  }
+  const chrome = cp.spawn(browserBin, [
     "--headless=new", "--disable-gpu", "--remote-debugging-port=9232",
     "--window-size=1200,900", `http://127.0.0.1:${PORT}/`
   ], { stdio: "ignore" });

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>oowatch — sovereign continuous delta watcher</title>
+<style>
+body{font-family:system-ui,sans-serif;max-width:44em;margin:3em auto;padding:0 1em;color:#222}
+h1{font-size:1.7em;margin-bottom:.1em}
+.sub{color:#666;margin-top:0}
+pre{background:#f4f4f4;padding:1em;border-radius:6px;overflow-x:auto}
+code{font-size:.92em}
+table{border-collapse:collapse;width:100%;margin:1em 0}
+th,td{border:1px solid #ddd;padding:.4em .7em;text-align:left}
+th{background:#f4f4f4}
+a{color:#0b5fff}
+.badge{display:inline-block;background:#e8f5e9;border:1px solid #a5d6a7;border-radius:12px;padding:.1em .8em;margin:.2em .3em .2em 0;font-size:.9em}
+</style>
+</head>
+<body>
+<h1>oowatch</h1>
+<p class="sub">Sovereign continuous command scheduler and delta watcher with ANSI diff highlighting, oote palettes, and MCP surface.</p>
+
+<p>
+<span class="badge">v0.1.0</span>
+<span class="badge">100% openOODA</span>
+<span class="badge">Zero Ambient Authority</span>
+<span class="badge">ANSI Delta Diffs</span>
+<span class="badge">oote Themes</span>
+<span class="badge">Model Context Protocol</span>
+</p>
+
+<h2>Install</h2>
+<p><strong>Universal Standalone:</strong></p>
+<pre><code>curl -fsSL https://openooda-tools.github.io/oowatch/install.sh | bash</code></pre>
+
+<p><strong>DNF (Fedora / RHEL / CentOS):</strong></p>
+<pre><code>curl -fsSL https://openooda-tools.github.io/oowatch/install.sh | bash -s -- --dnf</code></pre>
+
+<p><strong>DEB (Debian / Ubuntu):</strong></p>
+<pre><code>curl -fsSL https://openooda-tools.github.io/oowatch/install.sh | bash -s -- --deb</code></pre>
+
+<p><strong>PKGBUILD (Arch Linux / Manjaro):</strong></p>
+<pre><code>curl -fsSL https://openooda-tools.github.io/oowatch/install.sh | bash -s -- --pkgbuild</code></pre>
+
+<p>Zero dependencies. Standalone binary installs to <code>/usr/local/bin</code> (or <code>~/.local/bin</code>). Native <code>.deb</code>, <code>.rpm</code>, and <code>PKGBUILD</code> packages are also available directly on <a href="https://github.com/openOODA-tools/oowatch/releases">GitHub Releases</a>.</p>
+
+<h2>Uninstall</h2>
+<p>Cleanly remove <code>oowatch</code> binaries, packages, and helper scripts at any time:</p>
+<pre><code># 1. Via installed CLI helper
+oowatch-uninstall
+
+# 2. Via dedicated web uninstaller
+curl -fsSL https://openooda-tools.github.io/oowatch/uninstall.sh | bash
+
+# 3. Dry-run preview
+oowatch-uninstall --dry-run</code></pre>
+
+<h2>Why sovereign watch?</h2>
+<table>
+<tr><th>Feature</th><th>watch</th><th>oowatch</th></tr>
+<tr><td>Security</td><td>Ambient process/clock execution</td><td>Bounded by <code>&amp;ProcessCap</code> and <code>&amp;TimeCap</code> tokens</td></tr>
+<tr><td>Diff Highlighting</td><td>Monochrome terminal invert</td><td>Themed ANSI delta highlighting via <code>oote</code> palettes</td></tr>
+<tr><td>Theming</td><td>None</td><td>Integrated <code>oote</code> tokens from <code>~/.openooda/theme.oot</code></td></tr>
+<tr><td>AI Agents</td><td>No agent interface</td><td>MCP stdio tools (<code>watch_poll</code>, <code>watch_diff</code>)</td></tr>
+<tr><td>Bounds</td><td>Infinite loop only</td><td>Built-in iteration counts (<code>-c &lt;num&gt;</code>, <code>-1</code>) and errexit</td></tr>
+</table>
+
+<h2>Try it</h2>
+<pre><code>oowatch uptime                         # Run command every 2 seconds
+oowatch -n 1 -d free -m                # 1s refresh interval with delta diffs
+oowatch -t date                        # Suppress header banner
+oowatch -c 5 -n 1 ps aux               # Run 5 iterations and exit
+oowatch --mcp                          # Launch MCP stdio server</code></pre>
+
+<p><a href="https://github.com/openOODA-tools/oowatch">Source &amp; docs</a> · <a href="https://github.com/openOODA-tools/oowatch/releases">Releases</a> · <a href="https://github.com/openOODA-tools">openOODA-tools</a></p>
+</body>
+</html>

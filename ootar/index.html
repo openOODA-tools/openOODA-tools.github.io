@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ootar — sovereign traversal-resistant archive manager</title>
+<style>
+body{font-family:system-ui,sans-serif;max-width:44em;margin:3em auto;padding:0 1em;color:#222}
+h1{font-size:1.7em;margin-bottom:.1em}
+.sub{color:#666;margin-top:0}
+pre{background:#f4f4f4;padding:1em;border-radius:6px;overflow-x:auto}
+code{font-size:.92em}
+table{border-collapse:collapse;width:100%;margin:1em 0}
+th,td{border:1px solid #ddd;padding:.4em .7em;text-align:left}
+th{background:#f4f4f4}
+a{color:#0b5fff}
+.badge{display:inline-block;background:#e8f5e9;border:1px solid #a5d6a7;border-radius:12px;padding:.1em .8em;margin:.2em .3em .2em 0;font-size:.9em}
+</style>
+</head>
+<body>
+<h1>ootar</h1>
+<p class="sub">Sovereign USTAR archive manager with traversal resistance, zero zip-slip vulnerability, and MCP surface.</p>
+
+<p>
+<span class="badge">v0.1.0</span>
+<span class="badge">100% openOODA</span>
+<span class="badge">Zero Ambient Authority</span>
+<span class="badge">Zero Zip-Slip</span>
+<span class="badge">USTAR Compliant</span>
+<span class="badge">Model Context Protocol</span>
+</p>
+
+<h2>Install</h2>
+<p><strong>Universal Standalone:</strong></p>
+<pre><code>curl -fsSL https://openooda-tools.github.io/ootar/install.sh | bash</code></pre>
+
+<p><strong>DNF (Fedora / RHEL / CentOS):</strong></p>
+<pre><code>curl -fsSL https://openooda-tools.github.io/ootar/install.sh | bash -s -- --dnf</code></pre>
+
+<p><strong>DEB (Debian / Ubuntu):</strong></p>
+<pre><code>curl -fsSL https://openooda-tools.github.io/ootar/install.sh | bash -s -- --deb</code></pre>
+
+<p><strong>PKGBUILD (Arch Linux / Manjaro):</strong></p>
+<pre><code>curl -fsSL https://openooda-tools.github.io/ootar/install.sh | bash -s -- --pkgbuild</code></pre>
+
+<p>Zero dependencies. Standalone binary installs to <code>/usr/local/bin</code> (or <code>~/.local/bin</code>). Native <code>.deb</code>, <code>.rpm</code>, and <code>PKGBUILD</code> packages are also available directly on <a href="https://github.com/openOODA-tools/ootar/releases">GitHub Releases</a>.</p>
+
+<h2>Uninstall</h2>
+<p>Cleanly remove <code>ootar</code> binaries, packages, and helper scripts at any time:</p>
+<pre><code># 1. Via installed CLI helper
+ootar-uninstall
+
+# 2. Via dedicated web uninstaller
+curl -fsSL https://openooda-tools.github.io/ootar/uninstall.sh | bash
+
+# 3. Dry-run preview
+ootar-uninstall --dry-run</code></pre>
+
+<h2>Why sovereign tar?</h2>
+<table>
+<tr><th>Feature</th><th>tar</th><th>ootar</th></tr>
+<tr><td>Security</td><td>Ambient filesystem access</td><td>Bounded by <code>&amp;FsReadCap</code> and <code>&amp;FsWriteCap</code> tokens</td></tr>
+<tr><td>Zip-Slip Defense</td><td>Permissive extraction defaults</td><td>Strict directory traversal resistance (<code>../</code> refusal)</td></tr>
+<tr><td>Standard</td><td>Legacy GNU tar extensions</td><td>Pure POSIX.1-1988 USTAR archive format</td></tr>
+<tr><td>AI Agents</td><td>No agent interface</td><td>MCP stdio tools (<code>tar_list</code>, <code>tar_inspect</code>)</td></tr>
+<tr><td>Validation</td><td>Unchecked octal headers</td><td>Strict checksum verification across all header blocks</td></tr>
+</table>
+
+<h2>Try it</h2>
+<pre><code>ootar -cf archive.tar file1.txt file2.txt      # Create sovereign USTAR archive
+ootar -tf archive.tar                         # Inspect archive table of contents
+ootar -xf archive.tar -C /dest/dir            # Safe traversal-resistant extraction
+ootar --mcp                                   # Launch MCP stdio server</code></pre>
+
+<p><a href="https://github.com/openOODA-tools/ootar">Source &amp; docs</a> · <a href="https://github.com/openOODA-tools/ootar/releases">Releases</a> · <a href="https://github.com/openOODA-tools">openOODA-tools</a></p>
+</body>
+</html>

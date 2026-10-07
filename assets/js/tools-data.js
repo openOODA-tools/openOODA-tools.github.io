@@ -477,7 +477,7 @@ export const TOOLS_DATA = [
     "name": "oocurl",
     "category": "Network & Egress",
     "role": "HTTP CLIENT",
-    "version": "v0.1.0",
+    "version": "v0.2.0",
     "status": "released",
     "monogram": "CL",
     "accent": "#ffd740",

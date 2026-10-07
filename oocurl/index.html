@@ -63,7 +63,7 @@
       <p class="sub">Capability-bounded HTTP and API client with syntax-highlighted responses, oote palettes, and MCP surface.</p>
 
       <div class="badges-container">
-        <span class="badge badge-green">v0.1.0</span>
+        <span class="badge badge-green">v0.2.0</span>
         <span class="badge">100% openOODA</span>
         <span class="badge">Zero Ambient Authority</span>
         <span class="badge">TcpCap Secured</span>
@@ -118,12 +118,13 @@ curl -fsSL https://openooda-tools.github.io/oocurl/uninstall.sh | bash</code>
           <tr><td>Security</td><td>Ambient socket network access</td><td>Capability-bounded by explicit &TcpCap tokens</td></tr>
           <tr><td>Highlighting</td><td>Raw terminal dump</td><td>Syntax-highlighted status codes and header key-values</td></tr>
           <tr><td>Theming</td><td>None</td><td>Integrated oote palette tokens from ~/.openooda/theme.oot</td></tr>
-          <tr><td>AI Agents</td><td>No agent interface</td><td>MCP stdio tools: http_request, parse_url</td></tr>
+          <tr><td>AI Agents</td><td>No agent interface</td><td>MCP stdio tools: parse_url, http_request, http_head, encode_url_query</td></tr>
         </tbody>
       </table>
 
       <h2>Usage & Features</h2>
       <pre><code>oocurl http://127.0.0.1:8080/api/status # Capability-bounded GET request
+oocurl -I http://127.0.0.1:8080/api/status # Show document info (headers) only
 oocurl -i http://127.0.0.1:8080/health # Print status headers and body
 oocurl -X POST -d '{"q":"val"}' http://host/api # POST JSON payload
 oocurl -o output.json http://host/data # Safe file download

@@ -32,15 +32,22 @@ Every tool card on `index.html` and dedicated subpage (`<tool>/index.html`) must
 
 ---
 
-## 3. Native systemd Citizenship & Linux Integration
+## 3. System Architecture: systemd & Tri-Distribution Compliance (Arch, Fedora, Debian)
 
-This server follows a pure systemd-native architectural pattern:
+All openOODA utilities cataloged on this portal adhere to a sovereign Linux architecture:
 
-1. **System Services & Unit Placement**: Services managed natively in `/etc/systemd/system/`.
-2. **Declarative State & Provisioning**: System accounts via `systemd-sysusers` in `/etc/sysusers.d/*.conf`; tmpfiles via `systemd-tmpfiles` in `/etc/tmpfiles.d/*.conf`.
-3. **Service Confinement & Hardening**: Sandboxing directives (`ProtectSystem=`, `ProtectHome=`, `PrivateTmp=`, `NoNewPrivileges=`).
-4. **Logging & Schedulers**: Logging handled exclusively by `systemd-journald`. Scheduled tasks executed via `systemd.timer` units rather than legacy cron.
-5. **Standard System Directories**: Use `$RUNTIME_DIRECTORY` (`/run/openooda`), `$STATE_DIRECTORY` (`/var/lib/openooda`), `$CONFIGURATION_DIRECTORY` (`/etc/openooda`).
+1. **Pure systemd-Native Citizenship**:
+   - Services managed natively in `/etc/systemd/system/` (or `~/.config/systemd/user/` for user services). Drop-in overrides in `<unit>.service.d/*.conf`.
+   - Declarative system accounts via `systemd-sysusers` in `/etc/sysusers.d/*.conf`; directory lifecycle via `systemd-tmpfiles` in `/etc/tmpfiles.d/*.conf`.
+   - Native sandboxing directives (`ProtectSystem=strict`, `ProtectHome=read-only`, `PrivateTmp=true`, `NoNewPrivileges=true`).
+   - Logging exclusively via `systemd-journald`; scheduled tasks via `systemd.timer`.
+   - Standard system directories: `$RUNTIME_DIRECTORY` (`/run/openooda`), `$STATE_DIRECTORY` (`/var/lib/openooda`), `$CONFIGURATION_DIRECTORY` (`/etc/openooda`).
+
+2. **Tri-Distribution Standards (Arch, Fedora, Debian)**:
+   - **Arch Linux**: Standard `PKGBUILD` and `packaging/arch/PKGBUILD`, producing `.pkg.tar.zst` packages via `makepkg` or GNU `tar --zstd`.
+   - **Fedora / RHEL**: Standard `.spec` files under `packaging/`, producing native RPM packages (`.rpm`).
+   - **Debian / Ubuntu**: Standard Debian source packaging under `packaging/debian/`, producing native `.deb` packages.
+   - **Universal Installers & Dedicated Uninstallers**: Every utility provides both universal `install.sh` and dedicated `uninstall.sh`, plus an installed companion `<tool>-uninstall` CLI. Clean uninstallation guarantees zero host residue.
 
 ---
 

@@ -49,7 +49,13 @@ const themeToggle = document.querySelector(".theme-toggle");
 
 // Initialize theme synchronization with oote.js runtime
 function initTheme() {
-  const ooteThemes = ["auto", "ember", "spooky", "classic", "minimax", "1982", "dracula", "nord", "cyberpunk"];
+  const ooteThemes = [
+    "auto",
+    "frost", "amethyst", "thaw", "bloom", "meadow", "solstice",
+    "mirage", "amber", "equinox", "ember", "hearth", "solitude",
+    "spooky", "yule", "nova", "harvest", "lantern", "sakura", "sol",
+    "classic", "minimax", "1982", "dracula", "nord", "cyberpunk"
+  ];
 
   // Synchronize UI select dropdowns with active oote setting
   function syncSelects() {

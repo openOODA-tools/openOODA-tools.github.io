@@ -99,14 +99,14 @@ server.listen(PORT, async () => {
     await evalJs(`document.querySelector("[data-view=\x27cards\x27]").click()`);
     await evalJs(`document.getElementById("search-input").value = "status:released"; document.getElementById("search-input").dispatchEvent(new Event("input"))`);
     const countReleased = await evalJs(`document.getElementById("tool-count").textContent`);
-    if (!countReleased.startsWith("19")) {
-      throw new Error(`Expected 19 tools for status:released, got ${countReleased}`);
+    if (!countReleased.startsWith("20")) {
+      throw new Error(`Expected 20 tools for status:released, got ${countReleased}`);
     }
 
     await evalJs(`document.getElementById("clear-filters").click()`);
     const countAll = await evalJs(`document.getElementById("tool-count").textContent`);
-    if (!countAll.startsWith("19")) {
-      throw new Error(`Expected 19 tools after clear-filters, got ${countAll}`);
+    if (!countAll.startsWith("20")) {
+      throw new Error(`Expected 20 tools after clear-filters, got ${countAll}`);
     }
 
     // Test 4: Viewport responsiveness across widths (no horizontal overflow)
@@ -120,9 +120,13 @@ server.listen(PORT, async () => {
     }
 
     // Test 5: Theme switching and persistence
-    await evalJs(`document.querySelector(".theme-toggle").click()`);
+    await evalJs(`
+      const sel = document.getElementById("theme-picker");
+      sel.value = "dracula";
+      sel.dispatchEvent(new Event("change"));
+    `);
     const storedTheme = await evalJs(`localStorage.getItem("openooda-theme")`);
-    if (!storedTheme) throw new Error("Theme not saved to localStorage");
+    if (storedTheme !== "dracula") throw new Error(`Theme not saved to localStorage: expected 'dracula', got '${storedTheme}'`);
 
     // Test 6: Marquee animation pause toggle
     const pauseBtn = await evalJs(`document.getElementById("recent-feed-toggle") !== null`);

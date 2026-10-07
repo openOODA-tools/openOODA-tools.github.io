@@ -107,13 +107,13 @@ released_tools = [
         "name": "ootail",
         "category": "Data & Streaming",
         "role": "STREAM FOLLOWER",
-        "version": "v0.1.0",
+        "version": "v0.2.0",
         "status": "released",
         "monogram": "TL",
         "accent": "#e040fb",
-        "description": "Capability-bounded streaming file and event follower. Inotify change events, line scanning, and multi-surface IPC.",
+        "description": "Capability-bounded streaming file and event follower. Inotify change events, line and byte windowing, and native MCP stdio server.",
         "gem": True,
-        "gemFact": "Inotify Event Follower · Multi-Surface IPC",
+        "gemFact": "Inotify Event Follower · Stdio MCP Server",
         "installCommand": "curl -fsSL https://openooda-tools.github.io/ootail/install.sh | bash",
         "overviewUrl": "ootail/",
         "repoUrl": "https://github.com/openOODA-tools/ootail",
@@ -367,6 +367,25 @@ released_tools = [
         "tags": ["watch-runner", "delta-highlighting", "mcp-native", "pure-openooda"],
         "capabilities": ["&TimeCap", "&ProcCap", "&McpCap"],
         "addedAt": "2026-10-07"
+    },
+    {
+        "id": "oomcp",
+        "name": "oomcp",
+        "category": "System & Monitor",
+        "role": "COMPOSITE MCP GATEWAY",
+        "version": "v0.1.0",
+        "status": "released",
+        "monogram": "CP",
+        "accent": "#bd93f9",
+        "description": "Sovereign Model Context Protocol (MCP) composite gateway & tool router. Single unified stdio endpoint for all openOODA userland tools.",
+        "gem": True,
+        "gemFact": "Composite Gateway · Dynamic Discovery",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oomcp/install.sh | bash",
+        "overviewUrl": "oomcp/",
+        "repoUrl": "https://github.com/openOODA-tools/oomcp",
+        "tags": ["mcp-gateway", "composite-router", "systemd-native", "pure-openooda"],
+        "capabilities": ["&ProcessCap", "&FsReadCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-07"
     }
 ]
 
@@ -374,8 +393,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 19, f"Expected 19 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 19, "Duplicate tool ID detected!"
+assert len(all_tools) == 20, f"Expected 20 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 20, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

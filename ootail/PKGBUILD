@@ -1,9 +1,9 @@
 # Maintainer: openOODA-tools <ops@openooda.org>
 pkgname=ootail-bin
 _pkgname=ootail
-pkgver=0.1.0
+pkgver=0.2.0
 pkgrel=1
-pkgdesc="Capability-bounded file tail and follower utility with inotify and truncate recovery"
+pkgdesc="Capability-bounded file tail and follower utility with inotify, truncate recovery, and MCP stdio server"
 arch=('x86_64')
 url="https://github.com/openOODA-tools/ootail"
 license=('Apache-2.0')

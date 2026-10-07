@@ -40,10 +40,12 @@
       <p class="sub">Capability-bounded streaming file and event follower with inotify tracking, truncate safety, and oote palettes.</p>
 
       <div class="badges-container">
-        <span class="badge badge-green">v0.1.0</span>
+        <span class="badge badge-green">v0.2.0</span>
         <span class="badge">100% openOODA</span>
         <span class="badge">Zero Ambient Authority</span>
+        <span class="badge">MCP Native</span>
         <span class="badge">Inotify Watch</span>
+        <span class="badge">Byte Windowing</span>
         <span class="badge">Truncate-Safe</span>
       </div>
 
@@ -95,14 +97,17 @@ curl -fsSL https://openooda-tools.github.io/ootail/uninstall.sh | bash</code>
           <tr><td>Security</td><td>Ambient file handle tracking</td><td>Bounded by &FsReadCap and &SysCap</td></tr>
           <tr><td>Rotation</td><td>Stalls or fails on log rotate</td><td>Seamless follow across truncation and rotation (-F)</td></tr>
           <tr><td>Theming</td><td>Raw monochrome stream</td><td>Real-time syntax and status token highlighting via oote</td></tr>
-          <tr><td>AI Agents</td><td>No agent interface</td><td>Integrated tail and event streaming IPC</td></tr>
+          <tr><td>AI Agents</td><td>No agent interface</td><td>Native MCP stdio server (--mcp) with tail_file and tail_stream</td></tr>
+          <tr><td>Windowing</td><td>Line-only or rigid buffers</td><td>High-speed byte windowing (-c) and line offsets (+NUM)</td></tr>
         </tbody>
       </table>
 
       <h2>Usage & Features</h2>
       <pre><code>ootail -f /var/log/app.log     # Follow file stream with inotify events
 ootail -n 50 system.journal    # Inspect trailing 50 lines
-ootail -F service.log          # Follow through file moves and log rotations</code></pre>
+ootail -c 512 service.log      # Inspect trailing 512 bytes
+ootail -n +100 app.log         # Emit lines starting from line 100
+ootail --mcp                   # Run Model Context Protocol stdio server</code></pre>
     </div>
 
     <footer class="window-footer">

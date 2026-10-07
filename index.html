@@ -1,874 +1,229 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>openOODA-tools // Capability-Bounded Everyday Utilities</title>
-  <meta name="description" content="Sovereign, capability-bounded command-line utilities written in openOODA. Two faces, one engine: human terminal ergonomics + agent-native MCP." />
-  <meta property="og:title" content="openOODA-tools // Capability-Bounded Everyday Utilities" />
-  <meta property="og:description" content="Modern CLI replacements for bash, grep, diff, find, and jq written in 100% pure openOODA. Standalone binaries, GNU parity, and stdio MCP servers." />
+  <title>openOODA Tools // Capability-Bounded Everyday Utilities</title>
+  <meta name="description" content="Sovereign, capability-bounded command-line utilities written in 100% pure openOODA. Two faces, one engine: human terminal ergonomics + agent-native MCP." />
+  <meta property="og:title" content="openOODA Tools // Capability-Bounded Everyday Utilities" />
+  <meta property="og:description" content="Modern CLI replacements for bash, grep, diff, find, and jq written in pure openOODA. Standalone binaries, GNU parity, and stdio MCP servers." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://openooda-tools.github.io" />
+  <meta property="og:url" content="https://tools.openooda.org" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <link rel="stylesheet" href="/oote.css" />
-  <script src="/oote.js"></script>
-  <style>
-    :root {
-      --bg-canvas: var(--ui-bg);
-      --bg-window: var(--ui-surface);
-      --bg-card: var(--ui-card);
-      --bg-card-hover: var(--ui-card-hover);
-      --bg-code: var(--ui-code);
-      --border-window: var(--ui-border);
-      --border-card: var(--ui-border);
-      --border-card-hover: var(--ui-border-accent);
-      --text-primary: var(--ui-fg);
-      --text-secondary: var(--ui-muted);
-      --text-muted: var(--ui-dim);
-      --color-green: var(--status-success);
-      --color-green-dim: rgba(0, 230, 118, 0.12);
-      --color-amber: var(--status-warning);
-      --color-cyan: var(--ui-accent);
-      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background-color: var(--bg-canvas);
-      color: var(--text-primary);
-      font-family: var(--font-sans);
-      line-height: 1.5;
-      padding: 24px 16px;
-      min-height: 100vh;
-    }
-    .terminal-window {
-      max-width: 980px;
-      margin: 0 auto;
-      background: var(--bg-window);
-      border: 1px solid var(--border-window);
-      border-radius: 8px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-      overflow: hidden;
-    }
-    .window-titlebar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 16px;
-      background: #080b10;
-      border-bottom: 1px solid var(--border-window);
-      font-family: var(--font-mono);
-      font-size: 12px;
-    }
-    .term-status-badge { color: var(--color-amber); }
-    .window-title { color: var(--text-secondary); font-weight: 500; }
-    .term-status-online { color: var(--color-green); }
-    .window-content { padding: 32px 28px; }
-    .hero-eyebrow {
-      color: var(--color-green);
-      font-family: var(--font-mono);
-      font-size: 12px;
-      letter-spacing: 2px;
-      margin-bottom: 10px;
-    }
-    .hero-title {
-      font-size: clamp(26px, 4vw, 36px);
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      margin-bottom: 14px;
-      color: #fff;
-    }
-    .term-cursor {
-      color: var(--color-green);
-      animation: blink 1.1s step-end infinite;
-    }
-    @keyframes blink { 50% { opacity: 0; } }
-    .hero-intro {
-      font-size: 15px;
-      color: var(--text-secondary);
-      max-width: 800px;
-      margin-bottom: 20px;
-    }
-    .hero-actions {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-bottom: 32px;
-    }
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      padding: 8px 14px;
-      border-radius: 4px;
-      font-family: var(--font-mono);
-      font-size: 13px;
-      text-decoration: none;
-      transition: all 0.15s ease;
-      cursor: pointer;
-    }
-    .btn-green {
-      background: var(--color-green-dim);
-      border: 1px solid var(--color-green);
-      color: var(--color-green);
-    }
-    .btn-green:hover { background: rgba(0, 230, 118, 0.22); transform: translateY(-1px); }
-    .btn-cyan {
-      background: rgba(0, 229, 255, 0.08);
-      border: 1px solid var(--color-cyan);
-      color: var(--color-cyan);
-    }
-    .btn-cyan:hover { background: rgba(0, 229, 255, 0.18); transform: translateY(-1px); }
-    .section-label {
-      font-family: var(--font-mono);
-      font-size: 12px;
-      color: var(--text-muted);
-      letter-spacing: 1.5px;
-      margin-bottom: 18px;
-      border-bottom: 1px solid var(--border-window);
-      padding-bottom: 6px;
-    }
-    .tools-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 16px;
-      margin-bottom: 36px;
-    }
-    .tool-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-card);
-      border-radius: 6px;
-      padding: 18px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: all 0.15s ease;
-    }
-    .tool-card:hover {
-      background: var(--bg-card-hover);
-      border-color: var(--border-card-hover);
-      transform: translateY(-2px);
-    }
-    .tool-header {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      margin-bottom: 8px;
-    }
-    .tool-name {
-      font-family: var(--font-mono);
-      font-size: 20px;
-      font-weight: 700;
-      color: #fff;
-    }
-    .tool-tag {
-      font-family: var(--font-mono);
-      font-size: 11px;
-      color: var(--color-cyan);
-    }
-    .tool-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 12px;
-    }
-    .badge {
-      display: inline-block;
-      font-family: var(--font-mono);
-      font-size: 10px;
-      padding: 2px 7px;
-      border-radius: 10px;
-      background: #1e293b;
-      color: var(--text-secondary);
-      border: 1px solid #334155;
-    }
-    .badge-green { background: rgba(0, 230, 118, 0.1); color: var(--color-green); border-color: rgba(0, 230, 118, 0.3); }
-    .badge-amber { background: rgba(255, 179, 0, 0.1); color: var(--color-amber); border-color: rgba(255, 179, 0, 0.3); }
-    .tool-desc {
-      font-size: 13px;
-      color: var(--text-secondary);
-      margin-bottom: 14px;
-      flex-grow: 1;
-    }
-    .install-box {
-      background: var(--bg-code);
-      border: 1px solid #1a2230;
-      border-radius: 4px;
-      padding: 8px 10px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-family: var(--font-mono);
-      font-size: 11px;
-      margin-bottom: 12px;
-      color: var(--text-secondary);
-      overflow-x: auto;
-    }
-    .install-box code { color: #f1f5f9; white-space: nowrap; }
-    .copy-btn {
-      background: transparent;
-      border: 1px solid #334155;
-      color: var(--text-secondary);
-      padding: 2px 6px;
-      border-radius: 3px;
-      font-family: var(--font-mono);
-      font-size: 10px;
-      cursor: pointer;
-      margin-left: 8px;
-    }
-    .copy-btn:hover { color: #fff; border-color: var(--color-green); }
-    .tool-links {
-      display: flex;
-      gap: 12px;
-      font-family: var(--font-mono);
-      font-size: 12px;
-    }
-    .tool-links a {
-      color: var(--color-green);
-      text-decoration: none;
-    }
-    .tool-links a:hover { text-decoration: underline; }
-    .philosophy-panel {
-      background: #0c121c;
-      border: 1px solid #1e293b;
-      border-left: 3px solid var(--color-cyan);
-      border-radius: 4px;
-      padding: 18px 20px;
-      margin-bottom: 24px;
-    }
-    .philosophy-title {
-      font-family: var(--font-mono);
-      font-size: 13px;
-      color: var(--color-cyan);
-      margin-bottom: 8px;
-    }
-    .philosophy-text {
-      font-size: 13px;
-      color: var(--text-secondary);
-      line-height: 1.6;
-    }
-    .window-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 12px;
-      padding: 12px 20px;
-      background: #080b10;
-      border-top: 1px solid var(--border-window);
-      font-family: var(--font-mono);
-      font-size: 11px;
-      color: var(--text-muted);
-    }
-    .footer-links { display: flex; gap: 14px; }
-    .footer-links a { color: var(--text-secondary); text-decoration: none; }
-    .footer-links a:hover { color: var(--color-green); }
-  </style>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <script>
+    (function () {
+      var t = null;
+      try { t = localStorage.getItem("openooda-theme"); } catch (e) {}
+      var validThemes = ["dark", "tokyo-night", "gruvbox", "catppuccin", "ethereal", "light"];
+      document.documentElement.dataset.theme = validThemes.indexOf(t) !== -1 ? t : "dark";
+    })();
+  </script>
 </head>
-<body>
-  <div class="terminal-window">
-    <header class="window-titlebar">
-      <div style="display:flex;align-items:center;gap:12px;">
-        <span class="term-status-badge">[TERM: tty2]</span>
-        <span class="window-title">sys@openooda-tools:~# ooda-tools --list</span>
+<body class="marketplace-page">
+  <a class="skip-link" href="#catalog">Skip to tool catalog</a>
+
+  <header class="market-header">
+    <div class="market-header-inner">
+      <div class="market-brand">
+        <a class="market-brand-home" href="index.html" aria-label="openOODA Tools Home">
+          <img src="avatar.svg" alt="openOODA Logo" class="market-brand-logo" width="24" height="24" />
+          <span>OPENOODA TOOLS</span>
+          <span class="brand-badge">DUAL-PLANE</span>
+        </a>
       </div>
-      <div style="display:flex;align-items:center;gap:12px;">
-        <div class="theme-selector-wrap">
-          <label for="theme-picker" style="color:var(--ui-dim);">[oote:</label>
-          <select id="theme-picker" class="theme-select" onchange="setOoteTheme(this.value)">
-            <option value="classic">classic (sovereign)</option>
-            <option value="1982">1982 (phosphor)</option>
-            <option value="dracula">dracula (vampire)</option>
-            <option value="nord">nord (arctic)</option>
-            <option value="cyberpunk">cyberpunk (neon)</option>
-          </select>
-          <span style="color:var(--ui-dim);">]</span>
-        </div>
-        <span class="term-status-online">[SYS_OK]</span>
-      </div>
-    </header>
-
-    <div class="window-content">
-      <p class="hero-eyebrow">SOVEREIGN USERLAND // TECHNOLOGY PREVIEW</p>
-      <h1 class="hero-title">Two Faces, One Engine<span class="term-cursor" aria-hidden="true">_</span></h1>
-      <p class="hero-intro">
-        Modern, capability-bounded command-line utilities written in 100% pure 
-        <a href="https://openooda.org" style="color:var(--color-green); text-decoration:none;">openOODA</a>.
-        Every tool compiles to a standalone, zero-dependency native binary with strict POSIX/GNU parity and a first-class Model Context Protocol (MCP) server over stdio.
-      </p>
-
-      <div class="hero-actions">
-        <a href="https://github.com/openOODA-tools" target="_blank" rel="noopener noreferrer" class="btn btn-green">[ GITHUB: @OPENOODA-TOOLS &#8599; ]</a>
-        <a href="https://openooda.org" target="_blank" rel="noopener noreferrer" class="btn btn-cyan">[ OPENOODA CORE &#8599; ]</a>
-      </div>
-
-      <p class="section-label">-- THE SUITE: DROP-IN REPLACEMENTS WITH MCP SURFACES --</p>
-
-      <div class="tools-grid">
-        <!-- oosh -->
-        <div class="tool-card">
-          <div>
-            <div class="tool-header">
-              <span class="tool-name">oosh</span>
-              <span class="tool-tag">[SHELL]</span>
-            </div>
-            <div class="tool-badges">
-              <span class="badge badge-green">v1.0.1</span>
-              <span class="badge">Ambient Intent</span>
-              <span class="badge">Zero Ambient Auth</span>
-            </div>
-            <p class="tool-desc">
-              Sovereign interactive command plane engineered for direct systems control, ambient environment integration, and POSIX muscle memory.
-            </p>
-          </div>
-          <div>
-            <div class="install-box">
-              <code>curl -fsSL .../oosh/install.sh | bash</code>
-              <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/oosh/install.sh | bash', this)">COPY</button>
-            </div>
-            <div class="tool-links">
-              <a href="oosh/">[ Overview ]</a>
-              <a href="https://github.com/openOODA-tools/oosh" target="_blank" rel="noopener noreferrer">[ Source &#8599; ]</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- oogrep -->
-        <div class="tool-card">
-          <div>
-            <div class="tool-header">
-              <span class="tool-name">oogrep</span>
-              <span class="tool-tag">[SEARCH]</span>
-            </div>
-            <div class="tool-badges">
-              <span class="badge badge-green">v0.3.2</span>
-              <span class="badge badge-amber">MCP Native</span>
-              <span class="badge">.gitignore Aware</span>
-            </div>
-            <p class="tool-desc">
-              Capability-bounded recursive regex search. Fast directory traversal with column tracking, colored hunks, and an stdio MCP surface.
-            </p>
-          </div>
-          <div>
-            <div class="install-box">
-              <code>curl -fsSL .../oogrep/install.sh | bash</code>
-              <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/oogrep/install.sh | bash', this)">COPY</button>
-            </div>
-            <div class="tool-links">
-              <a href="oogrep/">[ Overview ]</a>
-              <a href="https://github.com/openOODA-tools/oogrep" target="_blank" rel="noopener noreferrer">[ Source &#8599; ]</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- oodiff -->
-        <div class="tool-card">
-          <div>
-            <div class="tool-header">
-              <span class="tool-name">oodiff</span>
-              <span class="tool-tag">[DIFF]</span>
-            </div>
-            <div class="tool-badges">
-              <span class="badge badge-green">v0.3.1</span>
-              <span class="badge">Myers LCS</span>
-              <span class="badge badge-amber">GNU diff Parity</span>
-              <span class="badge">APT / DNF</span>
-            </div>
-            <p class="tool-desc">
-              Capability-bounded file and directory comparison. Byte-for-byte GNU normal and unified diff parity with negative-trust sandbox.
-            </p>
-          </div>
-          <div>
-            <div class="install-box">
-              <code>curl -fsSL .../oodiff/install.sh | bash</code>
-              <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/oodiff/install.sh | bash', this)">COPY</button>
-            </div>
-            <div class="tool-links">
-              <a href="oodiff/">[ Overview ]</a>
-              <a href="https://github.com/openOODA-tools/oodiff" target="_blank" rel="noopener noreferrer">[ Source &#8599; ]</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- oofind -->
-        <div class="tool-card">
-          <div>
-            <div class="tool-header">
-              <span class="tool-name">oofind</span>
-              <span class="tool-tag">[FIND]</span>
-            </div>
-            <div class="tool-badges">
-              <span class="badge badge-green">v0.2.1</span>
-              <span class="badge badge-amber">MCP Native</span>
-              <span class="badge">JSON Lines</span>
-            </div>
-            <p class="tool-desc">
-              Fast directory traversal with glob matching, type filtering, <code>-print0</code> for xargs piping, and structured JSON output.
-            </p>
-          </div>
-          <div>
-            <div class="install-box">
-              <code>curl -fsSL .../oofind/install.sh | bash</code>
-              <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/oofind/install.sh | bash', this)">COPY</button>
-            </div>
-            <div class="tool-links">
-              <a href="oofind/">[ Overview ]</a>
-              <a href="https://github.com/openOODA-tools/oofind" target="_blank" rel="noopener noreferrer">[ Source &#8599; ]</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- oojq -->
-        <div class="tool-card">
-          <div>
-            <div class="tool-header">
-              <span class="tool-name">oojq</span>
-              <span class="tool-tag">[JSON]</span>
-            </div>
-            <div class="tool-badges">
-              <span class="badge badge-green">v0.1.1</span>
-              <span class="badge">Exact Math</span>
-              <span class="badge">Zero Leakage</span>
-            </div>
-            <p class="tool-desc">
-              High-fidelity jq replacement. Exact arithmetic boundaries, full filter parser, and capability-isolated JSON transformation.
-            </p>
-          </div>
-          <div>
-            <div class="install-box">
-              <code>curl -fsSL .../oojq/install.sh | bash</code>
-              <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/oojq/install.sh | bash', this)">COPY</button>
-            </div>
-            <div class="tool-links">
-              <a href="oojq/">[ Overview ]</a>
-              <a href="https://github.com/openOODA-tools/oojq" target="_blank" rel="noopener noreferrer">[ Source &#8599; ]</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- ootail -->
-        <div class="tool-card">
-          <div>
-            <div class="tool-header">
-              <span class="tool-name">ootail</span>
-              <span class="tool-tag">[TAIL]</span>
-            </div>
-            <div class="tool-badges">
-              <span class="badge badge-green">v0.1.0</span>
-              <span class="badge">Inotify Watch</span>
-              <span class="badge">Truncate-Safe</span>
-            </div>
-            <p class="tool-desc">
-              Capability-bounded streaming file and event follower. Inotify change events, line scanning, and multi-surface IPC.
-            </p>
-          </div>
-          <div>
-            <div class="install-box">
-              <code>curl -fsSL .../ootail/install.sh | bash</code>
-              <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/ootail/install.sh | bash', this)">COPY</button>
-            </div>
-            <div class="tool-links">
-              <a href="ootail/">[ Overview ]</a>
-              <a href="https://github.com/openOODA-tools/ootail" target="_blank" rel="noopener noreferrer">[ Source &#8599; ]</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- oote -->
-        <div class="tool-card">
-          <div>
-            <div class="tool-header">
-              <span class="tool-name">oote</span>
-              <span class="tool-tag">[THEME]</span>
-            </div>
-            <div class="tool-badges">
-              <span class="badge badge-green">v0.1.1</span>
-              <span class="badge">25 Themes</span>
-              <span class="badge badge-amber">Circadian Auto</span>
-              <span class="badge">ASCII Mascots</span>
-            </div>
-            <p class="tool-desc">
-              Sovereign unified theming and color styling engine. 39-token semantic taxonomy, dual light/dark modes, seasonal calendar, and global ecosystem sync.
-            </p>
-          </div>
-          <div>
-            <div class="install-box">
-              <code>curl -fsSL .../oote/install.sh | bash</code>
-              <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/oote/install.sh | bash', this)">COPY</button>
-            </div>
-            <div class="tool-links">
-              <a href="oote/">[ Overview ]</a>
-              <a href="https://github.com/openOODA-tools/oote" target="_blank" rel="noopener noreferrer">[ Source &#8599; ]</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- oofetch -->
-        <div class="tool-card">
-          <div>
-            <div class="tool-header">
-              <span class="tool-name">oofetch</span>
-              <span class="tool-tag">[FETCH]</span>
-            </div>
-            <div class="tool-badges">
-              <span class="badge badge-green">v0.1.0</span>
-              <span class="badge">oote Swatches</span>
-              <span class="badge badge-amber">MCP Native</span>
-            </div>
-            <p class="tool-desc">
-              Sovereign system fetch and posture showcase. Instant hardware and OS inspection, dynamic ASCII mascots, and an stdio MCP surface.
-            </p>
-          </div>
-          <div>
-            <div class="install-box">
-              <code>curl -fsSL .../oofetch/install.sh | bash</code>
-              <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/oofetch/install.sh | bash', this)">COPY</button>
-            </div>
-            <div class="tool-links">
-              <a href="oofetch/">[ Overview ]</a>
-              <a href="https://github.com/openOODA-tools/oofetch" target="_blank" rel="noopener noreferrer">[ Source &#8599; ]</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- oocat -->
-        <div class="tool-card">
-          <div>
-            <div class="tool-header">
-              <span class="tool-name">oocat</span>
-              <span class="tool-tag">[VIEW]</span>
-            </div>
-            <div class="tool-badges">
-              <span class="badge badge-green">v0.1.0</span>
-              <span class="badge">Syntax Highlighting</span>
-              <span class="badge badge-amber">MCP Native</span>
-            </div>
-            <p class="tool-desc">
-              Capability-bounded syntax file viewer and pager. Multi-language lexing with oote themes, line ranges, and an stdio MCP surface.
-            </p>
-          </div>
-          <div>
-            <div class="install-box">
-              <code>curl -fsSL .../oocat/install.sh | bash</code>
-              <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/oocat/install.sh | bash', this)">COPY</button>
-            </div>
-            <div class="tool-links">
-              <a href="oocat/">[ Overview ]</a>
-              <a href="https://github.com/openOODA-tools/oocat" target="_blank" rel="noopener noreferrer">[ Source &#8599; ]</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- ootop -->
-        <div class="tool-card">
-          <div>
-            <div class="tool-header">
-              <span class="tool-name">ootop</span>
-              <span class="tool-tag">[MONITOR]</span>
-            </div>
-            <div class="tool-badges">
-              <span class="badge badge-green">v0.1.0</span>
-              <span class="badge">Systemd Slices</span>
-              <span class="badge badge-amber">Emotional Mascot</span>
-            </div>
-            <p class="tool-desc">
-              Real-time TUI dashboard and system monitor. Systemd slice resource aggregation, sparklines, load-reactive mascot moods, and MCP telemetry.
-            </p>
-          </div>
-          <div>
-            <div class="install-box">
-              <code>curl -fsSL .../ootop/install.sh | bash</code>
-              <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/ootop/install.sh | bash', this)">COPY</button>
-            </div>
-            <div class="tool-links">
-              <a href="ootop/">[ Overview ]</a>
-              <a href="https://github.com/openOODA-tools/ootop" target="_blank" rel="noopener noreferrer">[ Source &#8599; ]</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="tool-card">
-          <div>
-            <div class="tool-header">
-              <span class="tool-name">oofzf</span>
-              <span class="tool-tag">[FINDER]</span>
-            </div>
-            <div class="tool-badges">
-              <span class="badge badge-green">v0.1.0</span>
-              <span class="badge">Fuzzy Matching</span>
-              <span class="badge">MCP Surface</span>
-            </div>
-            <p class="tool-desc">
-              Sovereign interactive fuzzy finder and candidate ranker. Subsequence scoring with consecutive run bonuses, oote palettes, and stdio MCP.
-            </p>
-          </div>
-          <div>
-            <div class="install-box">
-              <code>curl -fsSL .../oofzf/install.sh | bash</code>
-              <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/oofzf/install.sh | bash', this)">COPY</button>
-            </div>
-            <div class="tool-links">
-              <a href="oofzf/">[ Overview ]</a>
-              <a href="https://github.com/openOODA-tools/oofzf" target="_blank" rel="noopener noreferrer">[ Source &#8599; ]</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="tool-card">
-          <div>
-            <div class="tool-header">
-              <span class="tool-name">ools</span>
-              <span class="tool-tag">[LISTER]</span>
-            </div>
-            <div class="tool-badges">
-              <span class="badge badge-green">v0.1.0</span>
-              <span class="badge">Metadata Class</span>
-              <span class="badge">Zero Ambient Auth</span>
-            </div>
-            <p class="tool-desc">
-              Sovereign directory lister and metadata classifier. Multi-column grid rendering, detailed long-format tables, oote palettes, and MCP surface.
-            </p>
-          </div>
-          <div>
-            <div class="install-box">
-              <code>curl -fsSL .../ools/install.sh | bash</code>
-              <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/ools/install.sh | bash', this)">COPY</button>
-            </div>
-            <div class="tool-links">
-              <a href="ools/">[ Overview ]</a>
-              <a href="https://github.com/openOODA-tools/ools" target="_blank" rel="noopener noreferrer">[ Source &#8599; ]</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- ootree -->
-        <div class="tool-card">
-          <div>
-            <div class="tool-header">
-              <span class="tool-name">ootree</span>
-              <span class="tool-tag">[TREE]</span>
-            </div>
-            <div class="tool-badges">
-              <span class="badge badge-green">v0.1.0</span>
-              <span class="badge">Unicode Glyphs</span>
-              <span class="badge">.gitignore Aware</span>
-            </div>
-            <p class="tool-desc">
-              Sovereign directory hierarchy visualizer. Branch glyph formatting, size introspection, depth limits, and an stdio MCP surface.
-            </p>
-          </div>
-          <div>
-            <div class="install-box">
-              <code>curl -fsSL .../ootree/install.sh | bash</code>
-              <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/ootree/install.sh | bash', this)">COPY</button>
-            </div>
-            <div class="tool-links">
-              <a href="ootree/">[ Overview ]</a>
-              <a href="https://github.com/openOODA-tools/ootree" target="_blank" rel="noopener noreferrer">[ Source &#8599; ]</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- ooclock -->
-        <div class="tool-card">
-          <div>
-            <div class="tool-header">
-              <span class="tool-name">ooclock</span>
-              <span class="tool-tag">[TIME]</span>
-            </div>
-            <div class="tool-badges">
-              <span class="badge badge-green">v0.1.0</span>
-              <span class="badge">Matrix Clock</span>
-              <span class="badge badge-amber">Circadian Mascot</span>
-            </div>
-            <p class="tool-desc">
-              Sovereign TUI matrix digital clock, Pomodoro focus timer, and stopwatch with dynamic circadian mascot moods and MCP telemetry.
-            </p>
-          </div>
-          <div>
-            <div class="install-box">
-              <code>curl -fsSL .../ooclock/install.sh | bash</code>
-              <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/ooclock/install.sh | bash', this)">COPY</button>
-            </div>
-            <div class="tool-links">
-              <a href="ooclock/">[ Overview ]</a>
-              <a href="https://github.com/openOODA-tools/ooclock" target="_blank" rel="noopener noreferrer">[ Source &#8599; ]</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- oosed -->
-        <div class="tool-card">
-          <div>
-            <div class="tool-header">
-              <span class="tool-name">oosed</span>
-              <span class="tool-tag">[SED]</span>
-            </div>
-            <div class="tool-badges">
-              <span class="badge badge-green">v0.1.0</span>
-              <span class="badge">Atomic Writes</span>
-              <span class="badge badge-amber">MCP Native</span>
-            </div>
-            <p class="tool-desc">
-              Capability-bounded stream editor and text transformer. Safe in-place atomic substitutions, line filtering, and an stdio MCP surface.
-            </p>
-          </div>
-          <div>
-            <div class="install-box">
-              <code>curl -fsSL .../oosed/install.sh | bash</code>
-              <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/oosed/install.sh | bash', this)">COPY</button>
-            </div>
-            <div class="tool-links">
-              <a href="oosed/">[ Overview ]</a>
-              <a href="https://github.com/openOODA-tools/oosed" target="_blank" rel="noopener noreferrer">[ Source &#8599; ]</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- ootar -->
-        <div class="tool-card">
-          <div>
-            <div class="tool-header">
-              <span class="tool-name">ootar</span>
-              <span class="tool-tag">[ARCHIVE]</span>
-            </div>
-            <div class="tool-badges">
-              <span class="badge badge-green">v0.1.0</span>
-              <span class="badge">Zero Zip-Slip</span>
-              <span class="badge">USTAR Standard</span>
-            </div>
-            <p class="tool-desc">
-              Traversal-resistant archive manager. Strict directory escape prevention, USTAR format validation, safe extract, and MCP inspection.
-            </p>
-          </div>
-          <div>
-            <div class="install-box">
-              <code>curl -fsSL .../ootar/install.sh | bash</code>
-              <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/ootar/install.sh | bash', this)">COPY</button>
-            </div>
-            <div class="tool-links">
-              <a href="ootar/">[ Overview ]</a>
-              <a href="https://github.com/openOODA-tools/ootar" target="_blank" rel="noopener noreferrer">[ Source &#8599; ]</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- oops -->
-        <div class="tool-card">
-          <div>
-            <div class="tool-header">
-              <span class="tool-name">oops</span>
-              <span class="tool-tag">[PROCESS]</span>
-            </div>
-            <div class="tool-badges">
-              <span class="badge badge-green">v0.1.0</span>
-              <span class="badge">Process Tree</span>
-              <span class="badge">Systemd Slices</span>
-            </div>
-            <p class="tool-desc">
-              Sovereign process visualizer and signal controller. Process hierarchy tree, systemd slice grouping, POSIX signals, and MCP management.
-            </p>
-          </div>
-          <div>
-            <div class="install-box">
-              <code>curl -fsSL .../oops/install.sh | bash</code>
-              <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/oops/install.sh | bash', this)">COPY</button>
-            </div>
-            <div class="tool-links">
-              <a href="oops/">[ Overview ]</a>
-              <a href="https://github.com/openOODA-tools/oops" target="_blank" rel="noopener noreferrer">[ Source &#8599; ]</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- oocurl -->
-        <div class="tool-card">
-          <div>
-            <div class="tool-header">
-              <span class="tool-name">oocurl</span>
-              <span class="tool-tag">[HTTP]</span>
-            </div>
-            <div class="tool-badges">
-              <span class="badge badge-green">v0.1.0</span>
-              <span class="badge">TcpCap Secured</span>
-              <span class="badge badge-amber">HTTP/1.1 Engine</span>
-            </div>
-            <p class="tool-desc">
-              Capability-bounded HTTP and API client. Status classification, header inspection, syntax-highlighted responses, and an stdio MCP surface.
-            </p>
-          </div>
-          <div>
-            <div class="install-box">
-              <code>curl -fsSL .../oocurl/install.sh | bash</code>
-              <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/oocurl/install.sh | bash', this)">COPY</button>
-            </div>
-            <div class="tool-links">
-              <a href="oocurl/">[ Overview ]</a>
-              <a href="https://github.com/openOODA-tools/oocurl" target="_blank" rel="noopener noreferrer">[ Source &#8599; ]</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- oowatch -->
-        <div class="tool-card">
-          <div>
-            <div class="tool-header">
-              <span class="tool-name">oowatch</span>
-              <span class="tool-tag">[WATCH]</span>
-            </div>
-            <div class="tool-badges">
-              <span class="badge badge-green">v0.1.0</span>
-              <span class="badge">Delta Diffs</span>
-              <span class="badge badge-amber">MCP Native</span>
-            </div>
-            <p class="tool-desc">
-              Continuous command scheduler and delta watcher. Periodic execution, ANSI diff highlighting via oote themes, and an stdio MCP surface.
-            </p>
-          </div>
-          <div>
-            <div class="install-box">
-              <code>curl -fsSL .../oowatch/install.sh | bash</code>
-              <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/oowatch/install.sh | bash', this)">COPY</button>
-            </div>
-            <div class="tool-links">
-              <a href="oowatch/">[ Overview ]</a>
-              <a href="https://github.com/openOODA-tools/oowatch" target="_blank" rel="noopener noreferrer">[ Source &#8599; ]</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="philosophy-panel">
-        <h3 class="philosophy-title">&gt; THE DUAL-PLANE ARCHITECTURE</h3>
-        <p class="philosophy-text">
-          Every tool in <code>openOODA-tools</code> delivers instant POSIX execution for human terminal muscle memory, paired with an <code>--mcp</code> flag that transforms the binary into a capability-bounded Model Context Protocol server. When an AI agent executes <code>oogrep</code> or <code>oodiff</code>, the operation is mathematically bounded by the host runtime — eliminating ambient filesystem traversal, command injection, and unsanctioned network egress.
-        </p>
-      </div>
+      <nav class="market-nav" aria-label="Main navigation">
+        <a href="#catalog" class="active">Browse</a>
+        <a href="#gems-section">Gems</a>
+        <a href="#recent-section">Marquee</a>
+        <a href="https://openooda.org" target="_blank" rel="noopener noreferrer" class="nav-external">openOODA Core &#8599;</a>
+        <a href="https://github.com/openOODA-tools" target="_blank" rel="noopener noreferrer" class="nav-external">GitHub &#8599;</a>
+        <button class="theme-toggle" type="button" aria-label="Toggle color theme">
+          <svg class="palette-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 3a9 9 0 1 0 0 18c1.2 0 2-.9 2-2 0-.5-.2-1-.5-1.3-.3-.4-.5-.8-.5-1.2 0-1 .9-1.8 2-1.8H17a4 4 0 0 0 4-4c0-4.4-4-7.7-9-7.7Z"/>
+            <circle cx="7.5" cy="11" r="1.3"/>
+            <circle cx="10.5" cy="7" r="1.3"/>
+            <circle cx="15" cy="7.5" r="1.3"/>
+          </svg>
+          <span class="theme-label">Theme</span>
+        </button>
+      </nav>
     </div>
+  </header>
 
-    <footer class="window-footer">
+  <main>
+    <section class="market-hero">
+      <div class="market-hero-copy">
+        <div class="page-eyebrow">SOVEREIGN USERLAND // TECHNOLOGY PREVIEW</div>
+        <h1>discover openooda tools<span class="hero-cursor">_</span></h1>
+        <p>
+          Capability-bounded command-line utilities written in 100% pure 
+          <a href="https://openooda.org" target="_blank" rel="noopener noreferrer">openOODA</a>.
+          Two faces, one engine: human terminal ergonomics + agent-native Model Context Protocol (MCP) servers over stdio. Standalone native binaries with zero ambient auth.
+        </p>
+        <div class="market-hero-actions">
+          <a class="button market-primary" href="#catalog">Browse catalog <span aria-hidden="true">&rarr;</span></a>
+          <a class="button" href="#gems-section">Hidden gems <span aria-hidden="true">&rarr;</span></a>
+          <a class="button market-cyan" href="https://github.com/openOODA-tools" target="_blank" rel="noopener noreferrer">GitHub @openOODA-tools &#8599;</a>
+        </div>
+      </div>
+      <button class="market-hero-ray" type="button" aria-label="Parametric capability vector animation. Click to cycle presets.">
+        <canvas width="440" height="330" aria-hidden="true"></canvas>
+        <span class="market-hero-ray-label" aria-live="polite">CAPABILITY: AMBIENT BOUNDS 01/04</span>
+      </button>
+    </section>
+
+    <!-- HIDDEN GEMS SECTION -->
+    <section class="gems-section" id="gems-section" aria-labelledby="gems-title">
+      <div class="market-section-head">
+        <div>
+          <h2 id="gems-title">HIDDEN GEMS</h2>
+        </div>
+        <div class="section-head-meta">
+          <span class="section-summary">battle-tested essentials &middot; capability-bounded across agent &amp; terminal workflows</span>
+          <div class="gems-nav" role="group" aria-label="Browse hidden gems">
+            <button type="button" class="gems-nav-button" data-gems-step="-1" aria-label="Previous hidden gems">&larr;</button>
+            <button type="button" class="gems-nav-button" data-gems-step="1" aria-label="Next hidden gems">&rarr;</button>
+          </div>
+        </div>
+      </div>
+      <div id="gems-grid" class="gems-track" aria-label="Hidden gems track"></div>
+    </section>
+
+    <!-- DUAL SCROLLING MARQUEE SECTION -->
+    <section class="recent-section" id="recent-section" aria-labelledby="recent-title">
+      <div class="market-section-head">
+        <div>
+          <h2 id="recent-title">SUITE BLUEPRINT &amp; ACTIVE RELEASES</h2>
+        </div>
+        <div class="section-head-meta">
+          <span class="section-summary">12 active releases &middot; 256 capability-bounded userland blueprint</span>
+          <button id="recent-feed-toggle" class="feed-toggle" type="button" aria-controls="recent-latest" aria-label="Pause marquee animation">Pause</button>
+        </div>
+      </div>
+      <div id="recent-latest" class="landed-rows">
+        <div class="landed-row">
+          <ul class="landed-track" data-landed-row="0" aria-label="openOODA userland suite, upper track"></ul>
+        </div>
+        <div class="landed-row">
+          <ul class="landed-track" data-landed-row="1" aria-label="openOODA userland suite, lower track"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- FULL CATALOG BROWSER SECTION -->
+    <section class="market-catalog" id="catalog" aria-labelledby="catalog-title" tabindex="-1">
+      <div class="catalog-heading">
+        <div>
+          <span class="page-eyebrow">REGISTRY &amp; BLUEPRINT</span>
+          <h2 id="catalog-title">browse all tools</h2>
+        </div>
+        <div class="catalog-heading-side">
+          <div id="catalog-view-mode" class="catalog-view-mode" role="group" aria-label="Catalog layout view">
+            <button type="button" data-view="cards" aria-pressed="true">Cards</button>
+            <button type="button" data-view="split" aria-pressed="false">Split view</button>
+          </div>
+          <p><span id="tool-count">256 tools</span></p>
+        </div>
+      </div>
+
+      <div class="catalog-controls">
+        <div class="market-search">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+          <input id="search-input" name="tool-search" type="search" placeholder="Search tools, category, tag:mcp, or capability…" autocomplete="off" spellcheck="false" aria-label="Search tools" />
+          <button id="search-clear" class="search-clear" type="button" aria-label="Clear search input">&times;</button>
+          <kbd class="search-shortcut">Ctrl K</kbd>
+        </div>
+        <label class="sort-control">
+          <select id="sort-select" aria-label="Sort tools">
+            <option value="status">Status (Released First)</option>
+            <option value="added">Recently Added</option>
+            <option value="name">Name (A–Z)</option>
+            <option value="category">Category</option>
+          </select>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 10 4 4 4-4"/></svg>
+        </label>
+      </div>
+
+      <div class="source-bar">
+        <span>Status</span>
+        <div id="source-filters" class="source-list"></div>
+      </div>
+
+      <div class="category-bar">
+        <span>Filter</span>
+        <div id="category-filters" class="category-list"></div>
+        <button id="clear-filters" class="filter-reset" type="button">Reset</button>
+      </div>
+
+      <!-- Cards Grid -->
+      <div id="plugin-grid" class="plugin-grid"></div>
+
+      <!-- Split View Layout -->
+      <div id="catalog-split" class="catalog-split" hidden>
+        <section class="split-panel" aria-label="Tools tiles">
+          <div class="split-panel-label">
+            <span>Tools Blueprint</span>
+            <span id="split-page-summary">Page 1 of 15</span>
+          </div>
+          <div id="split-grid" class="split-grid" role="listbox" aria-label="Select a tool"></div>
+          <div class="split-pager">
+            <button id="split-page-previous" type="button">&larr; Previous</button>
+            <button id="split-page-next" type="button">Next &rarr;</button>
+          </div>
+        </section>
+        <aside class="split-aside">
+          <div id="split-card"></div>
+        </aside>
+      </div>
+
+      <!-- Empty State -->
+      <div id="empty-state" class="empty-state" hidden>
+        <h3>No tools found</h3>
+        <p>Try another search query or reset the active category filters.</p>
+        <button class="button market-primary" id="empty-reset" type="button">Clear filters</button>
+      </div>
+
+      <!-- Pagination -->
+      <nav id="catalog-pagination" class="catalog-pagination" aria-label="Tool result pages">
+        <button id="page-previous" class="pagination-button" type="button">&larr; Previous</button>
+        <span class="pagination-summary" aria-hidden="true">
+          Page <strong id="page-summary">1 / 29</strong>
+        </span>
+        <button id="page-next" class="pagination-button" type="button">Next &rarr;</button>
+      </nav>
+
+      <!-- Bottom View Dock Toggle -->
+      <div id="catalog-view-dock" class="catalog-view-dock">
+        <button id="catalog-view-dock-button" class="dock-button" type="button">
+          <span id="catalog-view-dock-status">Showing page 1 of 29</span>
+          <span id="catalog-view-dock-action" class="dock-action">Browse all 256 tools &darr;</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Architecture & Philosophy Panel -->
+    <div class="philosophy-panel">
+      <h3 class="philosophy-title">&gt; THE DUAL-PLANE ARCHITECTURE</h3>
+      <p class="philosophy-text">
+        Every tool in <code>openOODA-tools</code> delivers instant POSIX execution for human terminal muscle memory, paired with an <code>--mcp</code> flag that transforms the binary into a capability-bounded Model Context Protocol server. When an AI agent executes <code>oogrep</code>, <code>oodiff</code>, or <code>oojq</code>, the operation is mathematically bounded by the host runtime — eliminating ambient filesystem traversal, command injection, and unsanctioned network egress.
+      </p>
+    </div>
+  </main>
+
+  <footer class="market-footer">
+    <div class="footer-inner">
       <span>OPENOODA TOOLS &copy; 2026 // CAPABILITY-BOUNDED USERLAND</span>
       <div class="footer-links">
         <a href="https://openooda.org" target="_blank" rel="noopener noreferrer">[ OPENOODA CORE ]</a>
         <a href="https://github.com/openOODA-tools" target="_blank" rel="noopener noreferrer">[ GITHUB ]</a>
-        <a href="https://studio2201.com" target="_blank" rel="noopener noreferrer">[ STUDIO2201 ]</a>
+        <a href="https://github.com/openOODA-tools/openOODA-tools.github.io/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">[ APACHE-2.0 LICENSE ]</a>
       </div>
-    </footer>
-  </div>
+    </div>
+  </footer>
 
-  <script>
-    function copySnippet(text, btn) {
-      navigator.clipboard.writeText(text).then(() => {
-        const orig = btn.textContent;
-        btn.textContent = 'COPIED';
-        btn.style.color = '#00e676';
-        btn.style.borderColor = '#00e676';
-        setTimeout(() => {
-          btn.textContent = orig;
-          btn.style.color = '';
-          btn.style.borderColor = '';
-        }, 1500);
-      });
-    }
-  </script>
+  <div class="toast" id="toast" role="status" aria-live="polite">Command copied to clipboard</div>
+
+  <script type="module" src="assets/js/app.js"></script>
 </body>
 </html>

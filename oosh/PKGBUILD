@@ -17,4 +17,5 @@ sha256sums=('e1ef3c439ecaa3a96c3915d21f4de5ed6848928ea80eebe3a784b3d618437951'
 
 package() {
     install -Dm755 "${srcdir}/oosh-linux-x86_64" "${pkgdir}/usr/bin/oosh"
+    install -Dm755 uninstall.sh "${pkgdir}/usr/bin/oosh-uninstall"
 }

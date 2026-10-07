@@ -15,4 +15,5 @@ sha256sums=('SKIP')
 
 package() {
     install -Dm755 "${srcdir}/${_pkgname}-${pkgver}" "${pkgdir}/usr/bin/oofind"
+    install -Dm755 uninstall.sh "${pkgdir}/usr/bin/oofind-uninstall"
 }

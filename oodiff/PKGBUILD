@@ -15,4 +15,5 @@ sha256sums_x86_64=('5a1115f57d2a49743945b832d5eee4b6a69b985d11ee05ecca6c6f7b6a7a
 
 package() {
     install -Dm755 "${srcdir}/oodiff-linux-x86_64" "${pkgdir}/usr/bin/oodiff"
+    install -Dm755 uninstall.sh "${pkgdir}/usr/bin/oodiff-uninstall"
 }

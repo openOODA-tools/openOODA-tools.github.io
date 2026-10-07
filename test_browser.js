@@ -131,7 +131,18 @@ server.listen(PORT, async () => {
     const isPaused = await evalJs(`document.getElementById("recent-latest").classList.contains("is-paused")`);
     if (!isPaused) throw new Error("Marquee toggle button did not pause animation");
 
-    console.log("[PASS] Browser headless E2E verification passed all 6 test suites");
+    // Test 7: Hidden gems random selection and shuffle re-roll
+    const gemsInitial = await evalJs(`Array.from(document.querySelectorAll("#gems-grid .gem-card")).map(c => c.dataset.toolId)`);
+    if (gemsInitial.length !== 8) {
+      throw new Error(`Expected 8 randomized hidden gems, got ${gemsInitial.length}`);
+    }
+    await evalJs(`document.getElementById("gems-shuffle-btn").click()`);
+    const gemsAfterShuffle = await evalJs(`Array.from(document.querySelectorAll("#gems-grid .gem-card")).map(c => c.dataset.toolId)`);
+    if (gemsAfterShuffle.length !== 8) {
+      throw new Error(`Expected 8 hidden gems after shuffle, got ${gemsAfterShuffle.length}`);
+    }
+
+    console.log("[PASS] Browser headless E2E verification passed all 7 test suites");
     ws.close();
     chrome.kill();
     server.close();

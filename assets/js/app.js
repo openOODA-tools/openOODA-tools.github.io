@@ -124,19 +124,45 @@ export function showToast(message) {
   }, 2200);
 }
 
-// Render Hidden Gems Carousel
-function renderHiddenGems() {
+// Fisher-Yates array shuffle for uniform randomization
+function shuffleArray(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// Select a random set of hidden gems from the catalog
+// Balances active sovereign releases (runnable now) with userland blueprints
+function selectRandomGems(tools, count = 8) {
+  const released = tools.filter(t => t.status === "released");
+  const blueprints = tools.filter(t => t.status !== "released");
+
+  const numReleased = Math.min(released.length, Math.max(4, Math.floor(count * 0.65)));
+  const numBlueprints = count - numReleased;
+
+  const pickedReleased = shuffleArray(released).slice(0, numReleased);
+  const pickedBlueprints = shuffleArray(blueprints).slice(0, numBlueprints);
+
+  return shuffleArray([...pickedReleased, ...pickedBlueprints]);
+}
+
+// Render Hidden Gems Carousel with random selection and re-roll capabilities
+function renderHiddenGems(isShuffle = false) {
   const track = document.getElementById("gems-grid");
   const prevBtn = document.querySelector("[data-gems-step='-1']");
   const nextBtn = document.querySelector("[data-gems-step='1']");
+  const shuffleBtn = document.getElementById("gems-shuffle-btn");
   if (!track) return;
 
-  const gems = state.tools.filter(t => t.gem);
+  const gems = selectRandomGems(state.tools, 8);
   track.innerHTML = gems.map(tool => `
-    <article class="gem-card" style="--card-accent: ${tool.accent}">
+    <article class="gem-card" data-tool-id="${tool.id}" style="--card-accent: ${tool.accent}">
       <div class="tool-card-preview">
         <span class="tool-preview-mark">${tool.monogram}</span>
-        <span class="badge badge-green tool-preview-badge">${tool.version}</span>
+        <span class="badge ${tool.status === 'released' ? 'badge-green' : 'badge-cyan'} tool-preview-badge">${tool.version}</span>
       </div>
       <div class="gem-body">
         <div class="gem-title-group">
@@ -161,25 +187,40 @@ function renderHiddenGems() {
     </article>
   `).join("");
 
+  if (isShuffle) {
+    track.scrollTo({ left: 0, behavior: "smooth" });
+  }
+
   const updateButtons = () => {
     const maxScroll = track.scrollWidth - track.clientWidth;
     if (prevBtn) prevBtn.disabled = track.scrollLeft <= 4;
     if (nextBtn) nextBtn.disabled = track.scrollLeft >= maxScroll - 4;
   };
 
-  if (prevBtn && nextBtn && !track.dataset.carouselInit) {
+  if (!track.dataset.carouselInit) {
     track.dataset.carouselInit = "true";
-    prevBtn.addEventListener("click", () => {
-      track.scrollBy({ left: -(track.clientWidth * 0.75), behavior: "smooth" });
-    });
-    nextBtn.addEventListener("click", () => {
-      track.scrollBy({ left: track.clientWidth * 0.75, behavior: "smooth" });
-    });
+    if (prevBtn) {
+      prevBtn.addEventListener("click", () => {
+        track.scrollBy({ left: -(track.clientWidth * 0.75), behavior: "smooth" });
+      });
+    }
+    if (nextBtn) {
+      nextBtn.addEventListener("click", () => {
+        track.scrollBy({ left: track.clientWidth * 0.75, behavior: "smooth" });
+      });
+    }
+    if (shuffleBtn) {
+      shuffleBtn.addEventListener("click", () => {
+        renderHiddenGems(true);
+        showToast("Randomized hidden gems");
+      });
+    }
     track.addEventListener("scroll", updateButtons, { passive: true });
     window.addEventListener("resize", updateButtons);
   }
   updateButtons();
 }
+window.renderHiddenGems = renderHiddenGems;
 
 // Select tool and jump to catalog without hiding all other tools
 window.selectAndScroll = function(toolId) {

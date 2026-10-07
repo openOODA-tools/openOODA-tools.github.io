@@ -26,6 +26,13 @@ const pluginGrid = document.getElementById("plugin-grid");
 const catalogSplit = document.getElementById("catalog-split");
 const splitGrid = document.getElementById("split-grid");
 const splitCard = document.getElementById("split-card");
+const splitStats = document.getElementById("split-stats");
+const splitPanelCount = document.getElementById("split-panel-count");
+const splitPagePrevious = document.getElementById("split-page-previous");
+const splitPageNext = document.getElementById("split-page-next");
+const splitPageSummary = document.getElementById("split-page-summary");
+const splitPageInput = document.getElementById("split-page-input");
+const splitPageTotal = document.getElementById("split-page-total");
 const emptyState = document.getElementById("empty-state");
 const emptyReset = document.getElementById("empty-reset");
 const toolCountEl = document.getElementById("tool-count");
@@ -40,7 +47,7 @@ const viewDockAction = document.getElementById("catalog-view-dock-action");
 const toast = document.getElementById("toast");
 const themeToggle = document.querySelector(".theme-toggle");
 
-// Initialize theme from storage
+// Initialize theme from localStorage
 function initTheme() {
   const themes = ["dark", "tokyo-night", "gruvbox", "catppuccin", "ethereal", "light"];
   let savedTheme = localStorage.getItem("openooda-theme");
@@ -55,7 +62,11 @@ function initTheme() {
       const nextIndex = (themes.indexOf(current) + 1) % themes.length;
       const nextTheme = themes[nextIndex];
       document.documentElement.dataset.theme = nextTheme;
-      localStorage.setItem("openooda-theme", nextTheme);
+      try {
+        localStorage.setItem("openooda-theme", nextTheme);
+      } catch (e) {
+        console.warn("Could not save theme to localStorage", e);
+      }
       showToast(`Theme switched: ${nextTheme}`);
     });
   }
@@ -103,31 +114,33 @@ function renderHiddenGems() {
   const gems = state.tools.filter(t => t.gem);
   track.innerHTML = gems.map(tool => `
     <article class="gem-card" style="--card-accent: ${tool.accent}">
-      <div>
-        <div class="gem-header">
-          <div class="gem-icon">${tool.monogram}</div>
-          <div class="gem-title-group">
-            <h3>${tool.name} <span class="badge badge-green">${tool.version}</span></h3>
+      <div class="tool-card-preview">
+        <span class="tool-preview-mark">${tool.monogram}</span>
+        <span class="badge badge-green tool-preview-badge">${tool.version}</span>
+      </div>
+      <div class="gem-body">
+        <div class="gem-title-group">
+          <div class="gem-title-line">
+            <h3 class="gem-name">${tool.name}</h3>
             <span class="gem-role">${tool.role}</span>
           </div>
+          <div class="gem-fact"><strong>GEM:</strong> ${escapeHtml(tool.gemFact)}</div>
         </div>
-        <div class="gem-fact"><strong>GEM:</strong> ${tool.gemFact}</div>
-        <p class="gem-desc">${tool.description}</p>
-      </div>
-      <div>
-        <div class="install-box">
-          <code>${escapeHtml(tool.installCommand)}</code>
-          <button class="copy-btn" onclick="copySnippet('${escapeHtml(tool.installCommand)}', this)">COPY</button>
-        </div>
-        <div class="card-links">
-          <a href="${tool.overviewUrl}">[ Overview ]</a>
-          <a href="${tool.repoUrl}" target="_blank" rel="noopener noreferrer">[ Source &#8599; ]</a>
+        <p class="gem-desc">${escapeHtml(tool.description)}</p>
+        <div>
+          <div class="install-box">
+            <code>${escapeHtml(tool.installCommand)}</code>
+            <button class="copy-btn" onclick="copySnippet('${escapeHtml(tool.installCommand)}', this)">COPY</button>
+          </div>
+          <div class="card-links" style="margin-top: 10px;">
+            <a href="${tool.overviewUrl}">[ Overview ]</a>
+            <a href="${tool.repoUrl}" target="_blank" rel="noopener noreferrer">[ GitHub &#8599; ]</a>
+          </div>
         </div>
       </div>
     </article>
   `).join("");
 
-  // Navigation handlers
   const updateButtons = () => {
     const maxScroll = track.scrollWidth - track.clientWidth;
     if (prevBtn) prevBtn.disabled = track.scrollLeft <= 4;
@@ -137,10 +150,10 @@ function renderHiddenGems() {
   if (prevBtn && nextBtn && !track.dataset.carouselInit) {
     track.dataset.carouselInit = "true";
     prevBtn.addEventListener("click", () => {
-      track.scrollBy({ left: -(track.clientWidth * 0.8), behavior: "smooth" });
+      track.scrollBy({ left: -(track.clientWidth * 0.75), behavior: "smooth" });
     });
     nextBtn.addEventListener("click", () => {
-      track.scrollBy({ left: track.clientWidth * 0.8, behavior: "smooth" });
+      track.scrollBy({ left: track.clientWidth * 0.75, behavior: "smooth" });
     });
     track.addEventListener("scroll", updateButtons, { passive: true });
     window.addEventListener("resize", updateButtons);
@@ -148,15 +161,59 @@ function renderHiddenGems() {
   updateButtons();
 }
 
-// Render Dual Scrolling Marquee
+// Select tool and jump to catalog without hiding all other tools
+window.selectAndScroll = function(toolId) {
+  state.selectedToolId = toolId;
+  const tool = state.tools.find(t => t.id === toolId);
+  if (!tool) return;
+
+  // If in Split view, re-render split view on page containing tool
+  if (state.viewMode === "split") {
+    const filtered = getFilteredTools();
+    const idx = filtered.findIndex(t => t.id === toolId);
+    if (idx !== -1) {
+      state.currentPage = Math.floor(idx / 18) + 1;
+    }
+    applyFiltersAndRender();
+  } else {
+    // In Cards view, locate page containing tool
+    const filtered = getFilteredTools();
+    const idx = filtered.findIndex(t => t.id === toolId);
+    if (idx !== -1 && !state.showAll) {
+      state.currentPage = Math.floor(idx / state.pageSize) + 1;
+    }
+    applyFiltersAndRender();
+    
+    // Highlight the card briefly
+    setTimeout(() => {
+      const card = document.querySelector(`[data-tool-id="${toolId}"]`);
+      if (card) {
+        card.classList.add("is-highlighted");
+        setTimeout(() => card.classList.remove("is-highlighted"), 2500);
+      }
+    }, 150);
+  }
+
+  const catalog = document.getElementById("catalog");
+  if (catalog) {
+    catalog.scrollIntoView({ behavior: "smooth" });
+  }
+};
+
+// Render Dual Scrolling Marquee (Curated 48 showcase items)
 function renderMarquee() {
   const container = document.getElementById("recent-latest");
   const toggleBtn = document.getElementById("recent-feed-toggle");
   if (!container) return;
 
-  // Split all 256 tools into two rows
-  const row0Tools = state.tools.filter((_, i) => i % 2 === 0);
-  const row1Tools = state.tools.filter((_, i) => i % 2 === 1);
+  // Build a curated 48-item showcase:
+  // All 12 released tools + 36 representative blueprint tools from various categories
+  const released = state.tools.filter(t => t.status === "released");
+  const blueprintSample = state.tools.filter(t => t.status !== "released").slice(0, 36);
+  const showcaseTools = [...released, ...blueprintSample];
+
+  const row0Tools = showcaseTools.filter((_, i) => i % 2 === 0);
+  const row1Tools = showcaseTools.filter((_, i) => i % 2 === 1);
 
   const makeCard = (tool, duplicate = false) => `
     <li${duplicate ? ' aria-hidden="true"' : ""}>
@@ -202,43 +259,48 @@ function renderMarquee() {
   }
 }
 
-// Select tool and jump to catalog
-window.selectAndScroll = function(toolId) {
-  state.searchQuery = toolId;
-  if (searchInput) searchInput.value = toolId;
-  if (searchClear) searchClear.style.display = "block";
-  state.selectedToolId = toolId;
-  applyFiltersAndRender();
-  const catalog = document.getElementById("catalog");
-  if (catalog) {
-    catalog.scrollIntoView({ behavior: "smooth" });
-  }
-};
-
-// Filter & Sort Logic
+// Tokenized Search & Multi-filter Logic
 function getFilteredTools() {
-  const query = state.searchQuery.trim().toLowerCase();
-  
+  const rawQuery = state.searchQuery.trim().toLowerCase();
+  const tokens = rawQuery ? rawQuery.split(/\s+/).filter(Boolean) : [];
+
   return state.tools.filter(tool => {
-    // Status filter
+    // Status filter chip
     if (state.status === "released" && tool.status !== "released") return false;
     if (state.status === "blueprint" && tool.status !== "blueprint") return false;
 
-    // Category filter
+    // Category filter chip
     if (state.category !== "All Categories" && tool.category !== state.category) return false;
 
-    // Query filter
-    if (query) {
-      if (query.startsWith("tag:")) {
-        const tagQuery = query.slice(4).trim();
-        return tool.tags.some(t => t.toLowerCase().includes(tagQuery));
+    // Query tokens
+    if (tokens.length > 0) {
+      for (const token of tokens) {
+        if (token.startsWith("tag:")) {
+          const val = token.slice(4);
+          if (!tool.tags.some(t => t.toLowerCase().includes(val))) return false;
+          continue;
+        }
+        if (token.startsWith("status:")) {
+          const val = token.slice(7);
+          if (!tool.status.toLowerCase().includes(val)) return false;
+          continue;
+        }
+        if (token.startsWith("cat:")) {
+          const val = token.slice(4);
+          if (!tool.category.toLowerCase().includes(val)) return false;
+          continue;
+        }
+
+        const matchName = tool.name.toLowerCase().includes(token);
+        const matchRole = tool.role.toLowerCase().includes(token);
+        const matchDesc = tool.description.toLowerCase().includes(token);
+        const matchTags = tool.tags.some(t => t.toLowerCase().includes(token));
+        const matchCategory = tool.category.toLowerCase().includes(token);
+
+        if (!matchName && !matchRole && !matchDesc && !matchTags && !matchCategory) {
+          return false;
+        }
       }
-      const matchName = tool.name.toLowerCase().includes(query);
-      const matchRole = tool.role.toLowerCase().includes(query);
-      const matchDesc = tool.description.toLowerCase().includes(query);
-      const matchTags = tool.tags.some(t => t.toLowerCase().includes(query));
-      const matchCategory = tool.category.toLowerCase().includes(query);
-      return matchName || matchRole || matchDesc || matchTags || matchCategory;
     }
 
     return true;
@@ -262,14 +324,21 @@ function getFilteredTools() {
   });
 }
 
-// Render Filter Bars
+// Render Filter Bars with accurate dynamic counts
 function renderFilterBars() {
   if (sourceFiltersContainer) {
-    sourceFiltersContainer.innerHTML = STATUS_FILTERS.map(f => `
-      <button type="button" class="filter-btn ${state.status === f.id ? 'active' : ''}" data-status="${f.id}">
-        ${f.label} <span class="filter-count">(${f.count})</span>
-      </button>
-    `).join("");
+    sourceFiltersContainer.innerHTML = STATUS_FILTERS.map(f => {
+      let count = 0;
+      if (f.id === "all") count = state.tools.length;
+      else if (f.id === "released") count = state.tools.filter(t => t.status === "released").length;
+      else if (f.id === "blueprint") count = state.tools.filter(t => t.status === "blueprint").length;
+
+      return `
+        <button type="button" class="filter-btn ${state.status === f.id ? 'active' : ''}" data-status="${f.id}">
+          ${f.label} <span class="filter-count">(${count})</span>
+        </button>
+      `;
+    }).join("");
 
     sourceFiltersContainer.querySelectorAll("[data-status]").forEach(btn => {
       btn.addEventListener("click", () => {
@@ -282,9 +351,13 @@ function renderFilterBars() {
 
   if (categoryFiltersContainer) {
     categoryFiltersContainer.innerHTML = CATEGORIES.map(cat => {
-      const count = cat === "All Categories" 
-        ? state.tools.length 
-        : state.tools.filter(t => t.category === cat).length;
+      const subset = state.status === "all"
+        ? state.tools
+        : state.tools.filter(t => t.status === state.status);
+      const count = cat === "All Categories"
+        ? subset.length
+        : subset.filter(t => t.category === cat).length;
+
       return `
         <button type="button" class="filter-btn ${state.category === cat ? 'active' : ''}" data-cat="${cat}">
           ${cat} <span class="filter-count">(${count})</span>
@@ -321,32 +394,32 @@ function renderCardsView(filteredTools) {
     const statusLabel = isReleased ? tool.version : "Blueprint";
 
     return `
-      <article class="tool-card" style="--card-accent: ${tool.accent}">
-        <div>
-          <div class="tool-card-head">
-            <div class="tool-card-icon">${tool.monogram}</div>
-            <div class="tool-card-title-group">
-              <div class="tool-card-title-line">
-                <h3 class="tool-card-name">${tool.name}</h3>
-                <span class="tool-card-role">${tool.role}</span>
-              </div>
-              <div class="tool-card-badges">
-                <span class="badge ${statusBadgeClass}">${statusLabel}</span>
-                <span class="badge badge-cyan">${tool.category}</span>
-                ${tool.tags.slice(0, 2).map(tag => `<span class="badge">${tag}</span>`).join("")}
-              </div>
+      <article class="tool-card" data-tool-id="${tool.id}" style="--card-accent: ${tool.accent}">
+        <div class="tool-card-preview">
+          <span class="tool-preview-mark">${tool.monogram}</span>
+          <span class="badge ${statusBadgeClass} tool-preview-badge">${statusLabel}</span>
+        </div>
+        <div class="tool-card-body">
+          <div class="tool-card-title-group">
+            <div class="tool-card-title-line">
+              <h3 class="tool-card-name">${tool.name}</h3>
+              <span class="tool-card-role">${tool.role}</span>
+            </div>
+            <div class="tool-card-badges">
+              <span class="badge badge-cyan">${tool.category}</span>
+              ${tool.tags.slice(0, 2).map(tag => `<span class="badge">${tag}</span>`).join("")}
             </div>
           </div>
-          <p class="tool-card-desc">${tool.description}</p>
-        </div>
-        <div>
-          <div class="install-box">
-            <code>${escapeHtml(tool.installCommand)}</code>
-            ${isReleased ? `<button class="copy-btn" onclick="copySnippet('${escapeHtml(tool.installCommand)}', this)">COPY</button>` : ''}
-          </div>
-          <div class="card-links">
-            ${isReleased ? `<a href="${tool.overviewUrl}">[ Overview ]</a>` : '<span style="color:var(--faint)">[ In Spec Review ]</span>'}
-            <a href="${tool.repoUrl}" target="_blank" rel="noopener noreferrer">[ GitHub &#8599; ]</a>
+          <p class="tool-card-desc">${escapeHtml(tool.description)}</p>
+          <div>
+            <div class="install-box">
+              <code>${escapeHtml(tool.installCommand)}</code>
+              ${isReleased ? `<button class="copy-btn" onclick="copySnippet('${escapeHtml(tool.installCommand)}', this)">COPY</button>` : ''}
+            </div>
+            <div class="card-links" style="margin-top: 10px;">
+              ${isReleased ? `<a href="${tool.overviewUrl}">[ Overview ]</a>` : '<span style="color:var(--faint)">[ In Spec Review ]</span>'}
+              <a href="${tool.repoUrl}" target="_blank" rel="noopener noreferrer">[ GitHub &#8599; ]</a>
+            </div>
           </div>
         </div>
       </article>
@@ -368,16 +441,21 @@ function renderSplitView(filteredTools) {
   const start = (state.currentPage - 1) * 18;
   const currentTools = filteredTools.slice(start, start + 18);
 
-  // If current selected tool not in list, pick first
+  // If currently selected tool not in filtered list, select first available
   let selected = filteredTools.find(t => t.id === state.selectedToolId);
   if (!selected && filteredTools.length > 0) {
     selected = filteredTools[0];
     state.selectedToolId = selected.id;
   }
 
-  // Render left tiles
-  splitGrid.innerHTML = currentTools.map(tool => `
-    <button type="button" class="split-tile ${tool.id === state.selectedToolId ? 'is-selected' : ''}" data-tool-id="${tool.id}" style="--card-accent: ${tool.accent}">
+  // Render left tiles list
+  splitGrid.innerHTML = currentTools.map((tool, index) => `
+    <button type="button" class="split-tile ${tool.id === state.selectedToolId ? 'is-selected' : ''}" 
+      data-tool-id="${tool.id}" 
+      data-index="${index}"
+      role="option" 
+      aria-selected="${tool.id === state.selectedToolId ? 'true' : 'false'}"
+      style="--card-accent: ${tool.accent}">
       <span class="split-tile-icon">${tool.monogram}</span>
       <span class="split-tile-name">${tool.name}</span>
       <span class="split-tile-role">${tool.role}</span>
@@ -392,7 +470,7 @@ function renderSplitView(filteredTools) {
     });
   });
 
-  // Render right inspector card
+  // Render right inspector panel
   if (selected) {
     const isReleased = selected.status === "released";
     splitCard.innerHTML = `
@@ -404,16 +482,15 @@ function renderSplitView(filteredTools) {
             <span class="badge ${isReleased ? 'badge-green' : 'badge'}">${isReleased ? selected.version : 'Blueprint Specification'}</span>
           </div>
         </div>
-        <p class="inspector-desc">${selected.description}</p>
+        <p class="inspector-desc">${escapeHtml(selected.description)}</p>
         
         <div class="inspector-meta-block">
           <div class="inspector-row"><span>Category</span><span>${selected.category}</span></div>
           <div class="inspector-row"><span>Role</span><span>${selected.role}</span></div>
           <div class="inspector-row"><span>Security Bounds</span><span>Negative-trust sandbox</span></div>
           <div class="inspector-row"><span>Ambient Auth</span><span>Zero Ambient Auth (NAA)</span></div>
-          <div class="inspector-row"><span>systemd Integration</span><span>Native service / scope</span></div>
           <div class="inspector-row"><span>Model Context Protocol</span><span>stdio MCP server (--mcp)</span></div>
-          <div class="inspector-row"><span>Packaging</span><span>Arch, Fedora RPM, Debian DEB</span></div>
+          <div class="inspector-row"><span>Packaging</span><span>Arch PKGBUILD, RPM, DEB</span></div>
         </div>
 
         <div class="install-box">
@@ -427,35 +504,94 @@ function renderSplitView(filteredTools) {
         </div>
       </section>
     `;
+
+    if (splitStats) {
+      splitStats.innerHTML = `
+        <div class="inspector-row"><span>Execution Plane</span><span>Dual (Terminal + Agent)</span></div>
+        <div class="inspector-row"><span>Boundary Enforcement</span><span>Kernel-level namespaces</span></div>
+        <div class="inspector-row"><span>Audit Logging</span><span>Structured JSON Lines</span></div>
+        <div class="inspector-row"><span>Language Runtime</span><span>Pure compiled openOODA</span></div>
+      `;
+    }
   }
 
-  // Split view pager
-  const splitPrev = document.getElementById("split-page-previous");
-  const splitNext = document.getElementById("split-page-next");
-  const splitSummary = document.getElementById("split-page-summary");
-
-  if (splitPrev) splitPrev.disabled = state.currentPage <= 1;
-  if (splitNext) splitNext.disabled = state.currentPage >= totalPages;
-  if (splitSummary) splitSummary.textContent = `Page ${state.currentPage} of ${totalPages}`;
-
-  if (splitPrev && !splitPrev.dataset.init) {
-    splitPrev.dataset.init = "true";
-    splitPrev.addEventListener("click", () => {
-      if (state.currentPage > 1) {
-        state.currentPage--;
-        renderSplitView(getFilteredTools());
-      }
-    });
+  // Update Split Pager elements
+  if (splitPanelCount) {
+    splitPanelCount.textContent = `${total} available`;
   }
-  if (splitNext && !splitNext.dataset.init) {
-    splitNext.dataset.init = "true";
-    splitNext.addEventListener("click", () => {
+  if (splitPageSummary) {
+    splitPageSummary.innerHTML = `
+      <label class="split-page-jump">Page <input id="split-page-input" type="number" inputmode="numeric" min="1" max="${totalPages}" value="${state.currentPage}" aria-label="Go to page" /></label>
+      <span id="split-page-total">of ${totalPages}</span>
+    `;
+    const newPageInput = document.getElementById("split-page-input");
+    if (newPageInput) {
+      newPageInput.addEventListener("change", (e) => {
+        let p = parseInt(e.target.value, 10);
+        if (isNaN(p)) p = 1;
+        state.currentPage = Math.min(Math.max(1, p), totalPages);
+        renderSplitView(filteredTools);
+      });
+    }
+  }
+
+  if (splitPagePrevious) splitPagePrevious.disabled = state.currentPage <= 1;
+  if (splitPageNext) splitPageNext.disabled = state.currentPage >= totalPages;
+
+  if (pagination) pagination.hidden = true;
+  if (viewDock) viewDock.hidden = true;
+}
+
+// Split View Keyboard Navigation (Arrow Keys, PageUp, PageDown)
+function setupSplitKeyboardNav() {
+  window.addEventListener("keydown", (e) => {
+    if (state.viewMode !== "split" || catalogSplit.hidden) return;
+    if (document.activeElement === searchInput) return;
+
+    const filtered = getFilteredTools();
+    if (filtered.length === 0) return;
+
+    const start = (state.currentPage - 1) * 18;
+    const currentTools = filtered.slice(start, start + 18);
+    const currentIndex = currentTools.findIndex(t => t.id === state.selectedToolId);
+    const totalPages = Math.ceil(filtered.length / 18) || 1;
+
+    if (e.key === "ArrowDown" || e.key === "ArrowRight") {
+      e.preventDefault();
+      const nextIdx = (currentIndex + 1) % currentTools.length;
+      state.selectedToolId = currentTools[nextIdx].id;
+      renderSplitView(filtered);
+    } else if (e.key === "ArrowUp" || e.key === "ArrowLeft") {
+      e.preventDefault();
+      const prevIdx = (currentIndex - 1 + currentTools.length) % currentTools.length;
+      state.selectedToolId = currentTools[prevIdx].id;
+      renderSplitView(filtered);
+    } else if (e.key === "PageDown") {
+      e.preventDefault();
       if (state.currentPage < totalPages) {
         state.currentPage++;
-        renderSplitView(getFilteredTools());
+        renderSplitView(filtered);
       }
-    });
-  }
+    } else if (e.key === "PageUp") {
+      e.preventDefault();
+      if (state.currentPage > 1) {
+        state.currentPage--;
+        renderSplitView(filtered);
+      }
+    } else if (e.key === "Home") {
+      e.preventDefault();
+      if (currentTools.length > 0) {
+        state.selectedToolId = currentTools[0].id;
+        renderSplitView(filtered);
+      }
+    } else if (e.key === "End") {
+      e.preventDefault();
+      if (currentTools.length > 0) {
+        state.selectedToolId = currentTools[currentTools.length - 1].id;
+        renderSplitView(filtered);
+      }
+    }
+  });
 }
 
 // Render Pagination Controls
@@ -499,6 +635,7 @@ function applyFiltersAndRender() {
     if (pagination) pagination.hidden = true;
     if (viewDock) viewDock.hidden = true;
     if (emptyState) emptyState.hidden = false;
+    renderFilterBars();
     return;
   }
 
@@ -712,6 +849,22 @@ function setupEventListeners() {
     });
   }
 
+  // Split View Pager Buttons
+  if (splitPagePrevious) {
+    splitPagePrevious.addEventListener("click", () => {
+      if (state.currentPage > 1) {
+        state.currentPage--;
+        applyFiltersAndRender();
+      }
+    });
+  }
+  if (splitPageNext) {
+    splitPageNext.addEventListener("click", () => {
+      state.currentPage++;
+      applyFiltersAndRender();
+    });
+  }
+
   // View Dock (Toggle between 9 per page and show all)
   if (viewDockBtn) {
     viewDockBtn.addEventListener("click", () => {
@@ -727,6 +880,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderHiddenGems();
   renderMarquee();
   setupEventListeners();
+  setupSplitKeyboardNav();
   applyFiltersAndRender();
   initHeroRay();
 });

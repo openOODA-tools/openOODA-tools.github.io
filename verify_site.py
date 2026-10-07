@@ -85,10 +85,18 @@ def test_marquee_and_gems():
     assert len(gems) >= 6, f"Expected at least 6 hidden gems, got {len(gems)}"
     print(f"[PASS] Hidden gems verified: {len(gems)} curated tools")
 
+def test_browser_e2e():
+    script_path = os.path.join(ROOT, "test_browser.js")
+    if os.path.exists(script_path):
+        ret = os.system(f"node '{script_path}'")
+        assert ret == 0, f"test_browser.js failed with exit code {ret}"
+
 if __name__ == "__main__":
     test_no_external_dependencies()
     test_element_id_parity()
     test_released_tools_parity()
     test_install_script_syntax()
     test_marquee_and_gems()
+    test_browser_e2e()
     print("\nALL VERIFICATION CHECKS PASSED SUCCESSFULLY!")
+

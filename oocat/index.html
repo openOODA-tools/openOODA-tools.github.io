@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>oocat — sovereign syntax file viewer</title>
+<style>
+body{font-family:system-ui,sans-serif;max-width:44em;margin:3em auto;padding:0 1em;color:#222}
+h1{font-size:1.7em;margin-bottom:.1em}
+.sub{color:#666;margin-top:0}
+pre{background:#f4f4f4;padding:1em;border-radius:6px;overflow-x:auto}
+code{font-size:.92em}
+table{border-collapse:collapse;width:100%;margin:1em 0}
+th,td{border:1px solid #ddd;padding:.4em .7em;text-align:left}
+th{background:#f4f4f4}
+a{color:#0b5fff}
+.badge{display:inline-block;background:#e8f5e9;border:1px solid #a5d6a7;border-radius:12px;padding:.1em .8em;margin:.2em .3em .2em 0;font-size:.9em}
+</style>
+</head>
+<body>
+<h1>oocat</h1>
+<p class="sub">Sovereign syntax-highlighting file viewer and pager with oote palettes and MCP surface.</p>
+
+<p>
+<span class="badge">v0.1.0</span>
+<span class="badge">100% openOODA</span>
+<span class="badge">Zero Ambient Authority</span>
+<span class="badge">oote Syntax Tokens</span>
+<span class="badge">Range Windowing</span>
+<span class="badge">Model Context Protocol</span>
+</p>
+
+<h2>Install</h2>
+<p><strong>Universal Standalone:</strong></p>
+<pre><code>curl -fsSL https://openooda-tools.github.io/oocat/install.sh | bash</code></pre>
+
+<p><strong>DNF (Fedora / RHEL / CentOS):</strong></p>
+<pre><code>curl -fsSL https://openooda-tools.github.io/oocat/install.sh | bash -s -- --dnf</code></pre>
+
+<p><strong>DEB (Debian / Ubuntu):</strong></p>
+<pre><code>curl -fsSL https://openooda-tools.github.io/oocat/install.sh | bash -s -- --deb</code></pre>
+
+<p><strong>PKGBUILD (Arch Linux / Manjaro):</strong></p>
+<pre><code>curl -fsSL https://openooda-tools.github.io/oocat/install.sh | bash -s -- --pkgbuild</code></pre>
+
+<p>Zero dependencies. Standalone binary installs to <code>/usr/local/bin</code> (or <code>~/.local/bin</code>). Native <code>.deb</code>, <code>.rpm</code>, and <code>PKGBUILD</code> packages are also available directly on <a href="https://github.com/openOODA-tools/oocat/releases">GitHub Releases</a>.</p>
+
+<h2>Uninstall</h2>
+<p>Cleanly remove <code>oocat</code> binaries, packages, and helper scripts at any time:</p>
+<pre><code># 1. Via installed CLI helper
+oocat-uninstall
+
+# 2. Via dedicated web uninstaller
+curl -fsSL https://openooda-tools.github.io/oocat/uninstall.sh | bash
+
+# 3. Dry-run preview
+oocat-uninstall --dry-run</code></pre>
+
+<h2>Why sovereign cat?</h2>
+<table>
+<tr><th>Feature</th><th>cat / bat</th><th>oocat</th></tr>
+<tr><td>Security</td><td>Ambient read permissions</td><td>Bounded by <code>&amp;FsReadCap</code> tokens</td></tr>
+<tr><td>Highlighting</td><td>External syntect/regex engines</td><td>Pure openOODA lexers (oo, sh, c, json, py, md)</td></tr>
+<tr><td>Theming</td><td>Static tmTheme files</td><td>Unified <code>oote</code> tokens from <code>~/.openooda/theme.oot</code></td></tr>
+<tr><td>AI Agents</td><td>No agent interface</td><td>MCP stdio tools (<code>oocat_view</code>, <code>oocat_highlight</code>)</td></tr>
+<tr><td>Pipelines</td><td>TTY heuristics</td><td>Zero-delay streaming from standard input</td></tr>
+</table>
+
+<h2>Try it</h2>
+<pre><code>oocat main.oo                         # View file with headers, line numbers &amp; syntax
+oocat main.oo -r 10:30                # View bounded line range
+oocat main.oo --style plain           # Raw cat output without gutters
+git diff | oocat - --style numbers    # Pipe from standard input
+oocat --mcp                           # Launch MCP stdio server</code></pre>
+
+<p><a href="https://github.com/openOODA-tools/oocat">Source &amp; docs</a> · <a href="https://github.com/openOODA-tools/oocat/releases">Releases</a> · <a href="https://github.com/openOODA-tools">openOODA-tools</a></p>
+</body>
+</html>

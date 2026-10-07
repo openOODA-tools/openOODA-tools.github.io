@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ootop — sovereign real-time system monitor</title>
+<style>
+body{font-family:system-ui,sans-serif;max-width:44em;margin:3em auto;padding:0 1em;color:#222}
+h1{font-size:1.7em;margin-bottom:.1em}
+.sub{color:#666;margin-top:0}
+pre{background:#f4f4f4;padding:1em;border-radius:6px;overflow-x:auto}
+code{font-size:.92em}
+table{border-collapse:collapse;width:100%;margin:1em 0}
+th,td{border:1px solid #ddd;padding:.4em .7em;text-align:left}
+th{background:#f4f4f4}
+a{color:#0b5fff}
+.badge{display:inline-block;background:#e8f5e9;border:1px solid #a5d6a7;border-radius:12px;padding:.1em .8em;margin:.2em .3em .2em 0;font-size:.9em}
+</style>
+</head>
+<body>
+<h1>ootop</h1>
+<p class="sub">Sovereign real-time system monitor with systemd slice grouping and MCP surface.</p>
+
+<p>
+<span class="badge">v0.1.0</span>
+<span class="badge">100% openOODA</span>
+<span class="badge">Zero Ambient Authority</span>
+<span class="badge">Systemd Slice Native</span>
+<span class="badge">Dynamic Mascot Moods</span>
+<span class="badge">Model Context Protocol</span>
+</p>
+
+<h2>Install</h2>
+<p><strong>Universal Standalone:</strong></p>
+<pre><code>curl -fsSL https://openooda-tools.github.io/ootop/install.sh | bash</code></pre>
+
+<p><strong>DNF (Fedora / RHEL / CentOS):</strong></p>
+<pre><code>curl -fsSL https://openooda-tools.github.io/ootop/install.sh | bash -s -- --dnf</code></pre>
+
+<p><strong>DEB (Debian / Ubuntu):</strong></p>
+<pre><code>curl -fsSL https://openooda-tools.github.io/ootop/install.sh | bash -s -- --deb</code></pre>
+
+<p><strong>PKGBUILD (Arch Linux / Manjaro):</strong></p>
+<pre><code>curl -fsSL https://openooda-tools.github.io/ootop/install.sh | bash -s -- --pkgbuild</code></pre>
+
+<p>Zero dependencies. Standalone binary installs to <code>/usr/local/bin</code> (or <code>~/.local/bin</code>). Native <code>.deb</code>, <code>.rpm</code>, and <code>PKGBUILD</code> packages are also available directly on <a href="https://github.com/openOODA-tools/ootop/releases">GitHub Releases</a>.</p>
+
+<h2>Uninstall</h2>
+<p>Cleanly remove <code>ootop</code> binaries, packages, and helper scripts at any time:</p>
+<pre><code># 1. Via installed CLI helper
+ootop-uninstall
+
+# 2. Via dedicated web uninstaller
+curl -fsSL https://openooda-tools.github.io/ootop/uninstall.sh | bash
+
+# 3. Dry-run preview
+ootop-uninstall --dry-run</code></pre>
+
+<h2>Why sovereign top?</h2>
+<table>
+<tr><th>Feature</th><th>top / btop</th><th>ootop</th></tr>
+<tr><td>Security</td><td>Ambient root/proc access</td><td>Bounded by <code>&amp;FsReadCap</code> and <code>&amp;TimeCap</code></td></tr>
+<tr><td>Architecture</td><td>Flat process hierarchy</td><td>Native systemd slice grouping (system, user, app)</td></tr>
+<tr><td>Theming</td><td>Custom theme files</td><td>Synchronized with global <code>oote</code> palettes</td></tr>
+<tr><td>Mascots</td><td>None</td><td>Dynamic ASCII emotions reflecting load</td></tr>
+<tr><td>AI Agents</td><td>Screen scraping required</td><td>MCP stdio tools (<code>system_metrics</code>, <code>process_list</code>)</td></tr>
+</table>
+
+<h2>Try it</h2>
+<pre><code>ootop                                 # Real-time interactive TUI dashboard
+ootop -d 1                            # Fast 1-second refresh interval
+ootop -b                              # Batch single-shot output
+ootop -b -n 5 -d 2                    # Batch 5 cycles with 2-second delay
+ootop --mcp                           # Launch MCP stdio server</code></pre>
+
+<p><a href="https://github.com/openOODA-tools/ootop">Source &amp; docs</a> · <a href="https://github.com/openOODA-tools/ootop/releases">Releases</a> · <a href="https://github.com/openOODA-tools">openOODA-tools</a></p>
+</body>
+</html>

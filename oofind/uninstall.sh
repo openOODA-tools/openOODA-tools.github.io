@@ -187,6 +187,10 @@ ${HOME}/.openooda/bin/oofind-uninstall
 if [ -n "$PREFIX" ]; then
     BIN_TARGETS="$PREFIX/oofind $PREFIX/oofind-uninstall $BIN_TARGETS"
 fi
+SCRIPT_DIR="$(cd "$(dirname "$0")" 2>/dev/null && pwd || echo "")"
+if [ -n "$SCRIPT_DIR" ] && [ -f "$SCRIPT_DIR/oofind-uninstall" ]; then
+    BIN_TARGETS="$SCRIPT_DIR/oofind $SCRIPT_DIR/oofind-uninstall $BIN_TARGETS"
+fi
 
 for bp in $BIN_TARGETS; do
     remove_file "$bp"

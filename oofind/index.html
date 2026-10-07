@@ -45,10 +45,18 @@ a{color:#0b5fff}
 <p>Zero dependencies. Standalone binary installs to <code>/usr/local/bin</code> (or <code>~/.local/bin</code>). Native <code>.deb</code>, <code>.rpm</code>, and <code>PKGBUILD</code> packages are also available directly on <a href="https://github.com/openOODA-tools/oofind/releases">GitHub Releases</a>.</p>
 
 <h2>Uninstall</h2>
-<p>Cleanly remove binary, packages, shell completions, and system integration:</p>
-<pre><code>curl -fsSL https://openooda-tools.github.io/oofind/install.sh | bash -s -- --uninstall</code></pre>
-<p>Or via the uninstaller endpoint (pass <code>--purge</code> to clear configuration and cache):</p>
-<pre><code>curl -fsSL https://openooda-tools.github.io/oofind/uninstall.sh | bash</code></pre>
+<p>Cleanly remove binary, packages (<code>apt</code>, <code>dnf</code>, <code>pacman</code>), companion tools, and caches:</p>
+<pre><code># 1. Via companion CLI (situated automatically alongside oofind):
+oofind-uninstall
+
+# 2. Standalone web uninstaller:
+curl -fsSL https://openooda-tools.github.io/oofind/uninstall.sh | bash
+
+# 3. Via universal installer flag:
+curl -fsSL https://openooda-tools.github.io/oofind/install.sh | bash -s -- --uninstall
+
+# 4. Purge binaries, config, and user caches:
+oofind-uninstall --purge</code></pre>
 
 <h2>Why not just find?</h2>
 <table>

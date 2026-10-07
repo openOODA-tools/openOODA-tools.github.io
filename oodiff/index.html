@@ -53,6 +53,17 @@ cd packaging/arch && makepkg -si</code></pre>
 <p>Or install directly via the universal script with automatic distribution detection:</p>
 <pre><code>curl -fsSL https://openooda-tools.github.io/oodiff/install.sh | bash -s -- --package</code></pre>
 
+<h2>Uninstall</h2>
+<p>Cleanly removes oodiff binaries, packages (<code>apt</code>, <code>dnf</code>, <code>pacman</code>), companion tools, and caches:</p>
+<pre><code># 1. Via companion CLI (situated automatically alongside oodiff):
+oodiff-uninstall
+
+# 2. Standalone web uninstaller:
+curl -fsSL https://openooda-tools.github.io/oodiff/uninstall.sh | bash
+
+# 3. Purge binaries, config, and user caches:
+oodiff-uninstall --purge</code></pre>
+
 <h2>Why not just diff?</h2>
 <table>
 <tr><th>Capability</th><th>GNU diff</th><th>oodiff</th></tr>

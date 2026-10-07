@@ -1,6 +1,6 @@
 #!/bin/sh
 # ==============================================================================
-# oodiff Universal Installer
+# oodiff Universal Installer & Lifecycle Engine
 # "Capability-bounded text & directory diff engine with an agent-native MCP surface."
 #
 # Usage:
@@ -12,9 +12,11 @@
 #   --dnf, --rpm         Download and install via Fedora/RHEL package manager (dnf)
 #   --pkgbuild, --arch   Download and install via Arch Linux package manager (makepkg/pacman)
 #   --package            Auto-detect distribution and install using native package manager
-#   --dry-run            Simulate installation without touching the filesystem
+#   --dry-run            Simulate installation or uninstallation without touching the filesystem
 #   --verify             Perform strict cryptographic SHA-256 integrity verification
-#   --uninstall          Remove oodiff binary or package from standard system paths
+#   --uninstall          Remove oodiff binary, companion uninstaller, and packages
+#   --purge              When uninstalling, also purge configuration and cache directories (~/.cache/oodiff)
+#   -y, --yes            Proceed without interactive confirmation
 #   -h, --help           Show this help message
 # ==============================================================================
 
@@ -133,6 +135,8 @@ VICTORY
 # --- Argument Parsing ---------------------------------------------------------
 DRY_RUN=0
 DO_UNINSTALL=0
+DO_PURGE=0
+AUTO_YES=0
 DO_VERIFY=0
 USE_APT=0
 USE_DNF=0
@@ -144,6 +148,8 @@ while [ $# -gt 0 ]; do
     case "$1" in
         --dry-run) DRY_RUN=1; shift ;;
         --uninstall) DO_UNINSTALL=1; shift ;;
+        --purge) DO_PURGE=1; shift ;;
+        -y|--yes) AUTO_YES=1; shift ;;
         --verify) DO_VERIFY=1; shift ;;
         --apt|--deb) USE_APT=1; shift ;;
         --dnf|--rpm) USE_DNF=1; shift ;;
@@ -160,9 +166,11 @@ while [ $# -gt 0 ]; do
             say "    ${CYAN}--dnf, --rpm${RESET}         Install using Fedora/RHEL package manager (dnf)"
             say "    ${CYAN}--pkgbuild, --arch${RESET}   Install using Arch Linux package manager (makepkg/pacman)"
             say "    ${CYAN}--package${RESET}            Auto-detect distro and install via native package manager"
-            say "    ${CYAN}--dry-run${RESET}            Simulate deployment without modifying host"
+            say "    ${CYAN}--dry-run${RESET}            Simulate deployment or removal without modifying host"
             say "    ${CYAN}--verify${RESET}             Verify cryptographic SHA-256 seal and exit"
-            say "    ${CYAN}--uninstall${RESET}          Cleanly remove oodiff binary or package from system"
+            say "    ${CYAN}--uninstall${RESET}          Cleanly remove oodiff binary, uninstaller, or package"
+            say "    ${CYAN}--purge${RESET}              When uninstalling, also remove configuration & cache (~/.cache/oodiff)"
+            say "    ${CYAN}-y, --yes${RESET}            Non-interactive mode (proceed without confirmation)"
             say "    ${CYAN}-h, --help${RESET}           Display this manual"
             say ""
             exit 0
@@ -172,61 +180,375 @@ while [ $# -gt 0 ]; do
 done
 
 banner
-story_line "Attuning your environment to the openOODA sovereign diff engine…"
-pause 0.2
 
 # --- Uninstall Path -----------------------------------------------------------
 if [ "$DO_UNINSTALL" -eq 1 ]; then
-    step "Relinquishing oodiff"
-    FOUND=0
+    if [ "$DRY_RUN" -eq 0 ] && [ "$AUTO_YES" -eq 0 ] && [ -t 0 ]; then
+        printf "  Are you sure you want to uninstall oodiff? [y/N]: "
+        read -r ans || ans="n"
+        case "$ans" in
+            [yY]|[yY][eE][sS]) ;;
+            *) say "  Uninstallation cancelled."; exit 0 ;;
+        esac
+        say ""
+    fi
+
+    step "Scanning substrate for oodiff installations…"
+    REMOVED_ANY=0
+
+    # Package managers
+    step "[1/3] Checking system package managers"
     if command -v dpkg >/dev/null 2>&1 && dpkg -s oodiff >/dev/null 2>&1; then
         if [ "$DRY_RUN" -eq 1 ]; then
-            dim "Would remove Debian package oodiff (apt remove oodiff)"
+            dim "[dry-run] Would remove Debian package oodiff via apt/dpkg"
         else
-            sudo apt remove -y oodiff 2>/dev/null || sudo dpkg -r oodiff
+            dim "Purging Debian package oodiff…"
+            if command -v apt-get >/dev/null 2>&1; then
+                sudo apt-get remove -y oodiff 2>/dev/null || sudo dpkg -r oodiff
+            else
+                sudo dpkg -r oodiff
+            fi
             ok "Removed Debian package ${BOLD}oodiff${RESET}"
         fi
-        FOUND=1
+        REMOVED_ANY=1
     fi
+
     if command -v rpm >/dev/null 2>&1 && rpm -q oodiff >/dev/null 2>&1; then
         if [ "$DRY_RUN" -eq 1 ]; then
-            dim "Would remove RPM package oodiff (dnf remove oodiff)"
+            dim "[dry-run] Would remove RPM package oodiff via dnf/rpm"
         else
-            sudo dnf remove -y oodiff 2>/dev/null || sudo rpm -e oodiff
+            dim "Purging RPM package oodiff…"
+            if command -v dnf >/dev/null 2>&1; then
+                sudo dnf remove -y oodiff 2>/dev/null || sudo rpm -e oodiff
+            else
+                sudo rpm -e oodiff
+            fi
             ok "Removed RPM package ${BOLD}oodiff${RESET}"
         fi
-        FOUND=1
+        REMOVED_ANY=1
     fi
+
     if command -v pacman >/dev/null 2>&1; then
-        if pacman -Qi oodiff-bin >/dev/null 2>&1 || pacman -Qi oodiff >/dev/null 2>&1; then
-            if [ "$DRY_RUN" -eq 1 ]; then
-                dim "Would remove Arch package oodiff (pacman -R oodiff-bin)"
-            else
-                sudo pacman -R --noconfirm oodiff-bin 2>/dev/null || sudo pacman -R --noconfirm oodiff
-                ok "Removed Arch package ${BOLD}oodiff${RESET}"
+        for pkg in oodiff-bin oodiff; do
+            if pacman -Qi "$pkg" >/dev/null 2>&1; then
+                if [ "$DRY_RUN" -eq 1 ]; then
+                    dim "[dry-run] Would remove Arch package $pkg via pacman"
+                else
+                    dim "Purging Arch package $pkg…"
+                    sudo pacman -R --noconfirm "$pkg"
+                    ok "Removed Arch package ${BOLD}$pkg${RESET}"
+                fi
+                REMOVED_ANY=1
             fi
-            FOUND=1
-        fi
+        done
     fi
-    for p in /usr/local/bin/oodiff /usr/bin/oodiff "${HOME}/.local/bin/oodiff" "${HOME}/.openooda/bin/oodiff"; do
+
+    if [ "$REMOVED_ANY" -eq 0 ]; then
+        dim "No package manager installations detected."
+    fi
+
+    # Standalone binaries and companion tools
+    step "[2/3] Checking standalone paths and companion scripts"
+    STANDARD_TARGETS="
+    /usr/local/bin/oodiff
+    /usr/local/bin/oodiff-uninstall
+    /usr/bin/oodiff
+    /usr/bin/oodiff-uninstall
+    ${HOME}/.local/bin/oodiff
+    ${HOME}/.local/bin/oodiff-uninstall
+    ${HOME}/.openooda/bin/oodiff
+    ${HOME}/.openooda/bin/oodiff-uninstall
+    "
+    if [ -n "$CUSTOM_PREFIX" ]; then
+        STANDARD_TARGETS="${STANDARD_TARGETS} ${CUSTOM_PREFIX}/oodiff ${CUSTOM_PREFIX}/oodiff-uninstall"
+    fi
+
+    for p in $STANDARD_TARGETS; do
         if [ -f "$p" ]; then
             if [ "$DRY_RUN" -eq 1 ]; then
-                dim "Would remove $p"
+                dim "[dry-run] Would delete file: $p"
             else
-                rm -f "$p" 2>/dev/null || sudo rm -f "$p"
-                ok "Banished ${BOLD}$p${RESET}"
+                if [ -w "$p" ] || [ -w "$(dirname "$p")" ]; then
+                    rm -f "$p"
+                else
+                    sudo rm -f "$p"
+                fi
+                ok "Removed file ${BOLD}$p${RESET}"
             fi
-            FOUND=1
+            REMOVED_ANY=1
         fi
     done
-    if [ "$FOUND" -eq 0 ]; then
-        warn "No existing oodiff binary or package detected in standard paths."
+
+    # Cache and state purge
+    step "[3/3] User cache and state cleanup"
+    USER_STATE_PATHS="
+    ${HOME}/.cache/oodiff
+    ${HOME}/.config/oodiff
+    "
+    for d in $USER_STATE_PATHS; do
+        if [ -d "$d" ]; then
+            if [ "$DO_PURGE" -eq 1 ]; then
+                if [ "$DRY_RUN" -eq 1 ]; then
+                    dim "[dry-run] Would purge directory: $d"
+                else
+                    rm -rf "$d"
+                    ok "Purged directory ${BOLD}$d${RESET}"
+                fi
+                REMOVED_ANY=1
+            else
+                dim "Preserved state directory: $d (use --purge to delete)"
+            fi
+        fi
+    done
+
+    say ""
+    say "  ${DIM}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${RESET}"
+    if [ "$DRY_RUN" -eq 1 ]; then
+        ok "Dry run simulation finished. No filesystem changes were made."
+    elif [ "$REMOVED_ANY" -eq 1 ]; then
+        ok "oodiff has been cleanly and completely uninstalled."
+    else
+        warn "No oodiff binaries, packages, or scripts were found on this system."
     fi
     say ""
     exit 0
 fi
 
+# --- Helper: Write Uninstaller Script -----------------------------------------
+write_uninstaller_script() {
+    _out="$1"
+    cat << 'UNINSTALLER_PAYLOAD_EOF' > "$_out"
+#!/bin/sh
+# ==============================================================================
+# oodiff Clean Uninstaller
+# "Safely and thoroughly relinquishes oodiff binaries, packages, and companion tools."
+#
+# Usage:
+#   oodiff-uninstall [options]
+#   curl -fsSL https://openooda-tools.github.io/oodiff/uninstall.sh | bash
+#
+# Options:
+#   --dry-run        Simulate uninstallation without modifying the filesystem
+#   --purge          Also purge configuration and cache directories (~/.cache/oodiff)
+#   -y, --yes        Proceed without interactive prompts
+#   -h, --help       Show this help message
+# ==============================================================================
+
+set -eu
+
+if [ -t 1 ] && [ "${NO_COLOR:-}" = "" ] && [ "${TERM:-dumb}" != "dumb" ]; then
+    AMBER="\033[38;5;214m"
+    CYAN="\033[38;5;51m"
+    GREEN="\033[38;5;82m"
+    YELLOW="\033[38;5;220m"
+    DIM="\033[38;5;242m"
+    BOLD="\033[1m"
+    RESET="\033[0m"
+else
+    AMBER="" CYAN="" GREEN="" YELLOW="" DIM="" BOLD="" RESET=""
+fi
+
+say()  { printf '%b\n' "$*"; }
+dim()  { say "  ${DIM}$*${RESET}"; }
+ok()   { say "  ${GREEN}✔${RESET} $*"; }
+warn() { say "  ${YELLOW}!${RESET} $*"; }
+err()  { say "  ${YELLOW}ERROR:${RESET} $*" >&2; }
+step() { say ""; say " ${CYAN}${BOLD}$*${RESET}"; }
+
+banner() {
+    say ""
+    say "${AMBER}${BOLD}"
+    cat <<'BANNER_EOF'
+        ╔══════════════════════════════════════════════════════════╗
+        ║                                                          ║
+        ║      ██████╗  ██████╗ ██████╗ ██╗███████╗███████╗        ║
+        ║     ██╔═══██╗██╔═══██╗██╔══██╗██║██╔════╝██╔════╝        ║
+        ║     ██║   ██║██║   ██║██║  ██║██║█████╗  █████╗          ║
+        ║     ██║   ██║██║   ██║██║  ██║██║██╔══╝  ██╔══╝          ║
+        ║     ╚██████╔╝╚██████╔╝██████╔╝██║██║     ██║             ║
+        ║      ╚═════╝  ╚═════╝ ╚═════╝ ╚═╝╚═╝     ╚═╝             ║
+        ║                                                          ║
+        ║           openOODA Sovereign Diff Engine                 ║
+        ║                   Clean Uninstaller                      ║
+        ║                                                          ║
+        ╚══════════════════════════════════════════════════════════╝
+BANNER_EOF
+    say "${RESET}"
+    say "  ${DIM}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${RESET}"
+    say ""
+}
+
+DRY_RUN=0
+DO_PURGE=0
+AUTO_YES=0
+
+while [ $# -gt 0 ]; do
+    case "$1" in
+        --dry-run) DRY_RUN=1; shift ;;
+        --purge) DO_PURGE=1; shift ;;
+        -y|--yes) AUTO_YES=1; shift ;;
+        -h|--help)
+            banner
+            say "  ${BOLD}Usage:${RESET} oodiff-uninstall [options]"
+            say "         curl -fsSL https://openooda-tools.github.io/oodiff/uninstall.sh | bash -s -- [options]"
+            say ""
+            say "  ${BOLD}Options:${RESET}"
+            say "    ${CYAN}--dry-run${RESET}    Simulate removal without modifying host"
+            say "    ${CYAN}--purge${RESET}      Also remove configuration and user cache directories"
+            say "    ${CYAN}-y, --yes${RESET}    Non-interactive mode"
+            say "    ${CYAN}-h, --help${RESET}   Display this manual"
+            say ""
+            exit 0
+            ;;
+        *) err "Unknown flag: $1"; exit 1 ;;
+    esac
+done
+
+banner
+
+if [ "$DRY_RUN" -eq 0 ] && [ "$AUTO_YES" -eq 0 ] && [ -t 0 ]; then
+    printf "  Are you sure you want to uninstall oodiff? [y/N]: "
+    read -r ans || ans="n"
+    case "$ans" in
+        [yY]|[yY][eE][sS]) ;;
+        *) say "  Uninstallation cancelled."; exit 0 ;;
+    esac
+    say ""
+fi
+
+say "  Scanning substrate for oodiff installations…"
+say ""
+
+REMOVED_ANY=0
+
+step "[1/3] Checking system package managers"
+
+if command -v dpkg >/dev/null 2>&1 && dpkg -s oodiff >/dev/null 2>&1; then
+    if [ "$DRY_RUN" -eq 1 ]; then
+        dim "[dry-run] Would remove Debian package oodiff via apt/dpkg"
+    else
+        dim "Purging Debian package oodiff…"
+        if command -v apt-get >/dev/null 2>&1; then
+            sudo apt-get remove -y oodiff 2>/dev/null || sudo dpkg -r oodiff
+        else
+            sudo dpkg -r oodiff
+        fi
+        ok "Removed Debian package ${BOLD}oodiff${RESET}"
+    fi
+    REMOVED_ANY=1
+fi
+
+if command -v rpm >/dev/null 2>&1 && rpm -q oodiff >/dev/null 2>&1; then
+    if [ "$DRY_RUN" -eq 1 ]; then
+        dim "[dry-run] Would remove RPM package oodiff via dnf/rpm"
+    else
+        dim "Purging RPM package oodiff…"
+        if command -v dnf >/dev/null 2>&1; then
+            sudo dnf remove -y oodiff 2>/dev/null || sudo rpm -e oodiff
+        else
+            sudo rpm -e oodiff
+        fi
+        ok "Removed RPM package ${BOLD}oodiff${RESET}"
+    fi
+    REMOVED_ANY=1
+fi
+
+if command -v pacman >/dev/null 2>&1; then
+    for pkg in oodiff-bin oodiff; do
+        if pacman -Qi "$pkg" >/dev/null 2>&1; then
+            if [ "$DRY_RUN" -eq 1 ]; then
+                dim "[dry-run] Would remove Arch package $pkg via pacman"
+            else
+                dim "Purging Arch package $pkg…"
+                sudo pacman -R --noconfirm "$pkg"
+                ok "Removed Arch package ${BOLD}$pkg${RESET}"
+            fi
+            REMOVED_ANY=1
+        fi
+    done
+fi
+
+if [ "$REMOVED_ANY" -eq 0 ]; then
+    dim "No package manager installations detected."
+fi
+
+step "[2/3] Checking standalone paths and companion scripts"
+
+STANDARD_TARGETS="
+/usr/local/bin/oodiff
+/usr/local/bin/oodiff-uninstall
+/usr/bin/oodiff
+/usr/bin/oodiff-uninstall
+${HOME}/.local/bin/oodiff
+${HOME}/.local/bin/oodiff-uninstall
+${HOME}/.openooda/bin/oodiff
+${HOME}/.openooda/bin/oodiff-uninstall
+"
+
+for p in $STANDARD_TARGETS; do
+    if [ -f "$p" ]; then
+        if [ "$DRY_RUN" -eq 1 ]; then
+            dim "[dry-run] Would delete file: $p"
+        else
+            if [ -w "$p" ] || [ -w "$(dirname "$p")" ]; then
+                rm -f "$p"
+            else
+                sudo rm -f "$p"
+            fi
+            ok "Removed file ${BOLD}$p${RESET}"
+        fi
+        REMOVED_ANY=1
+    fi
+done
+
+step "[3/3] User cache and state cleanup"
+
+USER_STATE_PATHS="
+${HOME}/.cache/oodiff
+${HOME}/.config/oodiff
+"
+
+for d in $USER_STATE_PATHS; do
+    if [ -d "$d" ]; then
+        if [ "$DO_PURGE" -eq 1 ]; then
+            if [ "$DRY_RUN" -eq 1 ]; then
+                dim "[dry-run] Would purge directory: $d"
+            else
+                rm -rf "$d"
+                ok "Purged directory ${BOLD}$d${RESET}"
+            fi
+            REMOVED_ANY=1
+        else
+            dim "Preserved state directory: $d (use --purge to delete)"
+        fi
+    fi
+done
+
+say ""
+say "  ${DIM}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${RESET}"
+
+if [ "$DRY_RUN" -eq 1 ]; then
+    ok "Dry run simulation finished. No filesystem changes were made."
+elif [ "$REMOVED_ANY" -eq 1 ]; then
+    ok "oodiff has been cleanly and completely uninstalled."
+else
+    warn "No oodiff binaries, packages, or scripts were found on this system."
+fi
+
+if [ "$DRY_RUN" -eq 0 ] && command -v oodiff >/dev/null 2>&1; then
+    REMAINING="$(command -v oodiff)"
+    warn "Note: An oodiff executable is still detected on PATH at ${BOLD}${REMAINING}${RESET}."
+fi
+
+say ""
+UNINSTALLER_PAYLOAD_EOF
+    chmod +x "$_out"
+}
+
 # --- Phase 1: Identity & Attunement -------------------------------------------
+story_line "Attuning your environment to the openOODA sovereign diff engine…"
+pause 0.2
+
 step "[1/4]  Attuning host & kernel substrate"
 
 OS="$(uname -s)"
@@ -265,11 +587,6 @@ if [ "$AUTO_PKG" -eq 1 ]; then
         arch|manjaro|endeavouros|artix) USE_ARCH=1 ;;
         *) warn "Could not determine native package format for ${OS_ID}; defaulting to standalone binary." ;;
     esac
-fi
-
-if ! command -v curl >/dev/null 2>&1; then
-    err "curl is required to retrieve sovereign release assets"
-    exit 1
 fi
 
 HASH_CMD=""
@@ -347,6 +664,7 @@ if [ "$DRY_RUN" -eq 1 ]; then
         say "  ${DIM}deploy${RESET}  ${CYAN}makepkg -si / pacman -U${RESET}"
     else
         say "  ${DIM}deploy${RESET}  ${CYAN}${INSTALL_DIR}/oodiff${RESET}"
+        say "  ${DIM}deploy${RESET}  ${CYAN}${INSTALL_DIR}/oodiff-uninstall${RESET}"
     fi
     say ""
     ok "Simulation complete. No host modifications made."
@@ -360,31 +678,43 @@ step "[3/4]  Transmuting & verifying cryptographic seal"
 TMP_DIR="$(mktemp -d /tmp/oodiff-bootstrap.XXXXXX)"
 trap 'rm -rf "$TMP_DIR"' EXIT INT TERM
 
-story_line "Streaming ${PKG_TYPE} artifact from release channel…"
-curl -fsSL "$ASSET_URL" -o "${TMP_DIR}/${ASSET_NAME}" &
-spin_while $! "Streaming ${ASSET_NAME}"
-ok "Transmitted ${ASSET_NAME}"
-
-story_line "Acquiring publisher's cryptographic SHA-256 seal…"
-curl -fsSL "$SHA_URL" -o "${TMP_DIR}/${ASSET_NAME}.sha256" 2>/dev/null || true
-
-EXPECTED_SHA=""
-if [ -f "${TMP_DIR}/${ASSET_NAME}.sha256" ] && [ -n "$HASH_CMD" ]; then
-    EXPECTED_SHA=$(awk '{print $1}' "${TMP_DIR}/${ASSET_NAME}.sha256" | head -1)
-    ACTUAL_SHA=$($HASH_CMD "${TMP_DIR}/${ASSET_NAME}" | awk '{print $1}')
-    if [ "$EXPECTED_SHA" != "$ACTUAL_SHA" ]; then
-        err "Cryptographic seal violation! Download corrupted or tampered."
-        say "  ${DIM}Expected:${RESET} ${YELLOW}${EXPECTED_SHA}${RESET}"
-        say "  ${DIM}Actual:  ${RESET} ${YELLOW}${ACTUAL_SHA}${RESET}"
+# If running from within an oodiff repository checkout with dist/oodiff ready:
+if [ -f "./dist/oodiff" ] && [ "$PKG_TYPE" = "binary" ]; then
+    story_line "Detected local build at ./dist/oodiff; installing directly…"
+    cp "./dist/oodiff" "${TMP_DIR}/${ASSET_NAME}"
+    chmod +x "${TMP_DIR}/${ASSET_NAME}"
+    ok "Ingested local binary ./dist/oodiff"
+else
+    if ! command -v curl >/dev/null 2>&1; then
+        err "curl is required to retrieve sovereign release assets"
         exit 1
     fi
-    ok "Cryptographic seal verified: ${DIM}${ACTUAL_SHA}${RESET}"
-else
-    warn "Checksum manifest unavailable; skipped seal verification."
+    story_line "Streaming ${PKG_TYPE} artifact from release channel…"
+    curl -fsSL "$ASSET_URL" -o "${TMP_DIR}/${ASSET_NAME}" &
+    spin_while $! "Streaming ${ASSET_NAME}"
+    ok "Transmitted ${ASSET_NAME}"
+
+    story_line "Acquiring publisher's cryptographic SHA-256 seal…"
+    curl -fsSL "$SHA_URL" -o "${TMP_DIR}/${ASSET_NAME}.sha256" 2>/dev/null || true
+
+    EXPECTED_SHA=""
+    if [ -f "${TMP_DIR}/${ASSET_NAME}.sha256" ] && [ -n "$HASH_CMD" ]; then
+        EXPECTED_SHA=$(awk '{print $1}' "${TMP_DIR}/${ASSET_NAME}.sha256" | head -1)
+        ACTUAL_SHA=$($HASH_CMD "${TMP_DIR}/${ASSET_NAME}" | awk '{print $1}')
+        if [ "$EXPECTED_SHA" != "$ACTUAL_SHA" ]; then
+            err "Cryptographic seal violation! Download corrupted or tampered."
+            say "  ${DIM}Expected:${RESET} ${YELLOW}${EXPECTED_SHA}${RESET}"
+            say "  ${DIM}Actual:  ${RESET} ${YELLOW}${ACTUAL_SHA}${RESET}"
+            exit 1
+        fi
+        ok "Cryptographic seal verified: ${DIM}${ACTUAL_SHA}${RESET}"
+    else
+        warn "Checksum manifest unavailable; skipped seal verification."
+    fi
 fi
 pause 0.2
 
-# --- Phase 4: Deploying oodiff ------------------------------------------------
+# --- Phase 4: Deploying oodiff & Clean Uninstaller ----------------------------
 step "[4/4]  Awakening sovereign diff engine"
 
 if [ "$PKG_TYPE" = "deb" ]; then
@@ -457,6 +787,16 @@ else
     ok "Binary situated at ${BOLD}${INSTALL_DIR}/oodiff${RESET}"
 fi
 
+# Deploy companion uninstaller to INSTALL_DIR
+write_uninstaller_script "${TMP_DIR}/oodiff-uninstall"
+story_line "Situating companion uninstaller in ${INSTALL_DIR}…"
+if [ -w "$INSTALL_DIR" ]; then
+    mv "${TMP_DIR}/oodiff-uninstall" "${INSTALL_DIR}/oodiff-uninstall"
+else
+    sudo mv "${TMP_DIR}/oodiff-uninstall" "${INSTALL_DIR}/oodiff-uninstall"
+fi
+ok "Companion uninstaller situated at ${BOLD}${INSTALL_DIR}/oodiff-uninstall${RESET}"
+
 if "${INSTALL_DIR}/oodiff" --version >/dev/null 2>&1; then
     VER_PROVE=$("${INSTALL_DIR}/oodiff" --version)
     ok "Living proof: ${GREEN}${BOLD}${VER_PROVE}${RESET}"
@@ -486,4 +826,8 @@ say "    ${AMBER}${BOLD}oodiff -u -b file_a.txt file_b.txt${RESET}"
 say ""
 say "  ${BOLD}Agent surface (Model Context Protocol):${RESET}"
 say "    ${DIM}oodiff --mcp${RESET}"
+say ""
+say "  ${BOLD}Clean uninstallation:${RESET}"
+say "    ${CYAN}oodiff-uninstall${RESET} ${DIM}(or: oodiff-uninstall --purge)${RESET}"
+say "    ${DIM}Or via web:${RESET} ${CYAN}curl -fsSL ${CANONICAL_URL}/uninstall.sh | bash${RESET}"
 say ""

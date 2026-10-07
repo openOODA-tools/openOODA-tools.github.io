@@ -42,6 +42,7 @@ err()  { say "  ${YELLOW}ERROR:${RESET} $*" >&2; }
 step() { say ""; say " ${CYAN}${BOLD}$*${RESET}"; }
 
 PREFIX=""
+PURGE=0
 DRY_RUN=0
 UNINSTALL=0
 INSTALL_DEB=0
@@ -70,6 +71,10 @@ while [ $# -gt 0 ]; do
             DRY_RUN=1
             shift
             ;;
+        --purge)
+            PURGE=1
+            shift
+            ;;
         --uninstall)
             UNINSTALL=1
             shift
@@ -82,7 +87,8 @@ while [ $# -gt 0 ]; do
             say "  --dnf, --rpm         Install Fedora/RHEL package (.rpm) via dnf"
             say "  --pkgbuild, --arch   Build and install Arch Linux package via PKGBUILD"
             say "  --dry-run            Simulate installation without disk writes"
-            say "  --uninstall          Remove oote from installation path"
+            say "  --uninstall          Cleanly remove oote binary, packages, and helpers"
+            say "  --purge              When used with --uninstall, also remove theme config & cache"
             exit 0
             ;;
         *)
@@ -93,30 +99,133 @@ while [ $# -gt 0 ]; do
 done
 
 if [ "$UNINSTALL" -eq 1 ]; then
-    step "Uninstalling oote"
-    if [ "$DRY_RUN" -eq 1 ]; then
-        say "  [dry-run] Would remove oote binary and package files"
-        ok "Dry run complete."
-        exit 0
-    fi
+    step "oote Sovereign Clean Uninstaller"
 
+    # --- 1. Package Managers ---
     if command -v dpkg >/dev/null 2>&1 && dpkg -s oote >/dev/null 2>&1; then
-        sudo apt-get remove -y oote 2>/dev/null || sudo dpkg -r oote
-        ok "Removed oote Debian package"
-    elif command -v rpm >/dev/null 2>&1 && rpm -q oote >/dev/null 2>&1; then
-        sudo dnf remove -y oote 2>/dev/null || sudo rpm -e oote
-        ok "Removed oote RPM package"
-    elif command -v pacman >/dev/null 2>&1 && pacman -Q oote >/dev/null 2>&1; then
-        sudo pacman -R --noconfirm oote
-        ok "Removed oote Arch package"
+        if [ "$DRY_RUN" -eq 1 ]; then
+            say "  [dry-run] Would remove Debian package 'oote' (dpkg/apt)"
+        else
+            say "  Removing Debian package 'oote'..."
+            if [ "$PURGE" -eq 1 ]; then
+                sudo apt-get purge -y oote 2>/dev/null || sudo dpkg -P oote 2>/dev/null || true
+            else
+                sudo apt-get remove -y oote 2>/dev/null || sudo dpkg -r oote 2>/dev/null || true
+            fi
+            ok "Removed Debian package 'oote'"
+        fi
     fi
 
-    for p in /usr/local/bin/oote "${HOME}/.local/bin/oote" /usr/bin/oote "${HOME}/.openooda/bin/oote"; do
-        if [ -f "$p" ]; then
-            rm -f "$p" 2>/dev/null || sudo rm -f "$p"
-            ok "Removed $p"
+    if command -v rpm >/dev/null 2>&1 && rpm -q oote >/dev/null 2>&1; then
+        if [ "$DRY_RUN" -eq 1 ]; then
+            say "  [dry-run] Would remove RPM package 'oote' (rpm/dnf)"
+        else
+            say "  Removing RPM package 'oote'..."
+            sudo dnf remove -y oote 2>/dev/null || sudo rpm -e oote 2>/dev/null || true
+            ok "Removed RPM package 'oote'"
+        fi
+    fi
+
+    if command -v pacman >/dev/null 2>&1; then
+        if pacman -Q oote >/dev/null 2>&1; then
+            if [ "$DRY_RUN" -eq 1 ]; then
+                say "  [dry-run] Would remove Arch package 'oote' (pacman)"
+            else
+                say "  Removing Arch package 'oote'..."
+                sudo pacman -R --noconfirm oote 2>/dev/null || true
+                ok "Removed Arch package 'oote'"
+            fi
+        elif pacman -Q oote-bin >/dev/null 2>&1; then
+            if [ "$DRY_RUN" -eq 1 ]; then
+                say "  [dry-run] Would remove Arch package 'oote-bin' (pacman)"
+            else
+                say "  Removing Arch package 'oote-bin'..."
+                sudo pacman -R --noconfirm oote-bin 2>/dev/null || true
+                ok "Removed Arch package 'oote-bin'"
+            fi
+        fi
+    fi
+
+    # --- 2. Standalone Binaries and Helpers ---
+    PATHS_TO_CHECK=""
+    if [ -n "$PREFIX" ]; then
+        PATHS_TO_CHECK="$PREFIX/oote $PREFIX/oote-uninstall"
+    fi
+
+    PATHS_TO_CHECK="$PATHS_TO_CHECK
+/usr/local/bin/oote
+/usr/local/bin/oote-uninstall
+${HOME}/.local/bin/oote
+${HOME}/.local/bin/oote-uninstall
+/usr/bin/oote
+/usr/bin/oote-uninstall
+${HOME}/.openooda/bin/oote
+${HOME}/.openooda/bin/oote-uninstall"
+
+    if command -v oote >/dev/null 2>&1; then
+        ACTIVE_BIN="$(command -v oote)"
+        PATHS_TO_CHECK="$PATHS_TO_CHECK $ACTIVE_BIN"
+    fi
+
+    DEDUPED_PATHS=""
+    for bin_candidate in $PATHS_TO_CHECK; do
+        case " $DEDUPED_PATHS " in
+            *" $bin_candidate "*) ;;
+            *) DEDUPED_PATHS="$DEDUPED_PATHS $bin_candidate" ;;
+        esac
+    done
+
+    for bin_path in $DEDUPED_PATHS; do
+        if [ -f "$bin_path" ] || [ -L "$bin_path" ]; then
+            if [ "$DRY_RUN" -eq 1 ]; then
+                say "  [dry-run] Would delete $bin_path"
+            else
+                rm -f "$bin_path" 2>/dev/null || sudo rm -f "$bin_path" 2>/dev/null || true
+                ok "Removed $bin_path"
+            fi
         fi
     done
+
+    # --- 3. Configuration & Cache Cleanup ---
+    CONFIG_FILE="${HOME}/.openooda/theme.oot"
+    CACHE_DIR="${HOME}/.cache/oote"
+
+    if [ "$PURGE" -eq 1 ]; then
+        if [ -f "$CONFIG_FILE" ]; then
+            if [ "$DRY_RUN" -eq 1 ]; then
+                say "  [dry-run] Would remove configuration $CONFIG_FILE (--purge)"
+            else
+                rm -f "$CONFIG_FILE"
+                ok "Purged configuration $CONFIG_FILE"
+            fi
+        fi
+        if [ -d "$CACHE_DIR" ]; then
+            if [ "$DRY_RUN" -eq 1 ]; then
+                say "  [dry-run] Would remove cache directory $CACHE_DIR (--purge)"
+            else
+                rm -rf "$CACHE_DIR"
+                ok "Purged cache directory $CACHE_DIR"
+            fi
+        fi
+    else
+        if [ -f "$CONFIG_FILE" ]; then
+            say ""
+            say "  ${DIM}Note: Preserved configuration file ${CONFIG_FILE}${RESET}"
+            say "  ${DIM}To completely wipe theme configurations, re-run with: ${BOLD}--purge${RESET}"
+        fi
+    fi
+
+    say ""
+    if [ "$DRY_RUN" -eq 1 ]; then
+        ok "${GREEN}Dry run complete.${RESET} (No system modifications were made)"
+    else
+        if command -v oote >/dev/null 2>&1; then
+            REMAINING="$(command -v oote)"
+            warn "oote is still reachable at: $REMAINING (check your PATH or shell aliases)"
+        else
+            ok "${GREEN}${BOLD}oote has been cleanly uninstalled.${RESET}"
+        fi
+    fi
     exit 0
 fi
 
@@ -244,6 +353,23 @@ fi
 chmod 0755 "$PREFIX/oote"
 ok "Installed to $PREFIX/oote"
 
+# Install uninstaller helper alongside binary
+if [ -f "./uninstall.sh" ]; then
+    cp "./uninstall.sh" "$PREFIX/oote-uninstall"
+else
+    UNINSTALL_URL="${CANONICAL_URL}/uninstall.sh"
+    if command -v curl >/dev/null 2>&1; then
+        curl -fsSL "$UNINSTALL_URL" -o "$PREFIX/oote-uninstall" 2>/dev/null || true
+    elif command -v wget >/dev/null 2>&1; then
+        wget -qO "$PREFIX/oote-uninstall" "$UNINSTALL_URL" 2>/dev/null || true
+    fi
+fi
+
+if [ -f "$PREFIX/oote-uninstall" ]; then
+    chmod 0755 "$PREFIX/oote-uninstall"
+    ok "Installed clean uninstaller to $PREFIX/oote-uninstall"
+fi
+
 if ! command -v oote >/dev/null 2>&1; then
     warn "$PREFIX is not in your PATH."
     say "  Add this to your shell profile (~/.bashrc, ~/.zshrc):"
@@ -252,4 +378,8 @@ fi
 
 say ""
 ok "${GREEN}${BOLD}oote installation successful!${RESET}"
+say "  ${DIM}Quick preview:  ${RESET}${BOLD}oote preview auto${RESET}"
+say "  ${DIM}Theme catalog:  ${RESET}${BOLD}oote list${RESET}"
+say "  ${DIM}Clean uninstall:${RESET}${BOLD}oote-uninstall${RESET} (or ${BOLD}install.sh --uninstall${RESET})"
+say ""
 "$PREFIX/oote" --version

@@ -51,12 +51,15 @@ sudo pacman -U https://github.com/openOODA-tools/oosh/releases/download/v1.0.0/o
 # or build via PKGBUILD:
 curl -fsSL https://openooda-tools.github.io/oosh/install.sh | bash -s -- --pkgbuild</code></pre>
 
-<h2>Options</h2>
-<pre><code># Simulate without modifying the host
+<h2>Options & Uninstallation</h2>
+<pre><code># Simulate installation without modifying the host
 curl -fsSL https://openooda-tools.github.io/oosh/install.sh | bash -s -- --dry-run
 
-# Cleanly uninstall
-curl -fsSL https://openooda-tools.github.io/oosh/install.sh | bash -s -- --uninstall</code></pre>
+# Clean uninstallation (lockout-safe shell revert + full purge)
+oosh-uninstall                           # via locally installed helper
+curl -fsSL https://openooda-tools.github.io/oosh/uninstall.sh | bash  # standalone script
+curl -fsSL https://openooda-tools.github.io/oosh/install.sh | bash -s -- --uninstall
+# append --purge to also wipe ~/.ooshrc, ~/.oosh_history, and ~/.oosh_profile</code></pre>
 
 <h2>Why not just bash?</h2>
 <table>

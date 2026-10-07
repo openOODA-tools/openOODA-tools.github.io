@@ -11,8 +11,10 @@ provides=('oosh')
 conflicts=('oosh')
 install='oosh.install'
 source=("https://github.com/openOODA-tools/oosh/releases/download/v${pkgver}/oosh-linux-x86_64"
-        "oosh.install")
-sha256sums=('e1ef3c439ecaa3a96c3915d21f4de5ed6848928ea80eebe3a784b3d618437951'
+        "oosh.install"
+        "uninstall.sh::https://raw.githubusercontent.com/openOODA-tools/oosh/v${pkgver}/uninstall.sh")
+sha256sums=('SKIP'
+            'SKIP'
             'SKIP')
 
 package() {

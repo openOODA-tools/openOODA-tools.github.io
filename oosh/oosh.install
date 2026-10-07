@@ -1,0 +1,19 @@
+post_install() {
+    if [ -f /etc/shells ]; then
+        if ! grep -q '^/usr/bin/oosh$' /etc/shells 2>/dev/null; then
+            echo '/usr/bin/oosh' >> /etc/shells
+        fi
+    else
+        echo '/usr/bin/oosh' > /etc/shells
+    fi
+}
+
+post_upgrade() {
+    post_install
+}
+
+post_remove() {
+    if [ -f /etc/shells ]; then
+        sed -i -e '\|^/usr/bin/oosh$|d' /etc/shells 2>/dev/null || true
+    fi
+}

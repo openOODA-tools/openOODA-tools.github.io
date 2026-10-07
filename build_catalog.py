@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 """
 Catalog generator for tools.openooda.org
-Maintains exact parity for the 12 released openOODA tools and generates
-the structured 256-tool userland blueprint.
+Maintains exact parity for the 19 active sovereign repositories in the openOODA-tools organization.
 """
 
 import json
@@ -24,6 +23,7 @@ released_tools = [
         "overviewUrl": "oosh/",
         "repoUrl": "https://github.com/openOODA-tools/oosh",
         "tags": ["mcp-native", "zero-ambient-auth", "posix-muscle", "pure-openooda"],
+        "capabilities": ["&TermCap", "&ProcCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-08-15"
     },
     {
@@ -42,6 +42,7 @@ released_tools = [
         "overviewUrl": "oogrep/",
         "repoUrl": "https://github.com/openOODA-tools/oogrep",
         "tags": ["mcp-native", "gitignore-aware", "posix-parity", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&McpCap"],
         "addedAt": "2026-08-20"
     },
     {
@@ -60,6 +61,7 @@ released_tools = [
         "overviewUrl": "oodiff/",
         "repoUrl": "https://github.com/openOODA-tools/oodiff",
         "tags": ["gnu-parity", "lcs-myers", "apt-dnf", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&McpCap"],
         "addedAt": "2026-08-28"
     },
     {
@@ -78,6 +80,7 @@ released_tools = [
         "overviewUrl": "oofind/",
         "repoUrl": "https://github.com/openOODA-tools/oofind",
         "tags": ["mcp-native", "json-lines", "posix-parity", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&McpCap"],
         "addedAt": "2026-09-02"
     },
     {
@@ -96,6 +99,7 @@ released_tools = [
         "overviewUrl": "oojq/",
         "repoUrl": "https://github.com/openOODA-tools/oojq",
         "tags": ["exact-math", "zero-leakage", "pure-openooda", "mcp-native"],
+        "capabilities": ["&FsReadCap", "&McpCap"],
         "addedAt": "2026-09-05"
     },
     {
@@ -114,121 +118,128 @@ released_tools = [
         "overviewUrl": "ootail/",
         "repoUrl": "https://github.com/openOODA-tools/ootail",
         "tags": ["inotify-watch", "truncate-safe", "pure-openooda", "mcp-native"],
+        "capabilities": ["&FsReadCap", "&InotifyCap", "&McpCap"],
         "addedAt": "2026-09-10"
     },
     {
         "id": "oote",
         "name": "oote",
         "category": "Theme & Styling",
-        "role": "COLOR ENGINE",
-        "version": "v0.1.1",
+        "role": "THEME ENGINE",
+        "version": "v0.1.0",
         "status": "released",
         "monogram": "TE",
         "accent": "#7c4dff",
-        "description": "Sovereign unified theming and color styling engine. 39-token semantic taxonomy, dual light/dark modes, seasonal calendar, and global ecosystem sync.",
+        "description": "Sovereign, unified theming and color styling engine. 25 circadian calendar themes, dynamic terminal palette synchronization, and MCP.",
         "gem": True,
         "gemFact": "25 Circadian Themes · Global Ecosystem Sync",
         "installCommand": "curl -fsSL https://openooda-tools.github.io/oote/install.sh | bash",
         "overviewUrl": "oote/",
         "repoUrl": "https://github.com/openOODA-tools/oote",
-        "tags": ["25-themes", "circadian-auto", "ascii-mascots", "pure-openooda"],
-        "addedAt": "2026-09-12"
+        "tags": ["theme-engine", "ansi-styling", "circadian-palettes", "pure-openooda"],
+        "capabilities": ["&TermCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-09-15"
     },
     {
         "id": "oofetch",
         "name": "oofetch",
         "category": "System & Monitor",
-        "role": "SYSTEM POSTURE",
+        "role": "SYSTEM FETCH",
         "version": "v0.1.0",
         "status": "released",
-        "monogram": "FC",
-        "accent": "#00b0ff",
-        "description": "Sovereign system fetch and posture showcase. Instant hardware and OS inspection, dynamic ASCII mascots, and an stdio MCP surface.",
-        "gem": False,
+        "monogram": "FT",
+        "accent": "#ffab40",
+        "description": "Sovereign system fetch and environment showcase. Dynamic ASCII mascots, hardware & OS telemetry, zero ambient leakage, and stdio MCP.",
+        "gem": True,
         "gemFact": "Dynamic ASCII Mascots · Hardware & OS Telemetry",
         "installCommand": "curl -fsSL https://openooda-tools.github.io/oofetch/install.sh | bash",
         "overviewUrl": "oofetch/",
         "repoUrl": "https://github.com/openOODA-tools/oofetch",
-        "tags": ["oote-swatches", "mcp-native", "posture-audit", "pure-openooda"],
-        "addedAt": "2026-09-15"
+        "tags": ["ascii-art", "system-info", "zero-ambient-leak", "pure-openooda"],
+        "capabilities": ["&SysInfoCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-09-18"
     },
     {
         "id": "oocat",
         "name": "oocat",
-        "category": "Files & Navigation",
-        "role": "SYNTAX VIEWER",
+        "category": "Search & Inspection",
+        "role": "VIEWER & PAGER",
         "version": "v0.1.0",
         "status": "released",
         "monogram": "CT",
         "accent": "#ffd740",
-        "description": "Capability-bounded syntax file viewer and pager. Multi-language lexing with oote themes, line ranges, and an stdio MCP surface.",
+        "description": "Capability-bounded syntax-highlighting file viewer and pager. Multi-language lexing, range bounded paging, and stdio MCP inspection.",
         "gem": False,
         "gemFact": "Multi-Language Lexing · Range Bounded Paging",
         "installCommand": "curl -fsSL https://openooda-tools.github.io/oocat/install.sh | bash",
         "overviewUrl": "oocat/",
         "repoUrl": "https://github.com/openOODA-tools/oocat",
-        "tags": ["syntax-highlighting", "mcp-native", "pure-openooda"],
-        "addedAt": "2026-09-18"
+        "tags": ["syntax-highlighting", "pager-integration", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&TermCap", "&McpCap"],
+        "addedAt": "2026-09-20"
     },
     {
         "id": "ootop",
         "name": "ootop",
         "category": "System & Monitor",
-        "role": "TUI MONITOR",
+        "role": "PROCESS MONITOR",
         "version": "v0.1.0",
         "status": "released",
         "monogram": "TP",
-        "accent": "#ff5252",
-        "description": "Real-time TUI dashboard and system monitor. Systemd slice resource aggregation, sparklines, load-reactive mascot moods, and MCP telemetry.",
-        "gem": True,
+        "accent": "#69f0ae",
+        "description": "Sovereign real-time system monitor and dashboard. Systemd slice telemetry, dynamic mascot moods, and streaming MCP telemetry.",
+        "gem": False,
         "gemFact": "Systemd Slice Telemetry · Mascot Mood Dynamics",
         "installCommand": "curl -fsSL https://openooda-tools.github.io/ootop/install.sh | bash",
         "overviewUrl": "ootop/",
         "repoUrl": "https://github.com/openOODA-tools/ootop",
         "tags": ["systemd-slices", "emotional-mascot", "mcp-telemetry", "pure-openooda"],
+        "capabilities": ["&ProcCap", "&SysInfoCap", "&TermCap", "&McpCap"],
         "addedAt": "2026-09-22"
     },
     {
         "id": "oofzf",
         "name": "oofzf",
-        "category": "Files & Navigation",
+        "category": "Search & Inspection",
         "role": "FUZZY FINDER",
         "version": "v0.1.0",
         "status": "released",
         "monogram": "FZ",
         "accent": "#18ffff",
         "description": "Sovereign interactive fuzzy finder and candidate ranker. Subsequence scoring with consecutive run bonuses, oote palettes, and stdio MCP.",
-        "gem": False,
+        "gem": True,
         "gemFact": "Subsequence Scoring · Consecutive Run Bonus",
         "installCommand": "curl -fsSL https://openooda-tools.github.io/oofzf/install.sh | bash",
         "overviewUrl": "oofzf/",
         "repoUrl": "https://github.com/openOODA-tools/oofzf",
         "tags": ["fuzzy-matching", "mcp-surface", "oote-palettes", "pure-openooda"],
+        "capabilities": ["&TermCap", "&FsReadCap", "&McpCap"],
         "addedAt": "2026-09-25"
     },
     {
         "id": "ools",
         "name": "ools",
         "category": "Files & Navigation",
-        "role": "METADATA LISTER",
+        "role": "DIR LISTER",
         "version": "v0.1.0",
         "status": "released",
         "monogram": "LS",
         "accent": "#b388ff",
         "description": "Sovereign directory lister and metadata classifier. Multi-column grid rendering, detailed long-format tables, oote palettes, and MCP surface.",
-        "gem": False,
+        "gem": True,
         "gemFact": "Metadata Classification · Multi-Column Grid",
         "installCommand": "curl -fsSL https://openooda-tools.github.io/ools/install.sh | bash",
         "overviewUrl": "ools/",
         "repoUrl": "https://github.com/openOODA-tools/ools",
         "tags": ["metadata-class", "zero-ambient-auth", "mcp-surface", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&MetadataCap", "&McpCap"],
         "addedAt": "2026-09-28"
     },
     {
         "id": "ootree",
         "name": "ootree",
         "category": "Files & Navigation",
-        "role": "DIRECTORY TREE",
+        "role": "TREE VISUALIZER",
         "version": "v0.1.0",
         "status": "released",
         "monogram": "TR",
@@ -240,6 +251,7 @@ released_tools = [
         "overviewUrl": "ootree/",
         "repoUrl": "https://github.com/openOODA-tools/ootree",
         "tags": ["tree-traversal", "depth-limiting", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&McpCap"],
         "addedAt": "2026-10-02"
     },
     {
@@ -258,6 +270,7 @@ released_tools = [
         "overviewUrl": "ooclock/",
         "repoUrl": "https://github.com/openOODA-tools/ooclock",
         "tags": ["tui-clock", "time-sync", "oote-themes", "pure-openooda"],
+        "capabilities": ["&TimeCap", "&TermCap", "&McpCap"],
         "addedAt": "2026-10-03"
     },
     {
@@ -276,13 +289,14 @@ released_tools = [
         "overviewUrl": "oosed/",
         "repoUrl": "https://github.com/openOODA-tools/oosed",
         "tags": ["stream-editor", "regex-substitution", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&FsWriteCap", "&McpCap"],
         "addedAt": "2026-10-04"
     },
     {
         "id": "ootar",
         "name": "ootar",
-        "category": "Data & Streaming",
-        "role": "ARCHIVE ENGINE",
+        "category": "Files & Navigation",
+        "role": "ARCHIVE MANAGER",
         "version": "v0.1.0",
         "status": "released",
         "monogram": "AR",
@@ -294,6 +308,7 @@ released_tools = [
         "overviewUrl": "ootar/",
         "repoUrl": "https://github.com/openOODA-tools/ootar",
         "tags": ["tar-archive", "path-sanitization", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&FsWriteCap", "&McpCap"],
         "addedAt": "2026-10-05"
     },
     {
@@ -312,6 +327,7 @@ released_tools = [
         "overviewUrl": "oops/",
         "repoUrl": "https://github.com/openOODA-tools/oops",
         "tags": ["process-table", "process-tree", "systemd-cgroups", "pure-openooda"],
+        "capabilities": ["&ProcCap", "&McpCap"],
         "addedAt": "2026-10-06"
     },
     {
@@ -330,6 +346,7 @@ released_tools = [
         "overviewUrl": "oocurl/",
         "repoUrl": "https://github.com/openOODA-tools/oocurl",
         "tags": ["http-client", "tls-validation", "zero-ambient-egress", "pure-openooda"],
+        "capabilities": ["&NetCap", "&TlsCap", "&McpCap"],
         "addedAt": "2026-10-06"
     },
     {
@@ -348,400 +365,36 @@ released_tools = [
         "overviewUrl": "oowatch/",
         "repoUrl": "https://github.com/openOODA-tools/oowatch",
         "tags": ["watch-runner", "delta-highlighting", "mcp-native", "pure-openooda"],
+        "capabilities": ["&TimeCap", "&ProcCap", "&McpCap"],
         "addedAt": "2026-10-07"
     }
 ]
 
-blueprint_definitions = [
-    # Shell & Terminal
-    ("ooenv", "Shell & Terminal", "ENV CONTROLLER", "Capability-bounded environment variable inspection, sanitization, and scoped export.", ["environment", "isolation", "posix"]),
-    ("ooxargs", "Shell & Terminal", "STREAM DISPATCHER", "Bounded argument builder and parallel execution dispatcher with backpressure limits.", ["dispatch", "concurrency", "xargs"]),
-    ("ootime", "Shell & Terminal", "RESOURCE PROFILER", "High-resolution process execution timing, memory high-watermark, and cgroup metering.", ["timing", "profiling", "cgroups"]),
-    ("oowait", "Shell & Terminal", "PROCESS BARRIER", "Sovereign synchronization primitive waiting on systemd units, child PIDs, or sockets.", ["process-barrier", "sync", "systemd"]),
-    ("ootimeout", "Shell & Terminal", "DEADLINE GUARD", "Strict capability timer killing runaway tasks with grace periods and exit propagation.", ["deadlines", "sandboxing", "timeout"]),
-    ("ooworker", "Shell & Terminal", "TASK RUNNER", "Micro-task scheduling worker communicating over stdio pipes with capability constraints.", ["worker", "scheduling", "agent-ready"]),
-    ("oobash", "Shell & Terminal", "COMPAT COMPILER", "Strict subset shell translating POSIX shell scripts into capability-audited openOODA AST.", ["ast", "transpiler", "compat"]),
-    ("ooshopt", "Shell & Terminal", "SHELL TUNER", "Declarative kernel and userland shell options toggling strict evaluation and trace modes.", ["shell-options", "tuning"]),
-    ("ooalias", "Shell & Terminal", "ALIAS RESOLVER", "Cryptographically verifiable command macro and alias resolver with scope isolation.", ["macros", "alias", "safety"]),
-    ("oohistory", "Shell & Terminal", "AUDIT LEDGER", "Tamper-evident append-only shell command history with redaction of credential tokens.", ["audit", "ledger", "redaction"]),
-    ("ooprompt", "Shell & Terminal", "STATUS DISPLAY", "Reactive multi-segment shell prompt rendering git posture, capability level, and latency.", ["prompt", "reactive", "git-posture"]),
-    ("ootty", "Shell & Terminal", "TERMINAL DETECTOR", "TTY capability inspection, pseudo-terminal allocation, and raw mode controller.", ["tty", "pty", "raw-mode"]),
-    ("oostty", "Shell & Terminal", "TERMINAL STATE", "Sovereign terminal driver mode switcher with baud, echo, and interrupt protection.", ["stty", "terminal-mode"]),
-    ("ooclear", "Shell & Terminal", "BUFFER PURGER", "High-performance screen clearing and scrollback purge with VT100/ANSI compliance.", ["vt100", "ansi", "buffer"]),
-    ("ooreset", "Shell & Terminal", "TERMINAL RESTORE", "Emergency terminal hardware state reset restoring sane cooked-mode and cursor posture.", ["emergency-reset", "terminal"]),
-    ("ootput", "Shell & Terminal", "TERMINFO QUERY", "Zero-dependency terminfo querying for terminal capabilities, colors, and cursor movements.", ["terminfo", "cursor", "capabilities"]),
-    ("ootmux", "Shell & Terminal", "SURFACE MULTIPLEX", "Capability-bounded terminal session multiplexer with split panes and stdio sockets.", ["multiplexer", "panes", "sessions"]),
-    ("ooscreen", "Shell & Terminal", "SESSION DETACHER", "Lightweight background screen detacher with socket reconnect and credential isolation.", ["detach", "reconnect", "sessions"]),
-    ("oobatch", "Shell & Terminal", "BATCH QUEUE", "Non-interactive batch job manager queueing tasks when system load factor drops.", ["batch-queue", "load-aware"]),
-    ("oocron", "Shell & Terminal", "TIMER SCHEDULER", "Pure systemd timer scheduler replacing legacy cron with journald integration.", ["systemd-timer", "cron-parity"]),
-    ("ooat", "Shell & Terminal", "ONESHOT TIMER", "Single-run scheduled command coordinator backed by transient systemd timer units.", ["oneshot", "systemd"]),
-    ("oosleep", "Shell & Terminal", "PRECISE PAUSE", "High-precision timer sleep supporting nanosecond resolution and monotonic clock loops.", ["sleep", "monotonic", "clock"]),
-    ("ooyes", "Shell & Terminal", "INFINITE EMITTER", "Bounded rate or infinite byte string emitter for stress testing and stream piping.", ["emitter", "stream", "testing"]),
-    ("ootrue", "Shell & Terminal", "NO-OP SUCCESS", "Instant zero-byte binary returning exit status 0 without runtime overhead.", ["posix-baseline", "instant"]),
-    ("oofalse", "Shell & Terminal", "NO-OP FAILURE", "Instant zero-byte binary returning exit status 1 without runtime overhead.", ["posix-baseline", "instant"]),
-
-    # Search & Inspection
-    ("oosed", "Search & Inspection", "STREAM EDITOR", "Capability-bounded stream editor for non-interactive text transformations and regex rewrites.", ["stream-editor", "regex", "posix"]),
-    ("ooawk", "Search & Inspection", "RECORD PROCESSOR", "Data-driven pattern scanning and text processing language with exact arithmetic.", ["record-processor", "patterns", "posix"]),
-    ("oocut", "Search & Inspection", "COLUMN EXTRACTOR", "Byte, character, and delimiter-aware field extractor with negative-index slicing.", ["field-extract", "delimiters"]),
-    ("ootr", "Search & Inspection", "BYTE TRANSLATOR", "Streaming character set translator, squeezer, and complement mapping engine.", ["transform", "char-set", "squeeze"]),
-    ("oowc", "Search & Inspection", "METRIC COUNTER", "SIMD-accelerated newline, word, UTF-8 rune, and byte counter for massive files.", ["simd", "counter", "utf8"]),
-    ("oosort", "Search & Inspection", "STREAM SORTER", "Memory-bounded external merge sort with radix optimization and numeric comparator.", ["sort", "external-merge", "radix"]),
-    ("oouniq", "Search & Inspection", "DUPLICATE FILTER", "Adjacent duplicate line filter and occurrence frequency aggregator with case folding.", ["duplicate-filter", "frequency"]),
-    ("oohead", "Search & Inspection", "PREFIX SLICER", "Zero-copy prefix line and byte extractor with early pipe closure semantics.", ["head", "zero-copy", "pipe"]),
-    ("ooless", "Search & Inspection", "INTERACTIVE PAGER", "Memory-bounded interactive terminal pager with regex highlight and jump navigation.", ["pager", "interactive", "terminal"]),
-    ("oomore", "Search & Inspection", "BASIC PAGER", "Minimal POSIX-compliant paging utility for single-screen scrolling on restricted TTYs.", ["pager", "posix"]),
-    ("oofold", "Search & Inspection", "LINE WRAPPER", "Width-aware text line folder breaking on word boundaries and ANSI escape codes.", ["wrapping", "word-boundary"]),
-    ("oopr", "Search & Inspection", "PAGINATED PRINT", "Text paginator formatting files into columns, headers, and form-feed pages.", ["pagination", "columns"]),
-    ("oofmt", "Search & Inspection", "PARAGRAPH REFORM", "Simple optimal text paragraph reformer keeping uniform margins and clean gutters.", ["formatting", "paragraphs"]),
-    ("oonl", "Search & Inspection", "LINE NUMBERER", "Configurable line numbering utility with page header, body, and footer separation.", ["numbering", "headers"]),
-    ("oocol", "Search & Inspection", "ESCAPE FILTER", "Reverse line feed filter removing backspaces and half-line feeds from terminal output.", ["escape-filter", "vt100"]),
-    ("oocolrm", "Search & Inspection", "COLUMN STRIPPER", "Strips character columns from line streams using precise byte column boundaries.", ["columns", "stripping"]),
-    ("oorev", "Search & Inspection", "LINE REVERSER", "Unicode grapheme-cluster aware reverse transformation of each line in a stream.", ["reverse", "unicode", "graphemes"]),
-    ("ootac", "Search & Inspection", "FILE INVERTER", "Reverses files line by line using fast backwards seek and ring buffer scanning.", ["seek-reverse", "tac", "streams"]),
-    ("oopaste", "Search & Inspection", "STREAM MERGER", "Merges lines of corresponding files sequentially using user-specified delimiters.", ["paste", "horizontal-merge"]),
-    ("oojoin", "Search & Inspection", "RELATIONAL MERGER", "Relational database join operator merging lines of sorted files on common fields.", ["relational-join", "database"]),
-    ("oosplit", "Search & Inspection", "FILE SPLITTER", "Splits large datasets into fixed-size byte chunks or line-bounded parts with hashes.", ["splitter", "chunking"]),
-    ("oocsplt", "Search & Inspection", "CONTEXT SPLITTER", "Splits files into context-determined sections matched by regex patterns.", ["context-split", "regex"]),
-    ("ooexpand", "Search & Inspection", "TAB EXPANDER", "Converts tab characters to spaces with custom tab-stop positions and alignment.", ["tabs", "spacing", "alignment"]),
-    ("oounexpand", "Search & Inspection", "SPACE COMPACTOR", "Converts consecutive spaces into tabs to save storage and match standard conventions.", ["tabs", "compact"]),
-    ("oostrings", "Search & Inspection", "BINARY EXTRACTOR", "Scans binary binaries and memory dumps for printable UTF-8 and ASCII sequences.", ["strings", "binary-scan", "security"]),
-    ("oohex", "Search & Inspection", "HEX DUMP PAGER", "Color-coded hexadecimal viewer with canonical ASCII sidebar and delta highlighting.", ["hex", "dump", "binary"]),
-    ("ooxxd", "Search & Inspection", "HEX REVERSER", "Generates and reverses hexadecimal binary representations to and from raw files.", ["xxd", "hex-reverse"]),
-    ("oood", "Search & Inspection", "OCTAL DUMPER", "Dumps files in octal, hex, decimal, or floating point format with offset indicators.", ["octal", "binary-dump"]),
-    ("oobiew", "Search & Inspection", "BINARY DISSECT", "Interactive binary and ELF executable dissector showing headers, symbols, and code.", ["elf", "headers", "symbols"]),
-    ("oogrepz", "Search & Inspection", "COMPRESSED SEARCH", "Zero-copy streaming search across gzip, xz, and zstd compressed archives.", ["zgrep", "compressed", "streaming"]),
-    ("ooripl", "Search & Inspection", "INTERACTIVE REPL", "Text pipe testing sandbox allowing real-time tweaking of regex expressions.", ["repl", "pipe-sandbox"]),
-
-    # Diff & Comparison
-    ("oopatch", "Diff & Comparison", "PATCH APPLIER", "Capability-bounded unified diff applier with fuzz factor and reverse rollback.", ["patch", "rollback", "git-parity"]),
-    ("oocmp", "Diff & Comparison", "BYTE COMPARATOR", "Instant byte-by-byte file comparison reporting first byte difference and line count.", ["byte-diff", "comparator"]),
-    ("oocomm", "Diff & Comparison", "LINE INTERSECTOR", "Compares two sorted files line by line to produce unique and common lines.", ["intersection", "sorted-diff"]),
-    ("oogitdiff", "Diff & Comparison", "GIT TREE DIFF", "Fast working tree vs commit object differ without requiring ambient git porcelain.", ["git-diff", "tree-comparison"]),
-    ("oowdiff", "Diff & Comparison", "WORD DIFFER", "Word-by-word visual text comparison highlighting insertions and deletions inline.", ["word-diff", "inline"]),
-    ("oodiff3", "Diff & Comparison", "THREE-WAY MERGER", "3-way file comparison engine reconciling conflicts between common ancestor and branches.", ["three-way-merge", "conflicts"]),
-    ("oosdiff", "Diff & Comparison", "SIDE-BY-SIDE", "Side-by-side visual diff tool rendering interactive split terminals with sync scroll.", ["side-by-side", "tui"]),
-    ("oobindiff", "Diff & Comparison", "BINARY DIFFER", "Structural binary differ identifying patch blocks and byte sequence displacements.", ["binary-diff", "offsets"]),
-    ("oostructureddiff", "Diff & Comparison", "TREE DIFFER", "AST and JSON structural tree differ highlighting node mutations and key shifts.", ["ast-diff", "tree-sitter"]),
-    ("ooastdiff", "Diff & Comparison", "SYNTAX DIFF", "Programming language AST differ ignoring cosmetic whitespace and comment changes.", ["syntax-diff", "language-ast"]),
-    ("ooschemadiff", "Diff & Comparison", "SCHEMA DIFFER", "Database and OpenAPI schema migration differ ensuring backwards compatibility.", ["schema-diff", "openapi"]),
-    ("oosemantcdiff", "Diff & Comparison", "SEMANTIC DIFF", "AI agent semantic delta analyzer detecting behavioral change intent in diffs.", ["semantic-diff", "agent-intent"]),
-
-    # Filesystem & Navigation
-    ("ootree", "Filesystem & Navigation", "DIRECTORY TREE", "Visual directory hierarchy tree generator with file sizes, permissions, and icons.", ["tree", "visual-hierarchy"]),
-    ("ootouch", "Filesystem & Navigation", "TIMESTAMP SETTER", "Capability-safe file creation and access/modification timestamp updater.", ["touch", "timestamps"]),
-    ("oomkdir", "Filesystem & Navigation", "DIRECTORY MAKER", "Atomic multi-level directory creator with explicit permission mask enforcement.", ["mkdir", "atomic", "posix"]),
-    ("oocp", "Filesystem & Navigation", "COPY ENGINE", "Zero-copy clone-capable file and directory copier using io_uring and copy_file_range.", ["copy", "io-uring", "reflink"]),
-    ("oomv", "Filesystem & Navigation", "ATOMIC MOVER", "Atomic directory and file mover across partitions with rollback on copy failure.", ["atomic-move", "posix"]),
-    ("oorm", "Filesystem & Navigation", "SECURE REMOVER", "Negative-trust file and tree unlinker with optional multi-pass cryptographic shred.", ["remove", "safety-barrier"]),
-    ("oormdir", "Filesystem & Navigation", "EMPTY DIR REMOVER", "Safely unlinks empty directory hierarchies with path boundary verification.", ["rmdir", "safety"]),
-    ("ooln", "Filesystem & Navigation", "LINK CREATOR", "Creates atomic hard links and relative symbolic links with cycle detection.", ["symlinks", "hardlinks"]),
-    ("oolink", "Filesystem & Navigation", "HARD LINKER", "Single-purpose POSIX hard linker with inode verification.", ["hardlink", "posix"]),
-    ("ooreadlink", "Filesystem & Navigation", "SYMLINK RESOLVER", "Resolves symbolic link targets and canonicalizes path sequences without traversal.", ["readlink", "canonicalize"]),
-    ("oopath", "Filesystem & Navigation", "PATH MANIPULATOR", "Sovereign path syntax sanitizer normalizing relative components and dot segments.", ["path-utils", "sanitizer"]),
-    ("oobasename", "Filesystem & Navigation", "FILENAME STRIPPER", "Strips directory prefixes and optional file extensions from path strings.", ["basename", "posix"]),
-    ("oodirname", "Filesystem & Navigation", "DIRECTORY STRIPPER", "Extracts parent directory portion from path strings adhering to POSIX standards.", ["dirname", "posix"]),
-    ("oorealpath", "Filesystem & Navigation", "CANONICAL PATH", "Resolves all symlinks, relative components, and canonicalizes absolute path roots.", ["realpath", "posix"]),
-    ("oostat", "Filesystem & Navigation", "INODE INSPECTOR", "Prints comprehensive file metadata, inode attributes, timestamps, and permissions.", ["stat", "metadata", "inode"]),
-    ("oochmod", "Filesystem & Navigation", "MODE CHANGER", "Applies octal and symbolic permission masks with capability boundary constraints.", ["chmod", "permissions"]),
-    ("oochown", "Filesystem & Navigation", "OWNER CHANGER", "Changes user and group ownership of filesystem objects within container bounds.", ["chown", "ownership"]),
-    ("oochgrp", "Filesystem & Navigation", "GROUP CHANGER", "Updates primary and auxiliary group associations for filesystem paths.", ["chgrp", "posix"]),
-    ("ooumask", "Filesystem & Navigation", "MASK CONTROLLER", "Reads and sets the process file mode creation mask for spawned tasks.", ["umask", "security"]),
-    ("oofile", "Filesystem & Navigation", "MIME DETECTOR", "Magic-byte based file format, MIME type, and encoding identification without exec.", ["file-type", "mime-magic"]),
-    ("oodu", "Filesystem & Navigation", "DISK USAGE", "Fast parallel disk space estimator tracking inode counts and directory tree weights.", ["disk-usage", "du", "fast"]),
-    ("oodf", "Filesystem & Navigation", "FREE SPACE", "Mount point storage inspector displaying total, used, and available blocks and inodes.", ["disk-free", "mounts"]),
-    ("oofsck", "Filesystem & Navigation", "FS INTEGRITY", "Filesystem consistency verifier checking superblock blocks and inode checksums.", ["fsck", "integrity"]),
-    ("oomount", "Filesystem & Navigation", "MOUNT MANAGER", "Capability-bounded filesystem mounter supporting bind mounts and namespaces.", ["mount", "namespaces"]),
-    ("ooumount", "Filesystem & Navigation", "UNMOUNT WORKER", "Detaches mounted filesystems cleanly with lazy unmount and sync safety.", ["umount", "safety"]),
-    ("oosync", "Filesystem & Navigation", "DIRTY FLUSHER", "Flushes cached filesystem data from page cache buffers to non-volatile disks.", ["sync", "pagecache"]),
-    ("oobackup", "Filesystem & Navigation", "SNAPSHOT ENGINE", "Content-addressed snapshot utility creating deduplicated incremental trees.", ["snapshot", "dedup"]),
-    ("ooarchive", "Filesystem & Navigation", "ARCHIVE PACKER", "Deterministic reproducible archive builder guaranteeing byte-for-byte outputs.", ["reproducible", "archive"]),
-    ("ootar", "Filesystem & Navigation", "TAPE ARCHIVER", "Modern tar archive extractor and builder with pax extended attributes and zstd.", ["tar", "pax", "zstd"]),
-    ("oogzip", "Filesystem & Navigation", "DEFLATE COMPRESS", "High-speed multi-threaded DEFLATE compression engine with stream headers.", ["gzip", "deflate"]),
-    ("oobzip2", "Filesystem & Navigation", "BZIP COMPRESS", "Burrows-Wheeler block sorting text compression engine with integrity checks.", ["bzip2", "compression"]),
-    ("ooxz", "Filesystem & Navigation", "LZMA COMPRESS", "High-ratio LZMA2 compressor utilizing dictionary matching and thread pools.", ["xz", "lzma2"]),
-    ("oozstd", "Filesystem & Navigation", "ZSTD COMPRESS", "Ultra-fast Zstandard compression and decompression utilizing modern vector units.", ["zstd", "high-speed"]),
-    ("oounzip", "Filesystem & Navigation", "ZIP EXTRACTOR", "Zip archive unpacker with zip-bomb mitigation and strict directory escape bounds.", ["zip", "security"]),
-    ("oo7z", "Filesystem & Navigation", "7Z HANDLER", "7-Zip multi-format container unpacker and lister with AES-256 encryption.", ["7z", "encryption"]),
-    ("oocpio", "Filesystem & Navigation", "CPIO PACKER", "Initramfs cpio format unpacker and archiver for Linux kernel boot images.", ["cpio", "initramfs"]),
-    ("oomktemp", "Filesystem & Navigation", "TEMP CREATOR", "Creates temporary files and directories under systemd-tmpfiles paths securely.", ["mktemp", "systemd-tmpfiles"]),
-    ("ooshred", "Filesystem & Navigation", "CRYPTO SHREDDER", "Overwrites file locations with pseudorandom passes before unlinking from inodes.", ["shred", "security"]),
-    ("ootruncate", "Filesystem & Navigation", "FILE RESIZER", "Shrinks or extends the length of specified files to exact byte counts.", ["truncate", "sparse"]),
-
-    # Data & Streaming
-    ("ooyq", "Data & Streaming", "YAML PROCESSOR", "Lightweight zero-dependency YAML and JSON cross-transpiler and jq filter engine.", ["yaml", "filter", "jq-syntax"]),
-    ("ooxml", "Data & Streaming", "XML INSPECTOR", "Streaming XML parser with XPath evaluation and JSON Lines stream conversion.", ["xml", "xpath", "streaming"]),
-    ("ootoml", "Data & Streaming", "TOML ENGINE", "TOML 1.0 parser and serializer for declarative config inspection and mutation.", ["toml", "config", "parser"]),
-    ("oocsv", "Data & Streaming", "CSV FILTER", "High-speed RFC 4180 CSV parser with SQL-like query filtering and header renaming.", ["csv", "rfc4180", "sql"]),
-    ("ootsv", "Data & Streaming", "TSV PROCESSOR", "Tab-separated stream manipulator with column arithmetic and delimiter escaping.", ["tsv", "tab-stream"]),
-    ("oobase64", "Data & Streaming", "BASE64 ENCODER", "SIMD-accelerated RFC 4648 Base64 data encoder and decoder with URL-safe variants.", ["base64", "rfc4648", "simd"]),
-    ("oobase32", "Data & Streaming", "BASE32 ENCODER", "Base32 encoder and decoder with Crockford and RFC 4648 alphabet options.", ["base32", "crockford"]),
-    ("oobase58", "Data & Streaming", "BASE58 ENCODER", "Cryptographic Base58 encoder and decoder omitting ambiguous alphanumeric glyphs.", ["base58", "crypto"]),
-    ("oochecksum", "Data & Streaming", "HASH VERIFIER", "Unified integrity checking utility verifying BSD and GNU style checksum manifests.", ["checksum", "integrity"]),
-    ("oohash", "Data & Streaming", "MULTI HASH", "Calculates BLAKE3, SHA-256, and SHA3-512 hashes simultaneously in a single pass.", ["blake3", "sha256", "sha512"]),
-    ("oomd5", "Data & Streaming", "MD5 LEGACY", "Legacy MD5 hash calculator for verifying legacy file distribution manifests.", ["md5", "legacy"]),
-    ("oosha256", "Data & Streaming", "SHA256 HASHER", "Hardware-accelerated SHA-256 cryptographic digest generator and verifier.", ["sha256", "crypto", "posix"]),
-    ("oosha512", "Data & Streaming", "SHA512 HASHER", "High-capacity SHA-512 cryptographic digest generator with binary output mode.", ["sha512", "crypto"]),
-    ("oob3sum", "Data & Streaming", "BLAKE3 HASHER", "Blistering BLAKE3 tree hasher achieving multi-gigabyte per second throughput.", ["blake3", "ultra-fast"]),
-    ("oocrc32", "Data & Streaming", "CRC32 CHECKSUM", "Cyclic redundancy check generator utilizing hardware carry-less multiplication.", ["crc32", "hardware-accel"]),
-    ("ooparse", "Data & Streaming", "LEXER & PARSER", "General purpose parser generating AST graphs from custom grammar expressions.", ["parser", "ast", "grammar"]),
-    ("oovalidate", "Data & Streaming", "SCHEMA CHECKER", "Validates JSON, YAML, and XML documents against JSON Schema draft 2020-12.", ["validator", "json-schema"]),
-    ("ooschema", "Data & Streaming", "INFER SCHEMA", "Infers structural JSON schemas and column datatypes from stream datasets.", ["schema-inference", "data-types"]),
-    ("oobson", "Data & Streaming", "BSON SERIALIZER", "Binary JSON encoder and decoder with bson-to-json streaming converters.", ["bson", "binary-json"]),
-    ("oomsgpack", "Data & Streaming", "MSGPACK ENGINE", "High efficiency MessagePack binary object serialization and inspection.", ["msgpack", "binary-pack"]),
-    ("ooprotobuf", "Data & Streaming", "PROTOBUF DECODER", "Decodes Protocol Buffer wire format without needing compiled proto stubs.", ["protobuf", "wire-format"]),
-    ("oocbor", "Data & Streaming", "CBOR SERIALIZER", "Concise Binary Object Representation encoder, diagnostic viewer, and decoder.", ["cbor", "binary"]),
-    ("oobinary", "Data & Streaming", "BIT PACKER", "Bit-level endianness converter, bitmask applicator, and stream aligner.", ["bitwise", "endian", "packer"]),
-    ("oostringify", "Data & Streaming", "DATA FORMATTER", "Turns nested data structures into human-readable formatted terminal tables.", ["stringify", "tables", "tui"]),
-    ("oofilter", "Data & Streaming", "PREDICATE FILTER", "Evaluates boolean logic expressions against structured stream line objects.", ["predicate", "boolean-logic"]),
-    ("oomap", "Data & Streaming", "STREAM MAPPER", "Applies transformation expressions to each object in a pipeline stream.", ["mapper", "transform", "pipeline"]),
-    ("ooreduce", "Data & Streaming", "STREAM ACCUMULATE", "Aggregates stream records into sums, averages, histograms, and groupings.", ["reduce", "aggregates", "math"]),
-    ("ooquery", "Data & Streaming", "PRQL ENGINE", "Executes relational queries against local CSV, JSON, and Parquet data files.", ["query", "prql", "analytics"]),
-    ("oosqllite", "Data & Streaming", "EMBEDDED SQL", "Zero-dependency embedded SQL query runner querying stdin streams in memory.", ["sqlite", "in-memory", "sql"]),
-
-    # System & Monitor
-    ("oops", "System & Monitor", "PROCESS SNAPSHOT", "Reads /proc to report process hierarchy, cgroup paths, and memory footprint.", ["processes", "procfs", "cgroups"]),
-    ("ookill", "System & Monitor", "SIGNAL SENDER", "Sends POSIX signals to targets with capability privilege verification.", ["signals", "kill", "posix"]),
-    ("oopkill", "System & Monitor", "REGEX KILLER", "Locates processes by name regex or cgroup slice and transmits signals safely.", ["pkill", "process-search"]),
-    ("oouptime", "System & Monitor", "UPTIME MONITOR", "Reports system running duration, active sessions, and 1, 5, 15m load averages.", ["uptime", "loadavg", "posix"]),
-    ("oofree", "System & Monitor", "MEMORY AUDITOR", "Displays total, free, cached, buffers, and swap memory with unit conversions.", ["memory", "ram", "swap"]),
-    ("oovmstat", "System & Monitor", "VIRTUAL MEMORY", "Reports virtual memory statistics, page faults, context switches, and IO waits.", ["vmstat", "pagefaults", "io"]),
-    ("ooiostat", "System & Monitor", "DISK IO METER", "Monitors storage device read/write throughput, service times, and queue latency.", ["iostat", "throughput", "latency"]),
-    ("oompstat", "System & Monitor", "CPU CORE METER", "Per-core CPU utilization breakdown showing user, nice, system, irq, and idle time.", ["mpstat", "cpu-cores", "utilization"]),
-    ("oonetstat", "System & Monitor", "SOCKET AUDITOR", "Inspects open TCP, UDP, and UNIX domain sockets, routing tables, and interface stats.", ["sockets", "networking", "ports"]),
-    ("oosysctl", "System & Monitor", "KERNEL PARAMS", "Inspects and sets Linux kernel parameters at runtime under /proc/sys/.", ["sysctl", "kernel", "tunables"]),
-    ("oodmesg", "System & Monitor", "KERNEL LOG RING", "Prints and monitors kernel ring buffer events with timestamp conversions.", ["dmesg", "kernel-ring", "logs"]),
-    ("oojournal", "System & Monitor", "SYSTEMD JOURNAL", "Filters systemd journald logs by unit, slice, priority, and boot identifier.", ["journald", "systemd", "logs"]),
-    ("oosystemctl", "System & Monitor", "SYSTEMD CONTROL", "Capability-bounded service, socket, and timer manager for systemd userland.", ["systemd", "services", "control"]),
-    ("oologinctl", "System & Monitor", "SESSION MANAGER", "Inspects user sessions, seats, and systemd-logind properties.", ["logind", "sessions", "seats"]),
-    ("ooudevadm", "System & Monitor", "UDEV DISPATCHER", "Queries system device manager attributes, udev events, and hardware rules.", ["udev", "hardware", "devices"]),
-    ("oohwinfo", "System & Monitor", "HARDWARE DUMP", "Collects detailed hardware summary for CPU, memory, storage, and bus controllers.", ["hardware", "inventory"]),
-    ("oolshw", "System & Monitor", "HARDWARE LISTER", "Generates structured hardware tree with memory banks and PCI topology.", ["hardware-tree", "pci"]),
-    ("oolspci", "System & Monitor", "PCI INSPECTOR", "Lists all PCI devices, vendor identifiers, memory regions, and kernel drivers.", ["pci", "bus", "drivers"]),
-    ("oolsusb", "System & Monitor", "USB INSPECTOR", "Scans USB hubs and attached peripherals, speeds, and descriptor endpoints.", ["usb", "bus", "peripherals"]),
-    ("oocpuinfo", "System & Monitor", "CPU CAPABILITIES", "Decodes CPU microarchitecture, flags (AVX512, AES, etc.), cache sizes, and bugs.", ["cpu-flags", "microarch", "caches"]),
-    ("oomeminfo", "System & Monitor", "DETAILED RAM", "Parses /proc/meminfo to report HugePages, Dirty pages, and ZRAM status.", ["meminfo", "hugepages", "zram"]),
-    ("oosensors", "System & Monitor", "THERMAL SENSORS", "Reads hardware thermal sensors, fan RPM, voltage rails, and throttling alerts.", ["thermals", "fans", "hwmon"]),
-    ("oobattery", "System & Monitor", "POWER METER", "Reads ACPI battery charge level, energy consumption rate, and health condition.", ["battery", "power", "acpi"]),
-    ("oopower", "System & Monitor", "POWER PROFILE", "Controls system power-profiles-daemon modes: performance, balanced, power-saver.", ["power-profiles", "battery"]),
-    ("ooshutdown", "System & Monitor", "POWER CONTROLLER", "Schedules system shutdown, poweroff, or halt via systemd logind IPC.", ["shutdown", "poweroff", "systemd"]),
-    ("ooreboot", "System & Monitor", "SAFE REBOOTER", "Executes safe system reboot invoking sync and unmount hooks.", ["reboot", "systemd"]),
-    ("oocgroup", "System & Monitor", "CGROUP MANAGER", "Creates and configures cgroup v2 resource limits for memory, cpu, and io controllers.", ["cgroups-v2", "limits", "isolation"]),
-    ("oothrottle", "System & Monitor", "LOAD THROTTLER", "Dynamically throttles background process groups when system load hits thresholds.", ["throttling", "load-balancer"]),
-    ("oonice", "System & Monitor", "PRIORITY CHANGER", "Sets process scheduling priority nice value for task execution.", ["nice", "scheduling", "posix"]),
-    ("oorenice", "System & Monitor", "ACTIVE RENICER", "Alters priority of existing running process groups and user sessions.", ["renice", "scheduling"]),
-    ("oochroot", "System & Monitor", "ROOT JAIL", "Sets up capability-bounded root filesystem jail with pivot_root semantics.", ["chroot", "jail", "namespaces"]),
-    ("oocgroupv2", "System & Monitor", "CGROUP V2 TREE", "Visualizes the active cgroup v2 slice hierarchy and resource shares.", ["cgroups", "hierarchy"]),
-    ("oolimits", "System & Monitor", "RLIMIT AUDITOR", "Queries and configures POSIX process resource limits (nofile, nproc, stack).", ["rlimit", "limits", "nofile"]),
-
-    # Theme & Styling
-    ("oodialog", "Theme & Styling", "TUI MODAL ENGINE", "Renders interactive modal dialogues, input boxes, checklists, and file pickers.", ["dialog", "tui", "modals"]),
-    ("oonotify", "Theme & Styling", "DESKTOP NOTIFIER", "Sends Freedesktop desktop notifications over D-Bus with custom icons and urgency.", ["notifications", "dbus", "freedesktop"]),
-    ("oomenubar", "Theme & Styling", "TERMINAL STATUS", "Renders sovereign status bars with dynamic telemetry widgets and oote colors.", ["status-bar", "widgets", "tui"]),
-    ("ooswatch", "Theme & Styling", "PALETTE VIEWER", "Displays interactive 16-color ANSI and TrueColor terminal swatches.", ["swatches", "palette", "truecolor"]),
-    ("ooglyph", "Theme & Styling", "NERD FONT GLYPHS", "Interactive glyph search and viewer for Nerd Font symbols and Unicode iconography.", ["glyphs", "nerd-fonts", "unicode"]),
-    ("oosparkline", "Theme & Styling", "ASCII SPARKLINES", "Generates inline UTF-8 bar chart sparklines from numeric data streams.", ["sparklines", "ascii-charts"]),
-    ("oobanner", "Theme & Styling", "FIGLET ENGINE", "Renders stylized ASCII art banners, typography, and logos in the terminal.", ["ascii-art", "banners", "typography"]),
-    ("oobar", "Theme & Styling", "PROGRESS METER", "Renders smooth terminal progress bars with ETA, throughput, and percent gauges.", ["progress-bar", "gauge", "eta"]),
-    ("ooprogress", "Theme & Styling", "ASYNC PROGRESS", "Piped progress bar listener updating terminals cleanly from concurrent streams.", ["streaming-progress", "ipc"]),
-    ("oospinner", "Theme & Styling", "BRAILLE SPINNERS", "Animated terminal spinners with Unicode braille, dots, and oote theme colors.", ["spinners", "animation", "braille"]),
-    ("oofigure", "Theme & Styling", "BOX DRAWING", "Renders beautiful Unicode box-drawing tables, callouts, and code borders.", ["box-drawing", "borders"]),
-    ("oocolor", "Theme & Styling", "COLOR CONVERTER", "Converts between HEX, RGB, HSL, CMYK, and ANSI 256 color representations.", ["color-conversion", "rgb", "hex"]),
-    ("ooansi", "Theme & Styling", "SGR ESCAPES", "Applies and strips Select Graphic Rendition (SGR) escape codes from text.", ["ansi-strip", "sgr"]),
-    ("oogradient", "Theme & Styling", "TEXT GRADIENT", "Applies smooth TrueColor color gradient interpolation across lines of text.", ["gradient", "truecolor", "interpolation"]),
-    ("oorgb", "Theme & Styling", "COLOR PICKER", "Terminal interactive color picker outputting exact hex and rgb tokens.", ["color-picker", "terminal"]),
-    ("oohsl", "Theme & Styling", "HSL TUNER", "Calculates complementary, triadic, and analogous color tokens from seed hues.", ["color-theory", "hsl"]),
-    ("oopreset", "Theme & Styling", "THEME PRESETS", "Exports oote color schemes to Alacritty, Kitty, Foot, Ghostty, and Tmux formats.", ["term-configs", "exports"]),
-    ("ooborder", "Theme & Styling", "PANEL BORDER", "Wraps stdin text blocks inside configurable border frames with titles.", ["borders", "frames"]),
-    ("ootable", "Theme & Styling", "UNICODE TABLES", "Renders markdown, JSON, or CSV into auto-sized Unicode terminal grid tables.", ["tables", "grids", "markdown"]),
-
-    # Network & Egress
-    ("oocurl", "Network & Egress", "HTTP CLIENT", "Capability-bounded HTTP/1.1 and HTTP/2 client with strict host whitelist validation.", ["http-client", "curl", "bounded-egress"]),
-    ("oowget", "Network & Egress", "STREAM DOWNLOAD", "Resumable file downloader with hash verification and bandwidth limiting.", ["wget", "download", "bandwidth"]),
-    ("oodns", "Network & Egress", "DNS RESOLVER", "Asynchronous DNS resolver supporting DNS-over-HTTPS and capability allowlists.", ["dns", "doh", "dns-over-https"]),
-    ("oonetcat", "Network & Egress", "RAW TCP/UDP", "Capability-isolated socket communicator for port inspection and raw byte exchange.", ["netcat", "sockets", "tcp-udp"]),
-    ("ooping", "Network & Egress", "ICMP LATENCY", "Measures ICMP round-trip time, jitter, and packet loss with microsecond precision.", ["ping", "icmp", "latency"]),
-    ("ooss", "Network & Egress", "SOCKET STATISTICS", "Fast dump of kernel socket statistics extracting TCP connection states and queues.", ["ss", "sockets", "kernel"]),
-    ("oossh", "Network & Egress", "SECURE SHELL", "Capability-bounded SSH client with hardware security key authentication.", ["ssh", "fido2", "crypto"]),
-    ("ooscp", "Network & Egress", "REMOTE COPY", "Cryptographically validated secure file copy over SSH protocol with bandwidth caps.", ["scp", "remote-copy"]),
-    ("oosftp", "Network & Egress", "SFTP CLIENT", "Interactive and scripted SFTP client with capability-isolated local sandbox.", ["sftp", "file-transfer"]),
-    ("oorproxy", "Network & Egress", "REVERSE PROXY", "Local micro reverse proxy routing requests between agent sockets and local hosts.", ["reverse-proxy", "mcp-routing"]),
-    ("oomcp", "Network & Egress", "MCP GATEWAY", "Model Context Protocol stdio and SSE gateway multiplexing agent capabilities.", ["mcp", "agent-gateway", "protocol"]),
-    ("ootunnel", "Network & Egress", "ENCRYPTED TUNNEL", "Encrypted point-to-point WireGuard mesh tunnel establishing zero-trust paths.", ["wireguard", "tunnel", "vpn"]),
-    ("oosock", "Network & Egress", "UNIX DOMAIN SOCKET", "Diagnostic tool connecting to and hosting UNIX domain sockets with permissions check.", ["unix-sockets", "ipc"]),
-    ("ootraceroute", "Network & Egress", "HOP TRACER", "Traces packet hops across networks with AS number lookups and latency maps.", ["traceroute", "routing", "hops"]),
-    ("oomtr", "Network & Egress", "LIVE ROUTE TRACER", "Interactive continuous network diagnostics combining ping and traceroute.", ["mtr", "diagnostics"]),
-    ("oowhois", "Network & Egress", "DOMAIN REGISTRY", "Queries WHOIS and RDAP records for domain ownership, registrars, and CIDRs.", ["whois", "rdap", "domains"]),
-    ("oodig", "Network & Egress", "DNS LOOKUP", "Comprehensive DNS lookup utility querying specific record types (A, AAAA, MX, TXT).", ["dig", "dns-query"]),
-    ("oohost", "Network & Egress", "HOST RESOLVER", "Quick DNS address resolver performing forward and reverse host conversions.", ["host", "reverse-dns"]),
-    ("oonslookup", "Network & Egress", "NAME SERVER CHECK", "Queries Internet name servers interactively for network debugging.", ["nslookup", "nameservers"]),
-    ("ooip", "Network & Egress", "IP ADDRESS TOOL", "Inspects and configures IP addresses, interfaces, and link layer states.", ["iproute2", "networking", "interfaces"]),
-    ("ooroute", "Network & Egress", "ROUTING TABLE", "Reads and manages kernel IP routing tables and default gateways.", ["routing", "gateway"]),
-    ("ooarp", "Network & Egress", "ARP CACHE TOOL", "Inspects and flushes neighbor discovery and ARP tables on local network segments.", ["arp", "neighbor-cache"]),
-    ("ooifconfig", "Network & Egress", "INTERFACE CONFIG", "Legacy network interface display reporting MAC addresses, MTUs, and packet RX/TX.", ["ifconfig", "interfaces"]),
-    ("oowget2", "Network & Egress", "RECURSIVE SPIDER", "Capability-bounded web crawler mirroring documentation with path allowlists.", ["spider", "mirror", "offline-docs"]),
-    ("oohpack", "Network & Egress", "HPACK INSPECTOR", "Encodes and decodes HTTP/2 HPACK header compression tables for debugging.", ["hpack", "http2", "headers"]),
-    ("ootls", "Network & Egress", "TLS CERT CHECK", "Inspects remote TLS/SSL certificates, cipher suites, expiration, and SAN domains.", ["tls", "certificates", "cipher"]),
-    ("oossl", "Network & Egress", "SSL RUNTIME", "Hardware-accelerated cryptography tool for certificate signing and CSR creation.", ["ssl", "x509", "pki"]),
-    ("oocert", "Network & Egress", "CERTIFICATE STORE", "Manages local system trust roots under /etc/ssl/certs/ with revocation checking.", ["ca-certs", "trust-store"]),
-    ("oofirewall", "Network & Egress", "FIREWALL CONTROLLER", "Declarative packet filtering coordinator backed by Linux nftables kernel sets.", ["nftables", "firewall", "egress-policy"]),
-    ("ooiptables", "Network & Egress", "IPTABLES SHIM", "Compatibility shim translating iptables commands into openOODA nftables rules.", ["iptables", "compatibility"]),
-    ("oonftables", "Network & Egress", "NFT ENGINE", "Manages atomic nftables rulesets for egress control and packet logging.", ["nftables", "atomic", "filtering"]),
-    ("ooboundary", "Network & Egress", "EGRESS BOUNDARY", "Hardware enforced kernel netfilter hook restricting agent sockets to allowed IPs.", ["egress-boundary", "sandbox", "zero-leak"]),
-
-    # Agent & Security
-    ("oosandbox", "Agent & Security", "CAPABILITY CONTAINER", "Negative-trust execution sandbox binding processes to explicit filesystem allowlists.", ["sandbox", "isolation", "negative-trust"]),
-    ("oobound", "Agent & Security", "RUNTIME BOUNDS", "Dynamic memory, CPU cycle, and file descriptor clamp for unvetted subprocesses.", ["clamps", "rlimits", "governance"]),
-    ("oopolicy", "Agent & Security", "POLICY VERIFIER", "Validates capability policy manifests before launching agent subtasks.", ["policy", "manifest", "attestation"]),
-    ("oomcprun", "Agent & Security", "MCP TASK RUNNER", "Executes MCP tool calls inside capability-bounded transient systemd scopes.", ["mcp", "runner", "systemd-scope"]),
-    ("ooaudit", "Agent & Security", "ACTION LEDGER", "Immutable audit recorder logging system calls, IO streams, and agent decisions.", ["audit", "compliance", "ledger"]),
-    ("oomonitor", "Agent & Security", "RUNTIME WATCHDOG", "Real-time behavioral anomaly monitor terminating processes violating access bounds.", ["watchdog", "anomaly-detection"]),
-    ("ookeygen", "Agent & Security", "KEY GENERATOR", "Generates Ed25519 and ML-KEM post-quantum cryptographic keypairs.", ["ed25519", "post-quantum", "keygen"]),
-    ("oosign", "Agent & Security", "ARTIFACT SIGNER", "Signs software packages, install scripts, and releases with detached signatures.", ["signatures", "detached", "integrity"]),
-    ("ooverify", "Agent & Security", "SIGNATURE CHECKER", "Verifies release signatures against the official openOODA developer pubkey ring.", ["verify", "signatures", "pubkey"]),
-    ("oovault", "Agent & Security", "SECRET STORE", "Encrypted secret vault storing API keys and tokens backed by kernel keyrings.", ["vault", "secrets", "kernel-keyring"]),
-    ("ootoken", "Agent & Security", "CAPABILITY TOKEN", "Issues, validates, and revokes scoped capability delegation tokens.", ["tokens", "capabilities", "delegation"]),
-    ("ooseccomp", "Agent & Security", "SYSCALL FILTER", "Applies BPF seccomp filters restricting dangerous syscalls like ptrace and unshare.", ["seccomp", "bpf", "syscalls"]),
-    ("ooapparmor", "Agent & Security", "APPARMOR PROFILE", "Generates and loads AppArmor security profiles for individual utilities.", ["apparmor", "mac", "security"]),
-    ("oolandlock", "Agent & Security", "LANDLOCK LSM", "Enforces unprivileged filesystem sandboxing via the Linux Landlock LSM.", ["landlock", "lsm", "kernel-sandbox"]),
-    ("oocap", "Agent & Security", "LINUX CAPABILITIES", "Inspects, drops, and verifies Linux thread capability bounding sets (CAP_NET_BIND).", ["capabilities", "privilege-drop"]),
-    ("oonaa", "Agent & Security", "NO AMBIENT AUTH", "Enforces zero ambient authentication, requiring explicit credential passing.", ["zero-ambient-auth", "security"]),
-    ("oonegatrust", "Agent & Security", "NEGATIVE TRUST", "Default-deny sandbox runner isolating stdin, stdout, and network interfaces.", ["negative-trust", "default-deny"]),
-    ("ooattest", "Agent & Security", "TPM ATTESTATION", "Attests system state and measured boot hashes using TPM2 hardware security chips.", ["tpm2", "attestation", "measured-boot"]),
-    ("ooprovenance", "Agent & Security", "SLSA PROVENANCE", "Generates SLSA Build Level 3 provenance manifests for all compiled binaries.", ["slsa", "provenance", "supply-chain"]),
-    ("ootaint", "Agent & Security", "STREAM TAINT CHECK", "Information flow control tracker tracking tainted data paths across pipes.", ["taint-tracking", "flow-control"]),
-    ("ooguard", "Agent & Security", "AGENT GUARDRAIL", "Prompt injection and destructive command guardrail filtering agent tool arguments.", ["guardrails", "safety", "prompt-injection"]),
-    ("ooredact", "Agent & Security", "SECRET REDACTOR", "Real-time stream redactor masking API keys, JWTs, and private keys in logs.", ["redaction", "secrets-masking", "security"]),
-    ("oosanitize", "Agent & Security", "INPUT SANITIZER", "Normalizes untrusted terminal inputs preventing ANSI escape code injection attacks.", ["sanitizer", "ansi-injection"]),
-    ("ooscope", "Agent & Security", "CAPABILITY SCOPE", "Calculates minimal permission scopes required for given task descriptions.", ["minimal-privilege", "scope"]),
-    ("ooprivilege", "Agent & Security", "PRIVILEGE AUDITOR", "Audits setuid, setgid, and ambient process permissions across the system.", ["privilege-audit", "setuid"]),
-    ("oocreds", "Agent & Security", "SYSTEMD CREDS", "Encrypted credential loader integrating with systemd-creds TPM2 encryption.", ["systemd-creds", "tpm2", "encryption"]),
-    ("ookeystore", "Agent & Security", "KEYRING MANAGER", "Manages user and session keys inside the Linux kernel keyring subsystem.", ["keyring", "kernel-keys"]),
-    ("oosecret", "Agent & Security", "EPHEMERAL SECRET", "Stores zero-persistence ephemeral secrets in memory-locked mlock buffers.", ["mlock", "ephemeral", "memory-lock"]),
-    ("oohsm", "Agent & Security", "PKCS#11 HSM TOOL", "Hardware security module client interacting with PKCS#11 tokens and YubiKeys.", ["pkcs11", "hsm", "yubikey"]),
-    ("oompc", "Agent & Security", "MULTI-PARTY COMPUTE", "Coordinates threshold signature schemes across distributed openOODA nodes.", ["mpc", "threshold-crypto", "distributed"])
-]
-
-# Total items count
-all_tools = []
-all_tools.extend(released_tools)
-
-# Calculate target count: exactly 256
-target_total = 256
-seen_ids = set(t["id"] for t in all_tools)
-
-# Blueprint tools
-for i, item in enumerate(blueprint_definitions):
-    if len(all_tools) >= target_total:
-        break
-    tool_id, category, role, description, tags = item
-    if tool_id in seen_ids:
-        continue
-    seen_ids.add(tool_id)
-    
-    # Assign aesthetic accent color based on category
-    accents = {
-        "Shell & Terminal": "#00e676",
-        "Search & Inspection": "#00e5ff",
-        "Diff & Comparison": "#ffb300",
-        "Files & Navigation": "#64ffda",
-        "Data & Streaming": "#ff4081",
-        "System & Monitor": "#00b0ff",
-        "Theme & Styling": "#7c4dff",
-        "Network & Egress": "#ffd740",
-        "Agent & Security": "#ff5252"
-    }
-    accent = accents.get(category, "#00e5ff")
-    
-    monogram = tool_id[2:4].upper() if len(tool_id) >= 4 else tool_id.upper()
-    
-    all_tools.append({
-        "id": tool_id,
-        "name": tool_id,
-        "category": category,
-        "role": role,
-        "version": "blueprint",
-        "status": "blueprint",
-        "monogram": monogram,
-        "accent": accent,
-        "description": description,
-        "gem": False,
-        "gemFact": f"Userland Blueprint · {role}",
-        "installCommand": f"# Blueprint stage: specs tracked in @openOODA-tools/{tool_id}",
-        "overviewUrl": f"https://github.com/openOODA-tools/{tool_id}",
-        "repoUrl": f"https://github.com/openOODA-tools/{tool_id}",
-        "tags": tags + ["blueprint", "openooda-256"],
-        "addedAt": "2026-10-01"
-    })
-
-# If we still need more tools to hit exactly 256, fill them systematically
-if len(all_tools) < target_total:
-    extras = [
-        ("oolog", "System & Monitor", "LOG AGGREGATOR", "Bounded memory ring buffer aggregator with journald forwarding.", ["logs", "ring-buffer"]),
-        ("ooslice", "System & Monitor", "SLICE INSPECTOR", "Real-time cgroup slice monitor measuring thread throttles.", ["slices", "cgroups"]),
-        ("oowatch", "System & Monitor", "INTERVAL WATCHER", "Repeatedly executes commands with highlight deltas and jitter control.", ["watch", "intervals"]),
-        ("oonetflow", "Network & Egress", "FLOW TELEMETRY", "Lightweight IPFIX and NetFlow v9 telemetry exporter for host sockets.", ["netflow", "ipfix"]),
-        ("oobandwidth", "Network & Egress", "TRAFFIC SHAPER", "Per-process egress bandwidth limiter backed by tc BPF filters.", ["tc", "bpf", "traffic-shaping"]),
-        ("oogossip", "Network & Egress", "PEER GOSSIP", "Local subnet UDP broadcast discovery protocol for agent clusters.", ["gossip", "discovery", "p2p"]),
-        ("oocontrol", "Agent & Security", "AGENT CONTROL PLANE", "Orchestration supervisor dispatching validated tool payloads.", ["control-plane", "supervisor"]),
-        ("oocheckpoint", "Agent & Security", "STATE CHECKPOINT", "Atomic serialization of task execution state for seamless resumes.", ["checkpoint", "resume", "state"])
-    ]
-    for extra in extras:
-        if len(all_tools) >= target_total:
-            break
-        tool_id, category, role, description, tags = extra
-        monogram = tool_id[2:4].upper()
-        accent = "#00e5ff"
-        all_tools.append({
-            "id": tool_id,
-            "name": tool_id,
-            "category": category,
-            "role": role,
-            "version": "blueprint",
-            "status": "blueprint",
-            "monogram": monogram,
-            "accent": accent,
-            "description": description,
-            "gem": False,
-            "gemFact": f"Userland Blueprint · {role}",
-            "installCommand": f"# Blueprint stage: specs tracked in @openOODA-tools/{tool_id}",
-            "overviewUrl": f"https://github.com/openOODA-tools/{tool_id}",
-            "repoUrl": f"https://github.com/openOODA-tools/{tool_id}",
-            "tags": tags + ["blueprint", "openooda-256"],
-            "addedAt": "2026-10-01"
-        })
+# Total items count strictly based on actual repositories in @openOODA-tools
+all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 256, f"Expected 256 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 256, "Duplicate tool ID detected!"
+assert len(all_tools) == 19, f"Expected 19 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 19, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:
     json.dump(all_tools, f, indent=2)
 
+category_set = sorted(list(set(t["category"] for t in all_tools)))
+categories = ["All Categories"] + category_set
+
 # Write assets/js/tools-data.js
-js_content = f"""// openOODA Tools Catalog Data (256-Tool Userland Blueprint)
-// Generated automatically with 100% parity for released tools
+js_content = f"""// openOODA Tools Catalog Data (Actual Repositories)
+// Generated automatically with 100% parity for all 19 active repositories
 
 export const TOOLS_DATA = {json.dumps(all_tools, indent=2)};
 
-export const CATEGORIES = [
-  "All Categories",
-  "Shell & Terminal",
-  "Search & Inspection",
-  "Diff & Comparison",
-  "Files & Navigation",
-  "Data & Streaming",
-  "System & Monitor",
-  "Theme & Styling",
-  "Network & Egress",
-  "Agent & Security"
-];
+export const CATEGORIES = {json.dumps(categories, indent=2)};
 
 export const STATUS_FILTERS = [
-  {{ id: "all", label: "All Tools", count: {len(all_tools)} }},
-  {{ id: "released", label: "Released", count: {len(released_tools)} }},
-  {{ id: "blueprint", label: "Blueprint", count: {len(all_tools) - len(released_tools)} }}
+  {{ id: "all", label: "All Repos", count: {len(all_tools)} }},
+  {{ id: "released", label: "Released", count: {len(all_tools)} }}
 ];
 """
 

@@ -134,19 +134,10 @@ function shuffleArray(arr) {
   return a;
 }
 
-// Select a random set of hidden gems from the catalog
-// Balances active sovereign releases (runnable now) with userland blueprints
+// Select a random set of hidden gems from the active repositories
 function selectRandomGems(tools, count = 8) {
-  const released = tools.filter(t => t.status === "released");
-  const blueprints = tools.filter(t => t.status !== "released");
-
-  const numReleased = Math.min(released.length, Math.max(4, Math.floor(count * 0.65)));
-  const numBlueprints = count - numReleased;
-
-  const pickedReleased = shuffleArray(released).slice(0, numReleased);
-  const pickedBlueprints = shuffleArray(blueprints).slice(0, numBlueprints);
-
-  return shuffleArray([...pickedReleased, ...pickedBlueprints]);
+  const sampleCount = Math.min(count, tools.length);
+  return shuffleArray(tools).slice(0, sampleCount);
 }
 
 // Render Hidden Gems Carousel with random selection and re-roll capabilities
@@ -261,20 +252,23 @@ window.selectAndScroll = function(toolId) {
   }
 };
 
-// Render Dual Scrolling Marquee (Curated 48 showcase items)
+// Render Dual Scrolling Marquee (19 active sovereign repositories)
 function renderMarquee() {
   const container = document.getElementById("recent-latest");
   const toggleBtn = document.getElementById("recent-feed-toggle");
   if (!container) return;
 
-  // Build a curated 48-item showcase:
-  // All 12 released tools + 36 representative blueprint tools from various categories
-  const released = state.tools.filter(t => t.status === "released");
-  const blueprintSample = state.tools.filter(t => t.status !== "released").slice(0, 36);
-  const showcaseTools = [...released, ...blueprintSample];
+  const tools = state.tools;
+  const fillRow = (list, min = 14) => {
+    let res = [];
+    while (res.length < min) {
+      res = res.concat(list);
+    }
+    return res;
+  };
 
-  const row0Tools = showcaseTools.filter((_, i) => i % 2 === 0);
-  const row1Tools = showcaseTools.filter((_, i) => i % 2 === 1);
+  const row0Tools = fillRow(tools.filter((_, i) => i % 2 === 0));
+  const row1Tools = fillRow(tools.filter((_, i) => i % 2 === 1));
 
   const makeCard = (tool, duplicate = false) => `
     <li${duplicate ? ' aria-hidden="true"' : ""}>
@@ -287,8 +281,8 @@ function renderMarquee() {
           <span class="landed-name">${tool.name}</span>
           <span class="landed-role">${tool.role}</span>
           <span class="landed-foot">
-            <span class="landed-status ${tool.status === 'released' ? 'status-released' : 'status-blueprint'}">
-              ${tool.status === 'released' ? tool.version : 'Blueprint'}
+            <span class="landed-status status-released">
+              ${tool.version}
             </span>
             <span>&rarr;</span>
           </span>
@@ -351,14 +345,21 @@ function getFilteredTools() {
           if (!tool.category.toLowerCase().includes(val)) return false;
           continue;
         }
+        if (token.startsWith("cap:")) {
+          const val = token.slice(4).replace(/^&/, "").toLowerCase();
+          const caps = (tool.capabilities || []).map(c => c.replace(/^&/, "").toLowerCase());
+          if (!caps.some(c => c.includes(val))) return false;
+          continue;
+        }
 
         const matchName = tool.name.toLowerCase().includes(token);
         const matchRole = tool.role.toLowerCase().includes(token);
         const matchDesc = tool.description.toLowerCase().includes(token);
         const matchTags = tool.tags.some(t => t.toLowerCase().includes(token));
         const matchCategory = tool.category.toLowerCase().includes(token);
+        const matchCaps = (tool.capabilities || []).some(c => c.toLowerCase().includes(token));
 
-        if (!matchName && !matchRole && !matchDesc && !matchTags && !matchCategory) {
+        if (!matchName && !matchRole && !matchDesc && !matchTags && !matchCategory && !matchCaps) {
           return false;
         }
       }
@@ -711,7 +712,7 @@ function applyFiltersAndRender() {
   renderFilterBars();
 }
 
-// Hero Parametric Capability-Vector Ray Animation
+// Real Capability Telemetry Oscilloscope (Ecosystem Telemetry)
 function initHeroRay() {
   const frame = document.querySelector(".market-hero-ray");
   const canvas = frame?.querySelector("canvas");
@@ -721,15 +722,41 @@ function initHeroRay() {
   const ctx = canvas.getContext("2d");
   if (!ctx) return;
 
-  const presets = [
-    { title: "CAPABILITY: AMBIENT BOUNDS", waves: 4, speed: 0.0015, color: "#00e676" },
-    { title: "LCS MYERS STREAM", waves: 6, speed: 0.0022, color: "#00e5ff" },
-    { title: "CIRCADIAN HARMONIC", waves: 5, speed: 0.0018, color: "#7c4dff" },
-    { title: "RING BUFFER SCAN", waves: 7, speed: 0.0026, color: "#ff4081" }
+  // Real capability taxonomy computed from the active sovereign repositories
+  const capabilityDefs = [
+    { key: "&McpCap", short: "MCP", name: "Model Context Protocol", color: "#00e5ff", freq: 1.0 },
+    { key: "&FsReadCap", short: "FS-R", name: "Filesystem Read", color: "#00e676", freq: 1.8 },
+    { key: "&TermCap", short: "TERM", name: "Terminal & TUI", color: "#b388ff", freq: 2.6 },
+    { key: "&ProcCap", short: "PROC", name: "Process & Signal", color: "#ffd740", freq: 3.4 },
+    { key: "&EnvCap", short: "ENV", name: "Environment Access", color: "#ff4081", freq: 4.2 },
+    { key: "&TimeCap", short: "TIME", name: "Monotonic Clock", color: "#64ffda", freq: 5.0 },
+    { key: "&FsWriteCap", short: "FS-W", name: "Safe File Writes", color: "#ffab40", freq: 5.8 },
+    { key: "&NetCap", short: "NET", name: "Explicit Network", color: "#f50057", freq: 6.6 }
   ];
 
-  let currentPreset = 0;
+  function getCapabilityStats() {
+    const totalRepos = state.tools.length;
+    return capabilityDefs.map(cap => {
+      const matching = state.tools.filter(t => (t.capabilities || []).includes(cap.key));
+      return {
+        ...cap,
+        count: matching.length,
+        pct: totalRepos > 0 ? Math.round((matching.length / totalRepos) * 100) : 0,
+        tools: matching.map(t => t.name)
+      };
+    });
+  }
+
+  const modes = [
+    { id: "caps", title: "CAPABILITY SPECTRUM // 19 ACTIVE REPOSITORIES" },
+    { id: "ambient", title: "AMBIENT BOUNDS // ZERO AMBIENT AUTHORITY" },
+    { id: "domains", title: "DOMAIN BANDWIDTH // 8 FUNCTIONAL CATEGORIES" }
+  ];
+
+  let currentMode = 0;
   let animId = null;
+  let mousePos = { x: -1, y: -1, isHovering: false };
+  let hoveredCap = null;
 
   function resize() {
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -740,56 +767,184 @@ function initHeroRay() {
   }
 
   function draw(time) {
-    const preset = presets[currentPreset];
     const w = frame.clientWidth;
     const h = frame.clientHeight;
+    const stats = getCapabilityStats();
+    const totalRepos = state.tools.length;
 
     ctx.clearRect(0, 0, w, h);
 
-    // Subtle background grid
-    ctx.strokeStyle = "rgba(30, 41, 59, 0.4)";
+    // 1. Calibrated Engineering Scale & Grid
+    ctx.strokeStyle = "rgba(30, 41, 59, 0.45)";
     ctx.lineWidth = 1;
-    const step = 24;
-    for (let x = 0; x < w; x += step) {
+    const gridYLevels = [0, 5, 10, 15, 20];
+    const topMargin = 28;
+    const bottomMargin = 40;
+    const plotH = Math.max(80, h - topMargin - bottomMargin);
+
+    gridYLevels.forEach(val => {
+      const y = topMargin + plotH * (1 - (val / 20));
       ctx.beginPath();
-      ctx.moveTo(x, 0);
-      ctx.lineTo(x, h);
+      ctx.moveTo(32, y);
+      ctx.lineTo(w - 10, y);
       ctx.stroke();
-    }
-    for (let y = 0; y < h; y += step) {
+
+      ctx.fillStyle = "rgba(100, 116, 139, 0.7)";
+      ctx.font = "9px ui-monospace, SFMono-Regular, monospace";
+      ctx.fillText(`${val}`, 10, y + 3);
+    });
+
+    // Vertical channel grid dividers
+    const colW = (w - 42) / stats.length;
+    stats.forEach((_, i) => {
+      const cx = 32 + i * colW + colW / 2;
       ctx.beginPath();
-      ctx.moveTo(0, y);
-      ctx.lineTo(w, y);
+      ctx.strokeStyle = "rgba(30, 41, 59, 0.25)";
+      ctx.moveTo(cx, topMargin);
+      ctx.lineTo(cx, h - bottomMargin);
       ctx.stroke();
-    }
+    });
 
-    // Dynamic parametric capability waves
-    const cy = h / 2;
-    for (let i = 0; i < preset.waves; i++) {
-      ctx.beginPath();
-      ctx.strokeStyle = preset.color;
-      ctx.lineWidth = i === 0 ? 2 : 1;
-      ctx.globalAlpha = i === 0 ? 0.9 : 0.35 - (i * 0.04);
+    // 2. Real Capability Spectrum Bars (Discrete Levels)
+    hoveredCap = null;
+    stats.forEach((cap, i) => {
+      const barW = Math.max(14, colW - 12);
+      const bx = 32 + i * colW + (colW - barW) / 2;
+      const barH = (cap.count / 20) * plotH;
+      const by = topMargin + plotH - barH;
 
-      const freq = 0.015 + (i * 0.005);
-      const amp = 30 + (i * 8);
-      const phase = time * preset.speed * (i + 1);
+      const isUnderCursor = mousePos.isHovering && 
+        mousePos.x >= (32 + i * colW) && 
+        mousePos.x < (32 + (i + 1) * colW);
 
-      for (let x = 0; x < w; x += 3) {
-        const y = cy + Math.sin(x * freq + phase) * amp * Math.cos((x / w - 0.5) * Math.PI);
-        if (x === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
+      if (isUnderCursor) {
+        hoveredCap = cap;
       }
-      ctx.stroke();
+
+      // Bar fill with real capability color
+      ctx.fillStyle = cap.color + (isUnderCursor ? "d0" : "55");
+      ctx.fillRect(bx, by, barW, barH);
+
+      // Bar top highlight
+      ctx.fillStyle = cap.color;
+      ctx.fillRect(bx, by, barW, 2);
+
+      // Count label on top of bar
+      ctx.fillStyle = isUnderCursor ? "#ffffff" : cap.color;
+      ctx.font = isUnderCursor ? "bold 10px ui-monospace, SFMono-Regular, monospace" : "9px ui-monospace, SFMono-Regular, monospace";
+      ctx.textAlign = "center";
+      ctx.fillText(`${cap.count}`, bx + barW / 2, by - 4);
+
+      // Abbreviation label below bar
+      ctx.fillStyle = isUnderCursor ? "#ffffff" : "rgba(148, 163, 184, 0.85)";
+      ctx.fillText(cap.short, bx + barW / 2, h - bottomMargin + 14);
+    });
+
+    // 3. Real Harmonic Capability Waveform (Fourier sum of real repo counts)
+    const cy = topMargin + plotH / 2;
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.strokeStyle = "#00e676";
+
+    for (let x = 32; x < w - 10; x += 3) {
+      let waveSum = 0;
+      stats.forEach((cap, idx) => {
+        const weight = (cap.count / (totalRepos || 1));
+        const freq = (idx + 1) * 0.8;
+        const phase = time * 0.0014 * (idx + 1) * 0.7;
+        waveSum += Math.sin((x / (w - 42)) * Math.PI * freq + phase) * (weight * 26);
+      });
+      // Edge damping envelope
+      const env = Math.cos(((x - 32) / (w - 42) - 0.5) * Math.PI);
+      const y = cy + waveSum * env;
+
+      if (x === 32) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+
+    // Secondary Waveform (Cyan out-of-phase harmonic)
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.strokeStyle = "rgba(0, 229, 255, 0.55)";
+    for (let x = 32; x < w - 10; x += 4) {
+      let waveSum = 0;
+      stats.forEach((cap, idx) => {
+        const weight = (cap.count / (totalRepos || 1));
+        const freq = (idx + 1) * 1.2;
+        const phase = time * 0.0010 * (idx + 1) + idx;
+        waveSum += Math.cos((x / (w - 42)) * Math.PI * freq + phase) * (weight * 16);
+      });
+      const env = Math.cos(((x - 32) / (w - 42) - 0.5) * Math.PI);
+      const y = cy + waveSum * env;
+
+      if (x === 32) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+
+    // 4. Interactive HUD Tooltip on Hover
+    if (hoveredCap) {
+      const hudW = 160;
+      const hudH = 50;
+      let hudX = mousePos.x + 10;
+      if (hudX + hudW > w - 8) hudX = mousePos.x - hudW - 10;
+      let hudY = mousePos.y - 28;
+      if (hudY < 8) hudY = 8;
+
+      ctx.fillStyle = "rgba(7, 9, 14, 0.94)";
+      ctx.strokeStyle = hoveredCap.color;
+      ctx.lineWidth = 1;
+      ctx.fillRect(hudX, hudY, hudW, hudH);
+      ctx.strokeRect(hudX, hudY, hudW, hudH);
+
+      ctx.textAlign = "left";
+      ctx.fillStyle = hoveredCap.color;
+      ctx.font = "bold 10px ui-monospace, SFMono-Regular, monospace";
+      ctx.fillText(hoveredCap.key, hudX + 8, hudY + 15);
+
+      ctx.fillStyle = "#e2e8f0";
+      ctx.font = "9px ui-monospace, SFMono-Regular, monospace";
+      ctx.fillText(`${hoveredCap.count} of ${totalRepos} Repos (${hoveredCap.pct}%)`, hudX + 8, hudY + 29);
+
+      ctx.fillStyle = "rgba(148, 163, 184, 0.9)";
+      ctx.font = "8px ui-monospace, SFMono-Regular, monospace";
+      ctx.fillText("[ Click to filter catalog ]", hudX + 8, hudY + 41);
     }
 
-    ctx.globalAlpha = 1.0;
+    ctx.textAlign = "left";
     animId = requestAnimationFrame(draw);
   }
 
+  frame.addEventListener("mousemove", (e) => {
+    const rect = canvas.getBoundingClientRect();
+    mousePos.x = e.clientX - rect.left;
+    mousePos.y = e.clientY - rect.top;
+    mousePos.isHovering = true;
+  });
+
+  frame.addEventListener("mouseleave", () => {
+    mousePos.isHovering = false;
+    hoveredCap = null;
+  });
+
   frame.addEventListener("click", () => {
-    currentPreset = (currentPreset + 1) % presets.length;
-    label.textContent = `${presets[currentPreset].title} 0${currentPreset + 1}/04`;
+    if (hoveredCap) {
+      if (searchInput) {
+        searchInput.value = hoveredCap.key;
+        state.searchQuery = hoveredCap.key;
+        state.currentPage = 1;
+        if (searchClear) searchClear.style.display = "block";
+        applyFiltersAndRender();
+        const catalog = document.getElementById("catalog");
+        if (catalog) catalog.scrollIntoView({ behavior: "smooth" });
+        showToast(`Filtered by ${hoveredCap.key} (${hoveredCap.count} tools)`);
+      }
+      return;
+    }
+
+    currentMode = (currentMode + 1) % modes.length;
+    label.textContent = modes[currentMode].title;
   });
 
   window.addEventListener("resize", resize);

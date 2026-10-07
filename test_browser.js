@@ -105,8 +105,8 @@ server.listen(PORT, async () => {
 
     await evalJs(`document.getElementById("clear-filters").click()`);
     const countAll = await evalJs(`document.getElementById("tool-count").textContent`);
-    if (!countAll.startsWith("256")) {
-      throw new Error(`Expected 256 tools after clear-filters, got ${countAll}`);
+    if (!countAll.startsWith("19")) {
+      throw new Error(`Expected 19 tools after clear-filters, got ${countAll}`);
     }
 
     // Test 4: Viewport responsiveness across widths (no horizontal overflow)

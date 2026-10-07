@@ -315,10 +315,23 @@ elif [ "$(id -u)" -eq 0 ]; then
     INSTALL_DIR="/usr/local/bin"
 elif command -v sudo >/dev/null 2>&1 && sudo -n true 2>/dev/null; then
     INSTALL_DIR="/usr/local/bin"
+elif command -v sudo >/dev/null 2>&1 && [ -t 0 ] && [ "${IS_TTY:-0}" -eq 1 ]; then
+    INSTALL_DIR="/usr/local/bin"
 else
     INSTALL_DIR="${HOME}/.local/bin"
 fi
-say "  ${DIM}target${RESET}   ${CYAN}${INSTALL_DIR}/oosh${RESET}"
+INSTALL_DIR="${INSTALL_DIR%/}"
+
+IS_SYSTEM_WIDE=0
+case "$INSTALL_DIR" in
+    /usr/bin|/usr/local/bin|/bin|/sbin|/usr/sbin|/opt/*) IS_SYSTEM_WIDE=1 ;;
+esac
+
+if [ "$IS_SYSTEM_WIDE" -eq 1 ]; then
+    say "  ${DIM}target${RESET}   ${CYAN}${INSTALL_DIR}/oosh${RESET} ${DIM}(system-wide, root:root)${RESET}"
+else
+    say "  ${DIM}target${RESET}   ${CYAN}${INSTALL_DIR}/oosh${RESET} ${DIM}(user-space)${RESET}"
+fi
 pause 0.3
 
 # --- Phase 2: Resolving Release & Provenance ----------------------------------
@@ -391,7 +404,22 @@ if [ "$DRY_RUN" -eq 1 ]; then
         if [ -n "$SHA_URL" ]; then
             say "  ${DIM}verify${RESET}  ${CYAN}${SHA_URL}${RESET}"
         fi
-        say "  ${DIM}deploy${RESET}  ${CYAN}${INSTALL_DIR}/oosh${RESET}"
+        if [ "$IS_SYSTEM_WIDE" -eq 1 ]; then
+            say "  ${DIM}deploy${RESET}  ${CYAN}sudo cp ${ASSET_NAME} ${INSTALL_DIR}/oosh && sudo chown root:root && sudo chmod 755${RESET}"
+        else
+            say "  ${DIM}deploy${RESET}  ${CYAN}cp ${ASSET_NAME} ${INSTALL_DIR}/oosh && chmod 755${RESET}"
+        fi
+    fi
+    if [ "$IS_SYSTEM_WIDE" -eq 1 ]; then
+        for u_home in "${HOME:-}" "${SUDO_USER:+$(getent passwd "$SUDO_USER" 2>/dev/null | cut -d: -f6)}"; do
+            if [ -n "$u_home" ] && [ -d "$u_home" ]; then
+                for shadow_bin in "${u_home}/.local/bin/oosh" "${u_home}/.openooda/bin/oosh"; do
+                    if [ -f "$shadow_bin" ] && [ "$shadow_bin" != "${INSTALL_DIR}/oosh" ]; then
+                        say "  ${DIM}prune${RESET}   ${YELLOW}Would prune redundant shadow binary at ${shadow_bin}${RESET}"
+                    fi
+                done
+            fi
+        done
     fi
     say ""
     ok "Simulation complete. No host modifications made."
@@ -498,16 +526,33 @@ elif [ "$INSTALL_METHOD" = "pkgbuild" ]; then
     ok "Package built and installed to ${BOLD}${INSTALL_DIR}/oosh${RESET}"
 else
     if [ ! -d "$INSTALL_DIR" ]; then
-        mkdir -p "$INSTALL_DIR" 2>/dev/null || sudo mkdir -p "$INSTALL_DIR"
+        if [ "$(id -u)" -eq 0 ]; then
+            mkdir -p "$INSTALL_DIR" 2>/dev/null
+        else
+            mkdir -p "$INSTALL_DIR" 2>/dev/null || sudo mkdir -p "$INSTALL_DIR"
+        fi
     fi
 
-    chmod +x "${TMP_DIR}/${ASSET_NAME}"
+    chmod 755 "${TMP_DIR}/${ASSET_NAME}"
 
     story_line "Placing binary into ${INSTALL_DIR}…"
-    if [ -w "$INSTALL_DIR" ]; then
-        mv "${TMP_DIR}/${ASSET_NAME}" "${INSTALL_DIR}/oosh"
+    if [ "$IS_SYSTEM_WIDE" -eq 1 ]; then
+        if [ "$(id -u)" -eq 0 ]; then
+            cp -f "${TMP_DIR}/${ASSET_NAME}" "${INSTALL_DIR}/oosh"
+            chown root:root "${INSTALL_DIR}/oosh" 2>/dev/null || true
+            chmod 755 "${INSTALL_DIR}/oosh"
+        else
+            sudo cp -f "${TMP_DIR}/${ASSET_NAME}" "${INSTALL_DIR}/oosh"
+            sudo chown root:root "${INSTALL_DIR}/oosh" 2>/dev/null || true
+            sudo chmod 755 "${INSTALL_DIR}/oosh"
+        fi
     else
-        sudo mv "${TMP_DIR}/${ASSET_NAME}" "${INSTALL_DIR}/oosh"
+        if [ -w "$INSTALL_DIR" ]; then
+            cp -f "${TMP_DIR}/${ASSET_NAME}" "${INSTALL_DIR}/oosh"
+        else
+            sudo cp -f "${TMP_DIR}/${ASSET_NAME}" "${INSTALL_DIR}/oosh"
+        fi
+        chmod 755 "${INSTALL_DIR}/oosh"
     fi
     ok "Binary situated at ${BOLD}${INSTALL_DIR}/oosh${RESET}"
 fi
@@ -519,13 +564,49 @@ else
     warn "Verification probe non-responsive."
 fi
 
-INSTALL_DIR="${INSTALL_DIR%/}"
+# Privilege boundary audit & enforcement for system-wide installations
+if [ "$IS_SYSTEM_WIDE" -eq 1 ] && [ -f "${INSTALL_DIR}/oosh" ]; then
+    CURR_OWNER=$(stat -c '%U:%G' "${INSTALL_DIR}/oosh" 2>/dev/null || stat -f '%Su:%Sg' "${INSTALL_DIR}/oosh" 2>/dev/null || echo "")
+    if [ "$CURR_OWNER" != "root:root" ]; then
+        story_line "Remediating privilege boundary hazard on ${INSTALL_DIR}/oosh (${CURR_OWNER} -> root:root)…"
+        if [ "$(id -u)" -eq 0 ]; then
+            chown root:root "${INSTALL_DIR}/oosh" 2>/dev/null || true
+            chmod 755 "${INSTALL_DIR}/oosh" 2>/dev/null || true
+        elif command -v sudo >/dev/null 2>&1; then
+            sudo chown root:root "${INSTALL_DIR}/oosh" 2>/dev/null || true
+            sudo chmod 755 "${INSTALL_DIR}/oosh" 2>/dev/null || true
+        fi
+        CURR_OWNER=$(stat -c '%U:%G' "${INSTALL_DIR}/oosh" 2>/dev/null || stat -f '%Su:%Sg' "${INSTALL_DIR}/oosh" 2>/dev/null || echo "")
+    fi
+    if [ "$CURR_OWNER" = "root:root" ]; then
+        ok "Privilege boundary enforced: ${BOLD}${INSTALL_DIR}/oosh${RESET} is owned by ${GREEN}root:root${RESET} (0755)"
+    else
+        warn "Privilege boundary hazard: ${INSTALL_DIR}/oosh is owned by ${CURR_OWNER}. Expected root:root."
+    fi
+fi
 
-# Detect system-wide installation
-IS_SYSTEM_WIDE=0
-case "$INSTALL_DIR" in
-    /usr/bin|/usr/local/bin|/bin|/sbin|/usr/sbin|/opt/*) IS_SYSTEM_WIDE=1 ;;
-esac
+# Prune redundant user-local shadow binaries when running system-wide
+if [ "$IS_SYSTEM_WIDE" -eq 1 ] && [ -x "${INSTALL_DIR}/oosh" ]; then
+    TARGET_REAL=$(readlink -f "${INSTALL_DIR}/oosh" 2>/dev/null || echo "${INSTALL_DIR}/oosh")
+    for u_home in "${HOME:-}" "${SUDO_USER:+$(getent passwd "$SUDO_USER" 2>/dev/null | cut -d: -f6)}"; do
+        if [ -n "$u_home" ] && [ -d "$u_home" ]; then
+            for shadow_bin in "${u_home}/.local/bin/oosh" "${u_home}/.openooda/bin/oosh"; do
+                if [ -f "$shadow_bin" ]; then
+                    SHADOW_REAL=$(readlink -f "$shadow_bin" 2>/dev/null || echo "$shadow_bin")
+                    if [ "$SHADOW_REAL" != "$TARGET_REAL" ]; then
+                        story_line "Pruning redundant user-local shadow binary at ${shadow_bin}…"
+                        rm -f "$shadow_bin" 2>/dev/null || sudo rm -f "$shadow_bin" 2>/dev/null || true
+                        if [ ! -f "$shadow_bin" ]; then
+                            ok "Pruned redundant shadow binary: ${DIM}${shadow_bin}${RESET}"
+                        else
+                            warn "Could not remove shadow binary at ${shadow_bin}; please remove manually to avoid PATH shadowing."
+                        fi
+                    fi
+                fi
+            done
+        fi
+    done
+fi
 
 # Automatically register in /etc/shells if system-wide and root or passwordless sudo is available
 if [ "$IS_SYSTEM_WIDE" -eq 1 ] && [ -f /etc/shells ]; then

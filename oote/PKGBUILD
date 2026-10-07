@@ -1,0 +1,23 @@
+# Maintainer: openOODA-tools <ops@openooda.org>
+pkgname=oote
+pkgver=0.1.1
+pkgrel=1
+pkgdesc="Sovereign unified theming and color styling engine for openOODA"
+arch=('x86_64')
+url="https://github.com/openOODA-tools/oote"
+license=('Apache-2.0')
+depends=('glibc')
+source=("https://github.com/openOODA-tools/oote/archive/v${pkgver}.tar.gz")
+sha256sums=('SKIP')
+
+package() {
+    cd "${srcdir}/${pkgname}-${pkgver}" 2>/dev/null || cd "${srcdir}"
+    if [ -f dist/oote ]; then
+        install -Dm755 dist/oote "${pkgdir}/usr/bin/oote"
+    elif [ -f oote ]; then
+        install -Dm755 oote "${pkgdir}/usr/bin/oote"
+    fi
+    if [ -f uninstall.sh ]; then
+        install -Dm755 uninstall.sh "${pkgdir}/usr/bin/oote-uninstall"
+    fi
+}

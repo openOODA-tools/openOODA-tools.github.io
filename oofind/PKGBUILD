@@ -1,7 +1,7 @@
 # Maintainer: openOODA-tools <ops@openooda.org>
 pkgname=oofind-bin
 _pkgname=oofind
-pkgver=0.2.0
+pkgver=0.2.1
 pkgrel=1
 pkgdesc="Capability-bounded file finding utility for the openOODA era"
 arch=('x86_64')

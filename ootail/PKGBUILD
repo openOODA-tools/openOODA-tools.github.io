@@ -1,0 +1,18 @@
+# Maintainer: openOODA-tools <ops@openooda.org>
+pkgname=ootail-bin
+_pkgname=ootail
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="Capability-bounded file tail and follower utility with inotify and truncate recovery"
+arch=('x86_64')
+url="https://github.com/openOODA-tools/ootail"
+license=('Apache-2.0')
+depends=('glibc')
+provides=('ootail')
+conflicts=('ootail')
+source_x86_64=("${url}/releases/download/v${pkgver}/ootail-linux-x86_64")
+sha256sums_x86_64=('SKIP')
+
+package() {
+    install -Dm755 "${srcdir}/ootail-linux-x86_64" "${pkgdir}/usr/bin/ootail"
+}

@@ -25,7 +25,7 @@ set -eu
 REPO="openOODA-tools/oodiff"
 GITHUB_URL="https://github.com/${REPO}"
 CANONICAL_URL="https://openooda-tools.github.io/oodiff"
-VERSION_PIN="v0.3.0"
+VERSION_PIN="v0.3.1"
 
 # --- Styling & Human Interface Standard ---------------------------------------
 if [ -t 1 ] && [ "${NO_COLOR:-}" = "" ] && [ "${TERM:-dumb}" != "dumb" ]; then

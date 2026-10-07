@@ -36,6 +36,12 @@ a{color:#0b5fff}
 sudo apt install ./oogrep_0.3.1-1_amd64.deb   # Debian/Ubuntu
 makepkg -si                                  # Arch Linux (via PKGBUILD)</code></pre>
 
+<h2>Uninstall</h2>
+<pre><code>oogrep-uninstall
+# Or via installer:
+curl -fsSL https://openooda-tools.github.io/oogrep/install.sh | bash -s -- --uninstall</code></pre>
+<p>Cleanly relinquishes binaries, system packages, and integration hooks with dry-run support (<code>--dry-run</code>).</p>
+
 <h2>Why not just grep?</h2>
 <table>
 <tr><th>Check</th><th>grep</th><th>oogrep</th></tr>

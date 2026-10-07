@@ -10,15 +10,9 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://tools.openooda.org" />
   <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="oote.css" />
   <link rel="stylesheet" href="assets/css/style.css" />
-  <script>
-    (function () {
-      var t = null;
-      try { t = localStorage.getItem("openooda-theme"); } catch (e) {}
-      var validThemes = ["dark", "tokyo-night", "gruvbox", "catppuccin", "ethereal", "light"];
-      document.documentElement.dataset.theme = (validThemes.indexOf(t) !== -1) ? t : "dark";
-    })();
-  </script>
+  <script src="oote.js"></script>
 </head>
 <body class="marketplace-page">
   <a class="skip-link" href="#catalog">Skip to tool catalog</a>
@@ -38,6 +32,17 @@
         <a href="#recent-section">Marquee</a>
         <a href="https://openooda.org" target="_blank" rel="noopener noreferrer" class="nav-external">openOODA Core &#8599;</a>
         <a href="https://github.com/openOODA-tools" target="_blank" rel="noopener noreferrer" class="nav-external">GitHub &#8599;</a>
+        <div class="theme-selector-wrap">
+          <label for="theme-picker" class="theme-picker-label">[oote:</label>
+          <select id="theme-picker" class="theme-select" aria-label="Select oote theme" onchange="window.setOoteTheme ? window.setOoteTheme(this.value) : null">
+            <option value="classic">classic (sovereign)</option>
+            <option value="1982">1982 (phosphor)</option>
+            <option value="dracula">dracula (vampire)</option>
+            <option value="nord">nord (arctic)</option>
+            <option value="cyberpunk">cyberpunk (neon)</option>
+          </select>
+          <span class="theme-picker-bracket">]</span>
+        </div>
         <button class="theme-toggle" type="button" aria-label="Toggle color theme">
           <svg class="palette-icon" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M12 3a9 9 0 1 0 0 18c1.2 0 2-.9 2-2 0-.5-.2-1-.5-1.3-.3-.4-.5-.8-.5-1.2 0-1 .9-1.8 2-1.8H17a4 4 0 0 0 4-4c0-4.4-4-7.7-9-7.7Z"/>

@@ -47,27 +47,47 @@ const viewDockAction = document.getElementById("catalog-view-dock-action");
 const toast = document.getElementById("toast");
 const themeToggle = document.querySelector(".theme-toggle");
 
-// Initialize theme from localStorage
+// Initialize theme from localStorage and synchronize with oote
 function initTheme() {
-  const themes = ["dark", "tokyo-night", "gruvbox", "catppuccin", "ethereal", "light"];
-  let savedTheme = localStorage.getItem("openooda-theme");
-  if (!themes.includes(savedTheme)) {
-    savedTheme = "dark";
+  const ooteThemes = ["classic", "1982", "dracula", "nord", "cyberpunk"];
+  let savedTheme = null;
+  try {
+    savedTheme = localStorage.getItem("oote_theme") || localStorage.getItem("openooda-theme");
+  } catch (e) {}
+
+  if (!ooteThemes.includes(savedTheme)) {
+    savedTheme = "classic";
   }
-  document.documentElement.dataset.theme = savedTheme;
+
+  function applyTheme(theme, notify = false) {
+    document.documentElement.dataset.theme = theme;
+    document.documentElement.setAttribute("data-theme", theme);
+    try {
+      localStorage.setItem("oote_theme", theme);
+      localStorage.setItem("openooda-theme", theme);
+    } catch (e) {}
+
+    const selects = document.querySelectorAll(".theme-select");
+    selects.forEach(sel => { sel.value = theme; });
+
+    if (notify) {
+      showToast(`Theme switched: ${theme}`);
+    }
+  }
+
+  applyTheme(savedTheme, false);
+
+  window.setOoteTheme = function(theme) {
+    applyTheme(theme, true);
+  };
 
   if (themeToggle) {
     themeToggle.addEventListener("click", () => {
-      const current = document.documentElement.dataset.theme || "dark";
-      const nextIndex = (themes.indexOf(current) + 1) % themes.length;
-      const nextTheme = themes[nextIndex];
-      document.documentElement.dataset.theme = nextTheme;
-      try {
-        localStorage.setItem("openooda-theme", nextTheme);
-      } catch (e) {
-        console.warn("Could not save theme to localStorage", e);
-      }
-      showToast(`Theme switched: ${nextTheme}`);
+      const current = document.documentElement.dataset.theme || "classic";
+      const currentIndex = ooteThemes.indexOf(current);
+      const nextIndex = (currentIndex === -1) ? 0 : (currentIndex + 1) % ooteThemes.length;
+      const nextTheme = ooteThemes[nextIndex];
+      window.setOoteTheme(nextTheme);
     });
   }
 }

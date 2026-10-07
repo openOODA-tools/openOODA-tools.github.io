@@ -223,6 +223,132 @@ released_tools = [
         "repoUrl": "https://github.com/openOODA-tools/ools",
         "tags": ["metadata-class", "zero-ambient-auth", "mcp-surface", "pure-openooda"],
         "addedAt": "2026-09-28"
+    },
+    {
+        "id": "ootree",
+        "name": "ootree",
+        "category": "Files & Navigation",
+        "role": "DIRECTORY TREE",
+        "version": "v0.1.0",
+        "status": "released",
+        "monogram": "TR",
+        "accent": "#64ffda",
+        "description": "Sovereign directory hierarchy visualizer. Depth limiting, size sorting, oote color formatting, and MCP tree exploration.",
+        "gem": False,
+        "gemFact": "Depth-Bounded Traversal · Indent Matrix",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/ootree/install.sh | bash",
+        "overviewUrl": "ootree/",
+        "repoUrl": "https://github.com/openOODA-tools/ootree",
+        "tags": ["tree-traversal", "depth-limiting", "mcp-native", "pure-openooda"],
+        "addedAt": "2026-10-02"
+    },
+    {
+        "id": "ooclock",
+        "name": "ooclock",
+        "category": "System & Monitor",
+        "role": "MATRIX CLOCK",
+        "version": "v0.1.0",
+        "status": "released",
+        "monogram": "CK",
+        "accent": "#00e5ff",
+        "description": "Sovereign TUI digital matrix clock. Military time, custom seconds refresh cadences, color themes, and terminal resize responsiveness.",
+        "gem": False,
+        "gemFact": "Matrix Clock · Monotonic Time Sync",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/ooclock/install.sh | bash",
+        "overviewUrl": "ooclock/",
+        "repoUrl": "https://github.com/openOODA-tools/ooclock",
+        "tags": ["tui-clock", "time-sync", "oote-themes", "pure-openooda"],
+        "addedAt": "2026-10-03"
+    },
+    {
+        "id": "oosed",
+        "name": "oosed",
+        "category": "Data & Streaming",
+        "role": "STREAM EDITOR",
+        "version": "v0.1.0",
+        "status": "released",
+        "monogram": "SD",
+        "accent": "#ff4081",
+        "description": "Capability-bounded stream editor. Pattern matching, text substitution, in-place editing safety, and streaming transform pipeline.",
+        "gem": False,
+        "gemFact": "Stream Transformations · Substitution Engine",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oosed/install.sh | bash",
+        "overviewUrl": "oosed/",
+        "repoUrl": "https://github.com/openOODA-tools/oosed",
+        "tags": ["stream-editor", "regex-substitution", "pure-openooda"],
+        "addedAt": "2026-10-04"
+    },
+    {
+        "id": "ootar",
+        "name": "ootar",
+        "category": "Data & Streaming",
+        "role": "ARCHIVE ENGINE",
+        "version": "v0.1.0",
+        "status": "released",
+        "monogram": "AR",
+        "accent": "#ff4081",
+        "description": "Traversal-resistant archive utility. Prevents zip-slip and path traversal attacks by construction with capability-bounded extraction.",
+        "gem": True,
+        "gemFact": "Traversal-Resistant · Zero Zip-Slip",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/ootar/install.sh | bash",
+        "overviewUrl": "ootar/",
+        "repoUrl": "https://github.com/openOODA-tools/ootar",
+        "tags": ["tar-archive", "path-sanitization", "mcp-native", "pure-openooda"],
+        "addedAt": "2026-10-05"
+    },
+    {
+        "id": "oops",
+        "name": "oops",
+        "category": "System & Monitor",
+        "role": "PROCESS TABLE",
+        "version": "v0.1.0",
+        "status": "released",
+        "monogram": "PS",
+        "accent": "#00b0ff",
+        "description": "Sovereign process table and tree inspector. Visualizes user sessions, cgroups, systemd units, and capability privileges.",
+        "gem": False,
+        "gemFact": "Process Tree Hierarchy · Capability Audit",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oops/install.sh | bash",
+        "overviewUrl": "oops/",
+        "repoUrl": "https://github.com/openOODA-tools/oops",
+        "tags": ["process-table", "process-tree", "systemd-cgroups", "pure-openooda"],
+        "addedAt": "2026-10-06"
+    },
+    {
+        "id": "oocurl",
+        "name": "oocurl",
+        "category": "Network & Egress",
+        "role": "HTTP CLIENT",
+        "version": "v0.1.0",
+        "status": "released",
+        "monogram": "CL",
+        "accent": "#ffd740",
+        "description": "Capability-bounded HTTP/HTTPS client. Zero ambient network egress, strict TLS validation, and streaming response output.",
+        "gem": True,
+        "gemFact": "Explicit NetCap · Zero Ambient Egress",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oocurl/install.sh | bash",
+        "overviewUrl": "oocurl/",
+        "repoUrl": "https://github.com/openOODA-tools/oocurl",
+        "tags": ["http-client", "tls-validation", "zero-ambient-egress", "pure-openooda"],
+        "addedAt": "2026-10-06"
+    },
+    {
+        "id": "oowatch",
+        "name": "oowatch",
+        "category": "System & Monitor",
+        "role": "INTERVAL WATCHER",
+        "version": "v0.1.0",
+        "status": "released",
+        "monogram": "WT",
+        "accent": "#00b0ff",
+        "description": "Continuous command runner and watcher. Highlight deltas between consecutive executions with jitter-free timer scheduling.",
+        "gem": False,
+        "gemFact": "Periodic Execution · Delta Highlight",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oowatch/install.sh | bash",
+        "overviewUrl": "oowatch/",
+        "repoUrl": "https://github.com/openOODA-tools/oowatch",
+        "tags": ["watch-runner", "delta-highlighting", "mcp-native", "pure-openooda"],
+        "addedAt": "2026-10-07"
     }
 ]
 
@@ -502,13 +628,16 @@ all_tools.extend(released_tools)
 
 # Calculate target count: exactly 256
 target_total = 256
-remaining_needed = target_total - len(released_tools)
+seen_ids = set(t["id"] for t in all_tools)
 
 # Blueprint tools
 for i, item in enumerate(blueprint_definitions):
     if len(all_tools) >= target_total:
         break
     tool_id, category, role, description, tags = item
+    if tool_id in seen_ids:
+        continue
+    seen_ids.add(tool_id)
     
     # Assign aesthetic accent color based on category
     accents = {
@@ -610,9 +739,9 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  {{ id: "all", label: "All Tools", count: 256 }},
-  {{ id: "released", label: "Released", count: 12 }},
-  {{ id: "blueprint", label: "Blueprint", count: 244 }}
+  {{ id: "all", label: "All Tools", count: {len(all_tools)} }},
+  {{ id: "released", label: "Released", count: {len(released_tools)} }},
+  {{ id: "blueprint", label: "Blueprint", count: {len(all_tools) - len(released_tools)} }}
 ];
 """
 

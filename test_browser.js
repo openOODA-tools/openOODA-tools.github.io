@@ -99,8 +99,8 @@ server.listen(PORT, async () => {
     await evalJs(`document.querySelector("[data-view=\x27cards\x27]").click()`);
     await evalJs(`document.getElementById("search-input").value = "status:released"; document.getElementById("search-input").dispatchEvent(new Event("input"))`);
     const countReleased = await evalJs(`document.getElementById("tool-count").textContent`);
-    if (!countReleased.startsWith("12")) {
-      throw new Error(`Expected 12 tools for status:released, got ${countReleased}`);
+    if (!countReleased.startsWith("19")) {
+      throw new Error(`Expected 19 tools for status:released, got ${countReleased}`);
     }
 
     await evalJs(`document.getElementById("clear-filters").click()`);

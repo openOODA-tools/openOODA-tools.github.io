@@ -44,9 +44,12 @@ def test_released_tools_parity():
     assert len(tools) == 256, f"Expected 256 tools, got {len(tools)}"
     
     released = [t for t in tools if t["status"] == "released"]
-    assert len(released) == 12, f"Expected 12 released tools, got {len(released)}"
+    assert len(released) == 19, f"Expected 19 released tools, got {len(released)}"
     
-    expected_released = ["oosh", "oogrep", "oodiff", "oofind", "oojq", "ootail", "oote", "oofetch", "oocat", "ootop", "oofzf", "ools"]
+    expected_released = [
+        "oosh", "oogrep", "oodiff", "oofind", "oojq", "ootail", "oote", "oofetch", "oocat", "ootop", "oofzf", "ools",
+        "ootree", "ooclock", "oosed", "ootar", "oops", "oocurl", "oowatch"
+    ]
     released_ids = [t["id"] for t in released]
     assert set(released_ids) == set(expected_released), f"Released IDs mismatch: {released_ids}"
 

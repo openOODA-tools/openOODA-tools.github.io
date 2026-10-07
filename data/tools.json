@@ -275,6 +275,166 @@
     "addedAt": "2026-09-28"
   },
   {
+    "id": "ootree",
+    "name": "ootree",
+    "category": "Files & Navigation",
+    "role": "DIRECTORY TREE",
+    "version": "v0.1.0",
+    "status": "released",
+    "monogram": "TR",
+    "accent": "#64ffda",
+    "description": "Sovereign directory hierarchy visualizer. Depth limiting, size sorting, oote color formatting, and MCP tree exploration.",
+    "gem": false,
+    "gemFact": "Depth-Bounded Traversal \u00b7 Indent Matrix",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/ootree/install.sh | bash",
+    "overviewUrl": "ootree/",
+    "repoUrl": "https://github.com/openOODA-tools/ootree",
+    "tags": [
+      "tree-traversal",
+      "depth-limiting",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "addedAt": "2026-10-02"
+  },
+  {
+    "id": "ooclock",
+    "name": "ooclock",
+    "category": "System & Monitor",
+    "role": "MATRIX CLOCK",
+    "version": "v0.1.0",
+    "status": "released",
+    "monogram": "CK",
+    "accent": "#00e5ff",
+    "description": "Sovereign TUI digital matrix clock. Military time, custom seconds refresh cadences, color themes, and terminal resize responsiveness.",
+    "gem": false,
+    "gemFact": "Matrix Clock \u00b7 Monotonic Time Sync",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/ooclock/install.sh | bash",
+    "overviewUrl": "ooclock/",
+    "repoUrl": "https://github.com/openOODA-tools/ooclock",
+    "tags": [
+      "tui-clock",
+      "time-sync",
+      "oote-themes",
+      "pure-openooda"
+    ],
+    "addedAt": "2026-10-03"
+  },
+  {
+    "id": "oosed",
+    "name": "oosed",
+    "category": "Data & Streaming",
+    "role": "STREAM EDITOR",
+    "version": "v0.1.0",
+    "status": "released",
+    "monogram": "SD",
+    "accent": "#ff4081",
+    "description": "Capability-bounded stream editor. Pattern matching, text substitution, in-place editing safety, and streaming transform pipeline.",
+    "gem": false,
+    "gemFact": "Stream Transformations \u00b7 Substitution Engine",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oosed/install.sh | bash",
+    "overviewUrl": "oosed/",
+    "repoUrl": "https://github.com/openOODA-tools/oosed",
+    "tags": [
+      "stream-editor",
+      "regex-substitution",
+      "pure-openooda"
+    ],
+    "addedAt": "2026-10-04"
+  },
+  {
+    "id": "ootar",
+    "name": "ootar",
+    "category": "Data & Streaming",
+    "role": "ARCHIVE ENGINE",
+    "version": "v0.1.0",
+    "status": "released",
+    "monogram": "AR",
+    "accent": "#ff4081",
+    "description": "Traversal-resistant archive utility. Prevents zip-slip and path traversal attacks by construction with capability-bounded extraction.",
+    "gem": true,
+    "gemFact": "Traversal-Resistant \u00b7 Zero Zip-Slip",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/ootar/install.sh | bash",
+    "overviewUrl": "ootar/",
+    "repoUrl": "https://github.com/openOODA-tools/ootar",
+    "tags": [
+      "tar-archive",
+      "path-sanitization",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "addedAt": "2026-10-05"
+  },
+  {
+    "id": "oops",
+    "name": "oops",
+    "category": "System & Monitor",
+    "role": "PROCESS TABLE",
+    "version": "v0.1.0",
+    "status": "released",
+    "monogram": "PS",
+    "accent": "#00b0ff",
+    "description": "Sovereign process table and tree inspector. Visualizes user sessions, cgroups, systemd units, and capability privileges.",
+    "gem": false,
+    "gemFact": "Process Tree Hierarchy \u00b7 Capability Audit",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oops/install.sh | bash",
+    "overviewUrl": "oops/",
+    "repoUrl": "https://github.com/openOODA-tools/oops",
+    "tags": [
+      "process-table",
+      "process-tree",
+      "systemd-cgroups",
+      "pure-openooda"
+    ],
+    "addedAt": "2026-10-06"
+  },
+  {
+    "id": "oocurl",
+    "name": "oocurl",
+    "category": "Network & Egress",
+    "role": "HTTP CLIENT",
+    "version": "v0.1.0",
+    "status": "released",
+    "monogram": "CL",
+    "accent": "#ffd740",
+    "description": "Capability-bounded HTTP/HTTPS client. Zero ambient network egress, strict TLS validation, and streaming response output.",
+    "gem": true,
+    "gemFact": "Explicit NetCap \u00b7 Zero Ambient Egress",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oocurl/install.sh | bash",
+    "overviewUrl": "oocurl/",
+    "repoUrl": "https://github.com/openOODA-tools/oocurl",
+    "tags": [
+      "http-client",
+      "tls-validation",
+      "zero-ambient-egress",
+      "pure-openooda"
+    ],
+    "addedAt": "2026-10-06"
+  },
+  {
+    "id": "oowatch",
+    "name": "oowatch",
+    "category": "System & Monitor",
+    "role": "INTERVAL WATCHER",
+    "version": "v0.1.0",
+    "status": "released",
+    "monogram": "WT",
+    "accent": "#00b0ff",
+    "description": "Continuous command runner and watcher. Highlight deltas between consecutive executions with jitter-free timer scheduling.",
+    "gem": false,
+    "gemFact": "Periodic Execution \u00b7 Delta Highlight",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oowatch/install.sh | bash",
+    "overviewUrl": "oowatch/",
+    "repoUrl": "https://github.com/openOODA-tools/oowatch",
+    "tags": [
+      "watch-runner",
+      "delta-highlighting",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "addedAt": "2026-10-07"
+  },
+  {
     "id": "ooenv",
     "name": "ooenv",
     "category": "Shell & Terminal",
@@ -861,30 +1021,6 @@
     "tags": [
       "posix-baseline",
       "instant",
-      "blueprint",
-      "openooda-256"
-    ],
-    "addedAt": "2026-10-01"
-  },
-  {
-    "id": "oosed",
-    "name": "oosed",
-    "category": "Search & Inspection",
-    "role": "STREAM EDITOR",
-    "version": "blueprint",
-    "status": "blueprint",
-    "monogram": "SE",
-    "accent": "#00e5ff",
-    "description": "Capability-bounded stream editor for non-interactive text transformations and regex rewrites.",
-    "gem": false,
-    "gemFact": "Userland Blueprint \u00b7 STREAM EDITOR",
-    "installCommand": "# Blueprint stage: specs tracked in @openOODA-tools/oosed",
-    "overviewUrl": "https://github.com/openOODA-tools/oosed",
-    "repoUrl": "https://github.com/openOODA-tools/oosed",
-    "tags": [
-      "stream-editor",
-      "regex",
-      "posix",
       "blueprint",
       "openooda-256"
     ],
@@ -1871,29 +2007,6 @@
     "addedAt": "2026-10-01"
   },
   {
-    "id": "ootree",
-    "name": "ootree",
-    "category": "Filesystem & Navigation",
-    "role": "DIRECTORY TREE",
-    "version": "blueprint",
-    "status": "blueprint",
-    "monogram": "TR",
-    "accent": "#00e5ff",
-    "description": "Visual directory hierarchy tree generator with file sizes, permissions, and icons.",
-    "gem": false,
-    "gemFact": "Userland Blueprint \u00b7 DIRECTORY TREE",
-    "installCommand": "# Blueprint stage: specs tracked in @openOODA-tools/ootree",
-    "overviewUrl": "https://github.com/openOODA-tools/ootree",
-    "repoUrl": "https://github.com/openOODA-tools/ootree",
-    "tags": [
-      "tree",
-      "visual-hierarchy",
-      "blueprint",
-      "openooda-256"
-    ],
-    "addedAt": "2026-10-01"
-  },
-  {
     "id": "ootouch",
     "name": "ootouch",
     "category": "Filesystem & Navigation",
@@ -2513,30 +2626,6 @@
     "tags": [
       "reproducible",
       "archive",
-      "blueprint",
-      "openooda-256"
-    ],
-    "addedAt": "2026-10-01"
-  },
-  {
-    "id": "ootar",
-    "name": "ootar",
-    "category": "Filesystem & Navigation",
-    "role": "TAPE ARCHIVER",
-    "version": "blueprint",
-    "status": "blueprint",
-    "monogram": "TA",
-    "accent": "#00e5ff",
-    "description": "Modern tar archive extractor and builder with pax extended attributes and zstd.",
-    "gem": false,
-    "gemFact": "Userland Blueprint \u00b7 TAPE ARCHIVER",
-    "installCommand": "# Blueprint stage: specs tracked in @openOODA-tools/ootar",
-    "overviewUrl": "https://github.com/openOODA-tools/ootar",
-    "repoUrl": "https://github.com/openOODA-tools/ootar",
-    "tags": [
-      "tar",
-      "pax",
-      "zstd",
       "blueprint",
       "openooda-256"
     ],
@@ -3448,30 +3537,6 @@
       "sqlite",
       "in-memory",
       "sql",
-      "blueprint",
-      "openooda-256"
-    ],
-    "addedAt": "2026-10-01"
-  },
-  {
-    "id": "oops",
-    "name": "oops",
-    "category": "System & Monitor",
-    "role": "PROCESS SNAPSHOT",
-    "version": "blueprint",
-    "status": "blueprint",
-    "monogram": "PS",
-    "accent": "#00b0ff",
-    "description": "Reads /proc to report process hierarchy, cgroup paths, and memory footprint.",
-    "gem": false,
-    "gemFact": "Userland Blueprint \u00b7 PROCESS SNAPSHOT",
-    "installCommand": "# Blueprint stage: specs tracked in @openOODA-tools/oops",
-    "overviewUrl": "https://github.com/openOODA-tools/oops",
-    "repoUrl": "https://github.com/openOODA-tools/oops",
-    "tags": [
-      "processes",
-      "procfs",
-      "cgroups",
       "blueprint",
       "openooda-256"
     ],
@@ -4680,30 +4745,6 @@
       "tables",
       "grids",
       "markdown",
-      "blueprint",
-      "openooda-256"
-    ],
-    "addedAt": "2026-10-01"
-  },
-  {
-    "id": "oocurl",
-    "name": "oocurl",
-    "category": "Network & Egress",
-    "role": "HTTP CLIENT",
-    "version": "blueprint",
-    "status": "blueprint",
-    "monogram": "CU",
-    "accent": "#ffd740",
-    "description": "Capability-bounded HTTP/1.1 and HTTP/2 client with strict host whitelist validation.",
-    "gem": false,
-    "gemFact": "Userland Blueprint \u00b7 HTTP CLIENT",
-    "installCommand": "# Blueprint stage: specs tracked in @openOODA-tools/oocurl",
-    "overviewUrl": "https://github.com/openOODA-tools/oocurl",
-    "repoUrl": "https://github.com/openOODA-tools/oocurl",
-    "tags": [
-      "http-client",
-      "curl",
-      "bounded-egress",
       "blueprint",
       "openooda-256"
     ],
@@ -5958,52 +5999,6 @@
       "redaction",
       "secrets-masking",
       "security",
-      "blueprint",
-      "openooda-256"
-    ],
-    "addedAt": "2026-10-01"
-  },
-  {
-    "id": "oosanitize",
-    "name": "oosanitize",
-    "category": "Agent & Security",
-    "role": "INPUT SANITIZER",
-    "version": "blueprint",
-    "status": "blueprint",
-    "monogram": "SA",
-    "accent": "#ff5252",
-    "description": "Normalizes untrusted terminal inputs preventing ANSI escape code injection attacks.",
-    "gem": false,
-    "gemFact": "Userland Blueprint \u00b7 INPUT SANITIZER",
-    "installCommand": "# Blueprint stage: specs tracked in @openOODA-tools/oosanitize",
-    "overviewUrl": "https://github.com/openOODA-tools/oosanitize",
-    "repoUrl": "https://github.com/openOODA-tools/oosanitize",
-    "tags": [
-      "sanitizer",
-      "ansi-injection",
-      "blueprint",
-      "openooda-256"
-    ],
-    "addedAt": "2026-10-01"
-  },
-  {
-    "id": "ooscope",
-    "name": "ooscope",
-    "category": "Agent & Security",
-    "role": "CAPABILITY SCOPE",
-    "version": "blueprint",
-    "status": "blueprint",
-    "monogram": "SC",
-    "accent": "#ff5252",
-    "description": "Calculates minimal permission scopes required for given task descriptions.",
-    "gem": false,
-    "gemFact": "Userland Blueprint \u00b7 CAPABILITY SCOPE",
-    "installCommand": "# Blueprint stage: specs tracked in @openOODA-tools/ooscope",
-    "overviewUrl": "https://github.com/openOODA-tools/ooscope",
-    "repoUrl": "https://github.com/openOODA-tools/ooscope",
-    "tags": [
-      "minimal-privilege",
-      "scope",
       "blueprint",
       "openooda-256"
     ],

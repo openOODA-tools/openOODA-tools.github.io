@@ -1,0 +1,21 @@
+# Maintainer: openOODA-tools <ops@openooda.org>
+pkgname=oomcp-bin
+_pkgname=oomcp
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="Sovereign Model Context Protocol composite gateway and tool router"
+arch=('x86_64')
+url="https://github.com/openOODA-tools/oomcp"
+license=('Apache-2.0')
+depends=('glibc')
+provides=('oomcp')
+conflicts=('oomcp')
+source_x86_64=("${url}/releases/download/v${pkgver}/oomcp-linux-x86_64"
+               "uninstall.sh::https://raw.githubusercontent.com/openOODA-tools/${_pkgname}/v${pkgver}/uninstall.sh")
+sha256sums_x86_64=('SKIP'
+                   'SKIP')
+
+package() {
+    install -Dm755 "${srcdir}/oomcp-linux-x86_64" "${pkgdir}/usr/bin/oomcp"
+    install -Dm755 uninstall.sh "${pkgdir}/usr/bin/oomcp-uninstall"
+}

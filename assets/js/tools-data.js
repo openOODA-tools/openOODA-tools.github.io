@@ -527,6 +527,35 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-07"
+  },
+  {
+    "id": "oomcp",
+    "name": "oomcp",
+    "category": "System & Monitor",
+    "role": "COMPOSITE MCP GATEWAY",
+    "version": "v0.1.0",
+    "status": "released",
+    "monogram": "CP",
+    "accent": "#bd93f9",
+    "description": "Sovereign Model Context Protocol (MCP) composite gateway & tool router. Single unified stdio endpoint for all openOODA userland tools.",
+    "gem": true,
+    "gemFact": "Composite Gateway \u00b7 Dynamic Discovery",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oomcp/install.sh | bash",
+    "overviewUrl": "oomcp/",
+    "repoUrl": "https://github.com/openOODA-tools/oomcp",
+    "tags": [
+      "mcp-gateway",
+      "composite-router",
+      "systemd-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&ProcessCap",
+      "&FsReadCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-07"
   }
 ];
 
@@ -543,6 +572,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 19 },
-  { id: "released", label: "Released", count: 19 }
+  { id: "all", label: "All Repos", count: 20 },
+  { id: "released", label: "Released", count: 20 }
 ];

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>oomcp — sovereign userland</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/oote.css" />
+  <script src="/oote.js"></script>
+</head>
+<body>
+  <div class="terminal-window">
+    <header class="window-titlebar">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span class="term-status-badge">[TERM: tty2]</span>
+        <span class="window-title">sys@openooda-tools:~# man oomcp</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="theme-selector-wrap">
+          <label for="theme-picker" style="color:var(--ui-dim);">[oote:</label>
+          <select id="theme-picker" class="theme-select" onchange="setOoteTheme(this.value)">
+            <option value="auto">auto (circadian)</option>
+            <option value="classic">classic (sovereign)</option>
+            <option value="1982">1982 (phosphor)</option>
+            <option value="dracula">dracula (vampire)</option>
+            <option value="nord">nord (arctic)</option>
+            <option value="cyberpunk">cyberpunk (neon)</option>
+            <option value="ember">ember (warm)</option>
+            <option value="spooky">spooky (october)</option>
+            <option value="minimax">minimax (contrast)</option>
+          </select>
+          <span style="color:var(--ui-dim);">]</span>
+        </div>
+        <span class="term-status-online">[SYS_OK]</span>
+      </div>
+    </header>
+
+    <div class="window-content">
+      <h1>oomcp</h1>
+      <p class="sub">Sovereign Model Context Protocol (MCP) composite gateway & tool router for openOODA.</p>
+
+      <div class="badges-container">
+        <span class="badge badge-green">v0.1.0</span>
+        <span class="badge">100% openOODA</span>
+        <span class="badge">Zero Ambient Authority</span>
+        <span class="badge">Dynamic Discovery</span>
+        <span class="badge badge-accent">Model Context Protocol</span>
+      </div>
+
+      <h2>Install</h2>
+      <p><strong>Universal Standalone Binary:</strong></p>
+      <div class="install-box">
+        <code>curl -fsSL https://openooda-tools.github.io/oomcp/install.sh | bash</code>
+        <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/oomcp/install.sh | bash', this)">COPY</button>
+      </div>
+
+      <h3>Native Package Managers (Tri-Distribution Parity)</h3>
+      <div class="install-box">
+        <code># Fedora / RHEL / CentOS (DNF)
+curl -fsSL https://openooda-tools.github.io/oomcp/install.sh | bash -s -- --dnf</code>
+        <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/oomcp/install.sh | bash -s -- --dnf', this)">COPY</button>
+      </div>
+      <div class="install-box">
+        <code># Ubuntu / Debian (APT)
+curl -fsSL https://openooda-tools.github.io/oomcp/install.sh | bash -s -- --deb</code>
+        <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/oomcp/install.sh | bash -s -- --deb', this)">COPY</button>
+      </div>
+      <div class="install-box">
+        <code># Arch Linux / Manjaro (Pacman / PKGBUILD)
+curl -fsSL https://openooda-tools.github.io/oomcp/install.sh | bash -s -- --pkgbuild</code>
+        <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/oomcp/install.sh | bash -s -- --pkgbuild', this)">COPY</button>
+      </div>
+
+      <h2>AI Agent Configuration</h2>
+      <p>Configure a single sovereign MCP endpoint in <code>claude_desktop_config.json</code>, Cursor, or Antigravity:</p>
+      <pre><code>{
+  "mcpServers": {
+    "openooda": {
+      "command": "oomcp",
+      "args": ["serve"]
+    }
+  }
+}</code></pre>
+
+      <h2>Clean Uninstallation</h2>
+      <p>Remove <code>oomcp</code> binaries, package registrations, and symlinks at any time:</p>
+      <div class="install-box">
+        <code># Locally installed companion CLI
+oomcp-uninstall
+
+# Standalone web uninstaller
+curl -fsSL https://openooda-tools.github.io/oomcp/uninstall.sh | bash</code>
+        <button class="copy-btn" onclick="copySnippet('oomcp-uninstall', this)">COPY</button>
+      </div>
+
+      <h2>Why Sovereign oomcp?</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Dimension</th>
+            <th>Conventional Alternatives</th>
+            <th>openOODA oomcp</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Configuration</td><td>19 separate Node/Python processes</td><td>Single unified C-native gateway (oomcp serve)</td></tr>
+          <tr><td>Security</td><td>Ambient filesystem & network authority</td><td>Strict capability tokens under openOODA Process Policy</td></tr>
+          <tr><td>Discovery</td><td>Static hardcoded manifests</td><td>Dynamic scanning across $PATH & ~/.openooda/bin</td></tr>
+          <tr><td>Footprint</td><td>GBs of memory across multiple runtimes</td><td>Instant startup with &lt;2MB memory footprint</td></tr>
+          <tr><td>Citizenship</td><td>Unmanaged background child processes</td><td>Pure systemd socket activation (oomcp.socket)</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Usage & Features</h2>
+      <pre><code>oomcp serve                    # Run bidirectional JSON-RPC 2.0 stdio server
+oomcp list                     # Discover installed openOODA tools & status dashboard
+oomcp schema                   # Dump aggregated JSON Schema array
+oomcp call diff_files '{"path_a":"a.txt","path_b":"b.txt"}'</code></pre>
+
+      <footer style="margin-top:2em;border-top:1px solid var(--ui-border);padding-top:1em;color:var(--ui-dim);">
+        <p>&larr; Back to <a href="/" style="color:var(--ui-accent);text-decoration:none;">openOODA Sovereign Userland Suite</a></p>
+      </footer>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,7 +1,7 @@
 # Maintainer: openOODA-tools <ops@openooda.org>
 pkgname=ools-bin
 _pkgname=ools
-pkgver=0.1.0
+pkgver=0.2.0
 pkgrel=1
 pkgdesc="Sovereign directory lister and metadata classifier with oote palettes and MCP surface"
 arch=('x86_64')

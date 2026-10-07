@@ -312,11 +312,11 @@ export const TOOLS_DATA = [
     "name": "ools",
     "category": "Files & Navigation",
     "role": "DIR LISTER",
-    "version": "v0.1.0",
+    "version": "v0.2.0",
     "status": "released",
     "monogram": "LS",
     "accent": "#b388ff",
-    "description": "Sovereign directory lister and metadata classifier. Multi-column grid rendering, detailed long-format tables, oote palettes, and MCP surface.",
+    "description": "Sovereign directory lister and metadata classifier. Multi-column grid rendering, detailed long-format tables, oote palettes, and native MCP stdio server.",
     "gem": true,
     "gemFact": "Metadata Classification \u00b7 Multi-Column Grid",
     "installCommand": "curl -fsSL https://openooda-tools.github.io/ools/install.sh | bash",
@@ -330,7 +330,7 @@ export const TOOLS_DATA = [
     ],
     "capabilities": [
       "&FsReadCap",
-      "&MetadataCap",
+      "&EnvCap",
       "&McpCap"
     ],
     "addedAt": "2026-09-28"

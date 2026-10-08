@@ -678,6 +678,36 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-07"
+  },
+  {
+    "id": "ooarchive",
+    "name": "ooarchive",
+    "category": "Files & Navigation",
+    "role": "ARCHIVE PACKER",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "AP",
+    "accent": "#ffb86c",
+    "description": "Deterministic reproducible archive builder guaranteeing byte-for-byte outputs across TAR, CPIO, and AR formats with stdio MCP server.",
+    "gem": true,
+    "gemFact": "Reproducible Packing \u00b7 Multi-Format Support",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/ooarchive/install.sh | bash",
+    "overviewUrl": "ooarchive/",
+    "repoUrl": "https://github.com/openOODA-tools/ooarchive",
+    "tags": [
+      "reproducible-archive",
+      "deterministic-tar",
+      "anti-zipslip",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&FsWriteCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-07"
   }
 ];
 
@@ -694,6 +724,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 24 },
-  { id: "released", label: "Released", count: 24 }
+  { id: "all", label: "All Repos", count: 25 },
+  { id: "released", label: "Released", count: 25 }
 ];

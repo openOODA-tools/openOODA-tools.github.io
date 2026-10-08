@@ -462,6 +462,25 @@ released_tools = [
         "tags": ["apparmor-profile", "least-privilege", "security-audit", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-07"
+    },
+    {
+        "id": "ooarchive",
+        "name": "ooarchive",
+        "category": "Files & Navigation",
+        "role": "ARCHIVE PACKER",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "AP",
+        "accent": "#ffb86c",
+        "description": "Deterministic reproducible archive builder guaranteeing byte-for-byte outputs across TAR, CPIO, and AR formats with stdio MCP server.",
+        "gem": True,
+        "gemFact": "Reproducible Packing · Multi-Format Support",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/ooarchive/install.sh | bash",
+        "overviewUrl": "ooarchive/",
+        "repoUrl": "https://github.com/openOODA-tools/ooarchive",
+        "tags": ["reproducible-archive", "deterministic-tar", "anti-zipslip", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&FsWriteCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-07"
     }
 ]
 
@@ -469,8 +488,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 24, f"Expected 24 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 24, "Duplicate tool ID detected!"
+assert len(all_tools) == 25, f"Expected 25 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 25, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

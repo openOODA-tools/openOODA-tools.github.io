@@ -513,10 +513,10 @@ function renderSplitView(filteredTools) {
   const start = (state.currentPage - 1) * 18;
   const currentTools = filteredTools.slice(start, start + 18);
 
-  // If currently selected tool not in filtered list, select first available
-  let selected = filteredTools.find(t => t.id === state.selectedToolId);
-  if (!selected && filteredTools.length > 0) {
-    selected = filteredTools[0];
+  // If currently selected tool not in current page, select first available on current page
+  let selected = currentTools.find(t => t.id === state.selectedToolId);
+  if (!selected && currentTools.length > 0) {
+    selected = currentTools[0];
     state.selectedToolId = selected.id;
   }
 

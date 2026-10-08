@@ -994,6 +994,25 @@ released_tools = [
         "tags": ["cbor", "rfc8949", "serializer", "codec", "diagnostic", "binary", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oocert",
+        "name": "oocert",
+        "category": "Security & Audit",
+        "role": "CERTIFICATE STORE",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "CT",
+        "accent": "#00e676",
+        "description": "Manages local system trust roots under /etc/ssl/certs/ with revocation checking and X.509 auditing.",
+        "gem": True,
+        "gemFact": "Certificate Store · Local Trust Root Management & X.509 Cryptographic Auditor",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oocert/install.sh | bash",
+        "overviewUrl": "oocert/",
+        "repoUrl": "https://github.com/openOODA-tools/oocert",
+        "tags": ["cert", "x509", "ssl", "tls", "trust-store", "security", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -1001,8 +1020,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 52, f"Expected 52 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 52, "Duplicate tool ID detected!"
+assert len(all_tools) == 53, f"Expected 53 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 53, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

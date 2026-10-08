@@ -1,0 +1,21 @@
+# Maintainer: openOODA-tools <ops@openooda.org>
+pkgname=oocert-bin
+_pkgname=oocert
+pkgver=0.2.0
+pkgrel=1
+pkgdesc="Manages local system trust roots under /etc/ssl/certs/ with revocation checking."
+arch=('x86_64')
+url="https://github.com/openOODA-tools/oocert"
+license=('Apache-2.0')
+depends=('glibc')
+provides=('oocert')
+conflicts=('oocert')
+source_x86_64=("${url}/releases/download/v${pkgver}/oocert-linux-x86_64"
+               "uninstall.sh::https://raw.githubusercontent.com/openOODA-tools/${_pkgname}/v${pkgver}/uninstall.sh")
+sha256sums_x86_64=('SKIP'
+                   'SKIP')
+
+package() {
+    install -Dm755 "${srcdir}/oocert-linux-x86_64" "${pkgdir}/usr/bin/oocert"
+    install -Dm755 uninstall.sh "${pkgdir}/usr/bin/oocert-uninstall"
+}

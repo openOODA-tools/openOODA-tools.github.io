@@ -1542,6 +1542,39 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oocert",
+    "name": "oocert",
+    "category": "Security & Audit",
+    "role": "CERTIFICATE STORE",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "CT",
+    "accent": "#00e676",
+    "description": "Manages local system trust roots under /etc/ssl/certs/ with revocation checking and X.509 auditing.",
+    "gem": true,
+    "gemFact": "Certificate Store \u00b7 Local Trust Root Management & X.509 Cryptographic Auditor",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oocert/install.sh | bash",
+    "overviewUrl": "oocert/",
+    "repoUrl": "https://github.com/openOODA-tools/oocert",
+    "tags": [
+      "cert",
+      "x509",
+      "ssl",
+      "tls",
+      "trust-store",
+      "security",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -1564,6 +1597,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 52 },
-  { id: "released", label: "Released", count: 52 }
+  { id: "all", label: "All Repos", count: 53 },
+  { id: "released", label: "Released", count: 53 }
 ];

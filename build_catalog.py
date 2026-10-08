@@ -405,6 +405,25 @@ released_tools = [
         "tags": ["7z-container", "zipslip-safe", "posix-parity", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&FsWriteCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-07"
+    },
+    {
+        "id": "ooalias",
+        "name": "ooalias",
+        "category": "Shell & Terminal",
+        "role": "ALIAS RESOLVER",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "AL",
+        "accent": "#50fa7b",
+        "description": "Cryptographically verifiable command macro and alias resolver with scope isolation, cycle detection, and stdio MCP server.",
+        "gem": True,
+        "gemFact": "Cycle-Safe Resolver · Scope Isolation",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/ooalias/install.sh | bash",
+        "overviewUrl": "ooalias/",
+        "repoUrl": "https://github.com/openOODA-tools/ooalias",
+        "tags": ["command-macro", "alias-resolver", "cycle-detection", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&FsWriteCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-07"
     }
 ]
 
@@ -412,8 +431,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 21, f"Expected 21 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 21, "Duplicate tool ID detected!"
+assert len(all_tools) == 22, f"Expected 22 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 22, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

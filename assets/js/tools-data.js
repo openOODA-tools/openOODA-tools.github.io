@@ -590,6 +590,36 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-07"
+  },
+  {
+    "id": "ooalias",
+    "name": "ooalias",
+    "category": "Shell & Terminal",
+    "role": "ALIAS RESOLVER",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "AL",
+    "accent": "#50fa7b",
+    "description": "Cryptographically verifiable command macro and alias resolver with scope isolation, cycle detection, and stdio MCP server.",
+    "gem": true,
+    "gemFact": "Cycle-Safe Resolver \u00b7 Scope Isolation",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/ooalias/install.sh | bash",
+    "overviewUrl": "ooalias/",
+    "repoUrl": "https://github.com/openOODA-tools/ooalias",
+    "tags": [
+      "command-macro",
+      "alias-resolver",
+      "cycle-detection",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&FsWriteCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-07"
   }
 ];
 
@@ -606,6 +636,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 21 },
-  { id: "released", label: "Released", count: 21 }
+  { id: "all", label: "All Repos", count: 22 },
+  { id: "released", label: "Released", count: 22 }
 ];

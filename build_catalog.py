@@ -373,7 +373,7 @@ released_tools = [
         "name": "oomcp",
         "category": "System & Monitor",
         "role": "COMPOSITE MCP GATEWAY",
-        "version": "v0.1.0",
+        "version": "v0.2.0",
         "status": "released",
         "monogram": "CP",
         "accent": "#bd93f9",

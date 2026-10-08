@@ -41,14 +41,14 @@ def test_released_tools_parity():
     with open(json_path, "r", encoding="utf-8") as f:
         tools = json.load(f)
 
-    assert len(tools) == 101, f"Expected 101 tools, got {len(tools)}"
+    assert len(tools) == 102, f"Expected 102 tools, got {len(tools)}"
     
     released = [t for t in tools if t["status"] == "released"]
-    assert len(released) == 101, f"Expected 101 released tools, got {len(released)}"
+    assert len(released) == 102, f"Expected 102 released tools, got {len(released)}"
     
     expected_released = [
         "oosh", "oogrep", "oodiff", "oofind", "oojq", "ootail", "oote", "oofetch", "oocat", "ootop", "oofzf", "ools",
-        "ootree", "ooclock", "oosed", "ootar", "oops", "oocurl", "oowatch", "oomcp", "oo7z", "ooalias", "ooansi", "ooapparmor", "ooarchive", "ooarp", "ooastdiff", "ooat", "ooattest", "ooaudit", "ooawk", "oob3sum", "oobackup", "oobanner", "oobar", "oobase32", "oobase58", "oobase64", "oobasename", "oobash", "oobatch", "oobattery", "oobiew", "oobinary", "oobindiff", "ooborder", "oobound", "ooboundary", "oobson", "oobzip2", "oocap", "oocbor", "oocert", "oocgroup", "oocgroupv2", "oochecksum", "oochgrp", "oochmod", "oochown", "oochroot", "ooclear", "oocmp", "oocol", "oocolor", "oocolrm", "oocomm", "oocp", "oocpio", "oocpuinfo", "oocrc32", "oocron", "oocsplt", "oocsv", "oocut", "oodf", "oodialog", "oodiff3", "oodig", "oodirname", "oodmesg", "oodns", "oodu", "ooenv", "ooexpand", "oofalse", "oofigure", "oofile", "oofilter", "oofirewall", "oofmt", "oofold", "oofree", "oofsck", "oogitdiff", "ooglyph", "oogradient", "oogrepz", "ooguard", "oogzip", "oohash", "oohead"
+        "ootree", "ooclock", "oosed", "ootar", "oops", "oocurl", "oowatch", "oomcp", "oo7z", "ooalias", "ooansi", "ooapparmor", "ooarchive", "ooarp", "ooastdiff", "ooat", "ooattest", "ooaudit", "ooawk", "oob3sum", "oobackup", "oobanner", "oobar", "oobase32", "oobase58", "oobase64", "oobasename", "oobash", "oobatch", "oobattery", "oobiew", "oobinary", "oobindiff", "ooborder", "oobound", "ooboundary", "oobson", "oobzip2", "oocap", "oocbor", "oocert", "oocgroup", "oocgroupv2", "oochecksum", "oochgrp", "oochmod", "oochown", "oochroot", "ooclear", "oocmp", "oocol", "oocolor", "oocolrm", "oocomm", "oocp", "oocpio", "oocpuinfo", "oocrc32", "oocron", "oocsplt", "oocsv", "oocut", "oodf", "oodialog", "oodiff3", "oodig", "oodirname", "oodmesg", "oodns", "oodu", "ooenv", "ooexpand", "oofalse", "oofigure", "oofile", "oofilter", "oofirewall", "oofmt", "oofold", "oofree", "oofsck", "oogitdiff", "ooglyph", "oogradient", "oogrepz", "ooguard", "oogzip", "oohash", "oohead", "oohex"
     ]
     released_ids = [t["id"] for t in released]
     assert set(released_ids) == set(expected_released), f"Released IDs mismatch: {released_ids}"

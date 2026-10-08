@@ -3143,6 +3143,40 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oohex",
+    "name": "oohex",
+    "category": "Binary & Reverse Engineering",
+    "role": "HEX DUMP PAGER",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "HX",
+    "accent": "#00e5ff",
+    "description": "Color-coded hexadecimal viewer with canonical ASCII sidebar, delta highlighting, and streaming MCP JSON-RPC 2.0 stdio server.",
+    "gem": true,
+    "gemFact": "Hex Dump Pager \u00b7 Semantic Byte Colors \u00b7 Dual-Buffer Delta Differ",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oohex/install.sh | bash",
+    "overviewUrl": "oohex/",
+    "repoUrl": "https://github.com/openOODA-tools/oohex",
+    "tags": [
+      "hex",
+      "hexdump",
+      "xxd",
+      "binary",
+      "delta",
+      "diff",
+      "pager",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -3178,6 +3212,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 101 },
-  { id: "released", label: "Released", count: 101 }
+  { id: "all", label: "All Repos", count: 102 },
+  { id: "released", label: "Released", count: 102 }
 ];

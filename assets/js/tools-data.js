@@ -1941,6 +1941,39 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oocolrm",
+    "name": "oocolrm",
+    "category": "Text & Processing",
+    "role": "COLUMN STRIPPER",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "CR",
+    "accent": "#00b0ff",
+    "description": "Removes selected character columns from line streams with tab expansion and slice extraction.",
+    "gem": true,
+    "gemFact": "Column Stripper \u00b7 1-Indexed Slicing & Negative-Trust Stream Transformer",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oocolrm/install.sh | bash",
+    "overviewUrl": "oocolrm/",
+    "repoUrl": "https://github.com/openOODA-tools/oocolrm",
+    "tags": [
+      "colrm",
+      "columns",
+      "strip",
+      "cut",
+      "slice",
+      "tabs",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -1965,6 +1998,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 64 },
-  { id: "released", label: "Released", count: 64 }
+  { id: "all", label: "All Repos", count: 65 },
+  { id: "released", label: "Released", count: 65 }
 ];

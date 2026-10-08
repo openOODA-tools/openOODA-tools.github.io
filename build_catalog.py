@@ -1222,6 +1222,25 @@ released_tools = [
         "tags": ["color", "converter", "hex", "rgb", "hsl", "cmyk", "ansi256", "wcag", "contrast", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oocolrm",
+        "name": "oocolrm",
+        "category": "Text & Processing",
+        "role": "COLUMN STRIPPER",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "CR",
+        "accent": "#00b0ff",
+        "description": "Removes selected character columns from line streams with tab expansion and slice extraction.",
+        "gem": True,
+        "gemFact": "Column Stripper · 1-Indexed Slicing & Negative-Trust Stream Transformer",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oocolrm/install.sh | bash",
+        "overviewUrl": "oocolrm/",
+        "repoUrl": "https://github.com/openOODA-tools/oocolrm",
+        "tags": ["colrm", "columns", "strip", "cut", "slice", "tabs", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -1229,8 +1248,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 64, f"Expected 64 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 64, "Duplicate tool ID detected!"
+assert len(all_tools) == 65, f"Expected 65 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 65, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

@@ -1,0 +1,21 @@
+# Maintainer: openOODA-tools <ops@openooda.org>
+pkgname=oocolrm-bin
+_pkgname=oocolrm
+pkgver=0.2.0
+pkgrel=1
+pkgdesc="Strips character columns from line streams using precise byte column boundaries."
+arch=('x86_64')
+url="https://github.com/openOODA-tools/oocolrm"
+license=('Apache-2.0')
+depends=('glibc')
+provides=('oocolrm')
+conflicts=('oocolrm')
+source_x86_64=("${url}/releases/download/v${pkgver}/oocolrm-linux-x86_64"
+               "uninstall.sh::https://raw.githubusercontent.com/openOODA-tools/${_pkgname}/v${pkgver}/uninstall.sh")
+sha256sums_x86_64=('SKIP'
+                   'SKIP')
+
+package() {
+    install -Dm755 "${srcdir}/oocolrm-linux-x86_64" "${pkgdir}/usr/bin/oocolrm"
+    install -Dm755 uninstall.sh "${pkgdir}/usr/bin/oocolrm-uninstall"
+}

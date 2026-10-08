@@ -956,6 +956,25 @@ released_tools = [
         "tags": ["bzip2", "bwt", "compression", "mtf", "rle", "crc32", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oocap",
+        "name": "oocap",
+        "category": "Security & Audit",
+        "role": "LINUX CAPABILITIES",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "CP",
+        "accent": "#00e5ff",
+        "description": "Inspects, drops, and verifies Linux thread capability bounding sets with systemd drop-in generation.",
+        "gem": True,
+        "gemFact": "Linux Capabilities · Bounding Set Hardening & Systemd Drop-in Generator",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oocap/install.sh | bash",
+        "overviewUrl": "oocap/",
+        "repoUrl": "https://github.com/openOODA-tools/oocap",
+        "tags": ["capabilities", "linux", "security", "audit", "systemd", "bounding-set", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -963,8 +982,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 50, f"Expected 50 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 50, "Duplicate tool ID detected!"
+assert len(all_tools) == 51, f"Expected 51 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 51, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

@@ -1476,6 +1476,39 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oocap",
+    "name": "oocap",
+    "category": "Security & Audit",
+    "role": "LINUX CAPABILITIES",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "CP",
+    "accent": "#00e5ff",
+    "description": "Inspects, drops, and verifies Linux thread capability bounding sets with systemd drop-in generation.",
+    "gem": true,
+    "gemFact": "Linux Capabilities \u00b7 Bounding Set Hardening & Systemd Drop-in Generator",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oocap/install.sh | bash",
+    "overviewUrl": "oocap/",
+    "repoUrl": "https://github.com/openOODA-tools/oocap",
+    "tags": [
+      "capabilities",
+      "linux",
+      "security",
+      "audit",
+      "systemd",
+      "bounding-set",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -1498,6 +1531,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 50 },
-  { id: "released", label: "Released", count: 50 }
+  { id: "all", label: "All Repos", count: 51 },
+  { id: "released", label: "Released", count: 51 }
 ];

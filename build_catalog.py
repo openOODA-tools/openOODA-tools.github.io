@@ -1203,6 +1203,25 @@ released_tools = [
         "tags": ["col", "terminal", "escape-filter", "overstrike", "backspace", "nroff", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oocolor",
+        "name": "oocolor",
+        "category": "Theme & Styling",
+        "role": "COLOR CONVERTER",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "CR",
+        "accent": "#ff4081",
+        "description": "Multi-space color converter, TrueColor terminal previewer, and WCAG 2.1 contrast compliance auditor.",
+        "gem": True,
+        "gemFact": "Color Converter · Multi-Space Chromatic Math & WCAG 2.1 Contrast Engine",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oocolor/install.sh | bash",
+        "overviewUrl": "oocolor/",
+        "repoUrl": "https://github.com/openOODA-tools/oocolor",
+        "tags": ["color", "converter", "hex", "rgb", "hsl", "cmyk", "ansi256", "wcag", "contrast", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -1210,8 +1229,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 63, f"Expected 63 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 63, "Duplicate tool ID detected!"
+assert len(all_tools) == 64, f"Expected 64 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 64, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

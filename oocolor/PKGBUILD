@@ -1,0 +1,21 @@
+# Maintainer: openOODA-tools <ops@openooda.org>
+pkgname=oocolor-bin
+_pkgname=oocolor
+pkgver=0.2.0
+pkgrel=1
+pkgdesc="Converts between HEX, RGB, HSL, CMYK, and ANSI 256 color representations."
+arch=('x86_64')
+url="https://github.com/openOODA-tools/oocolor"
+license=('Apache-2.0')
+depends=('glibc')
+provides=('oocolor')
+conflicts=('oocolor')
+source_x86_64=("${url}/releases/download/v${pkgver}/oocolor-linux-x86_64"
+               "uninstall.sh::https://raw.githubusercontent.com/openOODA-tools/${_pkgname}/v${pkgver}/uninstall.sh")
+sha256sums_x86_64=('SKIP'
+                   'SKIP')
+
+package() {
+    install -Dm755 "${srcdir}/oocolor-linux-x86_64" "${pkgdir}/usr/bin/oocolor"
+    install -Dm755 uninstall.sh "${pkgdir}/usr/bin/oocolor-uninstall"
+}

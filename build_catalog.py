@@ -202,7 +202,7 @@ released_tools = [
         "name": "oofzf",
         "category": "Search & Inspection",
         "role": "FUZZY FINDER",
-        "version": "v0.1.0",
+        "version": "v0.2.0",
         "status": "released",
         "monogram": "FZ",
         "accent": "#18ffff",

@@ -796,6 +796,35 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-07"
+  },
+  {
+    "id": "ooattest",
+    "name": "ooattest",
+    "category": "System & Monitor",
+    "role": "TPM ATTESTATION",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "AT",
+    "accent": "#ff5555",
+    "description": "Attests system state and measured boot hashes using TPM2 hardware security chips with stdio MCP server.",
+    "gem": true,
+    "gemFact": "TPM2 Attestation \u00b7 Measured Boot Registers",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/ooattest/install.sh | bash",
+    "overviewUrl": "ooattest/",
+    "repoUrl": "https://github.com/openOODA-tools/ooattest",
+    "tags": [
+      "tpm2-attestation",
+      "pcr-audit",
+      "measured-boot",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-07"
   }
 ];
 
@@ -812,6 +841,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 28 },
-  { id: "released", label: "Released", count: 28 }
+  { id: "all", label: "All Repos", count: 29 },
+  { id: "released", label: "Released", count: 29 }
 ];

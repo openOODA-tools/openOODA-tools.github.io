@@ -2754,6 +2754,38 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oofmt",
+    "name": "oofmt",
+    "category": "Text & Processing",
+    "role": "PARAGRAPH REFORMER",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "FM",
+    "accent": "#00e676",
+    "description": "Sovereign optimal paragraph reformer and text reflower keeping uniform margins without ambient authority.",
+    "gem": true,
+    "gemFact": "Crown Margins \u00b7 Quote Prefix Scoping \u00b7 Uniform Spacing & Streaming MCP",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oofmt/install.sh | bash",
+    "overviewUrl": "oofmt/",
+    "repoUrl": "https://github.com/openOODA-tools/oofmt",
+    "tags": [
+      "fmt",
+      "reflow",
+      "paragraph",
+      "margin",
+      "wrap",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -2785,6 +2817,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 89 },
-  { id: "released", label: "Released", count: 89 }
+  { id: "all", label: "All Repos", count: 90 },
+  { id: "released", label: "Released", count: 90 }
 ];

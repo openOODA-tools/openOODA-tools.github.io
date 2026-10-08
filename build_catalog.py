@@ -1697,6 +1697,25 @@ released_tools = [
         "tags": ["firewall", "nftables", "firewalld", "packet-filter", "security", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&NetCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oofmt",
+        "name": "oofmt",
+        "category": "Text & Processing",
+        "role": "PARAGRAPH REFORMER",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "FM",
+        "accent": "#00e676",
+        "description": "Sovereign optimal paragraph reformer and text reflower keeping uniform margins without ambient authority.",
+        "gem": True,
+        "gemFact": "Crown Margins · Quote Prefix Scoping · Uniform Spacing & Streaming MCP",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oofmt/install.sh | bash",
+        "overviewUrl": "oofmt/",
+        "repoUrl": "https://github.com/openOODA-tools/oofmt",
+        "tags": ["fmt", "reflow", "paragraph", "margin", "wrap", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -1704,8 +1723,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 89, f"Expected 89 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 89, "Duplicate tool ID detected!"
+assert len(all_tools) == 90, f"Expected 90 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 90, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

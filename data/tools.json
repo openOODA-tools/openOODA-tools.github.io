@@ -2368,5 +2368,38 @@
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oodig",
+    "name": "oodig",
+    "category": "Networking & Protocols",
+    "role": "DNS LOOKUP & RESOLVER",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "DG",
+    "accent": "#4fc3f7",
+    "description": "Sovereign DNS lookup and resolver diagnostic utility in pure openOODA with delegation traces and streaming MCP.",
+    "gem": true,
+    "gemFact": "Root Delegation Walk \u00b7 systemd-resolved Integration with Streaming MCP",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oodig/install.sh | bash",
+    "overviewUrl": "oodig/",
+    "repoUrl": "https://github.com/openOODA-tools/oodig",
+    "tags": [
+      "dns",
+      "dig",
+      "resolver",
+      "lookup",
+      "trace",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&NetCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ]

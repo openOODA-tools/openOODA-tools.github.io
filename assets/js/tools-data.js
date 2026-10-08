@@ -2371,6 +2371,39 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oodig",
+    "name": "oodig",
+    "category": "Networking & Protocols",
+    "role": "DNS LOOKUP & RESOLVER",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "DG",
+    "accent": "#4fc3f7",
+    "description": "Sovereign DNS lookup and resolver diagnostic utility in pure openOODA with delegation traces and streaming MCP.",
+    "gem": true,
+    "gemFact": "Root Delegation Walk \u00b7 systemd-resolved Integration with Streaming MCP",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oodig/install.sh | bash",
+    "overviewUrl": "oodig/",
+    "repoUrl": "https://github.com/openOODA-tools/oodig",
+    "tags": [
+      "dns",
+      "dig",
+      "resolver",
+      "lookup",
+      "trace",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&NetCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -2384,6 +2417,7 @@ export const CATEGORIES = [
   "Files & Navigation",
   "Filesystem & Navigation",
   "Network & Egress",
+  "Networking & Protocols",
   "Process & Scheduling",
   "Search & Inspection",
   "Security & Audit",
@@ -2399,6 +2433,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 77 },
-  { id: "released", label: "Released", count: 77 }
+  { id: "all", label: "All Repos", count: 78 },
+  { id: "released", label: "Released", count: 78 }
 ];

@@ -1469,6 +1469,25 @@ released_tools = [
         "tags": ["diff3", "merge", "conflict", "reconciliation", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oodig",
+        "name": "oodig",
+        "category": "Networking & Protocols",
+        "role": "DNS LOOKUP & RESOLVER",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "DG",
+        "accent": "#4fc3f7",
+        "description": "Sovereign DNS lookup and resolver diagnostic utility in pure openOODA with delegation traces and streaming MCP.",
+        "gem": True,
+        "gemFact": "Root Delegation Walk · systemd-resolved Integration with Streaming MCP",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oodig/install.sh | bash",
+        "overviewUrl": "oodig/",
+        "repoUrl": "https://github.com/openOODA-tools/oodig",
+        "tags": ["dns", "dig", "resolver", "lookup", "trace", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&NetCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -1476,8 +1495,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 77, f"Expected 77 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 77, "Duplicate tool ID detected!"
+assert len(all_tools) == 78, f"Expected 78 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 78, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

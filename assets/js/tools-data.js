@@ -2041,6 +2041,39 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oocpio",
+    "name": "oocpio",
+    "category": "Files & Navigation",
+    "role": "CPIO ARCHIVE MANAGER",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "CP",
+    "accent": "#00e676",
+    "description": "Initramfs cpio format unpacker and archiver for Linux kernel boot images in pure openOODA.",
+    "gem": true,
+    "gemFact": "SVR4 newc/crc Formats \u00b7 Linux Initramfs Unpacker & Stdio MCP Server",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oocpio/install.sh | bash",
+    "overviewUrl": "oocpio/",
+    "repoUrl": "https://github.com/openOODA-tools/oocpio",
+    "tags": [
+      "cpio",
+      "initramfs",
+      "archive",
+      "kernel",
+      "newc",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&FsWriteCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -2065,6 +2098,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 67 },
-  { id: "released", label: "Released", count: 67 }
+  { id: "all", label: "All Repos", count: 68 },
+  { id: "released", label: "Released", count: 68 }
 ];

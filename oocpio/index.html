@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>oocpio — sovereign userland</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/oote.css" />
+  <script src="/oote.js"></script>
+</head>
+<body>
+  <div class="terminal-window">
+    <header class="window-titlebar">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span class="term-status-badge">[TERM: tty2]</span>
+        <span class="window-title">sys@openooda-tools:~# man oocpio</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="theme-selector-wrap">
+          <label for="theme-picker" style="color:var(--ui-dim);">[oote:</label>
+          <select id="theme-picker" class="theme-select" onchange="setOoteTheme(this.value)">
+            <option value="auto">auto/auto (circadian)</option>
+            <optgroup label="Monthly Themes (12)">
+              <option value="frost">frost (january ice)</option>
+              <option value="amethyst">amethyst (february crystal)</option>
+              <option value="thaw">thaw (march runoff)</option>
+              <option value="bloom">bloom (april flora)</option>
+              <option value="meadow">meadow (may pasture)</option>
+              <option value="solstice">solstice (june peak)</option>
+              <option value="mirage">mirage (july heatwave)</option>
+              <option value="amber">amber (august resin)</option>
+              <option value="equinox">equinox (september balance)</option>
+              <option value="ember">ember (october foliage)</option>
+              <option value="hearth">hearth (november warmth)</option>
+              <option value="solitude">solitude (december frost)</option>
+            </optgroup>
+            <optgroup label="Holiday Themes (7)">
+              <option value="spooky">spooky (halloween)</option>
+              <option value="yule">yule (winter holiday)</option>
+              <option value="nova">nova (new year dawn)</option>
+              <option value="harvest">harvest (thanksgiving)</option>
+              <option value="lantern">lantern (lunar celebration)</option>
+              <option value="sakura">sakura (cherry blossom)</option>
+              <option value="sol">sol (midsummer sun)</option>
+            </optgroup>
+            <optgroup label="Classic Themes (6)">
+              <option value="classic">classic (sovereign)</option>
+              <option value="minimax">minimax (minimalist)</option>
+              <option value="1982">1982 (phosphor crt)</option>
+              <option value="dracula">dracula (vampire)</option>
+              <option value="nord">nord (arctic)</option>
+              <option value="cyberpunk">cyberpunk (neon)</option>
+            </optgroup>
+          </select>
+          <span style="color:var(--ui-dim);">]</span>
+        </div>
+        <span class="term-status-online">[SYS_OK]</span>
+      </div>
+    </header>
+
+    <div class="window-content">
+      <h1>oocpio</h1>
+      <p class="sub">Initramfs cpio format unpacker and archiver for Linux kernel boot images in pure openOODA.</p>
+
+      <div class="badges-container">
+        <span class="badge badge-green">v0.2.0</span>
+        <span class="badge">100% openOODA</span>
+        <span class="badge">Zero Ambient Authority</span>
+        <span class="badge">POSIX cpio Native</span>
+        <span class="badge badge-accent">Model Context Protocol</span>
+      </div>
+
+      <h2>Install</h2>
+      <p><strong>Universal Standalone Binary:</strong></p>
+      <div class="install-box">
+        <code>curl -fsSL https://openooda-tools.github.io/oocpio/install.sh | bash</code>
+        <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/oocpio/install.sh | bash', this)">COPY</button>
+      </div>
+
+      <h3>Native Package Managers (Tri-Distribution Parity)</h3>
+      <div class="install-box">
+        <code># Fedora / RHEL / CentOS (DNF)
+curl -fsSL https://openooda-tools.github.io/oocpio/install.sh | bash -s -- --dnf</code>
+        <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/oocpio/install.sh | bash -s -- --dnf', this)">COPY</button>
+      </div>
+      <div class="install-box">
+        <code># Ubuntu / Debian (APT)
+curl -fsSL https://openooda-tools.github.io/oocpio/install.sh | bash -s -- --deb</code>
+        <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/oocpio/install.sh | bash -s -- --deb', this)">COPY</button>
+      </div>
+      <div class="install-box">
+        <code># Arch Linux / Manjaro (Pacman / PKGBUILD)
+curl -fsSL https://openooda-tools.github.io/oocpio/install.sh | bash -s -- --pkgbuild</code>
+        <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/oocpio/install.sh | bash -s -- --pkgbuild', this)">COPY</button>
+      </div>
+
+      <h2>Clean Uninstallation</h2>
+      <p>Remove <code>oocpio</code> binaries, package registrations, and symlinks at any time:</p>
+      <div class="install-box">
+        <code># Locally installed companion CLI
+oocpio-uninstall
+
+# Standalone web uninstaller
+curl -fsSL https://openooda-tools.github.io/oocpio/uninstall.sh | bash</code>
+        <button class="copy-btn" onclick="copySnippet('oocpio-uninstall', this)">COPY</button>
+      </div>
+
+      <h2>Why Sovereign oocpio?</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Dimension</th>
+            <th>Legacy GNU/BSD cpio</th>
+            <th>openOODA oocpio</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Initramfs Format</td><td>C-based struct bitcasts prone to buffer overruns</td><td>Pure safe SVR4 newc/crc decoder with 4-byte padding guards</td></tr>
+          <tr><td>Path Sanitization</td><td>Vulnerable to directory traversal (CVE breakout paths)</td><td>Built-in path sanitizer stripping <code>../</code> and leading slashes</td></tr>
+          <tr><td>Negative-Trust</td><td>Unbounded disk mutation and ambient authority</td><td>Capability-bounded tokens (&amp;FsReadCap, &amp;FsWriteCap, &amp;ProcessCap, &amp;EnvCap)</td></tr>
+          <tr><td>AI Agents</td><td>No structured interface</td><td>Streaming MCP JSON-RPC 2.0 stdio server with telemetry</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Usage & Features</h2>
+      <pre><code>oocpio -t -F initramfs.cpio                                       # List files in initramfs archive
+oocpio -tv -F initramfs.cpio                                      # Detailed table-of-contents with modes & sizes
+oocpio -i -d -F initramfs.cpio -C /tmp/rootfs                     # Extract initramfs into target directory
+oocpio -o -F boot.cpio init bin/sh etc/fstab                      # Pack files into SVR4 newc cpio archive
+oocpio --demo                                                     # Run synthetic Linux initramfs inspection demo
+oocpio --demo --json                                              # Output structured JSON telemetry
+oocpio --mcp                                                      # Run Model Context Protocol stdio server</code></pre>
+    </div>
+
+    <footer class="window-footer">
+      <div class="footer-links">
+        <a href="/">[ &larr; All Tools ]</a>
+        <a href="https://github.com/openOODA-tools/oocpio" target="_blank" rel="noopener noreferrer">[ Source &amp; docs &#8599; ]</a>
+        <a href="https://github.com/openOODA-tools/oocpio/releases" target="_blank" rel="noopener noreferrer">[ Releases &#8599; ]</a>
+        <a href="https://openooda.org" target="_blank" rel="noopener noreferrer">[ openOODA Core &#8599; ]</a>
+      </div>
+      <span>OPENOODA-TOOLS &copy; 2026 // CAPABILITY-BOUNDED USERLAND</span>
+    </footer>
+  </div>
+</body>
+</html>

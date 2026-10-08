@@ -1279,6 +1279,25 @@ released_tools = [
         "tags": ["cp", "copy", "reflink", "clone", "recursive", "backup", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&FsWriteCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oocpio",
+        "name": "oocpio",
+        "category": "Files & Navigation",
+        "role": "CPIO ARCHIVE MANAGER",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "CP",
+        "accent": "#00e676",
+        "description": "Initramfs cpio format unpacker and archiver for Linux kernel boot images in pure openOODA.",
+        "gem": True,
+        "gemFact": "SVR4 newc/crc Formats · Linux Initramfs Unpacker & Stdio MCP Server",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oocpio/install.sh | bash",
+        "overviewUrl": "oocpio/",
+        "repoUrl": "https://github.com/openOODA-tools/oocpio",
+        "tags": ["cpio", "initramfs", "archive", "kernel", "newc", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&FsWriteCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -1286,8 +1305,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 67, f"Expected 67 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 67, "Duplicate tool ID detected!"
+assert len(all_tools) == 68, f"Expected 68 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 68, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

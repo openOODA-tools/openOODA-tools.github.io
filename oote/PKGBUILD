@@ -1,6 +1,6 @@
 # Maintainer: openOODA-tools <ops@openooda.org>
 pkgname=oote
-pkgver=0.1.1
+pkgver=0.2.0
 pkgrel=1
 pkgdesc="Sovereign unified theming and color styling engine for openOODA"
 arch=('x86_64')

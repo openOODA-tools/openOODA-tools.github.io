@@ -63,11 +63,12 @@
       <p class="sub">Sovereign unified theming and color engine with 39-token semantic taxonomy and ASCII mascots.</p>
 
       <div class="badges-container">
-        <span class="badge badge-green">v0.1.1</span>
+        <span class="badge badge-green">v0.2.0</span>
         <span class="badge">100% openOODA</span>
         <span class="badge">25 Themes</span>
         <span class="badge">Circadian Auto</span>
         <span class="badge">ASCII Mascots</span>
+        <span class="badge badge-accent">Model Context Protocol</span>
       </div>
 
       <h2>Install</h2>
@@ -119,6 +120,7 @@ curl -fsSL https://openooda-tools.github.io/oote/uninstall.sh | bash</code>
           <tr><td>Scope</td><td>Siloed to one shell</td><td>Global synchronization across all 19 tools & TUIs</td></tr>
           <tr><td>Circadian</td><td>Static dark or light mode</td><td>Dynamic auto-switching based on time-of-day progression</td></tr>
           <tr><td>Mascots</td><td>Static or none</td><td>Load- and emotion-reactive ASCII mascots</td></tr>
+          <tr><td>AI Agents</td><td>No agent interface</td><td>Streaming MCP stdio tools: list_themes, get_theme, resolve_color, render_mascot</td></tr>
         </tbody>
       </table>
 
@@ -126,7 +128,8 @@ curl -fsSL https://openooda-tools.github.io/oote/uninstall.sh | bash</code>
       <pre><code>oote list                      # List all 25 available themes
 oote set 1982                  # Set global theme to 1982 Phosphor
 oote preview dracula           # Preview Dracula palette in terminal
-oote mascot spooky happy       # Display mascot happy emotion</code></pre>
+oote mascot spooky happy       # Display mascot happy emotion
+oote --mcp                     # Launch streaming MCP JSON-RPC 2.0 stdio server</code></pre>
     </div>
 
     <footer class="window-footer">

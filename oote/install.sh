@@ -21,8 +21,8 @@ set -eu
 REPO="openOODA-tools/oote"
 GITHUB_URL="https://github.com/${REPO}"
 CANONICAL_URL="https://openooda-tools.github.io/oote"
-VERSION_PIN="v0.1.1"
-RAW_VERSION="0.1.1"
+VERSION_PIN="v0.2.0"
+RAW_VERSION="0.2.0"
 
 if [ -t 1 ] && [ "${NO_COLOR:-}" = "" ] && [ "${TERM:-dumb}" != "dumb" ]; then
     CYAN="\033[38;5;51m"

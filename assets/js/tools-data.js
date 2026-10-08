@@ -172,7 +172,7 @@ export const TOOLS_DATA = [
     "name": "oote",
     "category": "Theme & Styling",
     "role": "THEME ENGINE",
-    "version": "v0.1.0",
+    "version": "v0.2.0",
     "status": "released",
     "monogram": "TE",
     "accent": "#7c4dff",
@@ -189,8 +189,10 @@ export const TOOLS_DATA = [
       "pure-openooda"
     ],
     "capabilities": [
-      "&TermCap",
+      "&FsReadCap",
+      "&FsWriteCap",
       "&EnvCap",
+      "&ProcessCap",
       "&McpCap"
     ],
     "addedAt": "2026-09-15"

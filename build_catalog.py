@@ -126,7 +126,7 @@ released_tools = [
         "name": "oote",
         "category": "Theme & Styling",
         "role": "THEME ENGINE",
-        "version": "v0.1.0",
+        "version": "v0.2.0",
         "status": "released",
         "monogram": "TE",
         "accent": "#7c4dff",
@@ -137,7 +137,7 @@ released_tools = [
         "overviewUrl": "oote/",
         "repoUrl": "https://github.com/openOODA-tools/oote",
         "tags": ["theme-engine", "ansi-styling", "circadian-palettes", "pure-openooda"],
-        "capabilities": ["&TermCap", "&EnvCap", "&McpCap"],
+        "capabilities": ["&FsReadCap", "&FsWriteCap", "&EnvCap", "&ProcessCap", "&McpCap"],
         "addedAt": "2026-09-15"
     },
     {

@@ -1344,6 +1344,39 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oobound",
+    "name": "oobound",
+    "category": "Security & Audit",
+    "role": "RUNTIME BOUNDS",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "BN",
+    "accent": "#ff1744",
+    "description": "Dynamic memory, CPU cycle, and file descriptor clamp for unvetted subprocesses.",
+    "gem": true,
+    "gemFact": "Runtime Bounds \u00b7 Systemd Transient Scopes & Cgroup V2 Clamp",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oobound/install.sh | bash",
+    "overviewUrl": "oobound/",
+    "repoUrl": "https://github.com/openOODA-tools/oobound",
+    "tags": [
+      "bound",
+      "sandbox",
+      "limits",
+      "cgroup",
+      "systemd",
+      "security",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -1366,6 +1399,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 46 },
-  { id: "released", label: "Released", count: 46 }
+  { id: "all", label: "All Repos", count: 47 },
+  { id: "released", label: "Released", count: 47 }
 ];

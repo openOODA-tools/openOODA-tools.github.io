@@ -880,6 +880,25 @@ released_tools = [
         "tags": ["border", "box", "frames", "titles", "text", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oobound",
+        "name": "oobound",
+        "category": "Security & Audit",
+        "role": "RUNTIME BOUNDS",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "BN",
+        "accent": "#ff1744",
+        "description": "Dynamic memory, CPU cycle, and file descriptor clamp for unvetted subprocesses.",
+        "gem": True,
+        "gemFact": "Runtime Bounds · Systemd Transient Scopes & Cgroup V2 Clamp",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oobound/install.sh | bash",
+        "overviewUrl": "oobound/",
+        "repoUrl": "https://github.com/openOODA-tools/oobound",
+        "tags": ["bound", "sandbox", "limits", "cgroup", "systemd", "security", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -887,8 +906,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 46, f"Expected 46 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 46, "Duplicate tool ID detected!"
+assert len(all_tools) == 47, f"Expected 47 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 47, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

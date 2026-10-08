@@ -1741,6 +1741,39 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oochown",
+    "name": "oochown",
+    "category": "File Management",
+    "role": "OWNERSHIP MANAGER",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "CW",
+    "accent": "#00e676",
+    "description": "Changes user and group ownership of filesystem objects with systemd-tmpfiles declarative synthesis.",
+    "gem": true,
+    "gemFact": "Ownership Manager \u00b7 Systemd-Tmpfiles Synthesis & POSIX Chown Muscle",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oochown/install.sh | bash",
+    "overviewUrl": "oochown/",
+    "repoUrl": "https://github.com/openOODA-tools/oochown",
+    "tags": [
+      "chown",
+      "users",
+      "groups",
+      "permissions",
+      "systemd-tmpfiles",
+      "ownership",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -1764,6 +1797,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 58 },
-  { id: "released", label: "Released", count: 58 }
+  { id: "all", label: "All Repos", count: 59 },
+  { id: "released", label: "Released", count: 59 }
 ];

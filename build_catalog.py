@@ -1108,6 +1108,25 @@ released_tools = [
         "tags": ["chmod", "permissions", "mode", "systemd-tmpfiles", "octal", "symbolic", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oochown",
+        "name": "oochown",
+        "category": "File Management",
+        "role": "OWNERSHIP MANAGER",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "CW",
+        "accent": "#00e676",
+        "description": "Changes user and group ownership of filesystem objects with systemd-tmpfiles declarative synthesis.",
+        "gem": True,
+        "gemFact": "Ownership Manager · Systemd-Tmpfiles Synthesis & POSIX Chown Muscle",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oochown/install.sh | bash",
+        "overviewUrl": "oochown/",
+        "repoUrl": "https://github.com/openOODA-tools/oochown",
+        "tags": ["chown", "users", "groups", "permissions", "systemd-tmpfiles", "ownership", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -1115,8 +1134,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 58, f"Expected 58 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 58, "Duplicate tool ID detected!"
+assert len(all_tools) == 59, f"Expected 59 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 59, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

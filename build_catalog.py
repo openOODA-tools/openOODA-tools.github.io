@@ -424,6 +424,25 @@ released_tools = [
         "tags": ["command-macro", "alias-resolver", "cycle-detection", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&FsWriteCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-07"
+    },
+    {
+        "id": "ooansi",
+        "name": "ooansi",
+        "category": "Shell & Terminal",
+        "role": "ANSI GENERATOR",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "AN",
+        "accent": "#bd93f9",
+        "description": "ANSI terminal sequence generator supporting 16-color, 256-color, TrueColor RGB, cursor manipulation, and stdio MCP server.",
+        "gem": True,
+        "gemFact": "TrueColor Generator · ANSI Stripper",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/ooansi/install.sh | bash",
+        "overviewUrl": "ooansi/",
+        "repoUrl": "https://github.com/openOODA-tools/ooansi",
+        "tags": ["ansi-sequences", "truecolor", "cursor-control", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-07"
     }
 ]
 
@@ -431,8 +450,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 22, f"Expected 22 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 22, "Duplicate tool ID detected!"
+assert len(all_tools) == 23, f"Expected 23 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 23, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

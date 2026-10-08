@@ -620,6 +620,35 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-07"
+  },
+  {
+    "id": "ooansi",
+    "name": "ooansi",
+    "category": "Shell & Terminal",
+    "role": "ANSI GENERATOR",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "AN",
+    "accent": "#bd93f9",
+    "description": "ANSI terminal sequence generator supporting 16-color, 256-color, TrueColor RGB, cursor manipulation, and stdio MCP server.",
+    "gem": true,
+    "gemFact": "TrueColor Generator \u00b7 ANSI Stripper",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/ooansi/install.sh | bash",
+    "overviewUrl": "ooansi/",
+    "repoUrl": "https://github.com/openOODA-tools/ooansi",
+    "tags": [
+      "ansi-sequences",
+      "truecolor",
+      "cursor-control",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-07"
   }
 ];
 
@@ -636,6 +665,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 22 },
-  { id: "released", label: "Released", count: 22 }
+  { id: "all", label: "All Repos", count: 23 },
+  { id: "released", label: "Released", count: 23 }
 ];

@@ -557,5 +557,35 @@
       "&McpCap"
     ],
     "addedAt": "2026-10-07"
+  },
+  {
+    "id": "oo7z",
+    "name": "oo7z",
+    "category": "Files & Navigation",
+    "role": "7Z HANDLER",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "7Z",
+    "accent": "#ff79c6",
+    "description": "7-Zip multi-format container unpacker and lister with AES-256 encryption. Anti-zip-slip safe extraction and stdio MCP server.",
+    "gem": true,
+    "gemFact": "7-Zip Container \u00b7 Traversal-Resistant",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oo7z/install.sh | bash",
+    "overviewUrl": "oo7z/",
+    "repoUrl": "https://github.com/openOODA-tools/oo7z",
+    "tags": [
+      "7z-container",
+      "zipslip-safe",
+      "posix-parity",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&FsWriteCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-07"
   }
 ]

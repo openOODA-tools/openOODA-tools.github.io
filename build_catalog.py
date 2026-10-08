@@ -386,6 +386,25 @@ released_tools = [
         "tags": ["mcp-gateway", "composite-router", "systemd-native", "pure-openooda"],
         "capabilities": ["&ProcessCap", "&FsReadCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-07"
+    },
+    {
+        "id": "oo7z",
+        "name": "oo7z",
+        "category": "Files & Navigation",
+        "role": "7Z HANDLER",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "7Z",
+        "accent": "#ff79c6",
+        "description": "7-Zip multi-format container unpacker and lister with AES-256 encryption. Anti-zip-slip safe extraction and stdio MCP server.",
+        "gem": True,
+        "gemFact": "7-Zip Container · Traversal-Resistant",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oo7z/install.sh | bash",
+        "overviewUrl": "oo7z/",
+        "repoUrl": "https://github.com/openOODA-tools/oo7z",
+        "tags": ["7z-container", "zipslip-safe", "posix-parity", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&FsWriteCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-07"
     }
 ]
 
@@ -393,8 +412,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 20, f"Expected 20 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 20, "Duplicate tool ID detected!"
+assert len(all_tools) == 21, f"Expected 21 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 21, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

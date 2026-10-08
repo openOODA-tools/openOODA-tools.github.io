@@ -1,0 +1,21 @@
+# Maintainer: openOODA-tools <ops@openooda.org>
+pkgname=oo7z-bin
+_pkgname=oo7z
+pkgver=0.2.0
+pkgrel=1
+pkgdesc="7-Zip multi-format container unpacker and lister with AES-256 encryption."
+arch=('x86_64')
+url="https://github.com/openOODA-tools/oo7z"
+license=('Apache-2.0')
+depends=('glibc')
+provides=('oo7z')
+conflicts=('oo7z')
+source_x86_64=("${url}/releases/download/v${pkgver}/oo7z-linux-x86_64"
+               "uninstall.sh::https://raw.githubusercontent.com/openOODA-tools/${_pkgname}/v${pkgver}/uninstall.sh")
+sha256sums_x86_64=('SKIP'
+                   'SKIP')
+
+package() {
+    install -Dm755 "${srcdir}/oo7z-linux-x86_64" "${pkgdir}/usr/bin/oo7z"
+    install -Dm755 uninstall.sh "${pkgdir}/usr/bin/oo7z-uninstall"
+}

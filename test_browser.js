@@ -105,17 +105,18 @@ server.listen(PORT, async () => {
     }
 
     // Test 3: Search & token filtering
+    const expectedCount = JSON.parse(fs.readFileSync(path.join(ROOT, "data/tools.json"), "utf8")).length.toString();
     await evalJs(`document.querySelector("[data-view=\x27cards\x27]").click()`);
     await evalJs(`document.getElementById("search-input").value = "status:released"; document.getElementById("search-input").dispatchEvent(new Event("input"))`);
     const countReleased = await evalJs(`document.getElementById("tool-count").textContent`);
-    if (!countReleased.startsWith("20")) {
-      throw new Error(`Expected 20 tools for status:released, got ${countReleased}`);
+    if (!countReleased.startsWith(expectedCount)) {
+      throw new Error(`Expected ${expectedCount} tools for status:released, got ${countReleased}`);
     }
 
     await evalJs(`document.getElementById("clear-filters").click()`);
     const countAll = await evalJs(`document.getElementById("tool-count").textContent`);
-    if (!countAll.startsWith("20")) {
-      throw new Error(`Expected 20 tools after clear-filters, got ${countAll}`);
+    if (!countAll.startsWith(expectedCount)) {
+      throw new Error(`Expected ${expectedCount} tools after clear-filters, got ${countAll}`);
     }
 
     // Test 4: Viewport responsiveness across widths (no horizontal overflow)

@@ -1678,6 +1678,25 @@ released_tools = [
         "tags": ["filter", "predicate", "stream", "boolean", "ast", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oofirewall",
+        "name": "oofirewall",
+        "category": "Security & Audit",
+        "role": "FIREWALL COORDINATOR",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "FW",
+        "accent": "#ff5252",
+        "description": "Declarative packet filtering coordinator backed by Linux nftables and firewalld in pure openOODA.",
+        "gem": True,
+        "gemFact": "firewalld XML & nftables Ruleset Generation · Fedora Server Audit · Streaming MCP",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oofirewall/install.sh | bash",
+        "overviewUrl": "oofirewall/",
+        "repoUrl": "https://github.com/openOODA-tools/oofirewall",
+        "tags": ["firewall", "nftables", "firewalld", "packet-filter", "security", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&NetCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -1685,8 +1704,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 88, f"Expected 88 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 88, "Duplicate tool ID detected!"
+assert len(all_tools) == 89, f"Expected 89 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 89, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

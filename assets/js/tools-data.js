@@ -2721,6 +2721,39 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oofirewall",
+    "name": "oofirewall",
+    "category": "Security & Audit",
+    "role": "FIREWALL COORDINATOR",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "FW",
+    "accent": "#ff5252",
+    "description": "Declarative packet filtering coordinator backed by Linux nftables and firewalld in pure openOODA.",
+    "gem": true,
+    "gemFact": "firewalld XML & nftables Ruleset Generation \u00b7 Fedora Server Audit \u00b7 Streaming MCP",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oofirewall/install.sh | bash",
+    "overviewUrl": "oofirewall/",
+    "repoUrl": "https://github.com/openOODA-tools/oofirewall",
+    "tags": [
+      "firewall",
+      "nftables",
+      "firewalld",
+      "packet-filter",
+      "security",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&NetCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -2752,6 +2785,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 88 },
-  { id: "released", label: "Released", count: 88 }
+  { id: "all", label: "All Repos", count: 89 },
+  { id: "released", label: "Released", count: 89 }
 ];

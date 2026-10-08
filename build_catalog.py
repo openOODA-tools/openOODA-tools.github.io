@@ -633,6 +633,25 @@ released_tools = [
         "tags": ["backup", "snapshot-engine", "merkle-tree", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&FsWriteCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-07"
+    },
+    {
+        "id": "oobanner",
+        "name": "oobanner",
+        "category": "Theme & Styling",
+        "role": "FIGLET ENGINE",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "BN",
+        "accent": "#00e5ff",
+        "description": "Renders stylized ASCII art banners, typography, and logos in the terminal with stdio MCP server.",
+        "gem": True,
+        "gemFact": "FIGLET Typography · Multi-Line ANSI Marquee Frames",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oobanner/install.sh | bash",
+        "overviewUrl": "oobanner/",
+        "repoUrl": "https://github.com/openOODA-tools/oobanner",
+        "tags": ["figlet", "banner", "ascii-art", "typography", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-07"
     }
 ]
 
@@ -640,8 +659,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 33, f"Expected 33 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 33, "Duplicate tool ID detected!"
+assert len(all_tools) == 34, f"Expected 34 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 34, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

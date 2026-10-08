@@ -943,6 +943,36 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-07"
+  },
+  {
+    "id": "oobanner",
+    "name": "oobanner",
+    "category": "Theme & Styling",
+    "role": "FIGLET ENGINE",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "BN",
+    "accent": "#00e5ff",
+    "description": "Renders stylized ASCII art banners, typography, and logos in the terminal with stdio MCP server.",
+    "gem": true,
+    "gemFact": "FIGLET Typography \u00b7 Multi-Line ANSI Marquee Frames",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oobanner/install.sh | bash",
+    "overviewUrl": "oobanner/",
+    "repoUrl": "https://github.com/openOODA-tools/oobanner",
+    "tags": [
+      "figlet",
+      "banner",
+      "ascii-art",
+      "typography",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-07"
   }
 ];
 
@@ -961,6 +991,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 33 },
-  { id: "released", label: "Released", count: 33 }
+  { id: "all", label: "All Repos", count: 34 },
+  { id: "released", label: "Released", count: 34 }
 ];

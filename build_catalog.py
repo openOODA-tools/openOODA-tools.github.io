@@ -1602,6 +1602,25 @@ released_tools = [
         "tags": ["expand", "tabs", "spaces", "indentation", "audit", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oofalse",
+        "name": "oofalse",
+        "category": "Shell & Terminal",
+        "role": "NO-OP FAILURE",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "FL",
+        "accent": "#ff1744",
+        "description": "Sovereign POSIX false utility and deterministic exit code analyzer with signal mapping and streaming MCP server.",
+        "gem": True,
+        "gemFact": "Zero Overhead · POSIX Exit Matrix · Streaming MCP",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oofalse/install.sh | bash",
+        "overviewUrl": "oofalse/",
+        "repoUrl": "https://github.com/openOODA-tools/oofalse",
+        "tags": ["false", "exit-code", "posix", "signals", "simulation", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -1609,8 +1628,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 84, f"Expected 84 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 84, "Duplicate tool ID detected!"
+assert len(all_tools) == 85, f"Expected 85 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 85, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

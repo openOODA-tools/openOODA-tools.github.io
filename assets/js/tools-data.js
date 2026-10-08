@@ -2593,6 +2593,38 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oofalse",
+    "name": "oofalse",
+    "category": "Shell & Terminal",
+    "role": "NO-OP FAILURE",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "FL",
+    "accent": "#ff1744",
+    "description": "Sovereign POSIX false utility and deterministic exit code analyzer with signal mapping and streaming MCP server.",
+    "gem": true,
+    "gemFact": "Zero Overhead \u00b7 POSIX Exit Matrix \u00b7 Streaming MCP",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oofalse/install.sh | bash",
+    "overviewUrl": "oofalse/",
+    "repoUrl": "https://github.com/openOODA-tools/oofalse",
+    "tags": [
+      "false",
+      "exit-code",
+      "posix",
+      "signals",
+      "simulation",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -2624,6 +2656,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 84 },
-  { id: "released", label: "Released", count: 84 }
+  { id: "all", label: "All Repos", count: 85 },
+  { id: "released", label: "Released", count: 85 }
 ];

@@ -1840,6 +1840,38 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oocmp",
+    "name": "oocmp",
+    "category": "Text & Processing",
+    "role": "BYTE COMPARATOR",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "CM",
+    "accent": "#ffab00",
+    "description": "Instant byte-by-byte file comparison reporting first byte difference, line count, and octal diffs.",
+    "gem": true,
+    "gemFact": "Byte Comparator \u00b7 POSIX Differential Engine & Streaming MCP Server",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oocmp/install.sh | bash",
+    "overviewUrl": "oocmp/",
+    "repoUrl": "https://github.com/openOODA-tools/oocmp",
+    "tags": [
+      "cmp",
+      "diff",
+      "byte-comparator",
+      "octal",
+      "posix",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -1859,10 +1891,11 @@ export const CATEGORIES = [
   "System & Hardware",
   "System & Monitor",
   "Text & Filter",
+  "Text & Processing",
   "Theme & Styling"
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 61 },
-  { id: "released", label: "Released", count: 61 }
+  { id: "all", label: "All Repos", count: 62 },
+  { id: "released", label: "Released", count: 62 }
 ];

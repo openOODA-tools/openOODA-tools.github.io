@@ -1165,6 +1165,25 @@ released_tools = [
         "tags": ["clear", "terminal", "scrollback", "ansi", "vt100", "reset", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oocmp",
+        "name": "oocmp",
+        "category": "Text & Processing",
+        "role": "BYTE COMPARATOR",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "CM",
+        "accent": "#ffab00",
+        "description": "Instant byte-by-byte file comparison reporting first byte difference, line count, and octal diffs.",
+        "gem": True,
+        "gemFact": "Byte Comparator · POSIX Differential Engine & Streaming MCP Server",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oocmp/install.sh | bash",
+        "overviewUrl": "oocmp/",
+        "repoUrl": "https://github.com/openOODA-tools/oocmp",
+        "tags": ["cmp", "diff", "byte-comparator", "octal", "posix", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -1172,8 +1191,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 61, f"Expected 61 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 61, "Duplicate tool ID detected!"
+assert len(all_tools) == 62, f"Expected 62 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 62, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

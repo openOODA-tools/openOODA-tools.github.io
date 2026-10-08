@@ -1810,6 +1810,24 @@ released_tools = [
         "repoUrl": "https://github.com/openOODA-tools/ooglyph",
         "tags": ["glyph", "nerd-fonts", "unicode", "icons", "symbols", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+    },
+    {
+        "id": "oogradient",
+        "name": "oogradient",
+        "category": "Theme & Styling",
+        "role": "TEXT GRADIENT ENGINE",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "GR",
+        "accent": "#ff007f",
+        "description": "Applies smooth TrueColor color gradient interpolation across lines of text with multi-stop palettes and streaming MCP.",
+        "gem": True,
+        "gemFact": "TrueColor Gradient Interpolation · 8 Curated Palettes · Custom Hex Bounds & Streaming MCP",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oogradient/install.sh | bash",
+        "overviewUrl": "oogradient/",
+        "repoUrl": "https://github.com/openOODA-tools/oogradient",
+        "tags": ["gradient", "truecolor", "ansi", "styling", "color", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
     }
 ]
@@ -1818,8 +1836,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 95, f"Expected 95 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 95, "Duplicate tool ID detected!"
+assert len(all_tools) == 96, f"Expected 96 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 96, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

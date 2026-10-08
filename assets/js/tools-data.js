@@ -2944,6 +2944,37 @@ export const TOOLS_DATA = [
       "&ProcessCap",
       "&EnvCap",
       "&McpCap"
+    ]
+  },
+  {
+    "id": "oogradient",
+    "name": "oogradient",
+    "category": "Theme & Styling",
+    "role": "TEXT GRADIENT ENGINE",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "GR",
+    "accent": "#ff007f",
+    "description": "Applies smooth TrueColor color gradient interpolation across lines of text with multi-stop palettes and streaming MCP.",
+    "gem": true,
+    "gemFact": "TrueColor Gradient Interpolation \u00b7 8 Curated Palettes \u00b7 Custom Hex Bounds & Streaming MCP",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oogradient/install.sh | bash",
+    "overviewUrl": "oogradient/",
+    "repoUrl": "https://github.com/openOODA-tools/oogradient",
+    "tags": [
+      "gradient",
+      "truecolor",
+      "ansi",
+      "styling",
+      "color",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
     ],
     "addedAt": "2026-10-08"
   }
@@ -2979,6 +3010,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 95 },
-  { id: "released", label: "Released", count: 95 }
+  { id: "all", label: "All Repos", count: 96 },
+  { id: "released", label: "Released", count: 96 }
 ];

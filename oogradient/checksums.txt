@@ -1,0 +1,6 @@
+bd32e4f485064fc47e7ce3119d8f0f24ae4f0078957db6edd5a0c168e3bb0065  oogradient
+0aa1b7f6d7bfeaf5da80fc2edc4c64ba7faa5388a0d32b61d71fe1d58efa5e7f  oogradient_0.2.0-1_amd64.deb
+793837aeb5d05bd14a599b46b7bfec689a3b1c1e81727aae0185d1b1e135dc5f  oogradient-0.2.0-1.fc44.x86_64.rpm
+d1f1a8c1eb56680e1372c9e367d343ece08aec0e476d8fcf012b54eb3338c7bf  oogradient-0.2.0-1-x86_64.pkg.tar.zst
+bd32e4f485064fc47e7ce3119d8f0f24ae4f0078957db6edd5a0c168e3bb0065  oogradient-linux-x86_64
+24280703f4b932de0f3fc1df5bf23382ddae8c2352c7cf6748c7a1228d33c6da  oogradient-linux-x86_64.sha256

@@ -2074,6 +2074,40 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oocpuinfo",
+    "name": "oocpuinfo",
+    "category": "System & Hardware",
+    "role": "CPU TOPOLOGY & MITIGATION AUDITOR",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "CI",
+    "accent": "#00b0ff",
+    "description": "Hardware CPU topology, instruction set extensions, cache geometry, and vulnerability mitigation auditor in pure openOODA.",
+    "gem": true,
+    "gemFact": "CPU Topology & Mitigations \u00b7 Sockets/Cores/Threads & Kernel Sysfs Vulnerability Auditor",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oocpuinfo/install.sh | bash",
+    "overviewUrl": "oocpuinfo/",
+    "repoUrl": "https://github.com/openOODA-tools/oocpuinfo",
+    "tags": [
+      "cpuinfo",
+      "lscpu",
+      "topology",
+      "spectre",
+      "meltdown",
+      "avx512",
+      "cache",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -2098,6 +2132,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 68 },
-  { id: "released", label: "Released", count: 68 }
+  { id: "all", label: "All Repos", count: 69 },
+  { id: "released", label: "Released", count: 69 }
 ];

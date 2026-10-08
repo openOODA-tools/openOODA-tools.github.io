@@ -1298,6 +1298,25 @@ released_tools = [
         "tags": ["cpio", "initramfs", "archive", "kernel", "newc", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&FsWriteCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oocpuinfo",
+        "name": "oocpuinfo",
+        "category": "System & Hardware",
+        "role": "CPU TOPOLOGY & MITIGATION AUDITOR",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "CI",
+        "accent": "#00b0ff",
+        "description": "Hardware CPU topology, instruction set extensions, cache geometry, and vulnerability mitigation auditor in pure openOODA.",
+        "gem": True,
+        "gemFact": "CPU Topology & Mitigations · Sockets/Cores/Threads & Kernel Sysfs Vulnerability Auditor",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oocpuinfo/install.sh | bash",
+        "overviewUrl": "oocpuinfo/",
+        "repoUrl": "https://github.com/openOODA-tools/oocpuinfo",
+        "tags": ["cpuinfo", "lscpu", "topology", "spectre", "meltdown", "avx512", "cache", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -1305,8 +1324,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 68, f"Expected 68 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 68, "Duplicate tool ID detected!"
+assert len(all_tools) == 69, f"Expected 69 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 69, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

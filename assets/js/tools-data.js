@@ -2435,6 +2435,37 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oodmesg",
+    "name": "oodmesg",
+    "category": "Diagnostics & Observers",
+    "role": "KERNEL RING BUFFER DMESG",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "DM",
+    "accent": "#ef5350",
+    "description": "Sovereign Linux kernel ring buffer diagnostic inspector with /dev/kmsg parsing, ANSI syntax coloring, and streaming MCP.",
+    "gem": true,
+    "gemFact": "Kernel Ring Buffer Parity \u00b7 17-Stage Synthetic Boot Sequencer with Streaming MCP",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oodmesg/install.sh | bash",
+    "overviewUrl": "oodmesg/",
+    "repoUrl": "https://github.com/openOODA-tools/oodmesg",
+    "tags": [
+      "dmesg",
+      "kernel",
+      "kmsg",
+      "diagnostics",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -2443,6 +2474,7 @@ export const CATEGORIES = [
   "Binary & Reverse Engineering",
   "Data & Serialization",
   "Data & Streaming",
+  "Diagnostics & Observers",
   "Diff & Comparison",
   "File Management",
   "Files & Navigation",
@@ -2464,6 +2496,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 79 },
-  { id: "released", label: "Released", count: 79 }
+  { id: "all", label: "All Repos", count: 80 },
+  { id: "released", label: "Released", count: 80 }
 ];

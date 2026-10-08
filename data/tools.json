@@ -2432,5 +2432,36 @@
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oodmesg",
+    "name": "oodmesg",
+    "category": "Diagnostics & Observers",
+    "role": "KERNEL RING BUFFER DMESG",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "DM",
+    "accent": "#ef5350",
+    "description": "Sovereign Linux kernel ring buffer diagnostic inspector with /dev/kmsg parsing, ANSI syntax coloring, and streaming MCP.",
+    "gem": true,
+    "gemFact": "Kernel Ring Buffer Parity \u00b7 17-Stage Synthetic Boot Sequencer with Streaming MCP",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oodmesg/install.sh | bash",
+    "overviewUrl": "oodmesg/",
+    "repoUrl": "https://github.com/openOODA-tools/oodmesg",
+    "tags": [
+      "dmesg",
+      "kernel",
+      "kmsg",
+      "diagnostics",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ]

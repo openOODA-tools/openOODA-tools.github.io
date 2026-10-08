@@ -1507,6 +1507,25 @@ released_tools = [
         "tags": ["dirname", "path", "posix", "navigation", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oodmesg",
+        "name": "oodmesg",
+        "category": "Diagnostics & Observers",
+        "role": "KERNEL RING BUFFER DMESG",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "DM",
+        "accent": "#ef5350",
+        "description": "Sovereign Linux kernel ring buffer diagnostic inspector with /dev/kmsg parsing, ANSI syntax coloring, and streaming MCP.",
+        "gem": True,
+        "gemFact": "Kernel Ring Buffer Parity · 17-Stage Synthetic Boot Sequencer with Streaming MCP",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oodmesg/install.sh | bash",
+        "overviewUrl": "oodmesg/",
+        "repoUrl": "https://github.com/openOODA-tools/oodmesg",
+        "tags": ["dmesg", "kernel", "kmsg", "diagnostics", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -1514,8 +1533,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 79, f"Expected 79 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 79, "Duplicate tool ID detected!"
+assert len(all_tools) == 80, f"Expected 80 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 80, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

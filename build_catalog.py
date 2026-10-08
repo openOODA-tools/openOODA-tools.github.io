@@ -1184,6 +1184,25 @@ released_tools = [
         "tags": ["cmp", "diff", "byte-comparator", "octal", "posix", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oocol",
+        "name": "oocol",
+        "category": "Shell & Terminal",
+        "role": "ESCAPE FILTER",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "CO",
+        "accent": "#00e676",
+        "description": "Reverse line feed filter removing backspaces, half-line feeds, and overstrikes from terminal output.",
+        "gem": True,
+        "gemFact": "Escape Filter · Terminal Overstrike Cleaner & Manpage Reformatter",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oocol/install.sh | bash",
+        "overviewUrl": "oocol/",
+        "repoUrl": "https://github.com/openOODA-tools/oocol",
+        "tags": ["col", "terminal", "escape-filter", "overstrike", "backspace", "nroff", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -1191,8 +1210,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 62, f"Expected 62 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 62, "Duplicate tool ID detected!"
+assert len(all_tools) == 63, f"Expected 63 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 63, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

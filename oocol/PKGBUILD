@@ -1,0 +1,21 @@
+# Maintainer: openOODA-tools <ops@openooda.org>
+pkgname=oocol-bin
+_pkgname=oocol
+pkgver=0.2.0
+pkgrel=1
+pkgdesc="Reverse line feed filter removing backspaces and half-line feeds from terminal output."
+arch=('x86_64')
+url="https://github.com/openOODA-tools/oocol"
+license=('Apache-2.0')
+depends=('glibc')
+provides=('oocol')
+conflicts=('oocol')
+source_x86_64=("${url}/releases/download/v${pkgver}/oocol-linux-x86_64"
+               "uninstall.sh::https://raw.githubusercontent.com/openOODA-tools/${_pkgname}/v${pkgver}/uninstall.sh")
+sha256sums_x86_64=('SKIP'
+                   'SKIP')
+
+package() {
+    install -Dm755 "${srcdir}/oocol-linux-x86_64" "${pkgdir}/usr/bin/oocol"
+    install -Dm755 uninstall.sh "${pkgdir}/usr/bin/oocol-uninstall"
+}

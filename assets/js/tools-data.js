@@ -1872,6 +1872,39 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oocol",
+    "name": "oocol",
+    "category": "Shell & Terminal",
+    "role": "ESCAPE FILTER",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "CO",
+    "accent": "#00e676",
+    "description": "Reverse line feed filter removing backspaces, half-line feeds, and overstrikes from terminal output.",
+    "gem": true,
+    "gemFact": "Escape Filter \u00b7 Terminal Overstrike Cleaner & Manpage Reformatter",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oocol/install.sh | bash",
+    "overviewUrl": "oocol/",
+    "repoUrl": "https://github.com/openOODA-tools/oocol",
+    "tags": [
+      "col",
+      "terminal",
+      "escape-filter",
+      "overstrike",
+      "backspace",
+      "nroff",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -1896,6 +1929,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 62 },
-  { id: "released", label: "Released", count: 62 }
+  { id: "all", label: "All Repos", count: 63 },
+  { id: "released", label: "Released", count: 63 }
 ];

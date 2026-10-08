@@ -1,0 +1,21 @@
+# Maintainer: openOODA-tools <ops@openooda.org>
+pkgname=oobattery-bin
+_pkgname=oobattery
+pkgver=0.2.0
+pkgrel=1
+pkgdesc="Reads ACPI battery charge level, energy consumption rate, and health condition."
+arch=('x86_64')
+url="https://github.com/openOODA-tools/oobattery"
+license=('Apache-2.0')
+depends=('glibc')
+provides=('oobattery')
+conflicts=('oobattery')
+source_x86_64=("${url}/releases/download/v${pkgver}/oobattery-linux-x86_64"
+               "uninstall.sh::https://raw.githubusercontent.com/openOODA-tools/${_pkgname}/v${pkgver}/uninstall.sh")
+sha256sums_x86_64=('SKIP'
+                   'SKIP')
+
+package() {
+    install -Dm755 "${srcdir}/oobattery-linux-x86_64" "${pkgdir}/usr/bin/oobattery"
+    install -Dm755 uninstall.sh "${pkgdir}/usr/bin/oobattery-uninstall"
+}

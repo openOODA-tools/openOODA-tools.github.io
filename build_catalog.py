@@ -785,6 +785,25 @@ released_tools = [
         "tags": ["batch", "queue", "systemd", "scheduler", "load", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oobattery",
+        "name": "oobattery",
+        "category": "System & Hardware",
+        "role": "POWER METER",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "BY",
+        "accent": "#ffd600",
+        "description": "Reads ACPI battery charge level, energy consumption rate, and health condition.",
+        "gem": True,
+        "gemFact": "Power Meter · ACPI Sysfs Hardware Ingestion & Health Engine",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oobattery/install.sh | bash",
+        "overviewUrl": "oobattery/",
+        "repoUrl": "https://github.com/openOODA-tools/oobattery",
+        "tags": ["battery", "power", "acpi", "sysfs", "hardware", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -792,8 +811,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 41, f"Expected 41 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 41, "Duplicate tool ID detected!"
+assert len(all_tools) == 42, f"Expected 42 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 42, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

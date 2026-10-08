@@ -1186,6 +1186,37 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oobattery",
+    "name": "oobattery",
+    "category": "System & Hardware",
+    "role": "POWER METER",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "BY",
+    "accent": "#ffd600",
+    "description": "Reads ACPI battery charge level, energy consumption rate, and health condition.",
+    "gem": true,
+    "gemFact": "Power Meter \u00b7 ACPI Sysfs Hardware Ingestion & Health Engine",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oobattery/install.sh | bash",
+    "overviewUrl": "oobattery/",
+    "repoUrl": "https://github.com/openOODA-tools/oobattery",
+    "tags": [
+      "battery",
+      "power",
+      "acpi",
+      "sysfs",
+      "hardware",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -1200,12 +1231,13 @@ export const CATEGORIES = [
   "Search & Inspection",
   "Security & Audit",
   "Shell & Terminal",
+  "System & Hardware",
   "System & Monitor",
   "Text & Filter",
   "Theme & Styling"
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 41 },
-  { id: "released", label: "Released", count: 41 }
+  { id: "all", label: "All Repos", count: 42 },
+  { id: "released", label: "Released", count: 42 }
 ];

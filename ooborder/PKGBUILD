@@ -1,0 +1,21 @@
+# Maintainer: openOODA-tools <ops@openooda.org>
+pkgname=ooborder-bin
+_pkgname=ooborder
+pkgver=0.2.0
+pkgrel=1
+pkgdesc="Wraps stdin text blocks inside configurable border frames with titles."
+arch=('x86_64')
+url="https://github.com/openOODA-tools/ooborder"
+license=('Apache-2.0')
+depends=('glibc')
+provides=('ooborder')
+conflicts=('ooborder')
+source_x86_64=("${url}/releases/download/v${pkgver}/ooborder-linux-x86_64"
+               "uninstall.sh::https://raw.githubusercontent.com/openOODA-tools/${_pkgname}/v${pkgver}/uninstall.sh")
+sha256sums_x86_64=('SKIP'
+                   'SKIP')
+
+package() {
+    install -Dm755 "${srcdir}/ooborder-linux-x86_64" "${pkgdir}/usr/bin/ooborder"
+    install -Dm755 uninstall.sh "${pkgdir}/usr/bin/ooborder-uninstall"
+}

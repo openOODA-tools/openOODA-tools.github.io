@@ -861,6 +861,25 @@ released_tools = [
         "tags": ["diff", "binary", "bindiff", "hunks", "comparison", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "ooborder",
+        "name": "ooborder",
+        "category": "Text & Filter",
+        "role": "PANEL BORDER",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "BO",
+        "accent": "#00e676",
+        "description": "Wraps stdin or file text blocks inside configurable border frames with titles and alignment.",
+        "gem": True,
+        "gemFact": "Panel Border · Configurable Box Frames & Title Banners",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/ooborder/install.sh | bash",
+        "overviewUrl": "ooborder/",
+        "repoUrl": "https://github.com/openOODA-tools/ooborder",
+        "tags": ["border", "box", "frames", "titles", "text", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -868,8 +887,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 45, f"Expected 45 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 45, "Duplicate tool ID detected!"
+assert len(all_tools) == 46, f"Expected 46 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 46, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

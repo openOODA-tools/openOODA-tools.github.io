@@ -1312,6 +1312,38 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "ooborder",
+    "name": "ooborder",
+    "category": "Text & Filter",
+    "role": "PANEL BORDER",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "BO",
+    "accent": "#00e676",
+    "description": "Wraps stdin or file text blocks inside configurable border frames with titles and alignment.",
+    "gem": true,
+    "gemFact": "Panel Border \u00b7 Configurable Box Frames & Title Banners",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/ooborder/install.sh | bash",
+    "overviewUrl": "ooborder/",
+    "repoUrl": "https://github.com/openOODA-tools/ooborder",
+    "tags": [
+      "border",
+      "box",
+      "frames",
+      "titles",
+      "text",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -1334,6 +1366,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 45 },
-  { id: "released", label: "Released", count: 45 }
+  { id: "all", label: "All Repos", count: 46 },
+  { id: "released", label: "Released", count: 46 }
 ];

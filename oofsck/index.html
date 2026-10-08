@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>oofsck — sovereign userland</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/oote.css" />
+  <script src="/oote.js"></script>
+</head>
+<body>
+  <div class="terminal-window">
+    <header class="window-titlebar">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span class="term-status-badge">[TERM: tty2]</span>
+        <span class="window-title">sys@openooda-tools:~# man oofsck</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="theme-selector-wrap">
+          <label for="theme-picker" style="color:var(--ui-dim);">[oote:</label>
+          <select id="theme-picker" class="theme-select" onchange="setOoteTheme(this.value)">
+            <option value="auto">auto/auto (circadian)</option>
+            <optgroup label="Monthly Themes (12)">
+              <option value="frost">frost (january ice)</option>
+              <option value="amethyst">amethyst (february crystal)</option>
+              <option value="thaw">thaw (march runoff)</option>
+              <option value="bloom">bloom (april flora)</option>
+              <option value="meadow">meadow (may pasture)</option>
+              <option value="solstice">solstice (june peak)</option>
+              <option value="mirage">mirage (july heatwave)</option>
+              <option value="amber">amber (august resin)</option>
+              <option value="equinox">equinox (september balance)</option>
+              <option value="ember">ember (october foliage)</option>
+              <option value="hearth">hearth (november warmth)</option>
+              <option value="solitude">solitude (december frost)</option>
+            </optgroup>
+            <optgroup label="Holiday Themes (7)">
+              <option value="spooky">spooky (halloween)</option>
+              <option value="yule">yule (winter holiday)</option>
+              <option value="nova">nova (new year dawn)</option>
+              <option value="harvest">harvest (thanksgiving)</option>
+              <option value="lantern">lantern (lunar celebration)</option>
+              <option value="sakura">sakura (cherry blossom)</option>
+              <option value="sol">sol (midsummer sun)</option>
+            </optgroup>
+            <optgroup label="Classic Themes (6)">
+              <option value="classic">classic (sovereign)</option>
+              <option value="minimax">minimax (minimalist)</option>
+              <option value="1982">1982 (phosphor crt)</option>
+              <option value="dracula">dracula (vampire)</option>
+              <option value="nord">nord (arctic)</option>
+              <option value="cyberpunk">cyberpunk (neon)</option>
+            </optgroup>
+          </select>
+          <span style="color:var(--ui-dim);">]</span>
+        </div>
+        <span class="term-status-online">[SYS_OK]</span>
+      </div>
+    </header>
+
+    <div class="window-body">
+      <h1>oofsck(1) — Sovereign openOODA Filesystem Consistency Verifier</h1>
+      <p class="tagline">Audits superblock integrity, backup geometry, and inode allocation without ambient root authority.</p>
+
+      <div class="meta-badges">
+        <span class="badge">100% openOODA</span>
+        <span class="badge">Zero Ambient Authority</span>
+        <span class="badge">Superblock &amp; Inode Auditing</span>
+        <span class="badge badge-accent">Model Context Protocol</span>
+      </div>
+
+      <h2>Install</h2>
+      <p><strong>Universal Standalone Binary:</strong></p>
+      <div class="install-box">
+        <code>curl -fsSL https://openooda-tools.github.io/oofsck/install.sh | bash</code>
+        <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/oofsck/install.sh | bash', this)">COPY</button>
+      </div>
+
+      <h3>Native Package Managers (Tri-Distribution Parity)</h3>
+      <div class="install-box">
+        <code># Fedora / RHEL / CentOS (DNF)
+curl -fsSL https://openooda-tools.github.io/oofsck/install.sh | bash -s -- --dnf</code>
+        <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/oofsck/install.sh | bash -s -- --dnf', this)">COPY</button>
+      </div>
+      <div class="install-box">
+        <code># Ubuntu / Debian (APT)
+curl -fsSL https://openooda-tools.github.io/oofsck/install.sh | bash -s -- --deb</code>
+        <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/oofsck/install.sh | bash -s -- --deb', this)">COPY</button>
+      </div>
+      <div class="install-box">
+        <code># Arch Linux / Manjaro (Pacman / PKGBUILD)
+curl -fsSL https://openooda-tools.github.io/oofsck/install.sh | bash -s -- --pkgbuild</code>
+        <button class="copy-btn" onclick="copySnippet('curl -fsSL https://openooda-tools.github.io/oofsck/install.sh | bash -s -- --pkgbuild', this)">COPY</button>
+      </div>
+
+      <h2>Clean Uninstallation</h2>
+      <p>Remove <code>oofsck</code> binaries, package registrations, and symlinks at any time:</p>
+      <div class="install-box">
+        <code># Locally installed companion CLI
+oofsck-uninstall
+
+# Standalone web uninstaller
+curl -fsSL https://openooda-tools.github.io/oofsck/uninstall.sh | bash</code>
+        <button class="copy-btn" onclick="copySnippet('oofsck-uninstall', this)">COPY</button>
+      </div>
+
+      <h2>Why Sovereign oofsck?</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Dimension</th>
+            <th>Legacy Tools (e2fsck / fsck)</th>
+            <th>openOODA oofsck</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Architecture</td><td>Monolithic legacy C with ambient root and direct raw disk mutations</td><td>Pure native openOODA with explicit capability tokens (&amp;FsReadCap, &amp;ProcessCap, &amp;EnvCap)</td></tr>
+          <tr><td>Superblock Auditing</td><td>Opaque binary inspection or invasive repair prompts</td><td>Structured verification of magic numbers, block size, inode counts, and journal states</td></tr>
+          <tr><td>Backup Geometry</td><td>Manual calculation of sparse superblock block groups</td><td>Automated discovery and validation across sparse groups (3, 5, 7, 9, 25, 49)</td></tr>
+          <tr><td>AI Agents</td><td>Unparseable terminal prompts and non-zero interactive locks</td><td>Streaming MCP JSON-RPC 2.0 stdio server with superblock, inode, and partition health queries</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Usage &amp; Features</h2>
+      <pre><code>oofsck /dev/sda1                               # Audit partition filesystem integrity
+oofsck -v /dev/sda1                            # Verbose inspection with alternate superblocks
+oofsck -n /dev/sda1                            # Non-destructive read-only safety audit
+oofsck -f /dev/sda1                            # Force complete verification scan
+oofsck -j /dev/sda1                            # Machine-readable JSON integrity report
+oofsck -D                                      # Interactive multi-scenario filesystem showcase
+oofsck --mcp                                   # Launch Model Context Protocol stdio server</code></pre>
+    </div>
+
+    <footer class="window-footer">
+      <div class="footer-links">
+        <a href="/">[ &larr; All Tools ]</a>
+        <a href="https://github.com/openOODA-tools/oofsck" target="_blank" rel="noopener noreferrer">[ Source &amp; docs &#8599; ]</a>
+        <a href="https://github.com/openOODA-tools/oofsck/releases" target="_blank" rel="noopener noreferrer">[ Releases &#8599; ]</a>
+        <a href="https://openooda.org" target="_blank" rel="noopener noreferrer">[ openOODA Core &#8599; ]</a>
+      </div>
+      <span>OPENOODA-TOOLS &copy; 2026 // CAPABILITY-BOUNDED USERLAND</span>
+    </footer>
+  </div>
+</body>
+</html>

@@ -1754,6 +1754,25 @@ released_tools = [
         "tags": ["free", "memory", "ram", "swap", "procfs", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oofsck",
+        "name": "oofsck",
+        "category": "Disks & Filesystems",
+        "role": "FILESYSTEM AUDITOR",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "FS",
+        "accent": "#ff9100",
+        "description": "Sovereign filesystem consistency verifier and superblock integrity auditor with zero ambient root authority.",
+        "gem": True,
+        "gemFact": "Superblock Geometry · Backup Blocks · Inode Auditing & Streaming MCP",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oofsck/install.sh | bash",
+        "overviewUrl": "oofsck/",
+        "repoUrl": "https://github.com/openOODA-tools/oofsck",
+        "tags": ["fsck", "e2fsck", "ext4", "superblock", "filesystem", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -1761,8 +1780,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 92, f"Expected 92 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 92, "Duplicate tool ID detected!"
+assert len(all_tools) == 93, f"Expected 93 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 93, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

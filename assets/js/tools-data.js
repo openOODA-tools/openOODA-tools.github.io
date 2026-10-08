@@ -2850,6 +2850,38 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oofsck",
+    "name": "oofsck",
+    "category": "Disks & Filesystems",
+    "role": "FILESYSTEM AUDITOR",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "FS",
+    "accent": "#ff9100",
+    "description": "Sovereign filesystem consistency verifier and superblock integrity auditor with zero ambient root authority.",
+    "gem": true,
+    "gemFact": "Superblock Geometry \u00b7 Backup Blocks \u00b7 Inode Auditing & Streaming MCP",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oofsck/install.sh | bash",
+    "overviewUrl": "oofsck/",
+    "repoUrl": "https://github.com/openOODA-tools/oofsck",
+    "tags": [
+      "fsck",
+      "e2fsck",
+      "ext4",
+      "superblock",
+      "filesystem",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -2860,6 +2892,7 @@ export const CATEGORIES = [
   "Data & Streaming",
   "Diagnostics & Observers",
   "Diff & Comparison",
+  "Disks & Filesystems",
   "File Management",
   "Files & Navigation",
   "Filesystem & Navigation",
@@ -2881,6 +2914,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 92 },
-  { id: "released", label: "Released", count: 92 }
+  { id: "all", label: "All Repos", count: 93 },
+  { id: "released", label: "Released", count: 93 }
 ];

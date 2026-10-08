@@ -2497,6 +2497,38 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oodu",
+    "name": "oodu",
+    "category": "Storage & Filesystems",
+    "role": "DISK USAGE ANALYZER",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "DU",
+    "accent": "#ff9800",
+    "description": "Sovereign POSIX disk space estimator and directory tree capacity analyzer with top hogs visualization in pure openOODA.",
+    "gem": true,
+    "gemFact": "POSIX du Parity \u00b7 Inode Accounting & Capacity Bar Visualizer with Streaming MCP",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oodu/install.sh | bash",
+    "overviewUrl": "oodu/",
+    "repoUrl": "https://github.com/openOODA-tools/oodu",
+    "tags": [
+      "du",
+      "disk",
+      "usage",
+      "storage",
+      "inodes",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -2517,6 +2549,7 @@ export const CATEGORIES = [
   "Security & Audit",
   "Shell & Terminal",
   "Storage & Files",
+  "Storage & Filesystems",
   "System & Hardware",
   "System & Monitor",
   "Terminal & TUI",
@@ -2527,6 +2560,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 81 },
-  { id: "released", label: "Released", count: 81 }
+  { id: "all", label: "All Repos", count: 82 },
+  { id: "released", label: "Released", count: 82 }
 ];

@@ -671,6 +671,25 @@ released_tools = [
         "tags": ["progress-bar", "meter", "gauges", "eta", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-07"
+    },
+    {
+        "id": "oobase32",
+        "name": "oobase32",
+        "category": "Data & Serialization",
+        "role": "BASE32 CODEC",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "32",
+        "accent": "#00ffcc",
+        "description": "Sovereign Base32 encoder and decoder with Crockford, Extended Hex, and RFC 4648 alphabet options.",
+        "gem": True,
+        "gemFact": "Base32 Codec · Multi-Alphabet & Visual Collision Normalizer",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oobase32/install.sh | bash",
+        "overviewUrl": "oobase32/",
+        "repoUrl": "https://github.com/openOODA-tools/oobase32",
+        "tags": ["base32", "codec", "rfc4648", "crockford", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-07"
     }
 ]
 
@@ -678,8 +697,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 35, f"Expected 35 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 35, "Duplicate tool ID detected!"
+assert len(all_tools) == 36, f"Expected 36 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 36, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

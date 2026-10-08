@@ -1003,11 +1003,42 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-07"
+  },
+  {
+    "id": "oobase32",
+    "name": "oobase32",
+    "category": "Data & Serialization",
+    "role": "BASE32 CODEC",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "32",
+    "accent": "#00ffcc",
+    "description": "Sovereign Base32 encoder and decoder with Crockford, Extended Hex, and RFC 4648 alphabet options.",
+    "gem": true,
+    "gemFact": "Base32 Codec \u00b7 Multi-Alphabet & Visual Collision Normalizer",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oobase32/install.sh | bash",
+    "overviewUrl": "oobase32/",
+    "repoUrl": "https://github.com/openOODA-tools/oobase32",
+    "tags": [
+      "base32",
+      "codec",
+      "rfc4648",
+      "crockford",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-07"
   }
 ];
 
 export const CATEGORIES = [
   "All Categories",
+  "Data & Serialization",
   "Data & Streaming",
   "Diff & Comparison",
   "Files & Navigation",
@@ -1021,6 +1052,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 35 },
-  { id: "released", label: "Released", count: 35 }
+  { id: "all", label: "All Repos", count: 36 },
+  { id: "released", label: "Released", count: 36 }
 ];

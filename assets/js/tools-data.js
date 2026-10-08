@@ -2657,6 +2657,38 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oofile",
+    "name": "oofile",
+    "category": "Search & Inspection",
+    "role": "FILE & MIME DETECTOR",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "FL",
+    "accent": "#00b0ff",
+    "description": "Sovereign file format, MIME type, and encoding identification without exec or ambient authority.",
+    "gem": true,
+    "gemFact": "In-Memory Magic Signatures \u00b7 MIME Detection \u00b7 Streaming MCP",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oofile/install.sh | bash",
+    "overviewUrl": "oofile/",
+    "repoUrl": "https://github.com/openOODA-tools/oofile",
+    "tags": [
+      "file",
+      "magic",
+      "mime",
+      "encoding",
+      "inspection",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -2688,6 +2720,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 86 },
-  { id: "released", label: "Released", count: 86 }
+  { id: "all", label: "All Repos", count: 87 },
+  { id: "released", label: "Released", count: 87 }
 ];

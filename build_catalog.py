@@ -1640,6 +1640,25 @@ released_tools = [
         "tags": ["figure", "boxes", "unicode", "callouts", "tables", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oofile",
+        "name": "oofile",
+        "category": "Search & Inspection",
+        "role": "FILE & MIME DETECTOR",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "FL",
+        "accent": "#00b0ff",
+        "description": "Sovereign file format, MIME type, and encoding identification without exec or ambient authority.",
+        "gem": True,
+        "gemFact": "In-Memory Magic Signatures · MIME Detection · Streaming MCP",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oofile/install.sh | bash",
+        "overviewUrl": "oofile/",
+        "repoUrl": "https://github.com/openOODA-tools/oofile",
+        "tags": ["file", "magic", "mime", "encoding", "inspection", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -1647,8 +1666,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 86, f"Expected 86 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 86, "Duplicate tool ID detected!"
+assert len(all_tools) == 87, f"Expected 87 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 87, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

@@ -652,6 +652,25 @@ released_tools = [
         "tags": ["figlet", "banner", "ascii-art", "typography", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-07"
+    },
+    {
+        "id": "oobar",
+        "name": "oobar",
+        "category": "Theme & Styling",
+        "role": "PROGRESS METER",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "BR",
+        "accent": "#00e5ff",
+        "description": "Renders smooth terminal progress bars with ETA, throughput, and percent gauges with stdio MCP server.",
+        "gem": True,
+        "gemFact": "Progress Meter · Multi-Style Tracks & ETA Engine",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oobar/install.sh | bash",
+        "overviewUrl": "oobar/",
+        "repoUrl": "https://github.com/openOODA-tools/oobar",
+        "tags": ["progress-bar", "meter", "gauges", "eta", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-07"
     }
 ]
 
@@ -659,8 +678,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 34, f"Expected 34 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 34, "Duplicate tool ID detected!"
+assert len(all_tools) == 35, f"Expected 35 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 35, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

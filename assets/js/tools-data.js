@@ -973,6 +973,36 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-07"
+  },
+  {
+    "id": "oobar",
+    "name": "oobar",
+    "category": "Theme & Styling",
+    "role": "PROGRESS METER",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "BR",
+    "accent": "#00e5ff",
+    "description": "Renders smooth terminal progress bars with ETA, throughput, and percent gauges with stdio MCP server.",
+    "gem": true,
+    "gemFact": "Progress Meter \u00b7 Multi-Style Tracks & ETA Engine",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oobar/install.sh | bash",
+    "overviewUrl": "oobar/",
+    "repoUrl": "https://github.com/openOODA-tools/oobar",
+    "tags": [
+      "progress-bar",
+      "meter",
+      "gauges",
+      "eta",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-07"
   }
 ];
 
@@ -991,6 +1021,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 34 },
-  { id: "released", label: "Released", count: 34 }
+  { id: "all", label: "All Repos", count: 35 },
+  { id: "released", label: "Released", count: 35 }
 ];

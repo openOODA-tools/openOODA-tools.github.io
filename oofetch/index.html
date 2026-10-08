@@ -63,7 +63,7 @@
       <p class="sub">Capability-bounded hardware and OS posture inspection with ASCII mascots and oote swatches.</p>
 
       <div class="badges-container">
-        <span class="badge badge-green">v0.1.0</span>
+        <span class="badge badge-green">v0.2.0</span>
         <span class="badge">100% openOODA</span>
         <span class="badge">Zero Ambient Authority</span>
         <span class="badge">oote Swatches</span>
@@ -118,14 +118,18 @@ curl -fsSL https://openooda-tools.github.io/oofetch/uninstall.sh | bash</code>
           <tr><td>Security</td><td>Ambient proc/sys scraping</td><td>Capability-bounded inspection via &FsReadCap</td></tr>
           <tr><td>Theming</td><td>Hardcoded ANSI blocks</td><td>Dynamic oote palette swatches (8/16/TrueColor)</td></tr>
           <tr><td>Mascots</td><td>Static distro ASCII art</td><td>Dynamic ASCII mascot pets responding to active theme</td></tr>
-          <tr><td>AI Agents</td><td>No agent interface</td><td>MCP stdio tools: host_info, system_posture</td></tr>
+          <tr><td>AI Agents</td><td>No agent interface</td><td>MCP stdio tools: host_info, system_posture, query_hardware, render_mascot</td></tr>
         </tbody>
       </table>
 
       <h2>Usage & Features</h2>
-      <pre><code>oofetch                        # Display sovereign hardware posture
-oofetch --theme cyberpunk      # Showcase in Cyberpunk neon palette
-oofetch --mcp                  # Launch MCP stdio server</code></pre>
+      <pre><code>oofetch                        # Display sovereign hardware posture (two-column fetch)
+oofetch --logo arch            # Display Arch Linux distro emblem
+oofetch --mascot happy         # Display happy openOODA mascot vector
+oofetch --no-logo              # Single-column mode without ASCII logo
+oofetch --json                 # Emit machine-readable JSON posture
+oofetch --theme 1982           # Showcase in Classic 1982 palette
+oofetch --mcp                  # Launch streaming MCP JSON-RPC 2.0 stdio server</code></pre>
     </div>
 
     <footer class="window-footer">

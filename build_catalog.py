@@ -145,7 +145,7 @@ released_tools = [
         "name": "oofetch",
         "category": "System & Monitor",
         "role": "SYSTEM FETCH",
-        "version": "v0.1.0",
+        "version": "v0.2.0",
         "status": "released",
         "monogram": "FT",
         "accent": "#ffab40",

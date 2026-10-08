@@ -1377,6 +1377,39 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "ooboundary",
+    "name": "ooboundary",
+    "category": "Security & Audit",
+    "role": "EGRESS BOUNDARY",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "BY",
+    "accent": "#d500f9",
+    "description": "Hardware enforced kernel netfilter hook restricting agent sockets to allowed IPs.",
+    "gem": true,
+    "gemFact": "Egress Boundary \u00b7 Systemd Network Confinement & Nftables Hook",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/ooboundary/install.sh | bash",
+    "overviewUrl": "ooboundary/",
+    "repoUrl": "https://github.com/openOODA-tools/ooboundary",
+    "tags": [
+      "boundary",
+      "egress",
+      "firewall",
+      "netfilter",
+      "nftables",
+      "systemd",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -1399,6 +1432,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 47 },
-  { id: "released", label: "Released", count: 47 }
+  { id: "all", label: "All Repos", count: 48 },
+  { id: "released", label: "Released", count: 48 }
 ];

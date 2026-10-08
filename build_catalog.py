@@ -899,6 +899,25 @@ released_tools = [
         "tags": ["bound", "sandbox", "limits", "cgroup", "systemd", "security", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "ooboundary",
+        "name": "ooboundary",
+        "category": "Security & Audit",
+        "role": "EGRESS BOUNDARY",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "BY",
+        "accent": "#d500f9",
+        "description": "Hardware enforced kernel netfilter hook restricting agent sockets to allowed IPs.",
+        "gem": True,
+        "gemFact": "Egress Boundary · Systemd Network Confinement & Nftables Hook",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/ooboundary/install.sh | bash",
+        "overviewUrl": "ooboundary/",
+        "repoUrl": "https://github.com/openOODA-tools/ooboundary",
+        "tags": ["boundary", "egress", "firewall", "netfilter", "nftables", "systemd", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -906,8 +925,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 47, f"Expected 47 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 47, "Duplicate tool ID detected!"
+assert len(all_tools) == 48, f"Expected 48 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 48, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

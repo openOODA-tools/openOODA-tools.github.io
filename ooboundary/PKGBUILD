@@ -1,0 +1,21 @@
+# Maintainer: openOODA-tools <ops@openooda.org>
+pkgname=ooboundary-bin
+_pkgname=ooboundary
+pkgver=0.2.0
+pkgrel=1
+pkgdesc="Hardware enforced kernel netfilter hook restricting agent sockets to allowed IPs."
+arch=('x86_64')
+url="https://github.com/openOODA-tools/ooboundary"
+license=('Apache-2.0')
+depends=('glibc')
+provides=('ooboundary')
+conflicts=('ooboundary')
+source_x86_64=("${url}/releases/download/v${pkgver}/ooboundary-linux-x86_64"
+               "uninstall.sh::https://raw.githubusercontent.com/openOODA-tools/${_pkgname}/v${pkgver}/uninstall.sh")
+sha256sums_x86_64=('SKIP'
+                   'SKIP')
+
+package() {
+    install -Dm755 "${srcdir}/ooboundary-linux-x86_64" "${pkgdir}/usr/bin/ooboundary"
+    install -Dm755 uninstall.sh "${pkgdir}/usr/bin/ooboundary-uninstall"
+}

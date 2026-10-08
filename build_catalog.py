@@ -1051,6 +1051,25 @@ released_tools = [
         "tags": ["cgroup", "cgroupv2", "tree", "psi", "pressure-stall", "hierarchy", "shares", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oochecksum",
+        "name": "oochecksum",
+        "category": "Security & Audit",
+        "role": "HASH VERIFIER",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "CK",
+        "accent": "#76ff03",
+        "description": "Unified integrity checking utility verifying BSD and GNU style checksum manifests.",
+        "gem": True,
+        "gemFact": "Hash Verifier · Multi-Algorithm BSD & GNU Integrity Manifest Validator",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oochecksum/install.sh | bash",
+        "overviewUrl": "oochecksum/",
+        "repoUrl": "https://github.com/openOODA-tools/oochecksum",
+        "tags": ["checksum", "sha256", "sha512", "md5", "crc32", "manifest", "integrity", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -1058,8 +1077,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 55, f"Expected 55 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 55, "Duplicate tool ID detected!"
+assert len(all_tools) == 56, f"Expected 56 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 56, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

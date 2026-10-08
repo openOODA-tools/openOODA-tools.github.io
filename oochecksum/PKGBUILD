@@ -1,0 +1,21 @@
+# Maintainer: openOODA-tools <ops@openooda.org>
+pkgname=oochecksum-bin
+_pkgname=oochecksum
+pkgver=0.2.0
+pkgrel=1
+pkgdesc="Unified integrity checking utility verifying BSD and GNU style checksum manifests."
+arch=('x86_64')
+url="https://github.com/openOODA-tools/oochecksum"
+license=('Apache-2.0')
+depends=('glibc')
+provides=('oochecksum')
+conflicts=('oochecksum')
+source_x86_64=("${url}/releases/download/v${pkgver}/oochecksum-linux-x86_64"
+               "uninstall.sh::https://raw.githubusercontent.com/openOODA-tools/${_pkgname}/v${pkgver}/uninstall.sh")
+sha256sums_x86_64=('SKIP'
+                   'SKIP')
+
+package() {
+    install -Dm755 "${srcdir}/oochecksum-linux-x86_64" "${pkgdir}/usr/bin/oochecksum"
+    install -Dm755 uninstall.sh "${pkgdir}/usr/bin/oochecksum-uninstall"
+}

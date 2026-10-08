@@ -1639,5 +1639,39 @@
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oochecksum",
+    "name": "oochecksum",
+    "category": "Security & Audit",
+    "role": "HASH VERIFIER",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "CK",
+    "accent": "#76ff03",
+    "description": "Unified integrity checking utility verifying BSD and GNU style checksum manifests.",
+    "gem": true,
+    "gemFact": "Hash Verifier \u00b7 Multi-Algorithm BSD & GNU Integrity Manifest Validator",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oochecksum/install.sh | bash",
+    "overviewUrl": "oochecksum/",
+    "repoUrl": "https://github.com/openOODA-tools/oochecksum",
+    "tags": [
+      "checksum",
+      "sha256",
+      "sha512",
+      "md5",
+      "crc32",
+      "manifest",
+      "integrity",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ]

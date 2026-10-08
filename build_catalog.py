@@ -1905,6 +1905,25 @@ released_tools = [
         "tags": ["hashing", "blake3", "sha256", "sha3", "keccak", "cryptography", "manifest", "century-milestone", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oohead",
+        "name": "oohead",
+        "category": "Text & Streams",
+        "role": "PREFIX SLICER",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "HD",
+        "accent": "#26a69a",
+        "description": "Zero-copy prefix line and byte extractor with early pipe closure semantics, NUL delimiter support, and dual-surface parity.",
+        "gem": True,
+        "gemFact": "Prefix Slicer · Early Pipe Break · Streaming MCP Surface",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oohead/install.sh | bash",
+        "overviewUrl": "oohead/",
+        "repoUrl": "https://github.com/openOODA-tools/oohead",
+        "tags": ["head", "slice", "lines", "bytes", "stream", "text", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -1912,8 +1931,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 100, f"Expected 100 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 100, "Duplicate tool ID detected!"
+assert len(all_tools) == 101, f"Expected 101 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 101, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

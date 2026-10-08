@@ -3110,6 +3110,39 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oohead",
+    "name": "oohead",
+    "category": "Text & Streams",
+    "role": "PREFIX SLICER",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "HD",
+    "accent": "#26a69a",
+    "description": "Zero-copy prefix line and byte extractor with early pipe closure semantics, NUL delimiter support, and dual-surface parity.",
+    "gem": true,
+    "gemFact": "Prefix Slicer \u00b7 Early Pipe Break \u00b7 Streaming MCP Surface",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oohead/install.sh | bash",
+    "overviewUrl": "oohead/",
+    "repoUrl": "https://github.com/openOODA-tools/oohead",
+    "tags": [
+      "head",
+      "slice",
+      "lines",
+      "bytes",
+      "stream",
+      "text",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -3145,6 +3178,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 100 },
-  { id: "released", label: "Released", count: 100 }
+  { id: "all", label: "All Repos", count: 101 },
+  { id: "released", label: "Released", count: 101 }
 ];

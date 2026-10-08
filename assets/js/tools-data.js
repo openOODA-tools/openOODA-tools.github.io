@@ -2914,6 +2914,38 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "ooglyph",
+    "name": "ooglyph",
+    "category": "Theme & Styling",
+    "role": "GLYPH SEARCH ENGINE",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "GL",
+    "accent": "#ffd600",
+    "description": "Sovereign glyph search and viewer for Nerd Font symbols and Unicode iconography with zero ambient authority.",
+    "gem": true,
+    "gemFact": "Nerd Font Database \u00b7 Exact Codepoint Lookup \u00b7 Character Emit & Streaming MCP",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/ooglyph/install.sh | bash",
+    "overviewUrl": "ooglyph/",
+    "repoUrl": "https://github.com/openOODA-tools/ooglyph",
+    "tags": [
+      "glyph",
+      "nerd-fonts",
+      "unicode",
+      "icons",
+      "symbols",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -2947,6 +2979,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 94 },
-  { id: "released", label: "Released", count: 94 }
+  { id: "all", label: "All Repos", count: 95 },
+  { id: "released", label: "Released", count: 95 }
 ];

@@ -1792,6 +1792,25 @@ released_tools = [
         "tags": ["git", "diff", "delta", "patch", "diffstat", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "ooglyph",
+        "name": "ooglyph",
+        "category": "Theme & Styling",
+        "role": "GLYPH SEARCH ENGINE",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "GL",
+        "accent": "#ffd600",
+        "description": "Sovereign glyph search and viewer for Nerd Font symbols and Unicode iconography with zero ambient authority.",
+        "gem": True,
+        "gemFact": "Nerd Font Database · Exact Codepoint Lookup · Character Emit & Streaming MCP",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/ooglyph/install.sh | bash",
+        "overviewUrl": "ooglyph/",
+        "repoUrl": "https://github.com/openOODA-tools/ooglyph",
+        "tags": ["glyph", "nerd-fonts", "unicode", "icons", "symbols", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -1799,8 +1818,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 94, f"Expected 94 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 94, "Duplicate tool ID detected!"
+assert len(all_tools) == 95, f"Expected 95 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 95, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

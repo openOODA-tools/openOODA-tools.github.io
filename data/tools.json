@@ -2271,5 +2271,38 @@
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oodf",
+    "name": "oodf",
+    "category": "Storage & Files",
+    "role": "DISK SPACE INSPECTOR",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "DF",
+    "accent": "#ffb74d",
+    "description": "POSIX-compliant disk space and mount point storage inspector with block and inode telemetry in pure openOODA.",
+    "gem": true,
+    "gemFact": "Free Space \u00b7 Dual Block & Inode Capacity Auditor with Streaming MCP",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oodf/install.sh | bash",
+    "overviewUrl": "oodf/",
+    "repoUrl": "https://github.com/openOODA-tools/oodf",
+    "tags": [
+      "df",
+      "disk",
+      "storage",
+      "mounts",
+      "inodes",
+      "blocks",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ]

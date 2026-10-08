@@ -2274,6 +2274,39 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oodf",
+    "name": "oodf",
+    "category": "Storage & Files",
+    "role": "DISK SPACE INSPECTOR",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "DF",
+    "accent": "#ffb74d",
+    "description": "POSIX-compliant disk space and mount point storage inspector with block and inode telemetry in pure openOODA.",
+    "gem": true,
+    "gemFact": "Free Space \u00b7 Dual Block & Inode Capacity Auditor with Streaming MCP",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oodf/install.sh | bash",
+    "overviewUrl": "oodf/",
+    "repoUrl": "https://github.com/openOODA-tools/oodf",
+    "tags": [
+      "df",
+      "disk",
+      "storage",
+      "mounts",
+      "inodes",
+      "blocks",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -2291,6 +2324,7 @@ export const CATEGORIES = [
   "Search & Inspection",
   "Security & Audit",
   "Shell & Terminal",
+  "Storage & Files",
   "System & Hardware",
   "System & Monitor",
   "Text & Filter",
@@ -2300,6 +2334,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 74 },
-  { id: "released", label: "Released", count: 74 }
+  { id: "all", label: "All Repos", count: 75 },
+  { id: "released", label: "Released", count: 75 }
 ];

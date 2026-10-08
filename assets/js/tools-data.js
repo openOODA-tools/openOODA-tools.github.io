@@ -3075,6 +3075,41 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oohash",
+    "name": "oohash",
+    "category": "Security & Audit",
+    "role": "MULTI-ALGORITHM HASHER",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "OH",
+    "accent": "#ff9100",
+    "description": "Simultaneous multi-algorithm cryptographic calculator evaluating BLAKE3, SHA-256, and SHA3-512 digests in a single pass.",
+    "gem": true,
+    "gemFact": "Century Milestone Tool #100 \u00b7 Simultaneous BLAKE3, SHA-256 & SHA3-512 Single-Pass Engine",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oohash/install.sh | bash",
+    "overviewUrl": "oohash/",
+    "repoUrl": "https://github.com/openOODA-tools/oohash",
+    "tags": [
+      "hashing",
+      "blake3",
+      "sha256",
+      "sha3",
+      "keccak",
+      "cryptography",
+      "manifest",
+      "century-milestone",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -3110,6 +3145,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 99 },
-  { id: "released", label: "Released", count: 99 }
+  { id: "all", label: "All Repos", count: 100 },
+  { id: "released", label: "Released", count: 100 }
 ];

@@ -1886,6 +1886,25 @@ released_tools = [
         "tags": ["gzip", "deflate", "compression", "archive", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&FsWriteCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oohash",
+        "name": "oohash",
+        "category": "Security & Audit",
+        "role": "MULTI-ALGORITHM HASHER",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "OH",
+        "accent": "#ff9100",
+        "description": "Simultaneous multi-algorithm cryptographic calculator evaluating BLAKE3, SHA-256, and SHA3-512 digests in a single pass.",
+        "gem": True,
+        "gemFact": "Century Milestone Tool #100 · Simultaneous BLAKE3, SHA-256 & SHA3-512 Single-Pass Engine",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oohash/install.sh | bash",
+        "overviewUrl": "oohash/",
+        "repoUrl": "https://github.com/openOODA-tools/oohash",
+        "tags": ["hashing", "blake3", "sha256", "sha3", "keccak", "cryptography", "manifest", "century-milestone", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -1893,8 +1912,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 99, f"Expected 99 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 99, "Duplicate tool ID detected!"
+assert len(all_tools) == 100, f"Expected 100 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 100, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

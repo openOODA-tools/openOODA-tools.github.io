@@ -595,6 +595,25 @@ released_tools = [
         "tags": ["record-processor", "pattern-scanning", "exact-arithmetic", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-07"
+    },
+    {
+        "id": "oob3sum",
+        "name": "oob3sum",
+        "category": "Security & Audit",
+        "role": "BLAKE3 HASHER",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "B3",
+        "accent": "#00e5ff",
+        "description": "Blistering BLAKE3 tree hasher achieving multi-gigabyte per second throughput with stdio MCP server.",
+        "gem": True,
+        "gemFact": "BLAKE3 Tree Hasher · 1024-Byte Chunks",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oob3sum/install.sh | bash",
+        "overviewUrl": "oob3sum/",
+        "repoUrl": "https://github.com/openOODA-tools/oob3sum",
+        "tags": ["blake3", "cryptographic-hasher", "tree-hashing", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-07"
     }
 ]
 
@@ -602,8 +621,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 31, f"Expected 31 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 31, "Duplicate tool ID detected!"
+assert len(all_tools) == 32, f"Expected 32 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 32, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

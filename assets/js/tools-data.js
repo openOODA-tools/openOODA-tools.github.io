@@ -884,6 +884,35 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-07"
+  },
+  {
+    "id": "oob3sum",
+    "name": "oob3sum",
+    "category": "Security & Audit",
+    "role": "BLAKE3 HASHER",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "B3",
+    "accent": "#00e5ff",
+    "description": "Blistering BLAKE3 tree hasher achieving multi-gigabyte per second throughput with stdio MCP server.",
+    "gem": true,
+    "gemFact": "BLAKE3 Tree Hasher \u00b7 1024-Byte Chunks",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oob3sum/install.sh | bash",
+    "overviewUrl": "oob3sum/",
+    "repoUrl": "https://github.com/openOODA-tools/oob3sum",
+    "tags": [
+      "blake3",
+      "cryptographic-hasher",
+      "tree-hashing",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-07"
   }
 ];
 
@@ -902,6 +931,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 31 },
-  { id: "released", label: "Released", count: 31 }
+  { id: "all", label: "All Repos", count: 32 },
+  { id: "released", label: "Released", count: 32 }
 ];

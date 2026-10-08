@@ -1,0 +1,21 @@
+# Maintainer: openOODA-tools <ops@openooda.org>
+pkgname=oob3sum-bin
+_pkgname=oob3sum
+pkgver=0.2.0
+pkgrel=1
+pkgdesc="Blistering BLAKE3 tree hasher achieving multi-gigabyte per second throughput."
+arch=('x86_64')
+url="https://github.com/openOODA-tools/oob3sum"
+license=('Apache-2.0')
+depends=('glibc')
+provides=('oob3sum')
+conflicts=('oob3sum')
+source_x86_64=("${url}/releases/download/v${pkgver}/oob3sum-linux-x86_64"
+               "uninstall.sh::https://raw.githubusercontent.com/openOODA-tools/${_pkgname}/v${pkgver}/uninstall.sh")
+sha256sums_x86_64=('SKIP'
+                   'SKIP')
+
+package() {
+    install -Dm755 "${srcdir}/oob3sum-linux-x86_64" "${pkgdir}/usr/bin/oob3sum"
+    install -Dm755 uninstall.sh "${pkgdir}/usr/bin/oob3sum-uninstall"
+}

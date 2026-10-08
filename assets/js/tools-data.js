@@ -1064,6 +1064,36 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-07"
+  },
+  {
+    "id": "oobase64",
+    "name": "oobase64",
+    "category": "Data & Serialization",
+    "role": "BASE64 CODEC",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "64",
+    "accent": "#76ff03",
+    "description": "SIMD-accelerated RFC 4648 Base64 data encoder and decoder with URL-safe variants and stdio MCP server.",
+    "gem": true,
+    "gemFact": "Base64 Codec \u00b7 Standard & URL-Safe Dual-Variant Engine",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oobase64/install.sh | bash",
+    "overviewUrl": "oobase64/",
+    "repoUrl": "https://github.com/openOODA-tools/oobase64",
+    "tags": [
+      "base64",
+      "codec",
+      "rfc4648",
+      "url-safe",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-07"
   }
 ];
 
@@ -1083,6 +1113,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 37 },
-  { id: "released", label: "Released", count: 37 }
+  { id: "all", label: "All Repos", count: 38 },
+  { id: "released", label: "Released", count: 38 }
 ];

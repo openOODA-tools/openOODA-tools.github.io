@@ -2882,6 +2882,38 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oogitdiff",
+    "name": "oogitdiff",
+    "category": "Development & Code",
+    "role": "GIT TREE DIFFER",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "GD",
+    "accent": "#f50057",
+    "description": "Sovereign git tree differ and working tree delta engine with zero ambient porcelain authority.",
+    "gem": true,
+    "gemFact": "Git Object Store \u00b7 Staged vs Working Tree \u00b7 Diffstat Bars & Streaming MCP",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oogitdiff/install.sh | bash",
+    "overviewUrl": "oogitdiff/",
+    "repoUrl": "https://github.com/openOODA-tools/oogitdiff",
+    "tags": [
+      "git",
+      "diff",
+      "delta",
+      "patch",
+      "diffstat",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -2890,6 +2922,7 @@ export const CATEGORIES = [
   "Binary & Reverse Engineering",
   "Data & Serialization",
   "Data & Streaming",
+  "Development & Code",
   "Diagnostics & Observers",
   "Diff & Comparison",
   "Disks & Filesystems",
@@ -2914,6 +2947,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 93 },
-  { id: "released", label: "Released", count: 93 }
+  { id: "all", label: "All Repos", count: 94 },
+  { id: "released", label: "Released", count: 94 }
 ];

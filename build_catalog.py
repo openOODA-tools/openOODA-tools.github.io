@@ -1773,6 +1773,25 @@ released_tools = [
         "tags": ["fsck", "e2fsck", "ext4", "superblock", "filesystem", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oogitdiff",
+        "name": "oogitdiff",
+        "category": "Development & Code",
+        "role": "GIT TREE DIFFER",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "GD",
+        "accent": "#f50057",
+        "description": "Sovereign git tree differ and working tree delta engine with zero ambient porcelain authority.",
+        "gem": True,
+        "gemFact": "Git Object Store · Staged vs Working Tree · Diffstat Bars & Streaming MCP",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oogitdiff/install.sh | bash",
+        "overviewUrl": "oogitdiff/",
+        "repoUrl": "https://github.com/openOODA-tools/oogitdiff",
+        "tags": ["git", "diff", "delta", "patch", "diffstat", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -1780,8 +1799,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 93, f"Expected 93 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 93, "Duplicate tool ID detected!"
+assert len(all_tools) == 94, f"Expected 94 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 94, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

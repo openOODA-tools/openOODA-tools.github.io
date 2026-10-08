@@ -1774,6 +1774,39 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oochroot",
+    "name": "oochroot",
+    "category": "Security & Audit",
+    "role": "ROOT JAIL",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "CR",
+    "accent": "#ff1744",
+    "description": "Sets up capability-bounded root filesystem jails with systemd service confinement synthesis.",
+    "gem": true,
+    "gemFact": "Root Jail \u00b7 Systemd Confinement Synthesis & Jailbreak Audit",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oochroot/install.sh | bash",
+    "overviewUrl": "oochroot/",
+    "repoUrl": "https://github.com/openOODA-tools/oochroot",
+    "tags": [
+      "chroot",
+      "jail",
+      "confinement",
+      "isolation",
+      "systemd",
+      "security",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -1797,6 +1830,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 59 },
-  { id: "released", label: "Released", count: 59 }
+  { id: "all", label: "All Repos", count: 60 },
+  { id: "released", label: "Released", count: 60 }
 ];

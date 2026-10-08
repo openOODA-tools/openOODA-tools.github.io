@@ -1127,6 +1127,25 @@ released_tools = [
         "tags": ["chown", "users", "groups", "permissions", "systemd-tmpfiles", "ownership", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oochroot",
+        "name": "oochroot",
+        "category": "Security & Audit",
+        "role": "ROOT JAIL",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "CR",
+        "accent": "#ff1744",
+        "description": "Sets up capability-bounded root filesystem jails with systemd service confinement synthesis.",
+        "gem": True,
+        "gemFact": "Root Jail · Systemd Confinement Synthesis & Jailbreak Audit",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oochroot/install.sh | bash",
+        "overviewUrl": "oochroot/",
+        "repoUrl": "https://github.com/openOODA-tools/oochroot",
+        "tags": ["chroot", "jail", "confinement", "isolation", "systemd", "security", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -1134,8 +1153,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 59, f"Expected 59 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 59, "Duplicate tool ID detected!"
+assert len(all_tools) == 60, f"Expected 60 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 60, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

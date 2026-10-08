@@ -500,6 +500,25 @@ released_tools = [
         "tags": ["arp-cache", "neighbor-discovery", "mac-audit", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&NetCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-07"
+    },
+    {
+        "id": "ooastdiff",
+        "name": "ooastdiff",
+        "category": "Diff & Comparison",
+        "role": "AST SYNTAX DIFFER",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "AD",
+        "accent": "#f1fa8c",
+        "description": "Language-agnostic AST syntax-aware diffing tool with token LCS alignment, comment/whitespace insensitivity, and stdio MCP server.",
+        "gem": True,
+        "gemFact": "Syntax LCS Diff · Comment/Spacing Agnostic",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/ooastdiff/install.sh | bash",
+        "overviewUrl": "ooastdiff/",
+        "repoUrl": "https://github.com/openOODA-tools/ooastdiff",
+        "tags": ["ast-diff", "syntax-differ", "token-lcs", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-07"
     }
 ]
 
@@ -507,8 +526,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 26, f"Expected 26 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 26, "Duplicate tool ID detected!"
+assert len(all_tools) == 27, f"Expected 27 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 27, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

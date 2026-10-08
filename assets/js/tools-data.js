@@ -738,6 +738,35 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-07"
+  },
+  {
+    "id": "ooastdiff",
+    "name": "ooastdiff",
+    "category": "Diff & Comparison",
+    "role": "AST SYNTAX DIFFER",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "AD",
+    "accent": "#f1fa8c",
+    "description": "Language-agnostic AST syntax-aware diffing tool with token LCS alignment, comment/whitespace insensitivity, and stdio MCP server.",
+    "gem": true,
+    "gemFact": "Syntax LCS Diff \u00b7 Comment/Spacing Agnostic",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/ooastdiff/install.sh | bash",
+    "overviewUrl": "ooastdiff/",
+    "repoUrl": "https://github.com/openOODA-tools/ooastdiff",
+    "tags": [
+      "ast-diff",
+      "syntax-differ",
+      "token-lcs",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-07"
   }
 ];
 
@@ -754,6 +783,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 26 },
-  { id: "released", label: "Released", count: 26 }
+  { id: "all", label: "All Repos", count: 27 },
+  { id: "released", label: "Released", count: 27 }
 ];

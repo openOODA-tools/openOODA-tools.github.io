@@ -825,6 +825,36 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-07"
+  },
+  {
+    "id": "ooaudit",
+    "name": "ooaudit",
+    "category": "Security & Audit",
+    "role": "ACTION LEDGER",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "AU",
+    "accent": "#ffb86c",
+    "description": "Immutable audit recorder logging system calls, IO streams, and agent decisions with cryptographic hash chains and stdio MCP server.",
+    "gem": true,
+    "gemFact": "Cryptographic Hash Chains \u00b7 Tamper Detection",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/ooaudit/install.sh | bash",
+    "overviewUrl": "ooaudit/",
+    "repoUrl": "https://github.com/openOODA-tools/ooaudit",
+    "tags": [
+      "action-ledger",
+      "hash-chain",
+      "audit-log",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&FsWriteCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-07"
   }
 ];
 
@@ -835,12 +865,13 @@ export const CATEGORIES = [
   "Files & Navigation",
   "Network & Egress",
   "Search & Inspection",
+  "Security & Audit",
   "Shell & Terminal",
   "System & Monitor",
   "Theme & Styling"
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 29 },
-  { id: "released", label: "Released", count: 29 }
+  { id: "all", label: "All Repos", count: 30 },
+  { id: "released", label: "Released", count: 30 }
 ];

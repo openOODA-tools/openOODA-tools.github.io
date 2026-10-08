@@ -557,6 +557,25 @@ released_tools = [
         "tags": ["tpm2-attestation", "pcr-audit", "measured-boot", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-07"
+    },
+    {
+        "id": "ooaudit",
+        "name": "ooaudit",
+        "category": "Security & Audit",
+        "role": "ACTION LEDGER",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "AU",
+        "accent": "#ffb86c",
+        "description": "Immutable audit recorder logging system calls, IO streams, and agent decisions with cryptographic hash chains and stdio MCP server.",
+        "gem": True,
+        "gemFact": "Cryptographic Hash Chains · Tamper Detection",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/ooaudit/install.sh | bash",
+        "overviewUrl": "ooaudit/",
+        "repoUrl": "https://github.com/openOODA-tools/ooaudit",
+        "tags": ["action-ledger", "hash-chain", "audit-log", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&FsWriteCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-07"
     }
 ]
 
@@ -564,8 +583,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 29, f"Expected 29 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 29, "Duplicate tool ID detected!"
+assert len(all_tools) == 30, f"Expected 30 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 30, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

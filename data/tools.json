@@ -822,5 +822,35 @@
       "&McpCap"
     ],
     "addedAt": "2026-10-07"
+  },
+  {
+    "id": "ooaudit",
+    "name": "ooaudit",
+    "category": "Security & Audit",
+    "role": "ACTION LEDGER",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "AU",
+    "accent": "#ffb86c",
+    "description": "Immutable audit recorder logging system calls, IO streams, and agent decisions with cryptographic hash chains and stdio MCP server.",
+    "gem": true,
+    "gemFact": "Cryptographic Hash Chains \u00b7 Tamper Detection",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/ooaudit/install.sh | bash",
+    "overviewUrl": "ooaudit/",
+    "repoUrl": "https://github.com/openOODA-tools/ooaudit",
+    "tags": [
+      "action-ledger",
+      "hash-chain",
+      "audit-log",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&FsWriteCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-07"
   }
 ]

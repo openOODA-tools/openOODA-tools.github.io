@@ -259,7 +259,7 @@ released_tools = [
         "name": "ooclock",
         "category": "System & Monitor",
         "role": "MATRIX CLOCK",
-        "version": "v0.1.0",
+        "version": "v0.2.0",
         "status": "released",
         "monogram": "CK",
         "accent": "#00e5ff",

@@ -1,7 +1,7 @@
 # Maintainer: openOODA-tools <ops@openooda.org>
 pkgname=ooclock-bin
 _pkgname=ooclock
-pkgver=0.1.0
+pkgver=0.2.0
 pkgrel=1
 pkgdesc="Sovereign TUI matrix clock, stopwatch, and pomodoro timer with circadian mascot moods and MCP surface"
 arch=('x86_64')

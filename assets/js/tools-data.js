@@ -2689,6 +2689,38 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oofilter",
+    "name": "oofilter",
+    "category": "Data & Streaming",
+    "role": "PREDICATE FILTER",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "FT",
+    "accent": "#00e5ff",
+    "description": "Sovereign boolean logic evaluator and stream predicate filter without ambient authority.",
+    "gem": true,
+    "gemFact": "Boolean Predicate AST \u00b7 Field Token Selectors \u00b7 Streaming MCP",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oofilter/install.sh | bash",
+    "overviewUrl": "oofilter/",
+    "repoUrl": "https://github.com/openOODA-tools/oofilter",
+    "tags": [
+      "filter",
+      "predicate",
+      "stream",
+      "boolean",
+      "ast",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -2720,6 +2752,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 87 },
-  { id: "released", label: "Released", count: 87 }
+  { id: "all", label: "All Repos", count: 88 },
+  { id: "released", label: "Released", count: 88 }
 ];

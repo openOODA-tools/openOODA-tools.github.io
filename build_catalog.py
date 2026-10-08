@@ -1659,6 +1659,25 @@ released_tools = [
         "tags": ["file", "magic", "mime", "encoding", "inspection", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oofilter",
+        "name": "oofilter",
+        "category": "Data & Streaming",
+        "role": "PREDICATE FILTER",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "FT",
+        "accent": "#00e5ff",
+        "description": "Sovereign boolean logic evaluator and stream predicate filter without ambient authority.",
+        "gem": True,
+        "gemFact": "Boolean Predicate AST · Field Token Selectors · Streaming MCP",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oofilter/install.sh | bash",
+        "overviewUrl": "oofilter/",
+        "repoUrl": "https://github.com/openOODA-tools/oofilter",
+        "tags": ["filter", "predicate", "stream", "boolean", "ast", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -1666,8 +1685,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 87, f"Expected 87 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 87, "Duplicate tool ID detected!"
+assert len(all_tools) == 88, f"Expected 88 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 88, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

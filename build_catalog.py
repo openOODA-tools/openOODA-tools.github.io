@@ -1070,6 +1070,25 @@ released_tools = [
         "tags": ["checksum", "sha256", "sha512", "md5", "crc32", "manifest", "integrity", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oochgrp",
+        "name": "oochgrp",
+        "category": "File Management",
+        "role": "GROUP CHANGER",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "CG",
+        "accent": "#00e5ff",
+        "description": "Updates primary and auxiliary group associations for filesystem paths with systemd-tmpfiles declarative synthesis.",
+        "gem": True,
+        "gemFact": "Group Changer · Systemd-Tmpfiles Synthesis & POSIX Chgrp Muscle",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oochgrp/install.sh | bash",
+        "overviewUrl": "oochgrp/",
+        "repoUrl": "https://github.com/openOODA-tools/oochgrp",
+        "tags": ["chgrp", "groups", "permissions", "systemd-tmpfiles", "ownership", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -1077,8 +1096,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 56, f"Expected 56 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 56, "Duplicate tool ID detected!"
+assert len(all_tools) == 57, f"Expected 57 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 57, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

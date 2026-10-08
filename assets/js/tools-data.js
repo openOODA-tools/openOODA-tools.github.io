@@ -1676,6 +1676,38 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oochgrp",
+    "name": "oochgrp",
+    "category": "File Management",
+    "role": "GROUP CHANGER",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "CG",
+    "accent": "#00e5ff",
+    "description": "Updates primary and auxiliary group associations for filesystem paths with systemd-tmpfiles declarative synthesis.",
+    "gem": true,
+    "gemFact": "Group Changer \u00b7 Systemd-Tmpfiles Synthesis & POSIX Chgrp Muscle",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oochgrp/install.sh | bash",
+    "overviewUrl": "oochgrp/",
+    "repoUrl": "https://github.com/openOODA-tools/oochgrp",
+    "tags": [
+      "chgrp",
+      "groups",
+      "permissions",
+      "systemd-tmpfiles",
+      "ownership",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -1685,6 +1717,7 @@ export const CATEGORIES = [
   "Data & Serialization",
   "Data & Streaming",
   "Diff & Comparison",
+  "File Management",
   "Files & Navigation",
   "Filesystem & Navigation",
   "Network & Egress",
@@ -1698,6 +1731,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 56 },
-  { id: "released", label: "Released", count: 56 }
+  { id: "all", label: "All Repos", count: 57 },
+  { id: "released", label: "Released", count: 57 }
 ];

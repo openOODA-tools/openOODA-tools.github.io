@@ -63,7 +63,7 @@
       <p class="sub">Process tree visualizer, systemd slice grouping, and signal manager with oote palettes and MCP surface.</p>
 
       <div class="badges-container">
-        <span class="badge badge-green">v0.1.0</span>
+        <span class="badge badge-green">v0.2.0</span>
         <span class="badge">100% openOODA</span>
         <span class="badge">Zero Ambient Authority</span>
         <span class="badge">systemd Slices</span>
@@ -118,16 +118,20 @@ curl -fsSL https://openooda-tools.github.io/oops/uninstall.sh | bash</code>
           <tr><td>Security</td><td>Ambient proc scraping</td><td>Bounded by &FsReadCap and &ProcessCap tokens</td></tr>
           <tr><td>systemd Slices</td><td>Manual cgroup grep</td><td>Categorized slice grouping (system.slice, user.slice)</td></tr>
           <tr><td>Process Tree</td><td>ASCII pipes</td><td>Unicode branch tree graph hierarchy (├── , └── )</td></tr>
-          <tr><td>AI Agents</td><td>No agent interface</td><td>MCP stdio tools: ps_list, ps_tree, ps_kill</td></tr>
+          <tr><td>AI Agents</td><td>No agent interface</td><td>MCP stdio tools: process_tree, find_process, process_details, send_signal</td></tr>
         </tbody>
       </table>
 
       <h2>Usage & Features</h2>
-      <pre><code>oops                           # Flat process list with state badges
-oops -T                        # Hierarchical process tree with branch glyphs
-oops -c user.slice             # Filter processes by systemd slice
-oops -k 1234 -s TERM           # Capability-gated SIGTERM signal dispatch
-oops --mcp                     # Launch MCP stdio server</code></pre>
+      <pre><code>oops                           # Hierarchical process tree with systemd slice badges (default)
+oops -t                        # Explicit tree mode
+oops -l                        # Flat process list
+oops --ascii                   # ASCII branch connectors (|--, \--)
+oops -s system.slice           # Filter processes by systemd slice
+oops -p 1                      # Subtree rooted at target PID
+oops -k TERM -p 1234           # Capability-gated SIGTERM signal dispatch
+oops --no-color                # Suppress ANSI color escapes
+oops --mcp                     # Launch streaming MCP stdio server</code></pre>
     </div>
 
     <footer class="window-footer">

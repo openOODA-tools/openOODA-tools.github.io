@@ -450,7 +450,7 @@ export const TOOLS_DATA = [
     "name": "oops",
     "category": "System & Monitor",
     "role": "PROCESS TABLE",
-    "version": "v0.1.0",
+    "version": "v0.2.0",
     "status": "released",
     "monogram": "PS",
     "accent": "#00b0ff",

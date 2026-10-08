@@ -2307,6 +2307,39 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oodialog",
+    "name": "oodialog",
+    "category": "Terminal & TUI",
+    "role": "MODAL DIALOG ENGINE",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "DG",
+    "accent": "#4fc3f7",
+    "description": "Sovereign terminal modal dialogue and input box interface engine with multi-widget layouts in pure openOODA.",
+    "gem": true,
+    "gemFact": "TUI Modals \u00b7 Message Boxes, Checklists & Gauges with Streaming MCP",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oodialog/install.sh | bash",
+    "overviewUrl": "oodialog/",
+    "repoUrl": "https://github.com/openOODA-tools/oodialog",
+    "tags": [
+      "dialog",
+      "tui",
+      "modal",
+      "menu",
+      "checklist",
+      "gauge",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -2327,6 +2360,7 @@ export const CATEGORIES = [
   "Storage & Files",
   "System & Hardware",
   "System & Monitor",
+  "Terminal & TUI",
   "Text & Filter",
   "Text & Processing",
   "Text & Streams",
@@ -2334,6 +2368,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 75 },
-  { id: "released", label: "Released", count: 75 }
+  { id: "all", label: "All Repos", count: 76 },
+  { id: "released", label: "Released", count: 76 }
 ];

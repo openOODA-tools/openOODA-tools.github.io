@@ -1431,6 +1431,25 @@ released_tools = [
         "tags": ["df", "disk", "storage", "mounts", "inodes", "blocks", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oodialog",
+        "name": "oodialog",
+        "category": "Terminal & TUI",
+        "role": "MODAL DIALOG ENGINE",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "DG",
+        "accent": "#4fc3f7",
+        "description": "Sovereign terminal modal dialogue and input box interface engine with multi-widget layouts in pure openOODA.",
+        "gem": True,
+        "gemFact": "TUI Modals · Message Boxes, Checklists & Gauges with Streaming MCP",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oodialog/install.sh | bash",
+        "overviewUrl": "oodialog/",
+        "repoUrl": "https://github.com/openOODA-tools/oodialog",
+        "tags": ["dialog", "tui", "modal", "menu", "checklist", "gauge", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -1438,8 +1457,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 75, f"Expected 75 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 75, "Duplicate tool ID detected!"
+assert len(all_tools) == 76, f"Expected 76 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 76, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

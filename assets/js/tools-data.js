@@ -2977,12 +2977,48 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oogrepz",
+    "name": "oogrepz",
+    "category": "Compression & Archive",
+    "role": "COMPRESSED SEARCH ENGINE",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "GZ",
+    "accent": "#00e676",
+    "description": "Zero-copy streaming search across gzip, bzip2, xz, and zstd compressed archives with zero ambient authority.",
+    "gem": true,
+    "gemFact": "Zero-Copy Streaming Search \u00b7 Multi-Container Autodetect (gzip/bzip2/xz/zstd) & Streaming MCP",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oogrepz/install.sh | bash",
+    "overviewUrl": "oogrepz/",
+    "repoUrl": "https://github.com/openOODA-tools/oogrepz",
+    "tags": [
+      "grep",
+      "zgrep",
+      "compression",
+      "gzip",
+      "bzip2",
+      "xz",
+      "zstd",
+      "search",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
 export const CATEGORIES = [
   "All Categories",
   "Binary & Reverse Engineering",
+  "Compression & Archive",
   "Data & Serialization",
   "Data & Streaming",
   "Development & Code",
@@ -3010,6 +3046,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 96 },
-  { id: "released", label: "Released", count: 96 }
+  { id: "all", label: "All Repos", count: 97 },
+  { id: "released", label: "Released", count: 97 }
 ];

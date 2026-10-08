@@ -1829,6 +1829,25 @@ released_tools = [
         "tags": ["gradient", "truecolor", "ansi", "styling", "color", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oogrepz",
+        "name": "oogrepz",
+        "category": "Compression & Archive",
+        "role": "COMPRESSED SEARCH ENGINE",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "GZ",
+        "accent": "#00e676",
+        "description": "Zero-copy streaming search across gzip, bzip2, xz, and zstd compressed archives with zero ambient authority.",
+        "gem": True,
+        "gemFact": "Zero-Copy Streaming Search · Multi-Container Autodetect (gzip/bzip2/xz/zstd) & Streaming MCP",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oogrepz/install.sh | bash",
+        "overviewUrl": "oogrepz/",
+        "repoUrl": "https://github.com/openOODA-tools/oogrepz",
+        "tags": ["grep", "zgrep", "compression", "gzip", "bzip2", "xz", "zstd", "search", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -1836,8 +1855,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 96, f"Expected 96 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 96, "Duplicate tool ID detected!"
+assert len(all_tools) == 97, f"Expected 97 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 97, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

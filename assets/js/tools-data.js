@@ -1033,6 +1033,37 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-07"
+  },
+  {
+    "id": "oobase58",
+    "name": "oobase58",
+    "category": "Data & Serialization",
+    "role": "BASE58 CODEC",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "58",
+    "accent": "#ff9100",
+    "description": "Cryptographic Base58 encoder and decoder omitting ambiguous alphanumeric glyphs with stdio MCP server.",
+    "gem": true,
+    "gemFact": "Base58 Codec \u00b7 Multi-Alphabet & Arbitrary-Precision Engine",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oobase58/install.sh | bash",
+    "overviewUrl": "oobase58/",
+    "repoUrl": "https://github.com/openOODA-tools/oobase58",
+    "tags": [
+      "base58",
+      "codec",
+      "bitcoin",
+      "ripple",
+      "flickr",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-07"
   }
 ];
 
@@ -1052,6 +1083,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 36 },
-  { id: "released", label: "Released", count: 36 }
+  { id: "all", label: "All Repos", count: 37 },
+  { id: "released", label: "Released", count: 37 }
 ];

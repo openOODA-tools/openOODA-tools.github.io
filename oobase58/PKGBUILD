@@ -1,0 +1,21 @@
+# Maintainer: openOODA-tools <ops@openooda.org>
+pkgname=oobase58-bin
+_pkgname=oobase58
+pkgver=0.2.0
+pkgrel=1
+pkgdesc="Cryptographic Base58 encoder and decoder omitting ambiguous alphanumeric glyphs."
+arch=('x86_64')
+url="https://github.com/openOODA-tools/oobase58"
+license=('Apache-2.0')
+depends=('glibc')
+provides=('oobase58')
+conflicts=('oobase58')
+source_x86_64=("${url}/releases/download/v${pkgver}/oobase58-linux-x86_64"
+               "uninstall.sh::https://raw.githubusercontent.com/openOODA-tools/${_pkgname}/v${pkgver}/uninstall.sh")
+sha256sums_x86_64=('SKIP'
+                   'SKIP')
+
+package() {
+    install -Dm755 "${srcdir}/oobase58-linux-x86_64" "${pkgdir}/usr/bin/oobase58"
+    install -Dm755 uninstall.sh "${pkgdir}/usr/bin/oobase58-uninstall"
+}

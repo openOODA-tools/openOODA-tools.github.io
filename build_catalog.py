@@ -576,6 +576,25 @@ released_tools = [
         "tags": ["action-ledger", "hash-chain", "audit-log", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&FsWriteCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-07"
+    },
+    {
+        "id": "ooawk",
+        "name": "ooawk",
+        "category": "Text & Filter",
+        "role": "RECORD PROCESSOR",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "AW",
+        "accent": "#50fa7b",
+        "description": "Data-driven pattern scanning and text processing language with exact arithmetic, field projection, and stdio MCP server.",
+        "gem": True,
+        "gemFact": "Exact Arithmetic · Field Projection",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/ooawk/install.sh | bash",
+        "overviewUrl": "ooawk/",
+        "repoUrl": "https://github.com/openOODA-tools/ooawk",
+        "tags": ["record-processor", "pattern-scanning", "exact-arithmetic", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-07"
     }
 ]
 
@@ -583,8 +602,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 30, f"Expected 30 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 30, "Duplicate tool ID detected!"
+assert len(all_tools) == 31, f"Expected 31 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 31, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

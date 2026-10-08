@@ -855,6 +855,35 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-07"
+  },
+  {
+    "id": "ooawk",
+    "name": "ooawk",
+    "category": "Text & Filter",
+    "role": "RECORD PROCESSOR",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "AW",
+    "accent": "#50fa7b",
+    "description": "Data-driven pattern scanning and text processing language with exact arithmetic, field projection, and stdio MCP server.",
+    "gem": true,
+    "gemFact": "Exact Arithmetic \u00b7 Field Projection",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/ooawk/install.sh | bash",
+    "overviewUrl": "ooawk/",
+    "repoUrl": "https://github.com/openOODA-tools/ooawk",
+    "tags": [
+      "record-processor",
+      "pattern-scanning",
+      "exact-arithmetic",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-07"
   }
 ];
 
@@ -868,10 +897,11 @@ export const CATEGORIES = [
   "Security & Audit",
   "Shell & Terminal",
   "System & Monitor",
+  "Text & Filter",
   "Theme & Styling"
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 30 },
-  { id: "released", label: "Released", count: 30 }
+  { id: "all", label: "All Repos", count: 31 },
+  { id: "released", label: "Released", count: 31 }
 ];

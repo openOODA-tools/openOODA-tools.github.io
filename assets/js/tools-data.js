@@ -2625,6 +2625,38 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oofigure",
+    "name": "oofigure",
+    "category": "Terminal & TUI",
+    "role": "BOX DRAWING",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "FG",
+    "accent": "#7c4dff",
+    "description": "Sovereign Unicode box-drawing tables, callouts, and code borders with streaming MCP server.",
+    "gem": true,
+    "gemFact": "Unicode Box Geometries \u00b7 GFM Callouts \u00b7 Streaming MCP",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oofigure/install.sh | bash",
+    "overviewUrl": "oofigure/",
+    "repoUrl": "https://github.com/openOODA-tools/oofigure",
+    "tags": [
+      "figure",
+      "boxes",
+      "unicode",
+      "callouts",
+      "tables",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -2656,6 +2688,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 85 },
-  { id: "released", label: "Released", count: 85 }
+  { id: "all", label: "All Repos", count: 86 },
+  { id: "released", label: "Released", count: 86 }
 ];

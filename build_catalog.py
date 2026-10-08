@@ -1621,6 +1621,25 @@ released_tools = [
         "tags": ["false", "exit-code", "posix", "signals", "simulation", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oofigure",
+        "name": "oofigure",
+        "category": "Terminal & TUI",
+        "role": "BOX DRAWING",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "FG",
+        "accent": "#7c4dff",
+        "description": "Sovereign Unicode box-drawing tables, callouts, and code borders with streaming MCP server.",
+        "gem": True,
+        "gemFact": "Unicode Box Geometries · GFM Callouts · Streaming MCP",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oofigure/install.sh | bash",
+        "overviewUrl": "oofigure/",
+        "repoUrl": "https://github.com/openOODA-tools/oofigure",
+        "tags": ["figure", "boxes", "unicode", "callouts", "tables", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -1628,8 +1647,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 85, f"Expected 85 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 85, "Duplicate tool ID detected!"
+assert len(all_tools) == 86, f"Expected 86 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 86, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

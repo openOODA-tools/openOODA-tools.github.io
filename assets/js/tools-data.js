@@ -1509,6 +1509,39 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oocbor",
+    "name": "oocbor",
+    "category": "Data & Streaming",
+    "role": "CBOR SERIALIZER",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "CB",
+    "accent": "#00e5ff",
+    "description": "Concise Binary Object Representation (RFC 8949) encoder, diagnostic viewer, and decoder with streaming MCP server.",
+    "gem": true,
+    "gemFact": "CBOR Serializer \u00b7 RFC 8949 Binary Codec & Diagnostic Viewer",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oocbor/install.sh | bash",
+    "overviewUrl": "oocbor/",
+    "repoUrl": "https://github.com/openOODA-tools/oocbor",
+    "tags": [
+      "cbor",
+      "rfc8949",
+      "serializer",
+      "codec",
+      "diagnostic",
+      "binary",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -1531,6 +1564,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 51 },
-  { id: "released", label: "Released", count: 51 }
+  { id: "all", label: "All Repos", count: 52 },
+  { id: "released", label: "Released", count: 52 }
 ];

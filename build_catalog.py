@@ -975,6 +975,25 @@ released_tools = [
         "tags": ["capabilities", "linux", "security", "audit", "systemd", "bounding-set", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oocbor",
+        "name": "oocbor",
+        "category": "Data & Streaming",
+        "role": "CBOR SERIALIZER",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "CB",
+        "accent": "#00e5ff",
+        "description": "Concise Binary Object Representation (RFC 8949) encoder, diagnostic viewer, and decoder with streaming MCP server.",
+        "gem": True,
+        "gemFact": "CBOR Serializer · RFC 8949 Binary Codec & Diagnostic Viewer",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oocbor/install.sh | bash",
+        "overviewUrl": "oocbor/",
+        "repoUrl": "https://github.com/openOODA-tools/oocbor",
+        "tags": ["cbor", "rfc8949", "serializer", "codec", "diagnostic", "binary", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -982,8 +1001,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 51, f"Expected 51 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 51, "Duplicate tool ID detected!"
+assert len(all_tools) == 52, f"Expected 52 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 52, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

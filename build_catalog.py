@@ -1374,6 +1374,25 @@ released_tools = [
         "tags": ["csplit", "split", "stream", "delimiter", "regex", "partition", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&FsWriteCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oocsv",
+        "name": "oocsv",
+        "category": "Text & Streams",
+        "role": "CSV QUERY ENGINE",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "CV",
+        "accent": "#4caf50",
+        "description": "High-speed RFC 4180 CSV parser with SQL-like query filtering, column projection, and header manipulation in pure openOODA.",
+        "gem": True,
+        "gemFact": "CSV Engine · RFC 4180 Parser with SQL Query Filters & Streaming MCP",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oocsv/install.sh | bash",
+        "overviewUrl": "oocsv/",
+        "repoUrl": "https://github.com/openOODA-tools/oocsv",
+        "tags": ["csv", "rfc4180", "parser", "filter", "query", "projection", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -1381,8 +1400,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 72, f"Expected 72 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 72, "Duplicate tool ID detected!"
+assert len(all_tools) == 73, f"Expected 73 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 73, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

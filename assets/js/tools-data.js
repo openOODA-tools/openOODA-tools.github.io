@@ -2208,6 +2208,39 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oocsv",
+    "name": "oocsv",
+    "category": "Text & Streams",
+    "role": "CSV QUERY ENGINE",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "CV",
+    "accent": "#4caf50",
+    "description": "High-speed RFC 4180 CSV parser with SQL-like query filtering, column projection, and header manipulation in pure openOODA.",
+    "gem": true,
+    "gemFact": "CSV Engine \u00b7 RFC 4180 Parser with SQL Query Filters & Streaming MCP",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oocsv/install.sh | bash",
+    "overviewUrl": "oocsv/",
+    "repoUrl": "https://github.com/openOODA-tools/oocsv",
+    "tags": [
+      "csv",
+      "rfc4180",
+      "parser",
+      "filter",
+      "query",
+      "projection",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -2234,6 +2267,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 72 },
-  { id: "released", label: "Released", count: 72 }
+  { id: "all", label: "All Repos", count: 73 },
+  { id: "released", label: "Released", count: 73 }
 ];

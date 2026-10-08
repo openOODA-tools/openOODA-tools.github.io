@@ -708,6 +708,36 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-07"
+  },
+  {
+    "id": "ooarp",
+    "name": "ooarp",
+    "category": "Network & Egress",
+    "role": "ARP CACHE TOOL",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "AP",
+    "accent": "#50fa7b",
+    "description": "Capability-bounded ARP cache and neighbor discovery auditor with IEEE 802 MAC validation and stdio MCP server.",
+    "gem": true,
+    "gemFact": "Neighbor Discovery \u00b7 Spoofing Auditor",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/ooarp/install.sh | bash",
+    "overviewUrl": "ooarp/",
+    "repoUrl": "https://github.com/openOODA-tools/ooarp",
+    "tags": [
+      "arp-cache",
+      "neighbor-discovery",
+      "mac-audit",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&NetCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-07"
   }
 ];
 
@@ -724,6 +754,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 25 },
-  { id: "released", label: "Released", count: 25 }
+  { id: "all", label: "All Repos", count: 26 },
+  { id: "released", label: "Released", count: 26 }
 ];

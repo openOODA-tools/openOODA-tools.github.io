@@ -481,6 +481,25 @@ released_tools = [
         "tags": ["reproducible-archive", "deterministic-tar", "anti-zipslip", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&FsWriteCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-07"
+    },
+    {
+        "id": "ooarp",
+        "name": "ooarp",
+        "category": "Network & Egress",
+        "role": "ARP CACHE TOOL",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "AP",
+        "accent": "#50fa7b",
+        "description": "Capability-bounded ARP cache and neighbor discovery auditor with IEEE 802 MAC validation and stdio MCP server.",
+        "gem": True,
+        "gemFact": "Neighbor Discovery · Spoofing Auditor",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/ooarp/install.sh | bash",
+        "overviewUrl": "ooarp/",
+        "repoUrl": "https://github.com/openOODA-tools/ooarp",
+        "tags": ["arp-cache", "neighbor-discovery", "mac-audit", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&NetCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-07"
     }
 ]
 
@@ -488,8 +507,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 25, f"Expected 25 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 25, "Duplicate tool ID detected!"
+assert len(all_tools) == 26, f"Expected 26 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 26, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

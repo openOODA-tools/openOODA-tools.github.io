@@ -2404,6 +2404,37 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oodirname",
+    "name": "oodirname",
+    "category": "Files & Navigation",
+    "role": "DIRECTORY STRIPPER",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "DN",
+    "accent": "#ab47bc",
+    "description": "Sovereign POSIX dirname utility extracting parent directory portion with IEEE Std 1003.1 compliance and streaming MCP.",
+    "gem": true,
+    "gemFact": "POSIX IEEE Std 1003.1 Parity \u00b7 Ancestor Walk & Component Split with Streaming MCP",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oodirname/install.sh | bash",
+    "overviewUrl": "oodirname/",
+    "repoUrl": "https://github.com/openOODA-tools/oodirname",
+    "tags": [
+      "dirname",
+      "path",
+      "posix",
+      "navigation",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -2433,6 +2464,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 78 },
-  { id: "released", label: "Released", count: 78 }
+  { id: "all", label: "All Repos", count: 79 },
+  { id: "released", label: "Released", count: 79 }
 ];

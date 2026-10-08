@@ -1488,6 +1488,25 @@ released_tools = [
         "tags": ["dns", "dig", "resolver", "lookup", "trace", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&NetCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oodirname",
+        "name": "oodirname",
+        "category": "Files & Navigation",
+        "role": "DIRECTORY STRIPPER",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "DN",
+        "accent": "#ab47bc",
+        "description": "Sovereign POSIX dirname utility extracting parent directory portion with IEEE Std 1003.1 compliance and streaming MCP.",
+        "gem": True,
+        "gemFact": "POSIX IEEE Std 1003.1 Parity · Ancestor Walk & Component Split with Streaming MCP",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oodirname/install.sh | bash",
+        "overviewUrl": "oodirname/",
+        "repoUrl": "https://github.com/openOODA-tools/oodirname",
+        "tags": ["dirname", "path", "posix", "navigation", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -1495,8 +1514,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 78, f"Expected 78 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 78, "Duplicate tool ID detected!"
+assert len(all_tools) == 79, f"Expected 79 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 79, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

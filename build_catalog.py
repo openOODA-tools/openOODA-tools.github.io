@@ -728,6 +728,25 @@ released_tools = [
         "tags": ["base64", "codec", "rfc4648", "url-safe", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-07"
+    },
+    {
+        "id": "oobasename",
+        "name": "oobasename",
+        "category": "Filesystem & Navigation",
+        "role": "PATH STRIPPER",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "BN",
+        "accent": "#00b0ff",
+        "description": "Strips directory prefixes and optional file extensions from path strings with stdio MCP server.",
+        "gem": True,
+        "gemFact": "Path Stripper · POSIX Basename & Batch Collection Engine",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oobasename/install.sh | bash",
+        "overviewUrl": "oobasename/",
+        "repoUrl": "https://github.com/openOODA-tools/oobasename",
+        "tags": ["basename", "path", "filename", "posix", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-07"
     }
 ]
 
@@ -735,8 +754,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 38, f"Expected 38 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 38, "Duplicate tool ID detected!"
+assert len(all_tools) == 39, f"Expected 39 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 39, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

@@ -1094,6 +1094,36 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-07"
+  },
+  {
+    "id": "oobasename",
+    "name": "oobasename",
+    "category": "Filesystem & Navigation",
+    "role": "PATH STRIPPER",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "BN",
+    "accent": "#00b0ff",
+    "description": "Strips directory prefixes and optional file extensions from path strings with stdio MCP server.",
+    "gem": true,
+    "gemFact": "Path Stripper \u00b7 POSIX Basename & Batch Collection Engine",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oobasename/install.sh | bash",
+    "overviewUrl": "oobasename/",
+    "repoUrl": "https://github.com/openOODA-tools/oobasename",
+    "tags": [
+      "basename",
+      "path",
+      "filename",
+      "posix",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-07"
   }
 ];
 
@@ -1103,6 +1133,7 @@ export const CATEGORIES = [
   "Data & Streaming",
   "Diff & Comparison",
   "Files & Navigation",
+  "Filesystem & Navigation",
   "Network & Egress",
   "Search & Inspection",
   "Security & Audit",
@@ -1113,6 +1144,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 38 },
-  { id: "released", label: "Released", count: 38 }
+  { id: "all", label: "All Repos", count: 39 },
+  { id: "released", label: "Released", count: 39 }
 ];

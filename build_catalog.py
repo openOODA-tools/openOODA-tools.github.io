@@ -1241,6 +1241,25 @@ released_tools = [
         "tags": ["colrm", "columns", "strip", "cut", "slice", "tabs", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oocomm",
+        "name": "oocomm",
+        "category": "Text & Processing",
+        "role": "LINE COMPARATOR",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "CM",
+        "accent": "#69f0ae",
+        "description": "Compares two sorted files line by line to produce unique and common lines with column suppression.",
+        "gem": True,
+        "gemFact": "Line Comparator · 3-Column Stream Merge & Lexicographical Sort Verifier",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oocomm/install.sh | bash",
+        "overviewUrl": "oocomm/",
+        "repoUrl": "https://github.com/openOODA-tools/oocomm",
+        "tags": ["comm", "compare", "diff", "intersection", "sorted", "lines", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -1248,8 +1267,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 65, f"Expected 65 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 65, "Duplicate tool ID detected!"
+assert len(all_tools) == 66, f"Expected 66 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 66, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

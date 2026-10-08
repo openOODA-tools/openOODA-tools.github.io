@@ -1974,6 +1974,39 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oocomm",
+    "name": "oocomm",
+    "category": "Text & Processing",
+    "role": "LINE COMPARATOR",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "CM",
+    "accent": "#69f0ae",
+    "description": "Compares two sorted files line by line to produce unique and common lines with column suppression.",
+    "gem": true,
+    "gemFact": "Line Comparator \u00b7 3-Column Stream Merge & Lexicographical Sort Verifier",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oocomm/install.sh | bash",
+    "overviewUrl": "oocomm/",
+    "repoUrl": "https://github.com/openOODA-tools/oocomm",
+    "tags": [
+      "comm",
+      "compare",
+      "diff",
+      "intersection",
+      "sorted",
+      "lines",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -1998,6 +2031,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 65 },
-  { id: "released", label: "Released", count: 65 }
+  { id: "all", label: "All Repos", count: 66 },
+  { id: "released", label: "Released", count: 66 }
 ];

@@ -1,0 +1,21 @@
+# Maintainer: openOODA-tools <ops@openooda.org>
+pkgname=oocomm-bin
+_pkgname=oocomm
+pkgver=0.2.0
+pkgrel=1
+pkgdesc="Compares two sorted files line by line to produce unique and common lines."
+arch=('x86_64')
+url="https://github.com/openOODA-tools/oocomm"
+license=('Apache-2.0')
+depends=('glibc')
+provides=('oocomm')
+conflicts=('oocomm')
+source_x86_64=("${url}/releases/download/v${pkgver}/oocomm-linux-x86_64"
+               "uninstall.sh::https://raw.githubusercontent.com/openOODA-tools/${_pkgname}/v${pkgver}/uninstall.sh")
+sha256sums_x86_64=('SKIP'
+                   'SKIP')
+
+package() {
+    install -Dm755 "${srcdir}/oocomm-linux-x86_64" "${pkgdir}/usr/bin/oocomm"
+    install -Dm755 uninstall.sh "${pkgdir}/usr/bin/oocomm-uninstall"
+}

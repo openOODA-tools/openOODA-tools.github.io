@@ -1526,6 +1526,25 @@ released_tools = [
         "tags": ["dmesg", "kernel", "kmsg", "diagnostics", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oodns",
+        "name": "oodns",
+        "category": "Diagnostics & Observers",
+        "role": "DNS RESOLVER",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "NS",
+        "accent": "#00bcd4",
+        "description": "Sovereign DNS resolver and query engine with DNS-over-HTTPS (RFC 8484) and capability allowlists in pure openOODA.",
+        "gem": True,
+        "gemFact": "DoH RFC 8484 Parity · Negative-Trust Capability Allowlists with Streaming MCP",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oodns/install.sh | bash",
+        "overviewUrl": "oodns/",
+        "repoUrl": "https://github.com/openOODA-tools/oodns",
+        "tags": ["dns", "resolver", "doh", "allowlist", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -1533,8 +1552,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 80, f"Expected 80 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 80, "Duplicate tool ID detected!"
+assert len(all_tools) == 81, f"Expected 81 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 81, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

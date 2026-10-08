@@ -1,7 +1,7 @@
 # Maintainer: openOODA-tools <ops@openooda.org>
 pkgname=ootree-bin
 _pkgname=ootree
-pkgver=0.1.0
+pkgver=0.2.0
 pkgrel=1
 pkgdesc="Sovereign directory hierarchy and tree visualizer with branch glyphs and MCP surface"
 arch=('x86_64')

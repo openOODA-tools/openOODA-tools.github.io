@@ -240,7 +240,7 @@ released_tools = [
         "name": "ootree",
         "category": "Files & Navigation",
         "role": "TREE VISUALIZER",
-        "version": "v0.1.0",
+        "version": "v0.2.0",
         "status": "released",
         "monogram": "TR",
         "accent": "#64ffda",
@@ -251,7 +251,7 @@ released_tools = [
         "overviewUrl": "ootree/",
         "repoUrl": "https://github.com/openOODA-tools/ootree",
         "tags": ["tree-traversal", "depth-limiting", "mcp-native", "pure-openooda"],
-        "capabilities": ["&FsReadCap", "&McpCap"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-02"
     },
     {

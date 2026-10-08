@@ -63,7 +63,7 @@
       <p class="sub">Directory hierarchy visualizer with Unicode branch glyphs, gitignore filtering, oote palettes, and MCP surface.</p>
 
       <div class="badges-container">
-        <span class="badge badge-green">v0.1.0</span>
+        <span class="badge badge-green">v0.2.0</span>
         <span class="badge">100% openOODA</span>
         <span class="badge">Zero Ambient Authority</span>
         <span class="badge">Unicode Glyphs</span>
@@ -116,9 +116,10 @@ curl -fsSL https://openooda-tools.github.io/ootree/uninstall.sh | bash</code>
         </thead>
         <tbody>
           <tr><td>Security</td><td>Ambient filesystem access</td><td>Bounded by &FsReadCap tokens</td></tr>
-          <tr><td>Branch Glyphs</td><td>Locale-dependent ASCII</td><td>Deterministic Unicode tree connectors (├── , └── )</td></tr>
+          <tr><td>Branch Glyphs</td><td>Locale-dependent ASCII</td><td>Deterministic Unicode tree connectors (├── , └── ) or ASCII fallback (-A/--ascii)</td></tr>
           <tr><td>Filtering</td><td>Ad-hoc exclude regex</td><td>Native .gitignore skip engine and hidden file pruning</td></tr>
-          <tr><td>AI Agents</td><td>No agent interface</td><td>MCP stdio tools: tree_view, tree_summary</td></tr>
+          <tr><td>Machine Output</td><td>Plain text piping</td><td>Native machine-readable JSON structure (--json)</td></tr>
+          <tr><td>AI Agents</td><td>No agent interface</td><td>Streaming MCP stdio tools: tree_structure, tree_summary, find_entries, directory_capacity</td></tr>
         </tbody>
       </table>
 
@@ -127,7 +128,11 @@ curl -fsSL https://openooda-tools.github.io/ootree/uninstall.sh | bash</code>
 ootree /path/to/project -L 2   # Limit recursion depth to 2 levels
 ootree -d                      # Display directories only
 ootree -s                      # Show human-readable file sizes
-ootree --mcp                   # Launch MCP stdio server</code></pre>
+ootree -A                      # ASCII branch glyphs fallback
+ootree -f                      # Full path rendering for all entries
+ootree --json                  # Emit structured JSON hierarchy
+ootree --theme cyberpunk       # Custom oote theme palette
+ootree --mcp                   # Launch streaming MCP JSON-RPC 2.0 stdio server</code></pre>
     </div>
 
     <footer class="window-footer">

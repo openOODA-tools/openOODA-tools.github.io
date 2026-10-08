@@ -340,7 +340,7 @@ export const TOOLS_DATA = [
     "name": "ootree",
     "category": "Files & Navigation",
     "role": "TREE VISUALIZER",
-    "version": "v0.1.0",
+    "version": "v0.2.0",
     "status": "released",
     "monogram": "TR",
     "accent": "#64ffda",
@@ -358,6 +358,8 @@ export const TOOLS_DATA = [
     ],
     "capabilities": [
       "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
       "&McpCap"
     ],
     "addedAt": "2026-10-02"

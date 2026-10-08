@@ -3009,5 +3009,36 @@
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "ooguard",
+    "name": "ooguard",
+    "category": "Agent & Security",
+    "role": "AGENT GUARDRAIL",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "GD",
+    "accent": "#ff1744",
+    "description": "Sovereign prompt injection and destructive command guardrail filtering agent tool arguments with zero ambient authority.",
+    "gem": true,
+    "gemFact": "22-Vector Threat Catalog \u00b7 Multi-Tier Enforcement & Streaming MCP",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/ooguard/install.sh | bash",
+    "overviewUrl": "ooguard/",
+    "repoUrl": "https://github.com/openOODA-tools/ooguard",
+    "tags": [
+      "guardrail",
+      "security",
+      "firewall",
+      "injection-defense",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ]

@@ -1848,6 +1848,25 @@ released_tools = [
         "tags": ["grep", "zgrep", "compression", "gzip", "bzip2", "xz", "zstd", "search", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "ooguard",
+        "name": "ooguard",
+        "category": "Agent & Security",
+        "role": "AGENT GUARDRAIL",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "GD",
+        "accent": "#ff1744",
+        "description": "Sovereign prompt injection and destructive command guardrail filtering agent tool arguments with zero ambient authority.",
+        "gem": True,
+        "gemFact": "22-Vector Threat Catalog · Multi-Tier Enforcement & Streaming MCP",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/ooguard/install.sh | bash",
+        "overviewUrl": "ooguard/",
+        "repoUrl": "https://github.com/openOODA-tools/ooguard",
+        "tags": ["guardrail", "security", "firewall", "injection-defense", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -1855,8 +1874,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 97, f"Expected 97 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 97, "Duplicate tool ID detected!"
+assert len(all_tools) == 98, f"Expected 98 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 98, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

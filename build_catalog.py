@@ -1943,6 +1943,25 @@ released_tools = [
         "tags": ["hex", "hexdump", "xxd", "binary", "delta", "diff", "pager", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oohistory",
+        "name": "oohistory",
+        "category": "Security & Audit",
+        "role": "AUDIT LEDGER",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "HI",
+        "accent": "#ffd700",
+        "description": "Tamper-evident append-only shell command history with cryptographic hash chaining and automatic secret redaction.",
+        "gem": True,
+        "gemFact": "Audit Ledger · Merkle Hash Chaining · Auto Secret Masking",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oohistory/install.sh | bash",
+        "overviewUrl": "oohistory/",
+        "repoUrl": "https://github.com/openOODA-tools/oohistory",
+        "tags": ["history", "audit", "ledger", "merkle", "hash-chain", "redaction", "security", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&FsWriteCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -1950,8 +1969,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 102, f"Expected 102 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 102, "Duplicate tool ID detected!"
+assert len(all_tools) == 103, f"Expected 103 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 103, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

@@ -354,7 +354,7 @@ released_tools = [
         "name": "oowatch",
         "category": "System & Monitor",
         "role": "INTERVAL WATCHER",
-        "version": "v0.1.0",
+        "version": "v0.2.0",
         "status": "released",
         "monogram": "WT",
         "accent": "#00b0ff",

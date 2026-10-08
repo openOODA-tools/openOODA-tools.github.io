@@ -1280,6 +1280,38 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oobindiff",
+    "name": "oobindiff",
+    "category": "Diff & Comparison",
+    "role": "BINARY DIFFER",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "BD",
+    "accent": "#ff3d00",
+    "description": "Structural binary differ identifying patch blocks and byte sequence displacements with stdio MCP server.",
+    "gem": true,
+    "gemFact": "Binary Differ \u00b7 Structural Mutation Hunks & Similarity Engine",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oobindiff/install.sh | bash",
+    "overviewUrl": "oobindiff/",
+    "repoUrl": "https://github.com/openOODA-tools/oobindiff",
+    "tags": [
+      "diff",
+      "binary",
+      "bindiff",
+      "hunks",
+      "comparison",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -1302,6 +1334,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 44 },
-  { id: "released", label: "Released", count: 44 }
+  { id: "all", label: "All Repos", count: 45 },
+  { id: "released", label: "Released", count: 45 }
 ];

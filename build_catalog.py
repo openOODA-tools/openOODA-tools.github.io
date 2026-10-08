@@ -842,6 +842,25 @@ released_tools = [
         "tags": ["binary", "bits", "endian", "bitmask", "align", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oobindiff",
+        "name": "oobindiff",
+        "category": "Diff & Comparison",
+        "role": "BINARY DIFFER",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "BD",
+        "accent": "#ff3d00",
+        "description": "Structural binary differ identifying patch blocks and byte sequence displacements with stdio MCP server.",
+        "gem": True,
+        "gemFact": "Binary Differ · Structural Mutation Hunks & Similarity Engine",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oobindiff/install.sh | bash",
+        "overviewUrl": "oobindiff/",
+        "repoUrl": "https://github.com/openOODA-tools/oobindiff",
+        "tags": ["diff", "binary", "bindiff", "hunks", "comparison", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -849,8 +868,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 44, f"Expected 44 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 44, "Duplicate tool ID detected!"
+assert len(all_tools) == 45, f"Expected 45 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 45, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

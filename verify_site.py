@@ -41,14 +41,14 @@ def test_released_tools_parity():
     with open(json_path, "r", encoding="utf-8") as f:
         tools = json.load(f)
 
-    assert len(tools) == 44, f"Expected 44 tools, got {len(tools)}"
+    assert len(tools) == 45, f"Expected 45 tools, got {len(tools)}"
     
     released = [t for t in tools if t["status"] == "released"]
-    assert len(released) == 44, f"Expected 44 released tools, got {len(released)}"
+    assert len(released) == 45, f"Expected 45 released tools, got {len(released)}"
     
     expected_released = [
         "oosh", "oogrep", "oodiff", "oofind", "oojq", "ootail", "oote", "oofetch", "oocat", "ootop", "oofzf", "ools",
-        "ootree", "ooclock", "oosed", "ootar", "oops", "oocurl", "oowatch", "oomcp", "oo7z", "ooalias", "ooansi", "ooapparmor", "ooarchive", "ooarp", "ooastdiff", "ooat", "ooattest", "ooaudit", "ooawk", "oob3sum", "oobackup", "oobanner", "oobar", "oobase32", "oobase58", "oobase64", "oobasename", "oobash", "oobatch", "oobattery", "oobiew", "oobinary"
+        "ootree", "ooclock", "oosed", "ootar", "oops", "oocurl", "oowatch", "oomcp", "oo7z", "ooalias", "ooansi", "ooapparmor", "ooarchive", "ooarp", "ooastdiff", "ooat", "ooattest", "ooaudit", "ooawk", "oob3sum", "oobackup", "oobanner", "oobar", "oobase32", "oobase58", "oobase64", "oobasename", "oobash", "oobatch", "oobattery", "oobiew", "oobinary", "oobindiff"
     ]
     released_ids = [t["id"] for t in released]
     assert set(released_ids) == set(expected_released), f"Released IDs mismatch: {released_ids}"

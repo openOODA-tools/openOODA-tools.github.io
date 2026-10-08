@@ -2141,6 +2141,39 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oocron",
+    "name": "oocron",
+    "category": "Process & Scheduling",
+    "role": "SYSTEMD TIMER SCHEDULER",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "CR",
+    "accent": "#ff9100",
+    "description": "Pure systemd timer scheduler replacing legacy cron with journald integration and hardened oneshot service generation.",
+    "gem": true,
+    "gemFact": "Systemd Timer Scheduler \u00b7 Native Cron Transpiler & Journald Integration",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oocron/install.sh | bash",
+    "overviewUrl": "oocron/",
+    "repoUrl": "https://github.com/openOODA-tools/oocron",
+    "tags": [
+      "cron",
+      "systemd",
+      "timer",
+      "scheduler",
+      "journald",
+      "transpiler",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -2154,6 +2187,7 @@ export const CATEGORIES = [
   "Files & Navigation",
   "Filesystem & Navigation",
   "Network & Egress",
+  "Process & Scheduling",
   "Search & Inspection",
   "Security & Audit",
   "Shell & Terminal",
@@ -2165,6 +2199,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 70 },
-  { id: "released", label: "Released", count: 70 }
+  { id: "all", label: "All Repos", count: 71 },
+  { id: "released", label: "Released", count: 71 }
 ];

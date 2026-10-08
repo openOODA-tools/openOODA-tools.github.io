@@ -2138,5 +2138,38 @@
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oocron",
+    "name": "oocron",
+    "category": "Process & Scheduling",
+    "role": "SYSTEMD TIMER SCHEDULER",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "CR",
+    "accent": "#ff9100",
+    "description": "Pure systemd timer scheduler replacing legacy cron with journald integration and hardened oneshot service generation.",
+    "gem": true,
+    "gemFact": "Systemd Timer Scheduler \u00b7 Native Cron Transpiler & Journald Integration",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oocron/install.sh | bash",
+    "overviewUrl": "oocron/",
+    "repoUrl": "https://github.com/openOODA-tools/oocron",
+    "tags": [
+      "cron",
+      "systemd",
+      "timer",
+      "scheduler",
+      "journald",
+      "transpiler",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ]

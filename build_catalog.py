@@ -1336,6 +1336,25 @@ released_tools = [
         "tags": ["crc32", "crc32c", "checksum", "castagnoli", "ieee", "integrity", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oocron",
+        "name": "oocron",
+        "category": "Process & Scheduling",
+        "role": "SYSTEMD TIMER SCHEDULER",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "CR",
+        "accent": "#ff9100",
+        "description": "Pure systemd timer scheduler replacing legacy cron with journald integration and hardened oneshot service generation.",
+        "gem": True,
+        "gemFact": "Systemd Timer Scheduler · Native Cron Transpiler & Journald Integration",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oocron/install.sh | bash",
+        "overviewUrl": "oocron/",
+        "repoUrl": "https://github.com/openOODA-tools/oocron",
+        "tags": ["cron", "systemd", "timer", "scheduler", "journald", "transpiler", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -1343,8 +1362,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 70, f"Expected 70 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 70, "Duplicate tool ID detected!"
+assert len(all_tools) == 71, f"Expected 71 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 71, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

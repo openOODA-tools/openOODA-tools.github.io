@@ -164,7 +164,7 @@ released_tools = [
         "name": "oocat",
         "category": "Search & Inspection",
         "role": "VIEWER & PAGER",
-        "version": "v0.1.0",
+        "version": "v0.2.0",
         "status": "released",
         "monogram": "CT",
         "accent": "#ffd740",

@@ -1443,6 +1443,39 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oobzip2",
+    "name": "oobzip2",
+    "category": "Files & Navigation",
+    "role": "BZIP COMPRESS",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "BZ",
+    "accent": "#ffab00",
+    "description": "Burrows-Wheeler block sorting text compression engine with integrity checks and streaming MCP server.",
+    "gem": true,
+    "gemFact": "BWT Compression \u00b7 Burrows-Wheeler Block Sorting & CRC32 Stream Integrity",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oobzip2/install.sh | bash",
+    "overviewUrl": "oobzip2/",
+    "repoUrl": "https://github.com/openOODA-tools/oobzip2",
+    "tags": [
+      "bzip2",
+      "bwt",
+      "compression",
+      "mtf",
+      "rle",
+      "crc32",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -1465,6 +1498,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 49 },
-  { id: "released", label: "Released", count: 49 }
+  { id: "all", label: "All Repos", count: 50 },
+  { id: "released", label: "Released", count: 50 }
 ];

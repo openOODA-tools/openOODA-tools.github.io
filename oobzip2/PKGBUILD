@@ -1,0 +1,21 @@
+# Maintainer: openOODA-tools <ops@openooda.org>
+pkgname=oobzip2-bin
+_pkgname=oobzip2
+pkgver=0.2.0
+pkgrel=1
+pkgdesc="Burrows-Wheeler block sorting text compression engine with integrity checks."
+arch=('x86_64')
+url="https://github.com/openOODA-tools/oobzip2"
+license=('Apache-2.0')
+depends=('glibc')
+provides=('oobzip2')
+conflicts=('oobzip2')
+source_x86_64=("${url}/releases/download/v${pkgver}/oobzip2-linux-x86_64"
+               "uninstall.sh::https://raw.githubusercontent.com/openOODA-tools/${_pkgname}/v${pkgver}/uninstall.sh")
+sha256sums_x86_64=('SKIP'
+                   'SKIP')
+
+package() {
+    install -Dm755 "${srcdir}/oobzip2-linux-x86_64" "${pkgdir}/usr/bin/oobzip2"
+    install -Dm755 uninstall.sh "${pkgdir}/usr/bin/oobzip2-uninstall"
+}

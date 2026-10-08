@@ -937,6 +937,25 @@ released_tools = [
         "tags": ["bson", "json", "serializer", "codec", "parser", "binary", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oobzip2",
+        "name": "oobzip2",
+        "category": "Files & Navigation",
+        "role": "BZIP COMPRESS",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "BZ",
+        "accent": "#ffab00",
+        "description": "Burrows-Wheeler block sorting text compression engine with integrity checks and streaming MCP server.",
+        "gem": True,
+        "gemFact": "BWT Compression · Burrows-Wheeler Block Sorting & CRC32 Stream Integrity",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oobzip2/install.sh | bash",
+        "overviewUrl": "oobzip2/",
+        "repoUrl": "https://github.com/openOODA-tools/oobzip2",
+        "tags": ["bzip2", "bwt", "compression", "mtf", "rle", "crc32", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -944,8 +963,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 49, f"Expected 49 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 49, "Duplicate tool ID detected!"
+assert len(all_tools) == 50, f"Expected 50 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 50, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

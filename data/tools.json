@@ -2526,5 +2526,37 @@
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "ooenv",
+    "name": "ooenv",
+    "category": "Shell & Terminal",
+    "role": "ENV CONTROLLER",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "EV",
+    "accent": "#00e676",
+    "description": "Sovereign POSIX environment variable controller, secret sanitizer, and execution simulator with systemd unit drop-in generator.",
+    "gem": true,
+    "gemFact": "POSIX env Parity \u00b7 Secret Token Sanitizer & Systemd Unit Drop-In Generator",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/ooenv/install.sh | bash",
+    "overviewUrl": "ooenv/",
+    "repoUrl": "https://github.com/openOODA-tools/ooenv",
+    "tags": [
+      "env",
+      "environment",
+      "sanitizer",
+      "systemd",
+      "secrets",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ]

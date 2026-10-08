@@ -1564,6 +1564,25 @@ released_tools = [
         "tags": ["du", "disk", "usage", "storage", "inodes", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "ooenv",
+        "name": "ooenv",
+        "category": "Shell & Terminal",
+        "role": "ENV CONTROLLER",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "EV",
+        "accent": "#00e676",
+        "description": "Sovereign POSIX environment variable controller, secret sanitizer, and execution simulator with systemd unit drop-in generator.",
+        "gem": True,
+        "gemFact": "POSIX env Parity · Secret Token Sanitizer & Systemd Unit Drop-In Generator",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/ooenv/install.sh | bash",
+        "overviewUrl": "ooenv/",
+        "repoUrl": "https://github.com/openOODA-tools/ooenv",
+        "tags": ["env", "environment", "sanitizer", "systemd", "secrets", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -1571,8 +1590,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 82, f"Expected 82 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 82, "Duplicate tool ID detected!"
+assert len(all_tools) == 83, f"Expected 83 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 83, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

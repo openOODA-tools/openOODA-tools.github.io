@@ -1248,6 +1248,38 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oobinary",
+    "name": "oobinary",
+    "category": "Binary & Reverse Engineering",
+    "role": "BIT PACKER",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "BP",
+    "accent": "#00b0ff",
+    "description": "Bit-level endianness converter, bitmask applicator, and stream aligner with stdio MCP server.",
+    "gem": true,
+    "gemFact": "Bit Packer \u00b7 Endianness Inversion & Stream Aligner",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oobinary/install.sh | bash",
+    "overviewUrl": "oobinary/",
+    "repoUrl": "https://github.com/openOODA-tools/oobinary",
+    "tags": [
+      "binary",
+      "bits",
+      "endian",
+      "bitmask",
+      "align",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -1270,6 +1302,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 43 },
-  { id: "released", label: "Released", count: 43 }
+  { id: "all", label: "All Repos", count: 44 },
+  { id: "released", label: "Released", count: 44 }
 ];

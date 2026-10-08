@@ -823,6 +823,25 @@ released_tools = [
         "tags": ["binary", "elf", "hexdump", "dissector", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oobinary",
+        "name": "oobinary",
+        "category": "Binary & Reverse Engineering",
+        "role": "BIT PACKER",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "BP",
+        "accent": "#00b0ff",
+        "description": "Bit-level endianness converter, bitmask applicator, and stream aligner with stdio MCP server.",
+        "gem": True,
+        "gemFact": "Bit Packer · Endianness Inversion & Stream Aligner",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oobinary/install.sh | bash",
+        "overviewUrl": "oobinary/",
+        "repoUrl": "https://github.com/openOODA-tools/oobinary",
+        "tags": ["binary", "bits", "endian", "bitmask", "align", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -830,8 +849,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 43, f"Expected 43 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 43, "Duplicate tool ID detected!"
+assert len(all_tools) == 44, f"Expected 44 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 44, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

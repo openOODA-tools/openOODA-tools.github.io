@@ -1,0 +1,21 @@
+# Maintainer: openOODA-tools <ops@openooda.org>
+pkgname=oobinary-bin
+_pkgname=oobinary
+pkgver=0.2.0
+pkgrel=1
+pkgdesc="Bit-level endianness converter, bitmask applicator, and stream aligner."
+arch=('x86_64')
+url="https://github.com/openOODA-tools/oobinary"
+license=('Apache-2.0')
+depends=('glibc')
+provides=('oobinary')
+conflicts=('oobinary')
+source_x86_64=("${url}/releases/download/v${pkgver}/oobinary-linux-x86_64"
+               "uninstall.sh::https://raw.githubusercontent.com/openOODA-tools/${_pkgname}/v${pkgver}/uninstall.sh")
+sha256sums_x86_64=('SKIP'
+                   'SKIP')
+
+package() {
+    install -Dm755 "${srcdir}/oobinary-linux-x86_64" "${pkgdir}/usr/bin/oobinary"
+    install -Dm755 uninstall.sh "${pkgdir}/usr/bin/oobinary-uninstall"
+}

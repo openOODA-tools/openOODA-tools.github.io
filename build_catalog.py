@@ -519,6 +519,25 @@ released_tools = [
         "tags": ["ast-diff", "syntax-differ", "token-lcs", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-07"
+    },
+    {
+        "id": "ooat",
+        "name": "ooat",
+        "category": "System & Monitor",
+        "role": "ONESHOT TIMER",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "AT",
+        "accent": "#50fa7b",
+        "description": "Single-run scheduled command coordinator backed by transient systemd timer units with stdio MCP server.",
+        "gem": True,
+        "gemFact": "Systemd Transient Timer · Zero Ambient Cron",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/ooat/install.sh | bash",
+        "overviewUrl": "ooat/",
+        "repoUrl": "https://github.com/openOODA-tools/ooat",
+        "tags": ["oneshot-timer", "systemd-native", "scheduled-task", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-07"
     }
 ]
 
@@ -526,8 +545,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 27, f"Expected 27 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 27, "Duplicate tool ID detected!"
+assert len(all_tools) == 28, f"Expected 28 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 28, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

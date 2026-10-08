@@ -767,6 +767,35 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-07"
+  },
+  {
+    "id": "ooat",
+    "name": "ooat",
+    "category": "System & Monitor",
+    "role": "ONESHOT TIMER",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "AT",
+    "accent": "#50fa7b",
+    "description": "Single-run scheduled command coordinator backed by transient systemd timer units with stdio MCP server.",
+    "gem": true,
+    "gemFact": "Systemd Transient Timer \u00b7 Zero Ambient Cron",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/ooat/install.sh | bash",
+    "overviewUrl": "ooat/",
+    "repoUrl": "https://github.com/openOODA-tools/ooat",
+    "tags": [
+      "oneshot-timer",
+      "systemd-native",
+      "scheduled-task",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-07"
   }
 ];
 
@@ -783,6 +812,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 27 },
-  { id: "released", label: "Released", count: 27 }
+  { id: "all", label: "All Repos", count: 28 },
+  { id: "released", label: "Released", count: 28 }
 ];

@@ -1,0 +1,21 @@
+# Maintainer: openOODA-tools <ops@openooda.org>
+pkgname=oocrc32-bin
+_pkgname=oocrc32
+pkgver=0.2.0
+pkgrel=1
+pkgdesc="Cyclic redundancy check generator utilizing hardware carry-less multiplication."
+arch=('x86_64')
+url="https://github.com/openOODA-tools/oocrc32"
+license=('Apache-2.0')
+depends=('glibc')
+provides=('oocrc32')
+conflicts=('oocrc32')
+source_x86_64=("${url}/releases/download/v${pkgver}/oocrc32-linux-x86_64"
+               "uninstall.sh::https://raw.githubusercontent.com/openOODA-tools/${_pkgname}/v${pkgver}/uninstall.sh")
+sha256sums_x86_64=('SKIP'
+                   'SKIP')
+
+package() {
+    install -Dm755 "${srcdir}/oocrc32-linux-x86_64" "${pkgdir}/usr/bin/oocrc32"
+    install -Dm755 uninstall.sh "${pkgdir}/usr/bin/oocrc32-uninstall"
+}

@@ -1317,6 +1317,25 @@ released_tools = [
         "tags": ["cpuinfo", "lscpu", "topology", "spectre", "meltdown", "avx512", "cache", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oocrc32",
+        "name": "oocrc32",
+        "category": "Security & Audit",
+        "role": "CRC32 CHECKSUM ENGINE",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "C3",
+        "accent": "#00e5ff",
+        "description": "Cyclic redundancy check generator and manifest verifier with multi-polynomial evaluation in pure openOODA.",
+        "gem": True,
+        "gemFact": "CRC32 Checksum Engine · IEEE 802.3, Castagnoli & Koopman Multi-Polynomial Verifier",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oocrc32/install.sh | bash",
+        "overviewUrl": "oocrc32/",
+        "repoUrl": "https://github.com/openOODA-tools/oocrc32",
+        "tags": ["crc32", "crc32c", "checksum", "castagnoli", "ieee", "integrity", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -1324,8 +1343,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 69, f"Expected 69 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 69, "Duplicate tool ID detected!"
+assert len(all_tools) == 70, f"Expected 70 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 70, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

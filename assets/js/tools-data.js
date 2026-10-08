@@ -2108,6 +2108,39 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oocrc32",
+    "name": "oocrc32",
+    "category": "Security & Audit",
+    "role": "CRC32 CHECKSUM ENGINE",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "C3",
+    "accent": "#00e5ff",
+    "description": "Cyclic redundancy check generator and manifest verifier with multi-polynomial evaluation in pure openOODA.",
+    "gem": true,
+    "gemFact": "CRC32 Checksum Engine \u00b7 IEEE 802.3, Castagnoli & Koopman Multi-Polynomial Verifier",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oocrc32/install.sh | bash",
+    "overviewUrl": "oocrc32/",
+    "repoUrl": "https://github.com/openOODA-tools/oocrc32",
+    "tags": [
+      "crc32",
+      "crc32c",
+      "checksum",
+      "castagnoli",
+      "ieee",
+      "integrity",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -2132,6 +2165,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 69 },
-  { id: "released", label: "Released", count: 69 }
+  { id: "all", label: "All Repos", count: 70 },
+  { id: "released", label: "Released", count: 70 }
 ];

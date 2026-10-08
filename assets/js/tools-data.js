@@ -2174,6 +2174,40 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oocsplt",
+    "name": "oocsplt",
+    "category": "Text & Streams",
+    "role": "CONTEXT SPLITTER",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "CS",
+    "accent": "#00e5ff",
+    "description": "POSIX-compliant context splitter and stream partitioner matching regex delimiters and line bounds in pure openOODA.",
+    "gem": true,
+    "gemFact": "Context Splitter \u00b7 Delimiter & Line Bound Stream Partitioner with Streaming MCP",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oocsplt/install.sh | bash",
+    "overviewUrl": "oocsplt/",
+    "repoUrl": "https://github.com/openOODA-tools/oocsplt",
+    "tags": [
+      "csplit",
+      "split",
+      "stream",
+      "delimiter",
+      "regex",
+      "partition",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&FsWriteCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -2195,10 +2229,11 @@ export const CATEGORIES = [
   "System & Monitor",
   "Text & Filter",
   "Text & Processing",
+  "Text & Streams",
   "Theme & Styling"
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 71 },
-  { id: "released", label: "Released", count: 71 }
+  { id: "all", label: "All Repos", count: 72 },
+  { id: "released", label: "Released", count: 72 }
 ];

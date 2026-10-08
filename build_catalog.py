@@ -1355,6 +1355,25 @@ released_tools = [
         "tags": ["cron", "systemd", "timer", "scheduler", "journald", "transpiler", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oocsplt",
+        "name": "oocsplt",
+        "category": "Text & Streams",
+        "role": "CONTEXT SPLITTER",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "CS",
+        "accent": "#00e5ff",
+        "description": "POSIX-compliant context splitter and stream partitioner matching regex delimiters and line bounds in pure openOODA.",
+        "gem": True,
+        "gemFact": "Context Splitter · Delimiter & Line Bound Stream Partitioner with Streaming MCP",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oocsplt/install.sh | bash",
+        "overviewUrl": "oocsplt/",
+        "repoUrl": "https://github.com/openOODA-tools/oocsplt",
+        "tags": ["csplit", "split", "stream", "delimiter", "regex", "partition", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&FsWriteCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -1362,8 +1381,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 71, f"Expected 71 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 71, "Duplicate tool ID detected!"
+assert len(all_tools) == 72, f"Expected 72 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 72, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

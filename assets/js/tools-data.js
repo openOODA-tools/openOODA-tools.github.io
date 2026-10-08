@@ -1575,6 +1575,39 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oocgroup",
+    "name": "oocgroup",
+    "category": "System & Hardware",
+    "role": "CGROUP MANAGER",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "CG",
+    "accent": "#ff9100",
+    "description": "Creates and configures cgroup v2 resource limits for memory, cpu, and io controllers with systemd drop-in generation.",
+    "gem": true,
+    "gemFact": "Cgroup Manager \u00b7 cgroup v2 Resource Enforcement & Systemd Drop-in Synthesizer",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oocgroup/install.sh | bash",
+    "overviewUrl": "oocgroup/",
+    "repoUrl": "https://github.com/openOODA-tools/oocgroup",
+    "tags": [
+      "cgroup",
+      "cgroupv2",
+      "systemd",
+      "resource-limits",
+      "quota",
+      "container",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -1597,6 +1630,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 53 },
-  { id: "released", label: "Released", count: 53 }
+  { id: "all", label: "All Repos", count: 54 },
+  { id: "released", label: "Released", count: 54 }
 ];

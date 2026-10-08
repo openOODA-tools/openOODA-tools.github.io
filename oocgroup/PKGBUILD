@@ -1,0 +1,21 @@
+# Maintainer: openOODA-tools <ops@openooda.org>
+pkgname=oocgroup-bin
+_pkgname=oocgroup
+pkgver=0.2.0
+pkgrel=1
+pkgdesc="Creates and configures cgroup v2 resource limits for memory, cpu, and io controllers."
+arch=('x86_64')
+url="https://github.com/openOODA-tools/oocgroup"
+license=('Apache-2.0')
+depends=('glibc')
+provides=('oocgroup')
+conflicts=('oocgroup')
+source_x86_64=("${url}/releases/download/v${pkgver}/oocgroup-linux-x86_64"
+               "uninstall.sh::https://raw.githubusercontent.com/openOODA-tools/${_pkgname}/v${pkgver}/uninstall.sh")
+sha256sums_x86_64=('SKIP'
+                   'SKIP')
+
+package() {
+    install -Dm755 "${srcdir}/oocgroup-linux-x86_64" "${pkgdir}/usr/bin/oocgroup"
+    install -Dm755 uninstall.sh "${pkgdir}/usr/bin/oocgroup-uninstall"
+}

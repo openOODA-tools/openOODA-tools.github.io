@@ -1013,6 +1013,25 @@ released_tools = [
         "tags": ["cert", "x509", "ssl", "tls", "trust-store", "security", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oocgroup",
+        "name": "oocgroup",
+        "category": "System & Hardware",
+        "role": "CGROUP MANAGER",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "CG",
+        "accent": "#ff9100",
+        "description": "Creates and configures cgroup v2 resource limits for memory, cpu, and io controllers with systemd drop-in generation.",
+        "gem": True,
+        "gemFact": "Cgroup Manager · cgroup v2 Resource Enforcement & Systemd Drop-in Synthesizer",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oocgroup/install.sh | bash",
+        "overviewUrl": "oocgroup/",
+        "repoUrl": "https://github.com/openOODA-tools/oocgroup",
+        "tags": ["cgroup", "cgroupv2", "systemd", "resource-limits", "quota", "container", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -1020,8 +1039,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 53, f"Expected 53 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 53, "Duplicate tool ID detected!"
+assert len(all_tools) == 54, f"Expected 54 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 54, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

@@ -766,6 +766,25 @@ released_tools = [
         "tags": ["bash", "shell", "transpiler", "audit", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oobatch",
+        "name": "oobatch",
+        "category": "Shell & Terminal",
+        "role": "BATCH QUEUE",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "BT",
+        "accent": "#00e676",
+        "description": "Non-interactive batch job manager queueing tasks when system load factor drops.",
+        "gem": True,
+        "gemFact": "Batch Queue · Systemd-Native Transient Execution & Load Gating",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oobatch/install.sh | bash",
+        "overviewUrl": "oobatch/",
+        "repoUrl": "https://github.com/openOODA-tools/oobatch",
+        "tags": ["batch", "queue", "systemd", "scheduler", "load", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -773,8 +792,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 40, f"Expected 40 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 40, "Duplicate tool ID detected!"
+assert len(all_tools) == 41, f"Expected 41 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 41, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

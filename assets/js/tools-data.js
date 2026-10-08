@@ -1155,6 +1155,37 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oobatch",
+    "name": "oobatch",
+    "category": "Shell & Terminal",
+    "role": "BATCH QUEUE",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "BT",
+    "accent": "#00e676",
+    "description": "Non-interactive batch job manager queueing tasks when system load factor drops.",
+    "gem": true,
+    "gemFact": "Batch Queue \u00b7 Systemd-Native Transient Execution & Load Gating",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oobatch/install.sh | bash",
+    "overviewUrl": "oobatch/",
+    "repoUrl": "https://github.com/openOODA-tools/oobatch",
+    "tags": [
+      "batch",
+      "queue",
+      "systemd",
+      "scheduler",
+      "load",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -1175,6 +1206,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 40 },
-  { id: "released", label: "Released", count: 40 }
+  { id: "all", label: "All Repos", count: 41 },
+  { id: "released", label: "Released", count: 41 }
 ];

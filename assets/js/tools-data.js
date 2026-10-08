@@ -2241,6 +2241,39 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oocut",
+    "name": "oocut",
+    "category": "Text & Streams",
+    "role": "COLUMN EXTRACTOR",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "CT",
+    "accent": "#ff9800",
+    "description": "POSIX-compliant byte, character, and delimiter-aware field stream extractor with Unicode preservation in pure openOODA.",
+    "gem": true,
+    "gemFact": "Stream Cutter \u00b7 Unicode Char, Byte & Delimited Field Extractor with Streaming MCP",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oocut/install.sh | bash",
+    "overviewUrl": "oocut/",
+    "repoUrl": "https://github.com/openOODA-tools/oocut",
+    "tags": [
+      "cut",
+      "stream",
+      "columns",
+      "fields",
+      "bytes",
+      "characters",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -2267,6 +2300,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 73 },
-  { id: "released", label: "Released", count: 73 }
+  { id: "all", label: "All Repos", count: 74 },
+  { id: "released", label: "Released", count: 74 }
 ];

@@ -1393,6 +1393,25 @@ released_tools = [
         "tags": ["csv", "rfc4180", "parser", "filter", "query", "projection", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oocut",
+        "name": "oocut",
+        "category": "Text & Streams",
+        "role": "COLUMN EXTRACTOR",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "CT",
+        "accent": "#ff9800",
+        "description": "POSIX-compliant byte, character, and delimiter-aware field stream extractor with Unicode preservation in pure openOODA.",
+        "gem": True,
+        "gemFact": "Stream Cutter · Unicode Char, Byte & Delimited Field Extractor with Streaming MCP",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oocut/install.sh | bash",
+        "overviewUrl": "oocut/",
+        "repoUrl": "https://github.com/openOODA-tools/oocut",
+        "tags": ["cut", "stream", "columns", "fields", "bytes", "characters", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -1400,8 +1419,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 73, f"Expected 73 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 73, "Duplicate tool ID detected!"
+assert len(all_tools) == 74, f"Expected 74 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 74, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

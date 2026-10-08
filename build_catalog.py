@@ -1867,6 +1867,25 @@ released_tools = [
         "tags": ["guardrail", "security", "firewall", "injection-defense", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oogzip",
+        "name": "oogzip",
+        "category": "Compression & Archive",
+        "role": "DEFLATE COMPRESSION ENGINE",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "GZ",
+        "accent": "#00e676",
+        "description": "High-speed capability-bounded DEFLATE compression engine and RFC 1952 gzip container with stream headers.",
+        "gem": True,
+        "gemFact": "RFC 1952 & RFC 1951 Pure Native Engine · Bit-for-bit GNU gzip Interoperability & Streaming MCP",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oogzip/install.sh | bash",
+        "overviewUrl": "oogzip/",
+        "repoUrl": "https://github.com/openOODA-tools/oogzip",
+        "tags": ["gzip", "deflate", "compression", "archive", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&FsWriteCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -1874,8 +1893,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 98, f"Expected 98 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 98, "Duplicate tool ID detected!"
+assert len(all_tools) == 99, f"Expected 99 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 99, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

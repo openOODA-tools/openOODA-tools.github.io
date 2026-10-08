@@ -3043,6 +3043,38 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oogzip",
+    "name": "oogzip",
+    "category": "Compression & Archive",
+    "role": "DEFLATE COMPRESSION ENGINE",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "GZ",
+    "accent": "#00e676",
+    "description": "High-speed capability-bounded DEFLATE compression engine and RFC 1952 gzip container with stream headers.",
+    "gem": true,
+    "gemFact": "RFC 1952 & RFC 1951 Pure Native Engine \u00b7 Bit-for-bit GNU gzip Interoperability & Streaming MCP",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oogzip/install.sh | bash",
+    "overviewUrl": "oogzip/",
+    "repoUrl": "https://github.com/openOODA-tools/oogzip",
+    "tags": [
+      "gzip",
+      "deflate",
+      "compression",
+      "archive",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&FsWriteCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -3078,6 +3110,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 98 },
-  { id: "released", label: "Released", count: 98 }
+  { id: "all", label: "All Repos", count: 99 },
+  { id: "released", label: "Released", count: 99 }
 ];

@@ -1124,6 +1124,37 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-07"
+  },
+  {
+    "id": "oobash",
+    "name": "oobash",
+    "category": "Shell & Terminal",
+    "role": "COMPAT COMPILER",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "BA",
+    "accent": "#ff6d00",
+    "description": "Sovereign POSIX shell compatibility compiler translating shell scripts into capability-audited openOODA AST.",
+    "gem": true,
+    "gemFact": "Shell Transpiler \u00b7 Capability Security Auditor & AST Engine",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oobash/install.sh | bash",
+    "overviewUrl": "oobash/",
+    "repoUrl": "https://github.com/openOODA-tools/oobash",
+    "tags": [
+      "bash",
+      "shell",
+      "transpiler",
+      "audit",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -1144,6 +1175,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 39 },
-  { id: "released", label: "Released", count: 39 }
+  { id: "all", label: "All Repos", count: 40 },
+  { id: "released", label: "Released", count: 40 }
 ];

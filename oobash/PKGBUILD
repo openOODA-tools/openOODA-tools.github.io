@@ -1,0 +1,21 @@
+# Maintainer: openOODA-tools <ops@openooda.org>
+pkgname=oobash-bin
+_pkgname=oobash
+pkgver=0.2.0
+pkgrel=1
+pkgdesc="Strict subset shell translating POSIX shell scripts into capability-audited openOODA AST."
+arch=('x86_64')
+url="https://github.com/openOODA-tools/oobash"
+license=('Apache-2.0')
+depends=('glibc')
+provides=('oobash')
+conflicts=('oobash')
+source_x86_64=("${url}/releases/download/v${pkgver}/oobash-linux-x86_64"
+               "uninstall.sh::https://raw.githubusercontent.com/openOODA-tools/${_pkgname}/v${pkgver}/uninstall.sh")
+sha256sums_x86_64=('SKIP'
+                   'SKIP')
+
+package() {
+    install -Dm755 "${srcdir}/oobash-linux-x86_64" "${pkgdir}/usr/bin/oobash"
+    install -Dm755 uninstall.sh "${pkgdir}/usr/bin/oobash-uninstall"
+}

@@ -747,6 +747,25 @@ released_tools = [
         "tags": ["basename", "path", "filename", "posix", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-07"
+    },
+    {
+        "id": "oobash",
+        "name": "oobash",
+        "category": "Shell & Terminal",
+        "role": "COMPAT COMPILER",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "BA",
+        "accent": "#ff6d00",
+        "description": "Sovereign POSIX shell compatibility compiler translating shell scripts into capability-audited openOODA AST.",
+        "gem": True,
+        "gemFact": "Shell Transpiler · Capability Security Auditor & AST Engine",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oobash/install.sh | bash",
+        "overviewUrl": "oobash/",
+        "repoUrl": "https://github.com/openOODA-tools/oobash",
+        "tags": ["bash", "shell", "transpiler", "audit", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -754,8 +773,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 39, f"Expected 39 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 39, "Duplicate tool ID detected!"
+assert len(all_tools) == 40, f"Expected 40 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 40, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

@@ -1,0 +1,21 @@
+# Maintainer: openOODA-tools <ops@openooda.org>
+pkgname=ooapparmor-bin
+_pkgname=ooapparmor
+pkgver=0.2.0
+pkgrel=1
+pkgdesc="Generates and loads AppArmor security profiles for individual utilities."
+arch=('x86_64')
+url="https://github.com/openOODA-tools/ooapparmor"
+license=('Apache-2.0')
+depends=('glibc')
+provides=('ooapparmor')
+conflicts=('ooapparmor')
+source_x86_64=("${url}/releases/download/v${pkgver}/ooapparmor-linux-x86_64"
+               "uninstall.sh::https://raw.githubusercontent.com/openOODA-tools/${_pkgname}/v${pkgver}/uninstall.sh")
+sha256sums_x86_64=('SKIP'
+                   'SKIP')
+
+package() {
+    install -Dm755 "${srcdir}/ooapparmor-linux-x86_64" "${pkgdir}/usr/bin/ooapparmor"
+    install -Dm755 uninstall.sh "${pkgdir}/usr/bin/ooapparmor-uninstall"
+}

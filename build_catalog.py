@@ -443,6 +443,25 @@ released_tools = [
         "tags": ["ansi-sequences", "truecolor", "cursor-control", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-07"
+    },
+    {
+        "id": "ooapparmor",
+        "name": "ooapparmor",
+        "category": "System & Monitor",
+        "role": "SECURITY CONFINEMENT",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "AA",
+        "accent": "#ff5555",
+        "description": "Capability-bounded AppArmor security profile generator and confinement auditor with zero ambient authority enforcement and stdio MCP server.",
+        "gem": True,
+        "gemFact": "Profile Generator · Confinement Auditor",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/ooapparmor/install.sh | bash",
+        "overviewUrl": "ooapparmor/",
+        "repoUrl": "https://github.com/openOODA-tools/ooapparmor",
+        "tags": ["apparmor-profile", "least-privilege", "security-audit", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-07"
     }
 ]
 
@@ -450,8 +469,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 23, f"Expected 23 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 23, "Duplicate tool ID detected!"
+assert len(all_tools) == 24, f"Expected 24 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 24, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

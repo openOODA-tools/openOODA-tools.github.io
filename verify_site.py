@@ -41,14 +41,14 @@ def test_released_tools_parity():
     with open(json_path, "r", encoding="utf-8") as f:
         tools = json.load(f)
 
-    assert len(tools) == 23, f"Expected 23 tools, got {len(tools)}"
+    assert len(tools) == 24, f"Expected 24 tools, got {len(tools)}"
     
     released = [t for t in tools if t["status"] == "released"]
-    assert len(released) == 23, f"Expected 23 released tools, got {len(released)}"
+    assert len(released) == 24, f"Expected 24 released tools, got {len(released)}"
     
     expected_released = [
         "oosh", "oogrep", "oodiff", "oofind", "oojq", "ootail", "oote", "oofetch", "oocat", "ootop", "oofzf", "ools",
-        "ootree", "ooclock", "oosed", "ootar", "oops", "oocurl", "oowatch", "oomcp", "oo7z", "ooalias", "ooansi"
+        "ootree", "ooclock", "oosed", "ootar", "oops", "oocurl", "oowatch", "oomcp", "oo7z", "ooalias", "ooansi", "ooapparmor"
     ]
     released_ids = [t["id"] for t in released]
     assert set(released_ids) == set(expected_released), f"Released IDs mismatch: {released_ids}"
@@ -65,7 +65,7 @@ def test_released_tools_parity():
         assert t["installCommand"] == expected_cmd, f"Install command mismatch for {t['id']}: {t['installCommand']}"
         assert t["overviewUrl"] == f"{t['id']}/", f"Overview URL mismatch for {t['id']}: {t['overviewUrl']}"
 
-    print("[PASS] All 23 active sovereign tools verified with filesystem directories, subpages, and install scripts")
+    print(f"[PASS] All {len(released)} active sovereign tools verified with filesystem directories, subpages, and install scripts")
 
 def test_install_script_syntax():
     tools = ["oosh", "oogrep", "oodiff", "oofind", "oojq", "ootail", "oote", "oofetch", "oocat", "ootop", "oofzf", "ools"]

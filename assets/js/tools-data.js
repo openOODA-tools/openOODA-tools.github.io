@@ -649,6 +649,35 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-07"
+  },
+  {
+    "id": "ooapparmor",
+    "name": "ooapparmor",
+    "category": "System & Monitor",
+    "role": "SECURITY CONFINEMENT",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "AA",
+    "accent": "#ff5555",
+    "description": "Capability-bounded AppArmor security profile generator and confinement auditor with zero ambient authority enforcement and stdio MCP server.",
+    "gem": true,
+    "gemFact": "Profile Generator \u00b7 Confinement Auditor",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/ooapparmor/install.sh | bash",
+    "overviewUrl": "ooapparmor/",
+    "repoUrl": "https://github.com/openOODA-tools/ooapparmor",
+    "tags": [
+      "apparmor-profile",
+      "least-privilege",
+      "security-audit",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-07"
   }
 ];
 
@@ -665,6 +694,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 23 },
-  { id: "released", label: "Released", count: 23 }
+  { id: "all", label: "All Repos", count: 24 },
+  { id: "released", label: "Released", count: 24 }
 ];

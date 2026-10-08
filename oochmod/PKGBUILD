@@ -1,0 +1,21 @@
+# Maintainer: openOODA-tools <ops@openooda.org>
+pkgname=oochmod-bin
+_pkgname=oochmod
+pkgver=0.2.0
+pkgrel=1
+pkgdesc="Applies octal and symbolic permission masks with capability boundary constraints."
+arch=('x86_64')
+url="https://github.com/openOODA-tools/oochmod"
+license=('Apache-2.0')
+depends=('glibc')
+provides=('oochmod')
+conflicts=('oochmod')
+source_x86_64=("${url}/releases/download/v${pkgver}/oochmod-linux-x86_64"
+               "uninstall.sh::https://raw.githubusercontent.com/openOODA-tools/${_pkgname}/v${pkgver}/uninstall.sh")
+sha256sums_x86_64=('SKIP'
+                   'SKIP')
+
+package() {
+    install -Dm755 "${srcdir}/oochmod-linux-x86_64" "${pkgdir}/usr/bin/oochmod"
+    install -Dm755 uninstall.sh "${pkgdir}/usr/bin/oochmod-uninstall"
+}

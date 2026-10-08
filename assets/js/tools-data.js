@@ -1708,6 +1708,39 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oochmod",
+    "name": "oochmod",
+    "category": "File Management",
+    "role": "PERMISSION MANAGER",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "CM",
+    "accent": "#ffab00",
+    "description": "Applies octal and symbolic permission masks with systemd-tmpfiles declarative synthesis.",
+    "gem": true,
+    "gemFact": "Permission Manager \u00b7 Systemd-Tmpfiles Synthesis & POSIX Chmod Muscle",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oochmod/install.sh | bash",
+    "overviewUrl": "oochmod/",
+    "repoUrl": "https://github.com/openOODA-tools/oochmod",
+    "tags": [
+      "chmod",
+      "permissions",
+      "mode",
+      "systemd-tmpfiles",
+      "octal",
+      "symbolic",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -1731,6 +1764,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 57 },
-  { id: "released", label: "Released", count: 57 }
+  { id: "all", label: "All Repos", count: 58 },
+  { id: "released", label: "Released", count: 58 }
 ];

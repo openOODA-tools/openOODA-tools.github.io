@@ -1,0 +1,21 @@
+# Maintainer: openOODA-tools <ops@openooda.org>
+pkgname=oocgroupv2-bin
+_pkgname=oocgroupv2
+pkgver=0.2.0
+pkgrel=1
+pkgdesc="Visualizes the active cgroup v2 slice hierarchy and resource shares."
+arch=('x86_64')
+url="https://github.com/openOODA-tools/oocgroupv2"
+license=('Apache-2.0')
+depends=('glibc')
+provides=('oocgroupv2')
+conflicts=('oocgroupv2')
+source_x86_64=("${url}/releases/download/v${pkgver}/oocgroupv2-linux-x86_64"
+               "uninstall.sh::https://raw.githubusercontent.com/openOODA-tools/${_pkgname}/v${pkgver}/uninstall.sh")
+sha256sums_x86_64=('SKIP'
+                   'SKIP')
+
+package() {
+    install -Dm755 "${srcdir}/oocgroupv2-linux-x86_64" "${pkgdir}/usr/bin/oocgroupv2"
+    install -Dm755 uninstall.sh "${pkgdir}/usr/bin/oocgroupv2-uninstall"
+}

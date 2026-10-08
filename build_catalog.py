@@ -1032,6 +1032,25 @@ released_tools = [
         "tags": ["cgroup", "cgroupv2", "systemd", "resource-limits", "quota", "container", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oocgroupv2",
+        "name": "oocgroupv2",
+        "category": "System & Hardware",
+        "role": "CGROUP V2 TREE",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "C2",
+        "accent": "#ffd600",
+        "description": "Visualizes the active cgroup v2 slice hierarchy, Pressure Stall Information (PSI), and sibling resource shares.",
+        "gem": True,
+        "gemFact": "Cgroup V2 Tree · Unified Hierarchy Visualizer & PSI Bottleneck Analyzer",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oocgroupv2/install.sh | bash",
+        "overviewUrl": "oocgroupv2/",
+        "repoUrl": "https://github.com/openOODA-tools/oocgroupv2",
+        "tags": ["cgroup", "cgroupv2", "tree", "psi", "pressure-stall", "hierarchy", "shares", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -1039,8 +1058,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 54, f"Expected 54 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 54, "Duplicate tool ID detected!"
+assert len(all_tools) == 55, f"Expected 55 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 55, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

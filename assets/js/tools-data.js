@@ -1608,6 +1608,40 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oocgroupv2",
+    "name": "oocgroupv2",
+    "category": "System & Hardware",
+    "role": "CGROUP V2 TREE",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "C2",
+    "accent": "#ffd600",
+    "description": "Visualizes the active cgroup v2 slice hierarchy, Pressure Stall Information (PSI), and sibling resource shares.",
+    "gem": true,
+    "gemFact": "Cgroup V2 Tree \u00b7 Unified Hierarchy Visualizer & PSI Bottleneck Analyzer",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oocgroupv2/install.sh | bash",
+    "overviewUrl": "oocgroupv2/",
+    "repoUrl": "https://github.com/openOODA-tools/oocgroupv2",
+    "tags": [
+      "cgroup",
+      "cgroupv2",
+      "tree",
+      "psi",
+      "pressure-stall",
+      "hierarchy",
+      "shares",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -1630,6 +1664,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 54 },
-  { id: "released", label: "Released", count: 54 }
+  { id: "all", label: "All Repos", count: 55 },
+  { id: "released", label: "Released", count: 55 }
 ];

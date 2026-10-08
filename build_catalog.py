@@ -614,6 +614,25 @@ released_tools = [
         "tags": ["blake3", "cryptographic-hasher", "tree-hashing", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-07"
+    },
+    {
+        "id": "oobackup",
+        "name": "oobackup",
+        "category": "Files & Navigation",
+        "role": "SNAPSHOT COORDINATOR",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "BK",
+        "accent": "#00e5ff",
+        "description": "Point-in-time snapshot coordinator creating deduplicated, content-addressed file trees with stdio MCP server.",
+        "gem": True,
+        "gemFact": "Merkle Snapshots · 3-Way Differential Engine",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oobackup/install.sh | bash",
+        "overviewUrl": "oobackup/",
+        "repoUrl": "https://github.com/openOODA-tools/oobackup",
+        "tags": ["backup", "snapshot-engine", "merkle-tree", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&FsWriteCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-07"
     }
 ]
 
@@ -621,8 +640,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 32, f"Expected 32 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 32, "Duplicate tool ID detected!"
+assert len(all_tools) == 33, f"Expected 33 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 33, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

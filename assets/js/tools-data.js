@@ -913,6 +913,36 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-07"
+  },
+  {
+    "id": "oobackup",
+    "name": "oobackup",
+    "category": "Files & Navigation",
+    "role": "SNAPSHOT COORDINATOR",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "BK",
+    "accent": "#00e5ff",
+    "description": "Point-in-time snapshot coordinator creating deduplicated, content-addressed file trees with stdio MCP server.",
+    "gem": true,
+    "gemFact": "Merkle Snapshots \u00b7 3-Way Differential Engine",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oobackup/install.sh | bash",
+    "overviewUrl": "oobackup/",
+    "repoUrl": "https://github.com/openOODA-tools/oobackup",
+    "tags": [
+      "backup",
+      "snapshot-engine",
+      "merkle-tree",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&FsWriteCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-07"
   }
 ];
 
@@ -931,6 +961,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 32 },
-  { id: "released", label: "Released", count: 32 }
+  { id: "all", label: "All Repos", count: 33 },
+  { id: "released", label: "Released", count: 33 }
 ];

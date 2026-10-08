@@ -1,0 +1,21 @@
+# Maintainer: openOODA-tools <ops@openooda.org>
+pkgname=oobackup-bin
+_pkgname=oobackup
+pkgver=0.2.0
+pkgrel=1
+pkgdesc="Content-addressed snapshot utility creating deduplicated incremental trees."
+arch=('x86_64')
+url="https://github.com/openOODA-tools/oobackup"
+license=('Apache-2.0')
+depends=('glibc')
+provides=('oobackup')
+conflicts=('oobackup')
+source_x86_64=("${url}/releases/download/v${pkgver}/oobackup-linux-x86_64"
+               "uninstall.sh::https://raw.githubusercontent.com/openOODA-tools/${_pkgname}/v${pkgver}/uninstall.sh")
+sha256sums_x86_64=('SKIP'
+                   'SKIP')
+
+package() {
+    install -Dm755 "${srcdir}/oobackup-linux-x86_64" "${pkgdir}/usr/bin/oobackup"
+    install -Dm755 uninstall.sh "${pkgdir}/usr/bin/oobackup-uninstall"
+}

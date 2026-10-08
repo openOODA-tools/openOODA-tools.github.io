@@ -2786,6 +2786,38 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oofold",
+    "name": "oofold",
+    "category": "Text & Processing",
+    "role": "LINE FOLDER",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "FD",
+    "accent": "#40c4ff",
+    "description": "Sovereign width-aware text line folder breaking on word boundaries and ANSI escape codes.",
+    "gem": true,
+    "gemFact": "ANSI-Preserving Line Wrap \u00b7 Space Breaking \u00b7 JSON Telemetry & Streaming MCP",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oofold/install.sh | bash",
+    "overviewUrl": "oofold/",
+    "repoUrl": "https://github.com/openOODA-tools/oofold",
+    "tags": [
+      "fold",
+      "wrap",
+      "columns",
+      "ansi",
+      "text",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -2817,6 +2849,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 90 },
-  { id: "released", label: "Released", count: 90 }
+  { id: "all", label: "All Repos", count: 91 },
+  { id: "released", label: "Released", count: 91 }
 ];

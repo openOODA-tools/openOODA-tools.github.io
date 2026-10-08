@@ -2340,6 +2340,37 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oodiff3",
+    "name": "oodiff3",
+    "category": "Diff & Comparison",
+    "role": "3-WAY FILE RECONCILIATION",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "D3",
+    "accent": "#ffca28",
+    "description": "Sovereign 3-way file comparison engine reconciling conflicts between common ancestor and branches in pure openOODA.",
+    "gem": true,
+    "gemFact": "3-Way Merge \u00b7 Myers LCS Delta Engine with Streaming MCP",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oodiff3/install.sh | bash",
+    "overviewUrl": "oodiff3/",
+    "repoUrl": "https://github.com/openOODA-tools/oodiff3",
+    "tags": [
+      "diff3",
+      "merge",
+      "conflict",
+      "reconciliation",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -2368,6 +2399,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 76 },
-  { id: "released", label: "Released", count: 76 }
+  { id: "all", label: "All Repos", count: 77 },
+  { id: "released", label: "Released", count: 77 }
 ];

@@ -1450,6 +1450,25 @@ released_tools = [
         "tags": ["dialog", "tui", "modal", "menu", "checklist", "gauge", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oodiff3",
+        "name": "oodiff3",
+        "category": "Diff & Comparison",
+        "role": "3-WAY FILE RECONCILIATION",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "D3",
+        "accent": "#ffca28",
+        "description": "Sovereign 3-way file comparison engine reconciling conflicts between common ancestor and branches in pure openOODA.",
+        "gem": True,
+        "gemFact": "3-Way Merge · Myers LCS Delta Engine with Streaming MCP",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oodiff3/install.sh | bash",
+        "overviewUrl": "oodiff3/",
+        "repoUrl": "https://github.com/openOODA-tools/oodiff3",
+        "tags": ["diff3", "merge", "conflict", "reconciliation", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -1457,8 +1476,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 76, f"Expected 76 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 76, "Duplicate tool ID detected!"
+assert len(all_tools) == 77, f"Expected 77 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 77, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

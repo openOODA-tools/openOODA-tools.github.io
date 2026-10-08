@@ -1962,6 +1962,25 @@ released_tools = [
         "tags": ["history", "audit", "ledger", "merkle", "hash-chain", "redaction", "security", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&FsWriteCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oohost",
+        "name": "oohost",
+        "category": "Networking & Egress",
+        "role": "HOST RESOLVER",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "HO",
+        "accent": "#00e5ff",
+        "description": "Quick DNS address resolver performing forward and reverse host conversions with dual-surface parity.",
+        "gem": True,
+        "gemFact": "Host Resolver · Forward & Reverse Lookups · Streaming MCP Surface",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oohost/install.sh | bash",
+        "overviewUrl": "oohost/",
+        "repoUrl": "https://github.com/openOODA-tools/oohost",
+        "tags": ["host", "dns", "resolver", "ip", "ptr", "reverse", "network", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -1969,8 +1988,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 103, f"Expected 103 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 103, "Duplicate tool ID detected!"
+assert len(all_tools) == 104, f"Expected 104 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 104, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

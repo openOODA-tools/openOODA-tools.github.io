@@ -3212,6 +3212,40 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oohost",
+    "name": "oohost",
+    "category": "Networking & Egress",
+    "role": "HOST RESOLVER",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "HO",
+    "accent": "#00e5ff",
+    "description": "Quick DNS address resolver performing forward and reverse host conversions with dual-surface parity.",
+    "gem": true,
+    "gemFact": "Host Resolver \u00b7 Forward & Reverse Lookups \u00b7 Streaming MCP Surface",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oohost/install.sh | bash",
+    "overviewUrl": "oohost/",
+    "repoUrl": "https://github.com/openOODA-tools/oohost",
+    "tags": [
+      "host",
+      "dns",
+      "resolver",
+      "ip",
+      "ptr",
+      "reverse",
+      "network",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -3230,6 +3264,7 @@ export const CATEGORIES = [
   "Files & Navigation",
   "Filesystem & Navigation",
   "Network & Egress",
+  "Networking & Egress",
   "Networking & Protocols",
   "Process & Scheduling",
   "Search & Inspection",
@@ -3247,6 +3282,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 103 },
-  { id: "released", label: "Released", count: 103 }
+  { id: "all", label: "All Repos", count: 104 },
+  { id: "released", label: "Released", count: 104 }
 ];

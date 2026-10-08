@@ -918,6 +918,25 @@ released_tools = [
         "tags": ["boundary", "egress", "firewall", "netfilter", "nftables", "systemd", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oobson",
+        "name": "oobson",
+        "category": "Data & Streaming",
+        "role": "BSON SERIALIZER",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "BS",
+        "accent": "#00e676",
+        "description": "Binary JSON encoder and decoder with bson-to-json streaming converters and structural inspector.",
+        "gem": True,
+        "gemFact": "BSON Serializer · Binary JSON Codec & Structural Inspector",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oobson/install.sh | bash",
+        "overviewUrl": "oobson/",
+        "repoUrl": "https://github.com/openOODA-tools/oobson",
+        "tags": ["bson", "json", "serializer", "codec", "parser", "binary", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -925,8 +944,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 48, f"Expected 48 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 48, "Duplicate tool ID detected!"
+assert len(all_tools) == 49, f"Expected 49 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 49, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

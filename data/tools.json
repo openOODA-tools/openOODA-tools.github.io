@@ -1407,5 +1407,38 @@
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oobson",
+    "name": "oobson",
+    "category": "Data & Streaming",
+    "role": "BSON SERIALIZER",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "BS",
+    "accent": "#00e676",
+    "description": "Binary JSON encoder and decoder with bson-to-json streaming converters and structural inspector.",
+    "gem": true,
+    "gemFact": "BSON Serializer \u00b7 Binary JSON Codec & Structural Inspector",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oobson/install.sh | bash",
+    "overviewUrl": "oobson/",
+    "repoUrl": "https://github.com/openOODA-tools/oobson",
+    "tags": [
+      "bson",
+      "json",
+      "serializer",
+      "codec",
+      "parser",
+      "binary",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ]

@@ -1,0 +1,21 @@
+# Maintainer: openOODA-tools <ops@openooda.org>
+pkgname=oobson-bin
+_pkgname=oobson
+pkgver=0.2.0
+pkgrel=1
+pkgdesc="Binary JSON encoder and decoder with bson-to-json streaming converters."
+arch=('x86_64')
+url="https://github.com/openOODA-tools/oobson"
+license=('Apache-2.0')
+depends=('glibc')
+provides=('oobson')
+conflicts=('oobson')
+source_x86_64=("${url}/releases/download/v${pkgver}/oobson-linux-x86_64"
+               "uninstall.sh::https://raw.githubusercontent.com/openOODA-tools/${_pkgname}/v${pkgver}/uninstall.sh")
+sha256sums_x86_64=('SKIP'
+                   'SKIP')
+
+package() {
+    install -Dm755 "${srcdir}/oobson-linux-x86_64" "${pkgdir}/usr/bin/oobson"
+    install -Dm755 uninstall.sh "${pkgdir}/usr/bin/oobson-uninstall"
+}

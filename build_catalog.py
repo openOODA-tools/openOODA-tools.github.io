@@ -1735,6 +1735,25 @@ released_tools = [
         "tags": ["fold", "wrap", "columns", "ansi", "text", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oofree",
+        "name": "oofree",
+        "category": "System & Hardware",
+        "role": "MEMORY AUDITOR",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "FR",
+        "accent": "#00e5ff",
+        "description": "Sovereign memory auditor and kernel RAM/swap telemetry engine with zero ambient authority.",
+        "gem": True,
+        "gemFact": "Kernel Procfs Telemetry · Unit Scaling · Commit Charge & Streaming MCP",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oofree/install.sh | bash",
+        "overviewUrl": "oofree/",
+        "repoUrl": "https://github.com/openOODA-tools/oofree",
+        "tags": ["free", "memory", "ram", "swap", "procfs", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -1742,8 +1761,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 91, f"Expected 91 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 91, "Duplicate tool ID detected!"
+assert len(all_tools) == 92, f"Expected 92 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 92, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

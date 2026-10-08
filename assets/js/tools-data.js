@@ -2818,6 +2818,38 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oofree",
+    "name": "oofree",
+    "category": "System & Hardware",
+    "role": "MEMORY AUDITOR",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "FR",
+    "accent": "#00e5ff",
+    "description": "Sovereign memory auditor and kernel RAM/swap telemetry engine with zero ambient authority.",
+    "gem": true,
+    "gemFact": "Kernel Procfs Telemetry \u00b7 Unit Scaling \u00b7 Commit Charge & Streaming MCP",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oofree/install.sh | bash",
+    "overviewUrl": "oofree/",
+    "repoUrl": "https://github.com/openOODA-tools/oofree",
+    "tags": [
+      "free",
+      "memory",
+      "ram",
+      "swap",
+      "procfs",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -2849,6 +2881,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 91 },
-  { id: "released", label: "Released", count: 91 }
+  { id: "all", label: "All Repos", count: 92 },
+  { id: "released", label: "Released", count: 92 }
 ];

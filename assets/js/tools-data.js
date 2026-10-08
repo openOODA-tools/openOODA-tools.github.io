@@ -2561,6 +2561,38 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "ooexpand",
+    "name": "ooexpand",
+    "category": "Search & Inspection",
+    "role": "TAB EXPANDER",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "EX",
+    "accent": "#00e5ff",
+    "description": "Sovereign POSIX tab-to-spaces expander, whitespace visualizer, and indentation auditor with custom tab-stop lists.",
+    "gem": true,
+    "gemFact": "POSIX expand Parity \u00b7 Whitespace & Indentation Hygiene Auditor with Streaming MCP",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/ooexpand/install.sh | bash",
+    "overviewUrl": "ooexpand/",
+    "repoUrl": "https://github.com/openOODA-tools/ooexpand",
+    "tags": [
+      "expand",
+      "tabs",
+      "spaces",
+      "indentation",
+      "audit",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -2592,6 +2624,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 83 },
-  { id: "released", label: "Released", count: 83 }
+  { id: "all", label: "All Repos", count: 84 },
+  { id: "released", label: "Released", count: 84 }
 ];

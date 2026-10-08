@@ -1583,6 +1583,25 @@ released_tools = [
         "tags": ["env", "environment", "sanitizer", "systemd", "secrets", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "ooexpand",
+        "name": "ooexpand",
+        "category": "Search & Inspection",
+        "role": "TAB EXPANDER",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "EX",
+        "accent": "#00e5ff",
+        "description": "Sovereign POSIX tab-to-spaces expander, whitespace visualizer, and indentation auditor with custom tab-stop lists.",
+        "gem": True,
+        "gemFact": "POSIX expand Parity · Whitespace & Indentation Hygiene Auditor with Streaming MCP",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/ooexpand/install.sh | bash",
+        "overviewUrl": "ooexpand/",
+        "repoUrl": "https://github.com/openOODA-tools/ooexpand",
+        "tags": ["expand", "tabs", "spaces", "indentation", "audit", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -1590,8 +1609,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 83, f"Expected 83 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 83, "Duplicate tool ID detected!"
+assert len(all_tools) == 84, f"Expected 84 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 84, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

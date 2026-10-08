@@ -1217,11 +1217,43 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oobiew",
+    "name": "oobiew",
+    "category": "Binary & Reverse Engineering",
+    "role": "BINARY DISSECT",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "BW",
+    "accent": "#00e5ff",
+    "description": "Interactive binary and ELF executable dissector showing headers, symbols, and code with stdio MCP server.",
+    "gem": true,
+    "gemFact": "Binary Dissector \u00b7 ELF Parser & Canonical Hexdump Engine",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oobiew/install.sh | bash",
+    "overviewUrl": "oobiew/",
+    "repoUrl": "https://github.com/openOODA-tools/oobiew",
+    "tags": [
+      "binary",
+      "elf",
+      "hexdump",
+      "dissector",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
 export const CATEGORIES = [
   "All Categories",
+  "Binary & Reverse Engineering",
   "Data & Serialization",
   "Data & Streaming",
   "Diff & Comparison",
@@ -1238,6 +1270,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 42 },
-  { id: "released", label: "Released", count: 42 }
+  { id: "all", label: "All Repos", count: 43 },
+  { id: "released", label: "Released", count: 43 }
 ];

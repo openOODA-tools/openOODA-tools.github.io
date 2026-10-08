@@ -804,6 +804,25 @@ released_tools = [
         "tags": ["battery", "power", "acpi", "sysfs", "hardware", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oobiew",
+        "name": "oobiew",
+        "category": "Binary & Reverse Engineering",
+        "role": "BINARY DISSECT",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "BW",
+        "accent": "#00e5ff",
+        "description": "Interactive binary and ELF executable dissector showing headers, symbols, and code with stdio MCP server.",
+        "gem": True,
+        "gemFact": "Binary Dissector · ELF Parser & Canonical Hexdump Engine",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oobiew/install.sh | bash",
+        "overviewUrl": "oobiew/",
+        "repoUrl": "https://github.com/openOODA-tools/oobiew",
+        "tags": ["binary", "elf", "hexdump", "dissector", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -811,8 +830,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 42, f"Expected 42 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 42, "Duplicate tool ID detected!"
+assert len(all_tools) == 43, f"Expected 43 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 43, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

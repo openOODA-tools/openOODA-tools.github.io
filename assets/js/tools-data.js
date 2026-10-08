@@ -2007,6 +2007,40 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "oocp",
+    "name": "oocp",
+    "category": "File Management",
+    "role": "COPY ENGINE",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "CP",
+    "accent": "#ff4081",
+    "description": "Zero-copy clone-capable file and directory copier using io_uring, copy_file_range, and pure openOODA.",
+    "gem": true,
+    "gemFact": "Zero-Copy Reflink Clones \u00b7 Recursive Directory Replicator & Stdio MCP Server",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/oocp/install.sh | bash",
+    "overviewUrl": "oocp/",
+    "repoUrl": "https://github.com/openOODA-tools/oocp",
+    "tags": [
+      "cp",
+      "copy",
+      "reflink",
+      "clone",
+      "recursive",
+      "backup",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&FsWriteCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -2031,6 +2065,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 66 },
-  { id: "released", label: "Released", count: 66 }
+  { id: "all", label: "All Repos", count: 67 },
+  { id: "released", label: "Released", count: 67 }
 ];

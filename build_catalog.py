@@ -1260,6 +1260,25 @@ released_tools = [
         "tags": ["comm", "compare", "diff", "intersection", "sorted", "lines", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "oocp",
+        "name": "oocp",
+        "category": "File Management",
+        "role": "COPY ENGINE",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "CP",
+        "accent": "#ff4081",
+        "description": "Zero-copy clone-capable file and directory copier using io_uring, copy_file_range, and pure openOODA.",
+        "gem": True,
+        "gemFact": "Zero-Copy Reflink Clones · Recursive Directory Replicator & Stdio MCP Server",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/oocp/install.sh | bash",
+        "overviewUrl": "oocp/",
+        "repoUrl": "https://github.com/openOODA-tools/oocp",
+        "tags": ["cp", "copy", "reflink", "clone", "recursive", "backup", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&FsWriteCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -1267,8 +1286,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 66, f"Expected 66 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 66, "Duplicate tool ID detected!"
+assert len(all_tools) == 67, f"Expected 67 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 67, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

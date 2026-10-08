@@ -1146,6 +1146,25 @@ released_tools = [
         "tags": ["chroot", "jail", "confinement", "isolation", "systemd", "security", "mcp-native", "pure-openooda"],
         "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
         "addedAt": "2026-10-08"
+    },
+    {
+        "id": "ooclear",
+        "name": "ooclear",
+        "category": "Shell & Terminal",
+        "role": "BUFFER PURGER",
+        "version": "v0.2.0",
+        "status": "released",
+        "monogram": "CL",
+        "accent": "#00e5ff",
+        "description": "High-performance screen clearing and scrollback purge with VT100/ANSI compliance.",
+        "gem": True,
+        "gemFact": "Buffer Purger · VT100/xterm Scrollback Purge & Reset Engine",
+        "installCommand": "curl -fsSL https://openooda-tools.github.io/ooclear/install.sh | bash",
+        "overviewUrl": "ooclear/",
+        "repoUrl": "https://github.com/openOODA-tools/ooclear",
+        "tags": ["clear", "terminal", "scrollback", "ansi", "vt100", "reset", "mcp-native", "pure-openooda"],
+        "capabilities": ["&FsReadCap", "&ProcessCap", "&EnvCap", "&McpCap"],
+        "addedAt": "2026-10-08"
     }
 ]
 
@@ -1153,8 +1172,8 @@ released_tools = [
 all_tools = list(released_tools)
 
 print(f"Total tools generated: {len(all_tools)}")
-assert len(all_tools) == 60, f"Expected 60 tools, got {len(all_tools)}"
-assert len(set(t["id"] for t in all_tools)) == 60, "Duplicate tool ID detected!"
+assert len(all_tools) == 61, f"Expected 61 tools, got {len(all_tools)}"
+assert len(set(t["id"] for t in all_tools)) == 61, "Duplicate tool ID detected!"
 
 # Write data/tools.json
 with open("data/tools.json", "w") as f:

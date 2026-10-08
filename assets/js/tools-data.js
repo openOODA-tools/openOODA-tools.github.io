@@ -1807,6 +1807,39 @@ export const TOOLS_DATA = [
       "&McpCap"
     ],
     "addedAt": "2026-10-08"
+  },
+  {
+    "id": "ooclear",
+    "name": "ooclear",
+    "category": "Shell & Terminal",
+    "role": "BUFFER PURGER",
+    "version": "v0.2.0",
+    "status": "released",
+    "monogram": "CL",
+    "accent": "#00e5ff",
+    "description": "High-performance screen clearing and scrollback purge with VT100/ANSI compliance.",
+    "gem": true,
+    "gemFact": "Buffer Purger \u00b7 VT100/xterm Scrollback Purge & Reset Engine",
+    "installCommand": "curl -fsSL https://openooda-tools.github.io/ooclear/install.sh | bash",
+    "overviewUrl": "ooclear/",
+    "repoUrl": "https://github.com/openOODA-tools/ooclear",
+    "tags": [
+      "clear",
+      "terminal",
+      "scrollback",
+      "ansi",
+      "vt100",
+      "reset",
+      "mcp-native",
+      "pure-openooda"
+    ],
+    "capabilities": [
+      "&FsReadCap",
+      "&ProcessCap",
+      "&EnvCap",
+      "&McpCap"
+    ],
+    "addedAt": "2026-10-08"
   }
 ];
 
@@ -1830,6 +1863,6 @@ export const CATEGORIES = [
 ];
 
 export const STATUS_FILTERS = [
-  { id: "all", label: "All Repos", count: 60 },
-  { id: "released", label: "Released", count: 60 }
+  { id: "all", label: "All Repos", count: 61 },
+  { id: "released", label: "Released", count: 61 }
 ];

@@ -57,3 +57,17 @@ Before any commit is pushed to `main`:
 1. **URL Validity**: All internal links (`<tool>/`, `favicon.svg`) and outbound links must be valid.
 2. **Script Parity**: Every `<tool>/install.sh` and `<tool>/uninstall.sh` must be verified executable and pass `bash -n` syntax check.
 3. **HTML Validation**: Valid markup across `index.html` and all subpages.
+
+---
+
+## 7. Multi-Engine Audit Protocol (Pre-Release)
+
+Advisory tiered audit run before tagging releases, budgeted by token capacity:
+1. **`mcode`** (Abundant tokens): Full codebase scan for contract mismatches, packaging specs, and CI gates.  
+   `mcode exec --permission full "<prompt>"`
+2. **`vibe`** (Moderate tokens): Adversarial diff inspection for subtle regressions, security bypasses, and API validity.  
+   `vibe -p "<prompt>" --trust --auto-approve`
+3. **`grok`** (Strict quota): High-value referee and final sanity check on critical release diffs.  
+   `grok -p "<prompt>" --always-approve`
+
+**Rule:** External audits are strictly advisory; all findings must be verified against source code. External LLMs never gate CI—the §5 Verification Ladder is the sole canonical authority.
